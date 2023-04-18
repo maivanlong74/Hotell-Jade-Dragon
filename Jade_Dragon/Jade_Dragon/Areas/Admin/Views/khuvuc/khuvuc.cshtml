@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Jade_Dragon.Models.khuvuc>
+@{
+    ViewBag.Title = "khuvuc";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+<script src="~/Areas/Admin/Public/js/dataTables_min.js"></script>
+<link href="~/Areas/Admin/Public/css/Table.css" rel="stylesheet" />
+
+<div class="home">
+    <div class="body">
+
+        <form action="~/Admin/khuvuc/Create" method="post" style=" padding: 40px; padding-bottom: 0; margin-left: 15%;">
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <input type="text" name="TenKhuVuc" id="TenKhuVuc" class="create" />
+            <button type="submit" class="button-create">Thêm mới</button>
+        </form>
+
+            <input type="hidden" name="_method" value="PUT" />
+            <table id="example" class="display">
+                <thead>
+                    <tr>
+                        <th>Mã khu vực</th>
+                        <th>Tên khu vực</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.MaKhuVuc</td>
+                            <td>
+                                <form action="@Url.Action("Edit", "khuvuc")" method="post">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="MaKhuVuc" value="@item.MaKhuVuc" />
+                                    <input type="text" name="TenKhuVuc" value="@item.TenKhuVuc" 
+                                           style="background: none; border: none; color: aqua;"/>
+                                    <button type="submit" style="cursor: pointer; padding: 0px 10px 0px 10px; 
+                                                                background: aqua; font-weight: 500; border-radius: 15px;">
+                                        Lưu
+                                    </button>
+                                </form>
+                            </td>
+                            <td></td>
+                            <td>
+                                <a href="@Url.Action("Delete", "khuvuc", new { id = item.MaKhuVuc})">
+                                    <img src="~/Style/img/icon/icon-xoa.jpg" />
+                                </a>
+                            </td>
+                        </tr>
+                    }
+
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Mã khu vực</th>
+                        <th>Tên khu vực</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+            </table>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+</script>
+
+

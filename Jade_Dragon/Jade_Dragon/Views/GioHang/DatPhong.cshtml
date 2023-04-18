@@ -1,0 +1,383 @@
+﻿@model List<Jade_Dragon.Models.Cart>
+
+@{
+    ViewBag.Title = "DatPhong";
+    Layout = "~/Views/Shared/DatPhong_HoaDon.cshtml";
+}
+
+<link href="~/Style/css/ThanhCuon/owl.carousel.min.css" rel="stylesheet" />
+<link href="~/Style/css/ThanhCuon/owl.theme.default.min.css" rel="stylesheet" />
+<script type="text/javascript">
+       function changeFormAction(targetUrl) {
+        var form = document.getElementById('form1');
+        form.action = targetUrl;
+    }
+</script>
+
+<style>
+    .home_body .info .check .khachhang {
+        margin-bottom: 5px;
+    }
+</style>
+
+<div class="home">
+    <div class="home_body">
+        <div class="search--map">
+            <form action="" method="post" class="search">
+                <div class="row">
+                    <div class="tieude">
+                        <p>Tìm khách sạn</p>
+                    </div> <br>
+                    <div class="search--search">
+                        <div class="search__container--item">
+                            <div class="mucluc">
+                                <span>Điểm đến</span>
+                            </div>
+                            <div class="khuvuc">
+                                <select name="" id="">
+                                    @foreach (var kv in ViewBag.ListKhuVuc)
+                                    {
+                                        <option value="">@kv.TenKhuVuc</option>
+                                    }
+                                </select>
+                            </div>
+                        </div> <br>
+                        <div class="search__container--item">
+                            <div class="mucluc">
+                                <span>Ngày nhận phòng</span>
+                            </div>
+                            <input type="date" placeholder="DD-MM-YYYY" class="ngay" />
+                        </div> <br>
+                        <div class="search__container--item">
+                            <div class="mucluc">
+                                <span>Ngày trả phòng</span>
+                            </div>
+                            <input type="date" placeholder="DD-MM-YYYY" class="ngay" />
+                        </div> <br>
+                        <div class="search__container--item">
+                            <div class="mucluc">
+                                <span>Loại hình phòng</span>
+                            </div>
+                            <div class="tuoi">
+                                <select name="" id="">
+                                    <option>Đơn</option>
+                                    <option>Đôi</option>
+                                </select>
+                            </div>
+                        </div> <br>
+                        <div class="search__container--item">
+                            <div class="mucluc">
+                                <span>Thuộc phòng</span>
+                            </div>
+                            <div class="tuoi">
+                                <select name="" id="">
+                                    <option>VIP</option>
+                                    <option>Thường</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="search__container--btn">
+                            <a href="#">Tìm kiếm</a>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            @if (Model.Count > 0)
+            {
+                <div class="map">
+                    <div class="address">
+                        <div class="tieude">
+                            <p>Khách sạn @Session["TenKhachSan"]</p>
+                        </div>
+                        <div class="map--a">
+                            <img src="~/Style/img/map.jpg" />
+                            <div class="diachi">
+                                <a href="">Xem địa chỉ</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="map">
+
+                </div>
+            }
+        </div>
+        @if (Model.Count > 0)
+        {
+            <div class="info">
+                <section class="slider owl-carousel owl-theme">
+                    <div class="slider-item one"
+                         style="background: url(/UpLoad_Img/KhachSan/@Session["AnhKs"]);">
+                    </div>
+                </section>
+                @if (Session["AnhKs"] != null)
+                {
+                    <div class="background">
+                        <div class="khachsan">
+                            <div class="name">
+                                <p>Khách sạn @Session["TenKhachSan"]</p>
+                            </div>
+
+                            <div class="info_ks" id="danhmucsp">
+                                <div class="info--ct">
+                                    <p>sdt: @Session["SoDienThoai_ks"]</p>
+                                    <p>gmail: @Session["GmailKhachSan"]</p>
+                                    <a href="">Địa chỉ: @Session["DiaChi"]</a>
+                                </div>
+                            </div>
+
+                            <div class="danhgia">
+                                <p>lượt dánh giá:</p>
+                                <div class="item_rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="background" style="background: Black;">
+                        <div class="khachsan" style="display: block;">
+                            <div class="name">
+                                <p>Khách sạn @Session["TenKhachSan"]</p>
+                            </div>
+
+                            <div class="info_ks" id="danhmucsp">
+                                <div class="info--ct">
+                                    <p>sdt: @Session["SoDienThoai_ks"]</p>
+                                    <p>gmail: @Session["GmailKhachSan"]</p>
+                                    <a href="">Địa chỉ: @Session["DiaChi"]</a>
+                                </div>
+                            </div>
+
+                            <div class="danhgia">
+                                <p>lượt dánh giá:</p>
+                                <div class="item_rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <form action="~/GioHang/TiepTheo" method="post" class="check" id="form1">
+                    <div class="info-kh">
+                        <div class="tieude"><i>Thông tin khách hàng</i></div>
+                        <div class="noidung">
+
+                            <div class="khachhang">
+                                <label for="">Họ và Tên</label>
+                                <input type="hidden" name="makh" value="@Session["MaKh"]" />
+                                <input type="hidden" name="maks" value="@Session["MaKhachSanPhong"]" />
+                                @if (Session["tenkhachhang"] == null)
+                                {
+                                    <input type="text" name="hoten" placeholder="Nhập họ tên"
+                                           value="@Session["HoTen"]" required>
+                                }
+                                else
+                                {
+                                    <input type="text" name="hoten" placeholder="Nhập họ tên"
+                                           value="@Session["tenkhachhang"]" required>
+                                }
+                            </div>
+
+
+                            <div class="khachhang">
+                                <label for="">Số điện thoại</label>
+                                @if (Session["sodienthoai"] == null)
+                                {
+                                    <input type="number" name="sodienthoai" placeholder="Nhập số điện thoại"
+                                           value="@Session["SoDienThoai"]" required
+                                           title="Vui lòng nhập số điện thoại đúng 10 chữ số">
+                                }
+                                else
+                                {
+                                    <input type="number" name="sodienthoai" placeholder="Nhập số điện thoại"
+                                           value="@Session["sodienthoai"]" required
+                                           title="Vui lòng nhập số điện thoại đúng 10 chữ số">
+                                }
+                            </div>
+                            <div class="khachhang">
+                                <label for="">CMND/CCCD</label>
+                                @if (Session["cmnd"] == null)
+                                {
+                                    <input type="number" name="cmnd" placeholder="Nhập số CMND/CCCD"
+                                           value="@Session["CMND"]"
+                                           title="Vui lòng nhập thẻ ngân hàng từ 10 đến 12 chữ số">
+                                }
+                                else
+                                {
+                                    <input type="number" name="cmnd" placeholder="Nhập số CMND/CCCD"
+                                           value="@Session["cmnd"]"
+                                           title="Vui lòng nhập thẻ CMND/CCCD từ 10 đến 12 chữ số">
+                                }
+                            </div>
+
+                            <div class="khachhang">
+                                <label for="">Gmail</label>
+                                @if (Session["gmail"] == null)
+                                {
+                                    <input type="text" name="gmail" placeholder="Nhập gmail"
+                                           value="@Session["Gmail"]">
+                                }
+                                else
+                                {
+                                    <input type="text" name="gmail" placeholder="Nhập gmail"
+                                           value="@Session["Gmail"]">
+                                }
+                            </div>
+
+                            @if (Session["batdau"] == null)
+                            {
+                                <div class="khachhang">
+                                    <label>Ngày đến</label>
+                                    @if (Session["ngayden"] == null)
+                                    {
+                                        <input type="datetime-local" placeholder="DD-MM-YYYY" name="ngayden"
+                                               min="@ViewBag.time_now" max="@ViewBag.time_max" required />
+                                    }
+                                    else
+                                    {
+                                        <input placeholder="@Session["ngayden"]" type="text" onfocus="(this.type='datetime-local')"
+                                               onblur="(this.type='text')" name="ngayden" required value="@Session["ngayden"]"
+                                               min="@ViewBag.time_now" max="@ViewBag.time_max" />
+                                    }
+                                </div>
+                                <div class="khachhang">
+                                    <label>Ngày đi</label>
+                                    @if (Session["ngaydi"] == null)
+                                    {
+                                        <input type="datetime-local" placeholder="DD-MM-YYYY" name="ngaydi"
+                                               min="@ViewBag.time_now" max="@ViewBag.time_max" required />
+                                    }
+                                    else
+                                    {
+                                        <input placeholder="@Session["ngaydi"]" type="text" onfocus="(this.type='datetime-local')"
+                                               onblur="(this.type='text')" name="ngaydi" required value="@Session["ngaydi"]"
+                                               min="@ViewBag.time_now" max="@ViewBag.time_max" />
+                                    }
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="khachhang">
+                                    <label>Ngày đến</label>
+                                    <input placeholder="@Session["batdau"]" name="ngayden"
+                                           required value="@Session["batdau"]" readonly/>
+                                </div>
+                                <div class="khachhang">
+                                    <label>Ngày đi</label>
+                                    <input placeholder="@Session["ketthuc"]" name="ngaydi"
+                                           required value="@Session["ketthuc"]" readonly/>
+                                </div>
+                            }
+
+                            <div class="khachhang">
+                                <i style="color: yellow;">
+                                    Nếu bạn chọn thanh toán
+                                    <i style="color: wheat; font-weight: 800;">tại quầy</i>
+                                    thì số tiền bạn đặt cọc là
+                                    <i style="color: wheat; font-weight: 800;">@Session["TienDatCoc"] vnd</i>
+                                    <i>(đặt cọc 20% tổng tiền)</i>
+                                </i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-ks">
+                        <div class="tieude"><i>Thông tin hóa đơn</i></div>
+                        <div class="noidung">
+                            <div class="list-body">
+                                <div class="list-p">
+                                    <p>Khách sạn: @Session["TenKhachSan"]</p>
+                                    <p class="sdt">Số điện thoại: @Session["SoDienThoai_ks"]</p>
+                                    <p>Địa chỉ: @Session["DiaChi"]</p>
+                                    <p>Số đêm: @Session["sodem"]</p>
+                                    @if (Session["moeny"] == null)
+                                    {
+                                        <p>Thành tiền: @Session["tongtien"] VND</p>
+                                    }
+                                    else
+                                    {
+                                        <p>Thành tiền: @Session["moeny"] VND</p>
+                                    }
+                                    <select name="htthanhtoan" id="" style=" margin-left: -15px; ">
+                                        <option value="taiquay">Thanh toán tại quầy</option>
+                                        <option value="chuyenkhoan">Chuyển khoản</option>
+                                    </select>
+                                </div>
+                                <div class="table-phong">
+                                    <table>
+                                        <tr class="table-tieude">
+                                            <th>Tên phòng</th>
+                                            <th>Loại hình</th>
+                                            <th>VIP</th>
+                                            <th>Gia</th>
+                                            <th></th>
+                                        </tr>
+
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>@item.htphong.TenPhong</td>
+                                                <td>@item.htphong.LoaiHinh</td>
+                                                <td style=" width: 50px;">@item.htphong.VIP</td>
+                                                <td>@item.htphong.Gia</td>
+                                                <td style="background-color: black; width: 30px;">
+                                                    <a href="@Url.Action("Delete", "GioHang", new {id = item.htphong.MaPhong, sd = Session["sodem"]})">
+                                                        <img src="~/Style/img/icon/icon-X.jpg" style="width: 20px;" />
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="chucnang">
+                                <button>Tiếp tục</button>
+                                <a href="@Url.Action("khachsan", "khachsan", new {ma = Session["MaKhachSanPhong"],
+                                          batdau = Session["batdau"], ketthuc = Session["ketthuc"]})" class="Next">Tiếp tục đặt phòng</a>
+                                <a href="~/GioHang/DeleteAll" class="Delete">Xóa đơn hàng</a>
+                                <button onclick="changeFormAction('CapNhat')">Cập nhật</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        }
+        else
+        {
+            <div class="info">
+                <div class="backgroundd">
+                    <h1>Chưa đặt phòng</h1>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+    window.addEventListener('load', function () {
+        var danhmucsp = document.getElementById('danhmucsp');
+        danhmucsp.scrollIntoView({ behavior: 'smooth' });
+    });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="~/Style/css/ThanhCuon/owl.carousel.min.js"></script>
+<script src="~/Style/css/ThanhCuon/Cuon.js"></script>
+

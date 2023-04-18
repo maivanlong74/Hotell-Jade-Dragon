@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang chủ ADMIN</title>
+    <link rel="stylesheet" href="css.css">
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <script src="jquery.js"></script>
+    <script src="dataTables_min.js"></script>
+    <link rel="stylesheet" href="code_css.css">
+    <link rel="stylesheet" href="lichsu.css">
+</head>
+
+<body>
+    <nav class="sidebar close"></nav>
+    <div class="home">
+        <div class="body">
+            <div class="Content--a">
+                <div class="a moeny">
+                    <img src="./img/icon_moeny.jpg" alt=""> <br>
+                    <i>Tổng tiền: 300000.VND</i>
+                </div>
+                <div class="a user">
+                    <img src="./img/icon-user.jpg" alt=""> <br>
+                    <i>Số tài khoản đk: 200</i>
+                </div>
+                <div class="a booking">
+                    <img src="./img/icon_booking.jpg" alt=""> <br>
+                    <i>Số phòng đặt: 1000</i>
+                </div>
+                <div class="a view">
+                    <img src="./img/icon_eye.jpg" alt=""> <br>
+                    <i>Lượt truy cập : 200</i>
+                </div>
+                <div class="a online">
+                    <img src="./img/icon_online.jpg" alt=""> <br>
+                    <i>Đang truy cập : 20</i>
+                </div>
+            </div>
+            <div class="lichsu">
+                <table id="example" class="display" >
+                    <thead>
+                        <tr>
+                            <th>Tên khách hàng</th>
+                            <th>Mã Hóa Đơn</th>
+                            <th>Tên Khách Sạn</th>
+                            <th>Khu Vực</th>
+                            <th>Ngày Đặt</th>
+                            <th>Thành Tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Mai Văn Long</td>
+                            <td>34</td>
+                            <td>Mường Thanh</td>
+                            <td>Nguyễn Trãi</td>
+                            <td>22/2/2023 12:00:00 AM</td>
+                            <td>400000</td>
+                        </tr>
+                        <tr>
+                            <td>Mai Văn Long</td>
+                            <td>34</td>
+                            <td>Mường Thanh</td>
+                            <td>Nguyễn Trãi</td>
+                            <td>22/2/2023</td>
+                            <td>400000</td>
+                        </tr>
+                        <tr>
+                            <td>Mai Văn Long</td>
+                            <td>34</td>
+                            <td>Mường Thanh</td>
+                            <td>Nguyễn Trãi</td>
+                            <td>22/2/2023 12:00:00 AM</td>
+                            <td>400000</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Tên khách hàng</th>
+                            <th>Mã Hóa Đơn</th>
+                            <th>Tên Khách Sạn</th>
+                            <th>Khu Vực</th>
+                            <th>Ngày Đặt</th>
+                            <th>Thành Tiền</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="home.js"></script>
+    <script src="js.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
+</body>
+
+</html>

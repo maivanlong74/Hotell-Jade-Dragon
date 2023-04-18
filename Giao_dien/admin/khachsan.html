@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Sidebar Menu ac</title>
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <script src="jquery.js"></script>
+    <script src="dataTables_min.js"></script>
+    <link rel="stylesheet" href="code_css.css">
+    <link rel="stylesheet" href="css.css">
+    <link rel="stylesheet" href="khachhang.css">
+    
+</head>
+
+<body>
+    
+    <nav class="sidebar close"></nav>
+    <div class="home">
+        <div class="body">
+            <table id="example" class="display" >
+                <thead>
+                    <tr>
+                        <th>Stt</th>
+                        <th>Tên khách sạn</th>
+                        <th>Số điện thoại</th>
+                        <th>gmail</th>
+                        <th>Địa chỉ</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td><a href="" style="color: wheat; text-decoration: none;">Mường Thanh</a></td>
+                        <td>021789321</td>
+                        <td>muongthanh@gmail.com</td>
+                        <td>79 Nguyễn Trải</td>
+                        <td><a href=""><img src="./img/icon-sua.jpg" alt=""></a></td>
+                        <td><a href=""><img src="./img/icon-xoa.jpg" alt=""></a></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Stt</th>
+                        <th>Tên khách sạn</th>
+                        <th>Số điện thoại</th>
+                        <th>gmail</th>
+                        <th>Địa chỉ</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <script src="home.js"></script>
+    <script src="js.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
+</body>
+
+</html>

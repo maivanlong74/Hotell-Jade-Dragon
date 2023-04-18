@@ -1,0 +1,88 @@
+﻿@model IEnumerable<Jade_Dragon.Models.lichsu>
+@{
+    ViewBag.Title = "LichSu";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+<script src="~/Areas/Admin/Public/js/dataTables_min.js"></script>
+<link href="~/Areas/Admin/Public/css/Table.css" rel="stylesheet" />
+<link href="~/Areas/Admin/Public/css/lichsu.css" rel="stylesheet" />
+
+<style>
+    /*.dataTables_wrapper {
+        padding-right: 26px;
+        padding-top: 130px;
+        padding-left: 20px;
+    }*/
+</style>
+
+<div class="home">
+    <div class="body">
+        <div class="Content--a">
+            <div class="a moeny">
+                <img src="~/Style/img/icon/icon_moeny.jpg" />  <br>
+                @{decimal tongdoanhthu = decimal.Parse(ViewBag.tongdoanhthu.ToString());}
+                <i>Tổng tiền: @tongdoanhthu.ToString("#,##") VND</i>
+            </div>
+            <div class="a user">
+                <img src="~/Style/img/icon/icon-user.jpg" /> <br>
+                <i>Số tài khoản đk: @ViewBag.sluser</i>
+            </div>
+            <div class="a booking">
+                <img src="~/Style/img/icon/icon_booking.jpg" /> <br>
+                <i>Số đơn đặt: @ViewBag.sldonhang</i>
+            </div>
+            <div class="a view">
+                <img src="~/Style/img/icon/icon_eye.jpg" /> <br>
+                <i>Lượt truy cập : @ViewBag.NguoiTruyCap</i>
+            </div>
+            <div class="a online">
+                <img src="~/Style/img/icon/icon_online.jpg" /> <br>
+                <i>Đang truy cập : @ViewBag.NguoiOnline</i>
+            </div>
+        </div>
+        <div class="lichsu">
+            <table id="example" class="display">
+                <thead>
+                    <tr>
+                        <th style="width: 67.484px;">Mã Hóa Đơn</th>
+                        <th style=" width: 103.703px;">Tên khách hàng</th>
+                        <th style="width: 116.359px;">Tên Khách Sạn</th>
+                        <th style="width: 60.828px;">Khu Vực</th>
+                        <th style=" width: 133.203px;">Ngày Đặt</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td><a href="@Url.Action("HoaDon", "LichSu", new {id = item.MaHoaDon})"
+                                   style="color: wheat; text-decoration: none;">
+                                    @item.MaHoaDon
+                                </a>
+                            </td>
+                            <td>@item.HoTen</td>
+                            <td>@item.TenKhachSan</td>
+                            <td>@item.TenKhuVuc</td>
+                            <td>@item.NgayDat</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Mã Hóa Đơn</th>
+                        <th>Tên khách hàng</th>
+                        <th>Tên Khách Sạn</th>
+                        <th>Khu Vực</th>
+                        <th style=" width: 133.203px;">Ngày Đặt</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+</script>
+

@@ -1,0 +1,168 @@
+﻿@model IEnumerable<Jade_Dragon.Models.chitiethoadon>
+@{
+    ViewBag.Title = "lichsu_new";
+    Layout = "~/Views/Shared/DatPhong_HoaDon.cshtml";
+}
+
+<script type="text/javascript">
+    function changeFormAction(targetUrl) {
+        var form = document.getElementById('form1');
+        form.action = targetUrl;
+    }
+</script>
+<link href="~/Style/css/html/lichsu.css" rel="stylesheet" />
+<link href="~/Style/css/html/lichsu2.css" rel="stylesheet" />
+
+<style>
+    .info {
+        background: rgba(0,0,0,0.5);
+    }
+
+        .info form .noidung {
+            display: flex;
+            color: white;
+            height: 48vh;
+        }
+
+    .ks {
+        margin-top: -20px;
+        height: 65px;
+        text-align: center;
+    }
+
+        .ks h1 {
+            color: white;
+            font-weight: 700;
+            padding-top: 20px;
+        }
+
+    .info form i {
+        color: wheat;
+    }
+
+    .noidung .info_hd {
+        width: 75vh;
+        height: 45vh;
+    }
+
+        .noidung .info_hd .p {
+            padding: 15px;
+            margin-left: 30px;
+        }
+
+    .noidung .button--item button {
+        width: 130px;
+        height: 50px;
+        font-size: 20px;
+        background: black;
+    }
+
+    .noidung .button--item {
+        margin-left: 75px;
+        height: 30%;
+        margin-top: 70px;
+    }
+</style>
+
+<div class="home">
+    <div class="home_body">
+        <div class="search--map">
+            @*-------------------------------------------------------------------------*@
+            <form action="~/GioHang/TimKiemHd" method="post" class="search" id="form1">
+                <div class="row">
+                    <div class="tieude">
+                        <p>Tìm khách sạn</p>
+                    </div> <br>
+                    <div class="search--search">
+                        <div class="search__container--item">
+                            <div class="mucluc">
+                                <span>Mã hóa Đơn</span>
+                            </div>
+                            <input type="number" placeholder="Nhập mã hóa đơn" name="mahd" required />
+                        </div> <br>
+                        <div class="search__container--item">
+                            <div class="mucluc">
+                                <span>Họ và tên</span>
+                            </div>
+                            <input type="text" placeholder="nhập họ và tên" name="hoten" required />
+                        </div> <br>
+                        <div class="search__container--item">
+                            <div class="mucluc">
+                                <span>CMND/CCCD</span>
+                            </div>
+                            <input type="number" placeholder="Nhập CMND/CCCD" name="cmnd" required />
+                        </div> <br>
+                        <div class="search__container--item">
+                            <div class="mucluc">
+                                <span>Số điện thoại</span>
+                            </div>
+                            <input type="number" placeholder="Nhập số điện thoại" name="sdt" required />
+                        </div> <br>
+                        <div class="search__container--btn">
+                            <button class="button_a button_tk">Tìm kiếm</button>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row2">
+                    <i>Bạn đã quên mã hóa đơn?</i>
+                    <input type="email" placeholder="Nhập gmail của bạn" name="gmail" class="gmail"/>
+                    <button class="button_a gmail" onclick="changeFormAction('GuiGmail')">
+                        Gửi
+                    </button>
+                </div>
+            </form>
+            @*-------------------------------------------------------------------------*@
+        </div>
+
+        @if (Session["MaHoaDon_a"] == null)
+        {
+            <div class="info" style="text-align: center">
+                <h1 style="color: black; font-size: 70px; margin-top: 100px;">Hãy tìm kiếm</h1>
+            </div>
+        }
+        else
+        {
+            <div class="info">
+                <form action="~/GioHang/ThanhToan" method="post">
+                    <div class="ks">
+                        <h1>Khách sạn: ABC</h1>
+                    </div>
+                    <i style="margin-left: 40px;">Mã hóa đơn: @Session["MaHoaDon_a"]</i>
+                    <i style="margin-left: 75vh;">Ngày đặt: @Session["NgayDat_a"]</i>
+                    <hr />
+                    <div class="noidung">
+                        <div class="info_hd">
+                            <p class="p">Tên khách hàng: @Session["HoTen_a"]</p>
+                            <p class="p">Số điện thoại: @Session["Sdt_a"]</p>
+                            <p class="p">CMND: @Session["Cmnd_a"]</p>
+                            <p class="p">Số lượng phòng: @Session["SoLuong_a"]</p>
+                            <p class="p">Phòng:
+                                @foreach(var item in Model)
+                                {
+                                    <span>@item.phong.TenPhong</span>
+                                }   
+                            </p>
+                        </div>
+                        <div class="button--item">
+                            <select name="hinhthuc">
+                                <option value="none">---Chọn hình thức---</option>
+                                <option value="taiquay">Thanh toán tại quầy</option>
+                                <option value="chuyenkhoan">Chuyển khoản</option>
+                                <option value="huy">Hủy giao dịch</option>
+                            </select>
+                            <button>Thanh Toán</button> <br />
+                            <input type="hidden" name="mahd" value="@Session["MaHoaDon_a"]" />
+                            <i style=" display: block; margin-top: 10px;">Tổng tiền: @Session["TongTien_a"] VND</i>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        }
+
+
+    </div>
+</div>
+

@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Jade_Dragon.Models.phanhoi>
+@{
+    ViewBag.Title = "PhanHoi";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+<script src="~/Areas/Admin/Public/js/dataTables_min.js"></script>
+<link href="~/Areas/Admin/Public/css/Table.css" rel="stylesheet" />
+<div class="home">
+    <div class="body">
+        <table id="example" class="display">
+            <thead>
+                <tr>
+                    <th style="text-align: center;">Ảnh</th>
+                    <th style="text-align: center;">Họ Tên Khách Hàng</th>
+                    <th style="text-align: center;">Nội Dung</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td style="text-align: center;">
+                            <img src="~/UpLoad_Img/KhachHang/@item.khachhang.Avt" alt="" style="
+                                                                    width: 100px;
+                                                                    height: 100px;
+                                                                    border-radius: 50px;">
+                        </td>
+                        <td style="text-align: center;"><a href="@Url.Action("Edit", "QLKhachHang", new { id = item.MaKh })" style="color:wheat;">
+                            @item.khachhang.HoTen</a></td>
+                        <td>@item.NoiDung</td>
+                        <td style="text-align: center;">
+                            <a href="@Url.Action("Delete", "PhanHoi", new {id = item.MaPhanHoi})">
+                                <img src="~/Style/img/icon/icon-xoa.jpg" style="width:40px;"/>
+                            </a>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th style="text-align: center;">Ảnh</th>
+                    <th style="text-align: center;">Họ Tên Khách Hàng</th>
+                    <th style="text-align: center;">Nội Dung</th>
+                    <th style="text-align: center;"></th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+</script>
+

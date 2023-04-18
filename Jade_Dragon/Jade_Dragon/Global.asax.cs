@@ -1,0 +1,108 @@
+﻿
+using Jade_Dragon.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
+using Xamarin.Essentials;
+using static System.Net.Mime.MediaTypeNames;
+
+namespace Jade_Dragon
+{
+    public class MvcApplication : System.Web.HttpApplication
+    {
+        protected void Application_Start()
+        {
+            AreaRegistration.RegisterAllAreas();
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            Application["NguoiTruyCap"] = 0;
+            Application["NguoiOnline"] = 0;
+        }
+
+        protected void Session_Start()
+        {
+            Application.Lock();
+            Application["NguoiTruyCap"] = (int)Application["NguoiTruyCap"] + 1;
+            Application["NguoiOnline"] = (int)Application["NguoiOnline"] + 1;
+            Application.UnLock();
+        }
+        protected void Session_End()
+        {
+            Application.Lock();
+            Application["NguoiOnline"] = (int)Application["NguoiOnline"] - 1;
+            Application.UnLock();
+        }
+
+        protected void Session_KhachHang()
+        {
+            Session["MaKh"] = "";
+            Session["HoTen"] = "";
+            Session["SoDienThoai"] = "";
+            Session["CMND"] = "";
+            Session["DiaChi"] = "";
+            Session["Gmail"] = "";
+            Session["TheNganHang"] = "";
+            Session["TenNganHang"] = "";
+            Session["Avt"] = "";
+            Session["TenDn"] = "";
+            Session["Mk"] = "";
+        }
+
+        protected void Session_KhachSan()
+        {
+            Session["MaKhachSan"] = "";
+            Session["TenKhachSan"] = "";
+            Session["DiaChi"] = "";
+            Session["SoDienThoai_ks"] = "";
+            Session["Gia"] = "";
+            Session["GmailKhachSan"] = "";
+            Session["AnhKs"] = "";
+            Session["KhuVuc"] = "";
+            Session["ListKv"] = "";
+            Session["batdau"] = "";
+            Session["ketthuc"] = "";
+        }
+        protected void Session_Phong()
+        {
+            Session["MaPhong"] = "";
+            Session["TenPhong"] = "";
+            Session["LoaiHinh"] = "";
+            Session["Gia"] = "";
+            Session["VIP"] = "";
+            Session["TrangThai"] = "";
+            Session["tongtien"] = "";
+            Session["TongSoLuong"] = "";
+            Session["mahoadon"] = "";
+            Session["MaKhachSanPhong"] = "";
+        }
+        protected void Sesson_Kh()
+        {
+            Session["makhachhang"] = "";
+            Session["tenkhachhang"] = "";
+            Session["sodienthoai"] = "";
+            Session["gmail"] = "";
+            Session["sotaikhoan"] = "";
+            Session["tennganhang"] = "";
+            Session["ngayden"] = "";
+            Session["ngaydi"] = "";
+            Session["sodem"] = "";
+            Session["moeny"] = "";
+        }
+
+        protected void Sesson_hd()
+        {
+            Session["MaHoaDon_a"] = "";
+            Session["TenKhachSan_a"] = "";
+            Session["HoTen_a"] = "";
+            Session["Sdt_a"] = "";
+            Session["Cmnd_a"] = "";
+            Session["SoLuong_a"] = "";
+            Session["NgayDat_a"] = "";
+            Session["TongTien_a"] = "";
+            Session["TienDatCoc"] = "";
+        }
+    }
+}

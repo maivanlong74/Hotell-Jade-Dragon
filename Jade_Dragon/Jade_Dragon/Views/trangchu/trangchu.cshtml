@@ -1,0 +1,244 @@
+﻿
+@model Jade_Dragon.Models.KhachSanTrinhChieu
+@{
+    ViewBag.Title = "trangchu";
+    Layout = "~/Views/Shared/TongHop.cshtml";
+}
+<link href="~/Style/css/ThanhCuon/thanh_cuon.css" rel="stylesheet" />
+<link href="~/Style/css/ThanhCuon/owl.carousel.min.css" rel="stylesheet" />
+<link href="~/Style/css/ThanhCuon/owl.theme.default.min.css" rel="stylesheet" />
+
+<div class="home">
+    <div class="home__background"></div>
+    <div class="grid wide">
+        <div class="row">
+            <div class="home__container__slider">
+                <div class="home__container__slider--content">
+                    <h1>Jade</h1>
+                    <h1>dragon</h1>
+                </div>
+                <div class="home__container__slider--btn">
+                    <div class="btn__bgc"></div>
+                    <a href="@Url.Action("khachsan", "khachsan")">
+                        Đặt ngay bây giờ
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="search">
+    <div class="grid wide" style="display:flex;">
+
+        <div id="dongho">
+            <i>Time</i>
+            <div id="clock"></div>
+        </div>
+
+        <div class="search__container" style="margin-left: 100px;">
+            <form method="get" action="@Url.Action("trangchu", "trangchu")" class="row">
+                <div class="Search Search-input">
+                    <input type="text" placeholder="Mời bạn nhập tìm kiếm theo" class="input" name="searchTerm" />
+                </div>
+                <div class="Search Search-select">
+                    <select name="searchType" class="select">
+                        <option value="all">Tất cả</option>
+                        <option value="name">Tên khách sạn</option>
+                        <option value="address">Địa chỉ</option>
+                        <option value="phone">Số điện thoại</option>
+                        <option value="khuvuc">Khu vực</option>
+                    </select>
+                </div>
+                <div class="Search Search-button">
+                    <button type="submit" class="button">Tìm kiếm</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+@*--------------------------------------------------------------------*@
+
+<div class="body" id="danhmucsp">
+    <section class="slider owl-carousel owl-theme">
+
+        @if (Model.ks.Count() > 0)
+        {
+            foreach (var item in Model.ks)
+            {
+                if (item.AnhKs == null)
+                {
+                    <div class="slider-item slider-item-one"
+                         style="background: black;">
+                        <div class="info">
+                            <i style="font-size: 30px; margin-left: 50px; ">Chưa có ảnh !!!</i>
+                            <div class="tieude">
+                                <h1>Khách sạn @item.TenKhachSan</h1>
+                            </div>
+                            <div class="noidung">
+                                <div class="info-a">
+                                    <div class="info-b">
+                                        <i class="one">Địa chỉ: @item.DiaChi</i>
+                                        <p class="one">Giá: @item.Gia VND</p>
+                                    </div>
+                                    <div class="item_rating">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
+                                </div>
+                                <div class="datphong" style="margin-left: 40px;">
+                                    <a href="~/khachsan/khachsan?ma=@item.MaKhachSan">Đặt phòng</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="slider-item slider-item-one"
+                         style="background-image: url('../../UpLoad_Img/KhachSan/@item.AnhKs');">
+                        <div class="info">
+                            <div class="tieude">
+                                <h1>Khách sạn @item.TenKhachSan</h1>
+                            </div>
+                            <div class="noidung">
+                                <div class="info-a">
+                                    <div class="info-b">
+                                        <i class="one">Địa chỉ: @item.DiaChi</i>
+                                        <p class="one">Giá: @item.Gia VND</p>
+                                    </div>
+                                    <div class="item_rating">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
+                                </div>
+                                <div class="datphong" style="margin-left: 40px;">
+                                    <a href="~/khachsan/khachsan?ma=@item.MaKhachSan">Đặt phòng</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        }
+        else
+        {
+            <div class="slider-item slider-item-one"
+                 style="background: black;">
+                <div class="info">
+                    <div style="padding: 120px">
+                        <i style="font-size: 35px;">Khu vực này chưa có khách sạn</i>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </section>
+
+    <div class="map">
+        <div class="centent">
+            <h1>Khu Vực</h1>
+        </div>
+        <div class="list-map">
+            <ul>
+                <li><a href="~/trangchu/trangchu">TẤT CẢ</a></li>
+                @foreach (var item in Model.kv)
+                {
+                    <li><a href="~/trangchu/trangchu?ma=@item.MaKhuVuc">@item.TenKhuVuc</a></li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
+@*--------------------------------------------------------------------------------*@
+
+<div class="package">
+    <div class="package__background" style="background-image: url('../../Style/img/nen.jpg'); "></div>
+    <div class="package__container">
+        <div class="grid wide">
+            <div class="package__container___body">
+                <div class="package__container___body--content">
+                    <div class="body--content__cta">
+                        <h2>Những khu khách sạn cao cấp</h2>
+                        <div class="item_rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <p>
+                            Những khu khách sạn cao cấp, mang đến cho khách hàng những trải nghiệm tuyệt vời. <br>
+                            Khách sạn đầy đủ tiện nghi, nhân viên phục vụ tận tình.
+                        </p>
+                    </div>
+                    <div class="item--btn">
+                        <div class="btn__bgc"></div>
+                        <a href="@Url.Action("khachsan", "khachsan")">
+                            Đặt ngay bây giờ
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*-------------------------------------------------------------------------*@
+
+<div class="offers">
+    <div class="offers__container">
+        <div class="grid wide">
+            <div class="dulich">
+                <div class="tieude">
+                    <h2>Gợi ý các điểm chụp ảnh đẹp ở Huế</h2>
+                    <ol>
+                        <li>Đại Nội</li>
+                        <li>Phố đi bộ</li>
+                        <li>Đồi Vọng Cảnh</li>
+                        <li>Cầu gỗ lim</li>
+                        <li>Đồi Thiên An</li>
+                    </ol>
+                </div>
+                <div class="hinhanh">
+                    <div class="a1">
+                        <div>
+                            <img src="~/Style/img/chup_anh/1.jpg" />
+                        </div>
+                        <div>
+                            <img src="~/Style/img/chup_anh/2.jpg" class="a" />
+                        </div>
+                    </div>
+                    <div class="a2">
+                        <div>
+                            <img src="~/Style/img/chup_anh/3.jpg" class="b" />
+                        </div>
+                        <div>
+                            <img src="~/Style/img/chup_anh/4.jpg" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="~/Style/css/ThanhCuon/owl.carousel.min.js"></script>
+<script src="~/Style/css/ThanhCuon/Cuon.js"></script>
+<script src="~/Style/js/DongHo.js"></script>
+<script src="~/Style/js/main.js"></script>

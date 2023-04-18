@@ -1,0 +1,285 @@
+body {
+    background-size: cover;
+    background-image: linear-gradient(rgba(64, 6, 97, 0.4), rgba(64, 6, 97, 0.4)), url('/Style/img/nen.jpg');
+}
+
+.home{
+    padding-top: 144px;
+}
+
+.home_body{
+    display: flex;
+    padding: 25px;
+}
+
+.home_body .search--map .search{
+    border: 2px solid;
+    height: 450px;
+    width: 330px;
+}
+
+.home_body .search--map .search .row{
+    /* display: block; */
+    width: 328px;
+    margin-left: 0;
+}
+
+.search--map .search .row .tieude{
+    height: 50px;
+    text-align: center;
+    background: rgba(64, 6, 97, 0.4);
+    width: 100%;
+}
+
+.search--map .search .row .tieude p{
+    color: white;
+    font-weight: 700;
+    font-size: 20px;
+    padding-top: 10px;
+}
+
+.search--map .search .row .search--search{
+    padding-top: 20px;
+}
+
+.home_body .search--map .search .row 
+.search--search .search__container--item{
+    margin-left: 20px;
+    margin-top: 13px;
+    display: flex;
+}
+
+.home_body .search--map .search .row 
+.search--search .search__container--item input, select{
+    color: #2d3436;
+}
+
+.home_body .search--map .search .row 
+.search--search .search__container--item .khuvuc select{
+    margin-left: 10px;
+    width: 135px;
+}
+
+.home_body .search--map .search .row 
+.search--search .search__container--item .ngay{
+    margin-left: 10px;
+    width: 135px;
+}
+
+.home_body .search--map .search .row 
+.search--search .search__container--item .tuoi{
+    margin-left: 10px;
+}
+
+.home_body .search--map .search .row 
+.search--search .search__container--item .tuoi select{
+    width: 135px;
+}
+
+.search .row .search--search .search__container--item .mucluc{
+    width: 125px;
+}
+
+.search .row .search--search .search__container--btn{
+    margin-top: 40px;
+    margin-left: 125px;
+}
+
+.search .row .search--search .search__container--btn a{
+    background: rgba(0,0,0,0.5);
+    padding: 12px;
+    color: white;
+    text-decoration: none;
+}
+
+.search .row .search--search .search__container--btn a:hover{
+    background: rgba(0,0,0,0.8);
+    color: yellow;
+}
+
+.home_body .search--map .map{
+    border: 2px solid;
+    margin-top: 50px;
+}
+
+.search--map .map .address .tieude{
+    background: rgba(64, 6, 97, 0.4);
+    height: 60px;
+    text-align: center;
+}
+
+.search--map .map .address .tieude p{
+    font-size: 20px;
+    padding-top: 15px;
+    font-weight: 800;
+    color: white;
+}
+
+.search--map .map .address .map--a{
+    position: relative;
+}
+
+.search--map .map .address .map--a img{
+    padding: 10px;
+    width: 330px;
+    height: 240px;
+}
+
+.search--map .map .address .map--a .diachi{
+    position: absolute;
+    margin-top: -240px;
+    background: rgba(0,0,0,0.5);
+    width: 330px;
+    height: 240px;
+    display: none;
+}
+
+.search--map .map .address .map--a .diachi a{
+    display: block;
+    margin-top: 107px;
+    margin-left: 110px;
+    background: #2c3e50;
+    padding: 10px;
+    color: white;
+    width: 105px;
+    text-align: center;
+    border: 1px solid;
+    text-decoration: none;
+}
+
+.search--map .map .address .map--a:hover .diachi{
+    display: block;
+}
+
+.home_body .info{
+    border: 2px solid;
+    margin-left: 27px;
+    width: 942px;
+}
+
+.home_body .info .background{
+    background: url(/Style/img/ks3.jpg);
+    background-size: cover;
+    height: 500px;
+}
+
+.home_body .info .background:hover .khachsan{
+    display: block;
+}
+
+.home_body .info .background .khachsan{
+    background: rgba(0,2,3,0.4);
+    height: 500px;
+    display: none;
+}
+
+.home_body .info .background .khachsan .name{
+    padding: 30px;
+}
+
+.home_body .info .background .khachsan .name p{
+    font-size: 30px;
+    font-family: cursive;
+}
+
+.home_body .info .background .khachsan .info_ks{
+    margin-left: 440px;
+    margin-top: -80px;
+    background: rgba(0,0,0,0.7);
+    width: 360px;
+    border: 1px solid;
+}
+
+.home_body .info .background .khachsan .info_ks .info--ct{
+    padding: 30px;
+}
+
+.home_body .info .background .khachsan .danhgia{
+    padding: 30px;
+    margin-top: 230px;
+    display: flex;
+}
+
+.home_body .info .background .khachsan .danhgia .item_rating{
+    margin-left: 20px;
+}
+
+.home_body .info .check{
+    background: rgba(0,0,0,0.5);
+    height: 300px;
+}
+
+.home_body .info .check .content{
+    padding: 30px;
+}
+
+.home_body .info .check .content span{
+    font-size: 20px;
+    color: white;
+}
+
+.home_body .info .check .content input{
+    text-align: center;
+    color: black;
+}
+
+.home_body .info .check .content .check_ngay{
+    display: flex;
+    padding-bottom: 35px;
+}
+
+.home_body .info .check .content input{
+    text-align: center;
+    color: black;
+    margin-left: 10px;
+}
+
+.home_body .info .check .content .check_ngay .ngay--tra{
+    margin-left: 120px;
+}
+
+.home_body .info .check .content .checktuoi{
+    display: flex;
+    padding-bottom: 35px;
+}
+
+.home_body .info .check .content .checktuoi .tuoi--b{
+    margin-left: 147px;
+}
+
+.home_body .info .check .content .checktuoi .tuoi--a input{
+    width: 209px;
+}
+
+.home_body .info .check .content .checktuoi .vip{
+    margin-left: 100px;
+}
+
+.home_body .info .check .content .gia{
+    display: flex;
+    padding-bottom: 35px;
+    margin-left: 90px;
+}
+
+.home_body .info .check .content button{
+    color: black;
+    padding: 4px 40px 4px 40px;
+    background: #bdc3c7;
+    border-style: inset;
+    width: 225px;
+}
+
+.home_body .info .check .content button:hover{
+    background: #222f3e;
+    color: white;
+}
+
+.home_body .info .check .content .gia .htgia{
+    margin-left: 152px;
+    border: 3px solid;
+    padding: 0px 63px;
+}
+
+.home_body .info .check .content .thanhtoan button{
+    margin-left: 90px;
+}

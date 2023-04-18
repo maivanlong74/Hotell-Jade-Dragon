@@ -1,0 +1,38 @@
+
+.body{
+    overflow: hidden;
+}
+
+.body .content{
+    background: rgba(0,0,0,0.7);
+    text-align: center;
+    height: 80px;
+}
+
+.body .content h1{
+    padding-top: 15px;
+}
+
+#wrapper #form-login .form-group .gui{
+    background: white;
+    color: black;
+    font-weight: 700;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-decoration: none;
+} 
+
+#wrapper #form-login .form-group .gui:hover{
+    background: black;
+    color: wheat;
+    border: 1px solid white;
+}
+
+#wrapper #form-login #register{
+    text-decoration: none;
+    font-weight: 700;
+}
+
+#form-login{
+    position: relative;
+}

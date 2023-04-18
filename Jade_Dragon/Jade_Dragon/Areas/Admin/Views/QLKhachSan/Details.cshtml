@@ -1,0 +1,77 @@
+﻿@model Jade_Dragon.Models.khachsan
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+
+<div class="home">
+    <div class="body">
+        <div class="Content">
+            <h1 style=" color: aliceblue; padding-bottom: 90px; margin-left: -110px; margin-top: -40px;">
+                Thông tin khách sạn @Html.DisplayFor(model => model.TenKhachSan)
+            </h1>
+            <form action="" method="post">
+
+                @if (Model.AnhKs == null)
+                {
+                    <div class="Avt" style="margin-top:0px;">
+                        <div class="image">
+                            <div style="margin-top: 170px;">
+                                <i style="color:wheat;">Chưa có ảnh !!!</i>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else if (Model.AnhKs != null)
+                {
+                    <div class="Avt" style="margin-top:0px;">
+                        <div class="image">
+                            <img src="~/UpLoad_Img/KhachSan/@Model.AnhKs" alt="" style="margin-top: 30%;">
+                        </div>
+                    </div>
+                }
+
+                <div class="Info" style="display: flex; margin-top: 75px;">
+                    
+                    <div>
+                        <div class="one">
+                            <label for="">Tên Khách sạn: </label>
+                            <span>@Html.DisplayFor(model => model.TenKhachSan)</span>
+                        </div>
+                        <div class="one">
+                            <label for="">Số điện thoại: </label>
+                            <span>@Html.DisplayFor(model => model.SoDienThoai)</span>
+                        </div>
+                        <div class="one">
+                            <label for="">Gmail: </label>
+                            <span>@Html.DisplayFor(model => model.Gmail)</span>
+                        </div>
+                    </div>
+
+                    <div style="margin-left: 50px;">
+                        <div class="one">
+                            <label for="">Địa chỉ: </label>
+                            <span>@Html.DisplayFor(model => model.DiaChi)</span>
+                        </div>
+                        <div class="one">
+                            <label for="">Giá: </label>
+                            <span>@Html.DisplayFor(model => model.Gia)</span>
+                        </div>
+                        <div class="one">
+                            <label for="">Khu vực: </label>
+                            <span>@Html.DisplayFor(model => model.khuvuc.TenKhuVuc)</span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="button" style=" display: flex; margin-left: 110px; margin-top: -40px;">
+                <a href="@Url.Action("Edit", "QLKhachSan", new { id = Model.MaKhachSan })" class="out two" 
+                   style=" margin-left: 130px; margin-left: 130px; margin-top: -79px; height: 35px;">
+                    Chỉnh sửa
+                </a>
+                <a href="@Url.Action("QuanLyKs", "QLKhachSan")" class="out two back" style="height:35px;">Quay về trang khách sạn</a>
+            </div>
+        </div>
+    </div>
+</div>

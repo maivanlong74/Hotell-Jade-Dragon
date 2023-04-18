@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Sidebar Menu ac</title>
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <script src="jquery.js"></script>
+    <script src="dataTables_min.js"></script>
+    <link rel="stylesheet" href="code_css.css">
+    <link rel="stylesheet" href="css.css">
+    <link rel="stylesheet" href="Them.css">
+    
+</head>
+
+<body>
+    
+    <nav class="sidebar close"></nav>
+    <div class="home">
+        <div class="body">
+            <div class="Avt">
+                <div class="image">
+                    <img src="./img/ks3.jpg" alt="">
+                </div>
+            </div>
+            <div class="Content">
+                <h1 style="color: aliceblue;">Thông tin khách hàng Mai Văn Long</h1>
+                <form action="" method="post">
+                    <div class="makh one">
+                        <label for="">Mã Khách Hàng: </label>
+                        <span>Mai Văn Long</span>
+                    </div>
+                    <div class="tenkh one">
+                        <label for="">Tên Khách Hàng: </label>
+                        <span>Mai Văn Long</span>
+                    </div>
+                    <div class="sdt one">
+                        <label for="">Số điện thoại: </label>
+                        <span>0823981321</span>
+                    </div>
+                    <div class="CMND one">
+                        <label for="">CMND / Thẻ Căn cước công dân: </label>
+                        <span>4235435345345</span>
+                    </div>
+                    <div class="Bank one">
+                        <label for="">Thẻ ngân hàng</label> <span>234234234234234</span>
+                        <label for="" style="margin-left: 20px;">Tên ngân hàng</label> <span>dss</span>
+                    </div>
+                    <div class="tendn one">
+                        <label for="">Tên đăng nhập: </label>
+                        <span>avc</span>
+                    </div>
+                    <div class="matkhau one">
+                        <label for="">Mật khẩu</label>
+                        <span>123</span>
+                    </div>
+                </form>
+                <div class="button">
+                    <button class="out two">Quay về trang khách hàng</button>
+                </div>
+            </div>
+        </div>
+        <div class="bodyphong">
+            <table id="example" class="display" >
+                <thead>
+                    <tr>
+                        <th>Tên phòng</th>
+                        <th>Loại hình</th>
+                        <th>Giá</th>
+                        <th>Trạng thái</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>b192</td>
+                        <td>Phòng đôi</td>
+                        <td>300000 VND</td>
+                        <td>Còn trống</td>
+                        <td><a href=""><img src="./img/icon-sua.jpg" alt=""></a></td>
+                        <td><a href=""><img src="./img/icon-xoa.jpg" alt=""
+                            style="cursor: pointer;"></a></td>
+                    </tr>
+                        <td><input type="text" placeholder="Nhập tên phòng"></td>
+                        <td><select name="" id="">
+                                <option value="">Phòng đơn</option>
+                                <option value="">Phòng đôi</option>
+                        </select></td></td>
+                        <td><input type="text" placeholder="Giá"></td>
+                        <td><input type="text" placeholder="Trạng thái"></td>
+                        <td><input type="submit" class="save two btn btn-default" value="Save"
+                            style="cursor: pointer;"></td>
+                        <td></td>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Tên phòng</th>
+                        <th>Loại hình</th>
+                        <th>Giá</th>
+                        <th>Trạng thái</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
+    <script src="home.js"></script>
+    <script src="js.js"></script>
+    <script src="Them.js"></script>
+</body>
+
+</html>

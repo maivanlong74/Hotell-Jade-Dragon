@@ -1,0 +1,73 @@
+﻿@model Jade_Dragon.Models.phong
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+<style>
+    .home .body .Content form .one {
+        padding: 40px;
+    }
+    form{
+        display:flex;
+    }
+</style>
+<div class="home">
+    <div class="body">
+        <div class="Content" style=" margin-left: 390px;">
+
+            <h1 style="color: aliceblue; padding-bottom: 40px; margin-left: -110px; ">Bạn có chắc chắn xóa phòng này</h1>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div>
+                    <div class="one">
+                        <label for="">Tên Phòng: </label>
+                        <span>@Html.DisplayFor(model => model.TenPhong)</span>
+                    </div>
+                    <div class="one">
+                        <label for="">Loại hình: </label>
+                        <span>@Html.DisplayFor(model => model.LoaiHinh)</span>
+                    </div>
+                    <div class="one">
+                        <label for="">Giá: </label>
+                        <span>@Html.DisplayFor(model => model.Gia) VND</span>
+                    </div>
+                </div>
+                <div>
+                    <div class="one">
+                        <label for="">VIP: </label>
+                        @if (Model.VIP == true)
+                        {
+                            <span>Có</span>
+                        }
+                        else
+                        {
+                            <span>Không</span>
+                        }
+                    </div>
+
+                    <div class="one">
+                        <label for="">Trạng Thái: </label>
+                        @if (Model.TrangThai == true)
+                        {
+                            <span>Phòng trống</span>
+                        }
+                        else
+                        {
+                            <span>Đã có khách</span>
+                        }
+                    </div>
+                    <div class="one">
+                        <input type="submit" class="save two btn btn-default" value="Xóa">
+                    </div>
+                </div>
+
+            }
+                <div class="button" style=" margin-left: -215px; margin-top: 5px; display: flex;">
+                    <a href="~/Admin/QuanLyPhong/Edit?id=@Model.MaPhong&&MaKS=@ViewBag.MaKS" class="out two">Chỉnh sửa</a>
+                    <a href="~/Admin/QuanLyPhong/Phong?MaKS=@ViewBag.MaKS" class="out two">Quay về trang khách sạn</a>
+                </div>
+            </div>
+    </div>
+</div>

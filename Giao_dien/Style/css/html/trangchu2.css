@@ -1,0 +1,71 @@
+
+.check{
+    padding-left: 140px;
+    margin-left: -120px;
+}
+
+.search__container--item .khuvuc{
+    width: 250px;
+}
+
+.grid.wide .dulich{
+    display: flex;
+}
+
+.grid.wide .dulich .tieude{
+    
+}
+
+.grid.wide .dulich .tieude p{
+    width: 600px;
+}
+
+.grid.wide .dulich .tieude ol{
+    padding: 50px;
+}
+
+.grid.wide .dulich .tieude ol li{
+    font-size: 20px;
+    padding-bottom: 20px;
+    color: black;
+}
+
+.grid.wide .dulich .tieude ol li:hover{
+    font-size: 25px;
+    font-weight: 400;
+}
+
+.grid.wide .dulich .hinhanh{
+    margin-left: 150px;
+}
+
+.grid.wide .dulich .hinhanh .a1{
+    display: flex;
+}
+
+.grid.wide .dulich .hinhanh .a2{
+    display: flex;
+    padding-top: 5px;
+}
+
+.grid.wide .dulich .hinhanh div{
+    padding-right: 5px;
+}
+
+.grid.wide .dulich .hinhanh img{
+    max-width: 200px;
+    max-height: 200px;
+    width: 200px;
+    height: 200px;
+    border: 3px solid black;
+    border-style: solid;
+}
+
+.grid.wide .dulich .hinhanh .a{
+    margin-top: 20px;
+}
+
+.grid.wide .dulich .hinhanh .b{
+    margin-top: -20px;
+}
+

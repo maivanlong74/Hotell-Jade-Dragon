@@ -1,0 +1,88 @@
+﻿@model IEnumerable<Jade_Dragon.Models.phong>
+
+@{
+    ViewBag.Title = "Phong";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+<script src="~/Areas/Admin/Public/js/dataTables_min.js"></script>
+<link href="~/Areas/Admin/Public/css/Table.css" rel="stylesheet" />
+
+<div class="home">
+    <div class="body">
+        <h1 style="color: white; margin-left: 30px;">Khách sạn @Session["TenKhachSan"]</h1>
+        <table id="example" class="display">
+            <thead>
+                <tr>
+                    <th>Tên phòng</th>
+                    <th>Loại hình</th>
+                    <th>Giá</th>
+                    <th>Vip</th>
+                    <th>Trạng thái</th>
+                    <th>
+                        <a href="~/Admin/QuanLyPhong/Create?MaKS=@ViewBag.MaKS">
+                            <img src="~/Style/img/icon/icon-them.jpg" style="width: 25px;" />
+                        </a>
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td><a href="@Url.Action("Details", "QuanLyPhong", new { id = item.MaPhong, MaKS = item.MaKhachSan })" style="color: wheat; text-decoration: none;">@item.TenPhong</a></td>
+                        <td>@item.LoaiHinh</td>
+                        <td>@item.Gia</td>
+
+                        @if (item.VIP == true)
+                        {
+                            <td style="font-weight: 700; color: #f1c40f;">Phòng VIP</td>
+                        }
+                        else
+                        {
+                            <td>Phòng thường</td>
+                        }
+
+
+                        @if (item.TrangThai == true)
+                        {
+                            <td style="font-weight: 700; color: #f1c40f;">Phòng còn trống</td>
+                        }
+                        else
+                        {
+                            <td>Đã có khách</td>
+                        }
+                        <td>
+                            <a href="@Url.Action("Edit", "QuanLyPhong", new { id = item.MaPhong, MaKS = item.MaKhachSan})">
+                                <img src="~/Style/img/icon/icon-sua.jpg" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="@Url.Action("Delete", "QuanLyPhong", new { id = item.MaPhong, MaKS = item.MaKhachSan})">
+                                <img src="~/Style/img/icon/icon-xoa.jpg" />
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Tên phòng</th>
+                    <th>Loại hình</th>
+                    <th>Giá</th>
+                    <th>Vip</th>
+                    <th>Trạng thái</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+</script>
+

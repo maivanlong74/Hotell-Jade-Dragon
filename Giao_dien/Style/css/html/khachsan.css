@@ -1,0 +1,30 @@
+
+.search{
+    margin-top: 20px;
+    background: none;
+}
+
+.home__background{
+    height: 275vh;
+}
+
+.home__container__slider{
+    width: 1344px;
+}
+
+.number .listnumber{
+    display: flex;
+    padding-left: 48%;
+    margin-top: 25px;
+}
+
+.number .listnumber a{
+    font-size: 20px;
+    text-decoration: none;
+    padding-right: 10px;
+    color: white;
+}
+
+.home__container__slider .tour{
+    margin-top: -60px;
+}
