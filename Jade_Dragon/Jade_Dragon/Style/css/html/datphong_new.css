@@ -63,7 +63,7 @@
     .home_body .search--map .search .row
     .search--search .search__container--item .ngay {
         margin-left: 10px;
-        width: 135px;
+        width: 170px;
     }
 
     .home_body .search--map .search .row
@@ -85,17 +85,28 @@
     margin-left: 125px;
 }
 
+/*---------------------------------*/
     .search .row .search--search .search__container--btn a {
         background: rgba(0,0,0,0.5);
         padding: 12px;
         color: white;
         text-decoration: none;
     }
+    .search .row .search--search .search__container--btn a:hover {
+        background: rgba(0,0,0,0.8);
+        color: yellow;
+    }
 
-        .search .row .search--search .search__container--btn a:hover {
-            background: rgba(0,0,0,0.8);
-            color: yellow;
-        }
+    .search .row .search--search .search__container--btn button {
+        background: rgba(0,0,0,0.5);
+        padding: 12px;
+        color: white;
+    }
+    .search .row .search--search .search__container--btn button:hover {
+        background: rgba(0,0,0,0.8);
+        color: yellow;
+    }
+/*-------------------------------------*/
 
 .home_body .search--map .map {
     border: 2px solid;

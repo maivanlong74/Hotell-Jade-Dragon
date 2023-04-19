@@ -31,6 +31,7 @@ namespace Jade_Dragon.Models
         public virtual DbSet<khachhang> khachhangs { get; set; }
         public virtual DbSet<khachsan> khachsans { get; set; }
         public virtual DbSet<khuvuc> khuvucs { get; set; }
+        public virtual DbSet<Moc_Time> Moc_Time { get; set; }
         public virtual DbSet<phanhoi> phanhois { get; set; }
         public virtual DbSet<phong> phongs { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }

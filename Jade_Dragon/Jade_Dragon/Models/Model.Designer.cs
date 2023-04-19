@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'D:\KhoaLuan\git\Du_An_Jade_Dragon\Jade_Dragon\Jade_Dragon\Models\Model.edmx'. 
+﻿// T4 code generation is enabled for model 'L:\Hotell-Jade-Dragon\Jade_Dragon\Jade_Dragon\Models\Model.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

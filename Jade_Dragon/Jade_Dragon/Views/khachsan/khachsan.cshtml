@@ -10,6 +10,9 @@
 <link href="~/Style/css/layout/phan_trang.css" rel="stylesheet" />
 
 <style>
+    .DateTime {
+        margin-left: -310px;
+    }
     .DateTime .search-time input {
         color: black;
         font-weight: 700;
@@ -243,7 +246,9 @@
 
                                                         <li class="@((ViewBag.PageNumber == i) ? "active" : "")"
                                                             style="height: 30px;">
-                                                            <a href="@Url.Action("khachsan", new { page = i })">@i</a>
+                                                            <a href="@Url.Action("khachsan", new { page = i, ma = Session["KhachSan"],
+                                                                loai = Session["LoaiPhong"], gia = Session["GiaTien"], vip = Session["Menu_VIP"],
+                                                                trangthai = Session["TrangThaiPhong"]})">@i</a>
                                                         </li>
                                                     }
                                                 }
@@ -261,8 +266,6 @@
 
                                                             @if (item.TrangThai == true)
                                                             {
-
-
                                                                 <div class="item__background"></div>
                                                             }
                                                             else

@@ -12,6 +12,7 @@ using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Windows.Forms;
 using Jade_Dragon.Areas.Admin.Controllers;
 using Jade_Dragon.common;
 using Jade_Dragon.Models;
@@ -63,6 +64,8 @@ namespace Jade_Dragon.Controllers
                 Session["SoDienThoai_ks"] = ks.SoDienThoai;
                 Session["GmailKhachSan"] = ks.Gmail;
                 Session["AnhKs"] = ks.AnhKs;
+                ViewBag.tenkv = ks.khuvuc.TenKhuVuc;
+                ViewBag.makv = ks.MaKhuVuc;
             }
             List<khuvuc> kv = new List<khuvuc>();
             kv = db.khuvucs.ToList();
@@ -390,6 +393,11 @@ namespace Jade_Dragon.Controllers
             return true;
         }
 
+        public ActionResult Search_GioHang(long khuvuc, DateTime NgayDen, DateTime NgayDi, string loaihinh, string vip)
+        {
+            return RedirectToAction("khachsan", "khachsan", new {khuvuc = khuvuc, batdau = NgayDen, 
+                    ketthuc = NgayDi, loai = loaihinh, vip = vip});
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

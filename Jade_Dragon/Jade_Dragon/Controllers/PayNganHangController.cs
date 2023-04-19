@@ -95,9 +95,14 @@ namespace Jade_Dragon.Controllers
                         ViewBag.ngaydi = chitiet.NgayDi;
                         ViewBag.sodem = demsodem((DateTime)chitiet.NgayDen, (DateTime)chitiet.NgayDi);
 
-                        phong ph = db.phongs.FirstOrDefault(m => m.MaPhong == chitiet.MaPhong);
-                        ph.NgayBatDau = chitiet.NgayDen;
-                        ph.NgayKetThuc = chitiet.NgayDi;
+                        foreach(var ph in cthd)
+                        {
+                            Moc_Time Time = new Moc_Time();
+                            Time.MaPhong = ph.MaPhong;
+                            Time.NgayDen = ph.NgayDen;
+                            Time.NgayDi = ph.NgayDi;
+                            db.Moc_Time.Add(Time);
+                        }
                         db.SaveChanges();
 
                         List<khachsan> listks = new List<khachsan>();

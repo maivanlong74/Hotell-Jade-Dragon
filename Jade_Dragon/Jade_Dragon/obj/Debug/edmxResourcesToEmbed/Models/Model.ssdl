@@ -76,6 +76,15 @@
     <Property Name="MaKhuVuc" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="TenKhuVuc" Type="nvarchar" MaxLength="50" />
   </EntityType>
+  <EntityType Name="Moc_Time">
+    <Key>
+      <PropertyRef Name="stt" />
+    </Key>
+    <Property Name="stt" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaPhong" Type="bigint" />
+    <Property Name="NgayDen" Type="datetime" />
+    <Property Name="NgayDi" Type="datetime" />
+  </EntityType>
   <EntityType Name="phanhoi">
     <Key>
       <PropertyRef Name="MaPhanHoi" />
@@ -96,8 +105,6 @@
     <Property Name="VIP" Type="bit" Nullable="false" />
     <Property Name="MaKhachSan" Type="bigint" />
     <Property Name="TrangThai" Type="bit" Nullable="false" />
-    <Property Name="NgayBatDau" Type="datetime" />
-    <Property Name="NgayKetThuc" Type="datetime" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
@@ -209,6 +216,18 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Moc_Time_phong">
+    <End Role="phong" Type="Self.phong" Multiplicity="0..1" />
+    <End Role="Moc_Time" Type="Self.Moc_Time" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="phong">
+        <PropertyRef Name="MaPhong" />
+      </Principal>
+      <Dependent Role="Moc_Time">
+        <PropertyRef Name="MaPhong" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_phanhoi_khachhang1">
     <End Role="khachhang" Type="Self.khachhang" Multiplicity="0..1" />
     <End Role="phanhoi" Type="Self.phanhoi" Multiplicity="*" />
@@ -252,6 +271,7 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
     <EntitySet Name="khachhang" EntityType="Self.khachhang" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="khachsan" EntityType="Self.khachsan" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="khuvuc" EntityType="Self.khuvuc" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Moc_Time" EntityType="Self.Moc_Time" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="phanhoi" EntityType="Self.phanhoi" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="phong" EntityType="Self.phong" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
@@ -289,6 +309,10 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
     <AssociationSet Name="FK_machitiethoadon_phong" Association="Self.FK_machitiethoadon_phong">
       <End Role="phong" EntitySet="phong" />
       <End Role="chitiethoadon" EntitySet="chitiethoadon" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Moc_Time_phong" Association="Self.FK_Moc_Time_phong">
+      <End Role="phong" EntitySet="phong" />
+      <End Role="Moc_Time" EntitySet="Moc_Time" />
     </AssociationSet>
     <AssociationSet Name="FK_phanhoi_khachhang1" Association="Self.FK_phanhoi_khachhang1">
       <End Role="khachhang" EntitySet="khachhang" />

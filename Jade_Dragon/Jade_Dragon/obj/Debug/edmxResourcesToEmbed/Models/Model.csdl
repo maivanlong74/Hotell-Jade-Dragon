@@ -89,6 +89,16 @@
     <Property Name="TenKhuVuc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="khachsans" Relationship="Self.FK_khachsan_khuvuc1" FromRole="khuvuc" ToRole="khachsan" />
   </EntityType>
+  <EntityType Name="Moc_Time">
+    <Key>
+      <PropertyRef Name="stt" />
+    </Key>
+    <Property Name="stt" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MaPhong" Type="Int64" />
+    <Property Name="NgayDen" Type="DateTime" Precision="3" />
+    <Property Name="NgayDi" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="phong" Relationship="Self.FK_Moc_Time_phong" FromRole="Moc_Time" ToRole="phong" />
+  </EntityType>
   <EntityType Name="phanhoi">
     <Key>
       <PropertyRef Name="MaPhanHoi" />
@@ -110,10 +120,9 @@
     <Property Name="VIP" Type="Boolean" Nullable="false" />
     <Property Name="MaKhachSan" Type="Int64" />
     <Property Name="TrangThai" Type="Boolean" Nullable="false" />
-    <Property Name="NgayBatDau" Type="DateTime" Precision="3" />
-    <Property Name="NgayKetThuc" Type="DateTime" Precision="3" />
     <NavigationProperty Name="chitiethoadons" Relationship="Self.FK_machitiethoadon_phong" FromRole="phong" ToRole="chitiethoadon" />
     <NavigationProperty Name="khachsan" Relationship="Self.FK_phong_khachsan1" FromRole="phong" ToRole="khachsan" />
+    <NavigationProperty Name="Moc_Time" Relationship="Self.FK_Moc_Time_phong" FromRole="phong" ToRole="Moc_Time" />
   </EntityType>
   <EntityType Name="sysdiagram">
     <Key>
@@ -261,6 +270,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Moc_Time_phong">
+    <End Role="phong" Type="Self.phong" Multiplicity="0..1" />
+    <End Role="Moc_Time" Type="Self.Moc_Time" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="phong">
+        <PropertyRef Name="MaPhong" />
+      </Principal>
+      <Dependent Role="Moc_Time">
+        <PropertyRef Name="MaPhong" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="Connect" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="chitiethoadons" EntityType="Self.chitiethoadon" />
     <EntitySet Name="ErrorPays" EntityType="Self.ErrorPay" />
@@ -268,6 +289,7 @@
     <EntitySet Name="khachhangs" EntityType="Self.khachhang" />
     <EntitySet Name="khachsans" EntityType="Self.khachsan" />
     <EntitySet Name="khuvucs" EntityType="Self.khuvuc" />
+    <EntitySet Name="Moc_Time" EntityType="Self.Moc_Time" />
     <EntitySet Name="phanhois" EntityType="Self.phanhoi" />
     <EntitySet Name="phongs" EntityType="Self.phong" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
@@ -309,6 +331,10 @@
     <AssociationSet Name="FK_phong_khachsan1" Association="Self.FK_phong_khachsan1">
       <End Role="khachsan" EntitySet="khachsans" />
       <End Role="phong" EntitySet="phongs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Moc_Time_phong" Association="Self.FK_Moc_Time_phong">
+      <End Role="phong" EntitySet="phongs" />
+      <End Role="Moc_Time" EntitySet="Moc_Time" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

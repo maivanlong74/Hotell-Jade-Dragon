@@ -61,6 +61,7 @@ namespace Jade_Dragon
             Session["GmailKhachSan"] = "";
             Session["AnhKs"] = "";
             Session["KhuVuc"] = "";
+            Session["makv"] = "";
             Session["ListKv"] = "";
             Session["batdau"] = "";
             Session["ketthuc"] = "";
@@ -103,6 +104,14 @@ namespace Jade_Dragon
             Session["NgayDat_a"] = "";
             Session["TongTien_a"] = "";
             Session["TienDatCoc"] = "";
+        }
+        protected void Sesson_menu()
+        {
+            Session["KhachSan"] = "";
+            Session["LoaiPhong"] = "";
+            Session["GiaTien"] = "";
+            Session["Menu_VIP"] = "";
+            Session["TrangThaiPhong"] = "";
         }
     }
 }

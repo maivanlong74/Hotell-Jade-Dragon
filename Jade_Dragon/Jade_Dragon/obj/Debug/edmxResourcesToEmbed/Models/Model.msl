@@ -83,6 +83,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Moc_Time">
+      <EntityTypeMapping TypeName="Jade_DragonModel.Moc_Time">
+        <MappingFragment StoreEntitySet="Moc_Time">
+          <ScalarProperty Name="stt" ColumnName="stt" />
+          <ScalarProperty Name="MaPhong" ColumnName="MaPhong" />
+          <ScalarProperty Name="NgayDen" ColumnName="NgayDen" />
+          <ScalarProperty Name="NgayDi" ColumnName="NgayDi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="phanhois">
       <EntityTypeMapping TypeName="Jade_DragonModel.phanhoi">
         <MappingFragment StoreEntitySet="phanhoi">
@@ -103,8 +113,6 @@
           <ScalarProperty Name="VIP" ColumnName="VIP" />
           <ScalarProperty Name="MaKhachSan" ColumnName="MaKhachSan" />
           <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
-          <ScalarProperty Name="NgayBatDau" ColumnName="NgayBatDau" />
-          <ScalarProperty Name="NgayKetThuc" ColumnName="NgayKetThuc" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -20,37 +20,55 @@ namespace Jade_Dragon.Controllers
         private const string giohang = "giohang";
 
         // GET: khachsan
-        public ActionResult khachsan(int? page, string searchTerm, string searchType, 
+        public ActionResult khachsan(int? page, string searchTerm, string searchType, long? khuvuc,
             long? ma, string loai, long? gia, string vip, string trangthai, DateTime? batdau = null, DateTime? ketthuc = null)
         {
+
+            Session["KhachSan"] = null;
+            Session["LoaiPhong"] = null;
+            Session["GiaTien"] = null;
+            Session["Menu_VIP"] = null;
+            Session["TrangThaiPhong"] = null;
+
             hienthiphong m = new hienthiphong();
             List<khachsan> list = new List<khachsan>();
             list = db.khachsans.ToList();
 
-            DateTime timenow = DateTime.Now;
-            List<phong> list2 = new List<phong>();
-            list2 = db.phongs.ToList();
-
-            if(batdau == null && ketthuc == null)
+            List<phong> listphong = db.phongs.Where(m => m.TrangThai == false).ToList();
+            foreach (var dem in listphong)
             {
-                foreach (var item in list2)
+                dem.TrangThai = true;
+                db.SaveChanges();
+            }
+
+            DateTime timenow = DateTime.Now;
+            List<Moc_Time> Time = new List<Moc_Time>();
+            Time = db.Moc_Time.ToList();
+
+            if (batdau == null && ketthuc == null)
+            {
+                if (Time != null)
                 {
-                    if (item.NgayBatDau != null && item.NgayKetThuc != null)
+                    foreach (var item in Time)
                     {
-                        if (item.NgayBatDau <= timenow && timenow <= item.NgayKetThuc)
+                        phong ph = db.phongs.FirstOrDefault(m => m.MaPhong == item.MaPhong);
+                        if (item.NgayDen <= timenow && timenow <= item.NgayDi)
                         {
-                            item.TrangThai = false;
-                        }
-                        else
-                        {
-                            item.TrangThai = true;
+                            ph.TrangThai = false;
                         }
                     }
                 }
-            }
-            else
-            {
-                if(batdau > ketthuc)
+                else
+                {
+                    List<phong> ph_ong = db.phongs.Where(m => m.TrangThai == false).ToList();
+                    foreach (var dem in ph_ong)
+                    {
+                        dem.TrangThai = true;
+                    }
+
+                }
+            } else{
+                if (batdau > ketthuc)
                 {
                     DateTime tam = (DateTime)batdau;
                     batdau = ketthuc;
@@ -58,54 +76,97 @@ namespace Jade_Dragon.Controllers
 
                 }
                 long sodem = demsodem((DateTime)batdau, (DateTime)ketthuc);
-                for(long i=0; i<= sodem; i++)
+                if(Time != null)
                 {
-                    DateTime day = batdau.Value.AddDays(i);
-                    foreach (var item in list2)
+                    for (long i = 0; i <= sodem; i++)
                     {
-                        if (item.NgayBatDau != null && item.NgayKetThuc != null)
+                        DateTime day = batdau.Value.AddDays(i);
+                        foreach (var item in Time)
                         {
-                            if (item.NgayBatDau <= day && day <= item.NgayKetThuc)
+                            if (item.NgayDen != null && item.NgayDi != null)
                             {
-                                item.TrangThai = false;
-                                i = sodem;
-                            }
-                            else
-                            {
-                                item.TrangThai = true;
+                                phong ph = db.phongs.FirstOrDefault(m => m.MaPhong == item.MaPhong);
+                                if (item.NgayDen <= day && day <= item.NgayDi)
+                                {
+                                    ph.TrangThai = false;
+                                    i = sodem;
+                                }
                             }
                         }
                     }
                 }
             }
             db.SaveChanges();
-            
+
+            List<phong> list2 = new List<phong>();
+            list2 = db.phongs.ToList();
 
             int pageSize = 6; // số lượng phần tử hiển thị trong mỗi trang
             int pageNumber = (page ?? 1); // trang hiện tại, mặc định là trang đầu tiên
             var Phong = db.phongs.Include(k => k.khachsan);
 
-            if (ma != null)
-            {
-                Phong = Phong.Where(a => a.MaKhachSan == ma);
-            }
-            if (loai != null)
-            {
-                Phong = Phong.Where(a => a.LoaiHinh == loai);
-            }
-            if (gia != null)
-            {
-                Phong = Phong.Where(a => a.Gia == gia);
-            }
-            if (vip != null)
+            if(khuvuc != null && loai != null && vip != null && batdau != null && ketthuc != null)
             {
                 bool isVip = vip.ToLower() == "true";
-                Phong = Phong.Where(a => a.VIP == isVip);
+                Phong = Phong.Where(a => a.khachsan.MaKhuVuc == khuvuc && a.LoaiHinh == loai
+                            && a.VIP == isVip);
+                if (batdau > ketthuc)
+                {
+                    DateTime tam = (DateTime)batdau;
+                    batdau = ketthuc;
+                    ketthuc = tam;
+
+                }
+                long sodem = demsodem((DateTime)batdau, (DateTime)ketthuc);
+                if (Time != null)
+                {
+                    for (long i = 0; i <= sodem; i++)
+                    {
+                        DateTime day = batdau.Value.AddDays(i);
+                        foreach (var item in Time)
+                        {
+                            if (item.NgayDen != null && item.NgayDi != null)
+                            {
+                                phong ph = db.phongs.FirstOrDefault(m => m.MaPhong == item.MaPhong);
+                                if (item.NgayDen <= day && day <= item.NgayDi)
+                                {
+                                    ph.TrangThai = false;
+                                    i = sodem;
+                                }
+                            }
+                        }
+                    }
+                }
             }
-            if (trangthai != null)
+            else
             {
-                bool isTrangThai = trangthai.ToLower() == "true";
-                Phong = Phong.Where(a => a.TrangThai == isTrangThai);
+                if (ma != null)
+                {
+                    Session["KhachSan"] = ma;
+                    Phong = Phong.Where(a => a.MaKhachSan == ma);
+                }
+                if (loai != null)
+                {
+                    Session["LoaiPhong"] = loai;
+                    Phong = Phong.Where(a => a.LoaiHinh == loai);
+                }
+                if (gia != null)
+                {
+                    Session["GiaTien"] = gia;
+                    Phong = Phong.Where(a => a.Gia == gia);
+                }
+                if (vip != null)
+                {
+                    Session["Menu_VIP"] = vip;
+                    bool isVip = vip.ToLower() == "true";
+                    Phong = Phong.Where(a => a.VIP == isVip);
+                }
+                if (trangthai != null)
+                {
+                    Session["TrangThaiPhong"] = trangthai;
+                    bool isTrangThai = trangthai.ToLower() == "true";
+                    Phong = Phong.Where(a => a.TrangThai == isTrangThai);
+                }
             }
 
             m.ph = Phong.OrderBy(x => x.TenPhong)
