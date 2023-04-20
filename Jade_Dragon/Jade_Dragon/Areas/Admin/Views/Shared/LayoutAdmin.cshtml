@@ -79,11 +79,11 @@
                     </li>
 
                     @*<li class="nav-link">
-                        <a href="@Url.Action("XacNhan", "XacNhan")">
-                            <i class='bx bx-select-multiple icon'></i>
-                            <span class="text nav-text">Xác Nhận</span>
-                        </a>
-                    </li>*@
+                            <a href="@Url.Action("XacNhan", "XacNhan")">
+                                <i class='bx bx-select-multiple icon'></i>
+                                <span class="text nav-text">Xác Nhận</span>
+                            </a>
+                        </li>*@
 
                 </ul>
             </div>
@@ -100,6 +100,12 @@
         </div>
     </nav>
     @RenderBody()
-    <script src="~/Areas/Admin/Public/js/js.js"></script>
+
+    @if (TempData["WebMsgBox"] != null && (bool)TempData["WebMsgBox"] == true)
+    {
+        <script type="text/javascript">
+        alert('@Html.Raw(TempData["Message"])');
+        </script>
+    }
 </body>
 </html>

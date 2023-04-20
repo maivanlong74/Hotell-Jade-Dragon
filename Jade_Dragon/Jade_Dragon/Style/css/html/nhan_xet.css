@@ -93,12 +93,13 @@
         display: flex;
     }
 
-    .tour .tour__container__item .item__content img {
-        width: 50px;
-        height: 50px;
-        border-radius: 50px;
-        z-index: 1;
-    }
+        .tour .tour__container__item .item__content img {
+            background-color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50px;
+            z-index: 1;
+        }
 
     .tour .tour__container__item .item__content .hienthicmt {
         background: rgba(0,0,0,0.5);

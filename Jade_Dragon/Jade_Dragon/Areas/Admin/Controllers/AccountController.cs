@@ -16,7 +16,6 @@ using System.Configuration;
 using System.Web.UI;
 
 
-
 namespace Jade_Dragon.Areas.Admin.Controllers
 {
     public class AccountController : Controller
@@ -65,8 +64,6 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                 Session["CMND"] = Data.FirstOrDefault().CMND;
                 Session["DiaChi"] = Data.FirstOrDefault().DiaChi;
                 Session["Gmail"] = Data.FirstOrDefault().Gmail;
-                Session["TheNganHang"] = Data.FirstOrDefault().TheNganHang;
-                Session["TenNganHang"] = Data.FirstOrDefault().TenNganHang;
                 Session["Avt"] = Data.FirstOrDefault().Avt;
                 Session["TenDn"] = Data.FirstOrDefault().TenDn;
                 Session["Mk"] = Data.FirstOrDefault().Mk;
@@ -83,6 +80,7 @@ namespace Jade_Dragon.Areas.Admin.Controllers
 
 
             }
+            WebMsgBox.Show("Đăng nhập không thành công", this);
             return Redirect("~/Admin/Account/Login");
         }
         public List<string> GetListGroupID(string userName)
@@ -159,16 +157,19 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                         }
                         else
                         {
-                            return Redirect("~/Admin/Account/Login");
+                            WebMsgBox.Show("Đã có lỗi gửi mã xác nhận, vui lòng thử lại", this);
+                            return Redirect("~/Admin/Account/SignUpp");
                         }
                     }
                     else
                     {
+                        WebMsgBox.Show("Bạn nhập mật khẩu không trùng khớp với mật khẩu trước đó", this);
                         return Redirect("~/Admin/Account/SignUpp");
                     }
                 }
                 else
                 {
+                    WebMsgBox.Show("Tên đăng nhập này đã tồn tại", this);
                     return Redirect("~/Admin/Account/SignUpp");
                 }
                 
@@ -221,6 +222,7 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                 }
                 else
                 {
+                    WebMsgBox.Show("Đã có lỗi, vui lòng thử lại", this);
                     return Redirect("QuenPassword");
                 }
             }
@@ -250,6 +252,7 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                 }
                 else
                 {
+                    WebMsgBox.Show("Mật khẩu không giống nhau", this);
                     return Redirect("NewPassword");
                 }
             }

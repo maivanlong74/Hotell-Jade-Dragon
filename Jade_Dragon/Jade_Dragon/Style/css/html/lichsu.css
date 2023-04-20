@@ -2,6 +2,7 @@
 .info {
     height: 450px;
     overflow: auto;
+    background: rgba(0,0,0,0.7);
 }
 
     .info::-webkit-scrollbar {
@@ -18,4 +19,15 @@
         border-radius: 25%;
     }
 
+    .info table {
+        width: 98%;
+        height: 100%;
+    }
 
+    .info .tieude-item {
+        background-color: black;
+    }
+
+    .info tr, td {
+        color: white;
+    }

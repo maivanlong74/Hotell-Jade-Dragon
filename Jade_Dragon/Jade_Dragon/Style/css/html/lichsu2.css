@@ -17,20 +17,21 @@
 }
 
 .search .button_a {
-    background: rgba(0,0,0,0.5);
-    color: white;
-    width: 100px;
-    height: 30px;
+    background: rgba(0,0,0,0.5) !important;
+    color: white !important;
+    width: 100px !important;
+    height: 30px !important;
 }
 
     .search .button_a:hover {
-        background: rgba(0,0,0,0.8);
-        color: yellow;
+        background: rgba(0,0,0,0.8) !important;
+        color: yellow !important;
     }
 
 .search .button_tk {
-    display: block;
-    margin-top: -30px;
+    padding: 0 !important;
+    display: block !important;
+    margin-top: -30px !important;
 }
 
 .home_body .search--map .search .row2 {

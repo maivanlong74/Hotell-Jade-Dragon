@@ -51,8 +51,6 @@
     <Property Name="CMND" Type="Int64" />
     <Property Name="DiaChi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Gmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="TheNganHang" Type="Int64" />
-    <Property Name="TenNganHang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Avt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="TenDn" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Mk" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />

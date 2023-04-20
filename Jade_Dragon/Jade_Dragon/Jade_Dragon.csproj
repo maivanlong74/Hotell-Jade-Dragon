@@ -767,6 +767,7 @@
     <Compile Include="common\MailHelper.cs" />
     <Compile Include="common\MyAuthorizeAttribute.cs" />
     <Compile Include="common\UserLogin.cs" />
+    <Compile Include="common\WebMsgBox.cs" />
     <Compile Include="Controllers\GioHangController.cs" />
     <Compile Include="Controllers\khachsanController.cs" />
     <Compile Include="Controllers\KhuVucController.cs" />

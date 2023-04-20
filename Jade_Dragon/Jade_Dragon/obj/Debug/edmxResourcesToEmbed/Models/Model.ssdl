@@ -46,8 +46,6 @@
     <Property Name="CMND" Type="bigint" />
     <Property Name="DiaChi" Type="nvarchar" MaxLength="50" />
     <Property Name="Gmail" Type="nvarchar" MaxLength="50" />
-    <Property Name="TheNganHang" Type="bigint" />
-    <Property Name="TenNganHang" Type="nvarchar" MaxLength="50" />
     <Property Name="Avt" Type="nvarchar" MaxLength="50" />
     <Property Name="TenDn" Type="nvarchar" MaxLength="50" />
     <Property Name="Mk" Type="nvarchar" MaxLength="50" />

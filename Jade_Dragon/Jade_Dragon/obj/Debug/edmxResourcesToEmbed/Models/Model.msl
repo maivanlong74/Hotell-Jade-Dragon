@@ -49,8 +49,6 @@
           <ScalarProperty Name="CMND" ColumnName="CMND" />
           <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
           <ScalarProperty Name="Gmail" ColumnName="Gmail" />
-          <ScalarProperty Name="TheNganHang" ColumnName="TheNganHang" />
-          <ScalarProperty Name="TenNganHang" ColumnName="TenNganHang" />
           <ScalarProperty Name="Avt" ColumnName="Avt" />
           <ScalarProperty Name="TenDn" ColumnName="TenDn" />
           <ScalarProperty Name="Mk" ColumnName="Mk" />

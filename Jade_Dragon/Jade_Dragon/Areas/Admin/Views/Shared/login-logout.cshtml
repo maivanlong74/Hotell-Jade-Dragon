@@ -12,5 +12,12 @@
     @RenderBody()
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="~/Style/js/app.js"></script>
+
+    @if (TempData["WebMsgBox"] != null && (bool)TempData["WebMsgBox"] == true)
+    {
+        <script type="text/javascript">
+        alert('@Html.Raw(TempData["Message"])');
+        </script>
+    }
 </body>
 </html>

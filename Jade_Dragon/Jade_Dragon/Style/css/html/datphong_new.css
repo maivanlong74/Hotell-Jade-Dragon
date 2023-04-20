@@ -86,17 +86,6 @@
 }
 
 /*---------------------------------*/
-    .search .row .search--search .search__container--btn a {
-        background: rgba(0,0,0,0.5);
-        padding: 12px;
-        color: white;
-        text-decoration: none;
-    }
-    .search .row .search--search .search__container--btn a:hover {
-        background: rgba(0,0,0,0.8);
-        color: yellow;
-    }
-
     .search .row .search--search .search__container--btn button {
         background: rgba(0,0,0,0.5);
         padding: 12px;

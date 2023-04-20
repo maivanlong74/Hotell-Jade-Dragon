@@ -28,8 +28,6 @@ namespace Jade_Dragon.Models
         public Nullable<long> CMND { get; set; }
         public string DiaChi { get; set; }
         public string Gmail { get; set; }
-        public Nullable<long> TheNganHang { get; set; }
-        public string TenNganHang { get; set; }
         public string Avt { get; set; }
         public string TenDn { get; set; }
         public string Mk { get; set; }

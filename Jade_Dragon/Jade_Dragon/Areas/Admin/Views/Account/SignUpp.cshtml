@@ -35,32 +35,22 @@
                         @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-input", placeholder = "Địa chỉ" } })
                         @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
                     </div>
-                    <div class="input">
-                        @Html.EditorFor(model => model.CMND, new { htmlAttributes = new { @class = "form-input", placeholder = "CMND/Căn Cước công dân" } })
-                        @Html.ValidationMessageFor(model => model.CMND, "", new { @class = "text-danger" })
-                    </div>
                 </div>
 
                 <div style="margin-left: 40px;">
                     <div class="input">
-                        @Html.EditorFor(model => model.TheNganHang, new { htmlAttributes = new { @class = "form-input", placeholder = "Thẻ ngân hàng" } })
-                        @Html.ValidationMessageFor(model => model.TheNganHang, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="input">
-                        @Html.EditorFor(model => model.TenNganHang, new { htmlAttributes = new { @class = "form-input", placeholder = "Tên ngân hàng" } })
-                        @Html.ValidationMessageFor(model => model.TenNganHang, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.CMND, new { htmlAttributes = new { @class = "form-input", placeholder = "CMND/Căn Cước công dân" } })
+                        @Html.ValidationMessageFor(model => model.CMND, "", new { @class = "text-danger" })
                     </div>
                     <div class="input">
                         @Html.EditorFor(model => model.TenDn, new { htmlAttributes = new { @class = "form-input", placeholder = "Tên đăng nhập" } })
                         @Html.ValidationMessageFor(model => model.TenDn, "", new { @class = "text-danger" })
                     </div>
                     <div class="input">
-                        <input id="Mk" name="Mk" required placeholder = "Mật khẩu" type="password"/>
-                        @*@Html.PasswordFor(model => model.Mk, new { placeholder = "Mật khẩu" })*@
+                        <input id="Mk" name="Mk" required placeholder="Mật khẩu" type="password" />
                         @Html.ValidationMessageFor(model => model.Mk, "", new { @class = "text-danger" })
                     </div>
                     <div class="input">
-                        @*@Html.PasswordFor(model => model.Mk, new { placeholder = "Nhập lại mật khẩu" })*@
                         <input type="password" name="NhapLai" value="" required placeholder="Nhập lại mật khẩu" />
                         @Html.ValidationMessageFor(model => model.Mk, "", new { @class = "text-danger" })
                     </div>
@@ -69,6 +59,9 @@
                 <i style="font-size: 15px; padding-bottom: 5px;">Bạn đã có tài khoản, hãy 
                     <a href="@Url.Action("Login", "Account", new { area = "Admin"})" style="text-decoration: none;">Đăng nhập</a>
                 </i>
+                <a href="~/trangchu/trangchu" style="text-decoration: none; color: yellow;">
+                    Quay về trang chủ
+                </a>
                 <button type="submit">Register</button>
             }
 

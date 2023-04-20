@@ -51,8 +51,6 @@
           <Property Name="CMND" Type="bigint" />
           <Property Name="DiaChi" Type="nvarchar" MaxLength="50" />
           <Property Name="Gmail" Type="nvarchar" MaxLength="50" />
-          <Property Name="TheNganHang" Type="bigint" />
-          <Property Name="TenNganHang" Type="nvarchar" MaxLength="50" />
           <Property Name="Avt" Type="nvarchar" MaxLength="50" />
           <Property Name="TenDn" Type="nvarchar" MaxLength="50" />
           <Property Name="Mk" Type="nvarchar" MaxLength="50" />
@@ -388,8 +386,6 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
           <Property Name="CMND" Type="Int64" />
           <Property Name="DiaChi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Gmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TheNganHang" Type="Int64" />
-          <Property Name="TenNganHang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Avt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TenDn" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Mk" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -728,8 +724,6 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
                 <ScalarProperty Name="CMND" ColumnName="CMND" />
                 <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
                 <ScalarProperty Name="Gmail" ColumnName="Gmail" />
-                <ScalarProperty Name="TheNganHang" ColumnName="TheNganHang" />
-                <ScalarProperty Name="TenNganHang" ColumnName="TenNganHang" />
                 <ScalarProperty Name="Avt" ColumnName="Avt" />
                 <ScalarProperty Name="TenDn" ColumnName="TenDn" />
                 <ScalarProperty Name="Mk" ColumnName="Mk" />

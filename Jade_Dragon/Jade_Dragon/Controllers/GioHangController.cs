@@ -106,6 +106,7 @@ namespace Jade_Dragon.Controllers
                 var list = (List<Cart>)cart;
                 if (list.Exists(x => x.htphong.MaKhachSan != Phong.MaKhachSan))
                 {
+                    WebMsgBox.Show("Bạn đang đặt phòng ở khách sạn " + Phong.khachsan.TenKhachSan, this);
                     return RedirectToAction("khachsan", "khachsan", new {batdau = batdau, ketthuc = ketthuc});
                 }
                 else
@@ -113,7 +114,7 @@ namespace Jade_Dragon.Controllers
 
                     if (list.Exists(x => x.htphong.MaPhong == maph))
                     {
-
+                        WebMsgBox.Show("Bạn đăt trùng phòng, vui lòng đặt phòng khác", this);
                         return RedirectToAction("khachsan", "khachsan", new { batdau = batdau, ketthuc = ketthuc });
                     }
                     else
@@ -140,7 +141,14 @@ namespace Jade_Dragon.Controllers
                 Session[giohang] = list;
 
             }
-            return RedirectToAction("Next", "GioHang", new { maksphong = Phong.MaKhachSan, ngayden = ngayden, ngaydi = ngaydi });
+            if(batdau == null && ketthuc == null)
+            {
+                return RedirectToAction("Next", "GioHang", new { maksphong = Phong.MaKhachSan, ngayden = ngayden, ngaydi = ngaydi });
+            }
+            else
+            {
+                return RedirectToAction("Next", "GioHang", new { maksphong = Phong.MaKhachSan, ngayden = batdau, ngaydi = ketthuc  });
+            }
         }
 
         public ActionResult DeleteAll()
@@ -228,6 +236,8 @@ namespace Jade_Dragon.Controllers
             }
             else
             {
+                WebMsgBox.Show("Ngày đến bạn đã chọn nhầm là ngày hôm qua rồi, Bây giờ là ngày "
+                                + DateTime.Now, this);
                 ngayden = DateTime.Now;
                 ngaydi = DateTime.Now.AddDays(1);
                 Session["ngayden"] = ngayden;

@@ -30,6 +30,18 @@ namespace Jade_Dragon.Controllers
             ViewBag.PageNumber = pageNumber;
             ViewBag.PageSize = pageSize;
             var list = NhanXet.ToList();
+            var listkh = db.khachhangs.Select(kh => kh.MaKh).ToList();
+
+            foreach (var item in list)
+            {
+                if (item.MaKh != null && !listkh.Contains(item.MaKh.Value))
+                {
+                    item.MaKh = null;
+                }
+            }
+            db.SaveChanges();
+
+
 
             return View("nhanxet", list);
         }

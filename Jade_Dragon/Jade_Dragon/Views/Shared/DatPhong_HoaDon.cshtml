@@ -33,9 +33,10 @@
                         <div class="l-6 hide-on-tablet_mobile">
                             <ul class="header__nav__container--list">
                                 <li><a href="@Url.Action("trangchu", "trangchu")">Trang chủ</a></li>
-                                <li><a href="@Url.Action("khachsan", "khachsan", new {ma = Session["MaKhachSanPhong"],
+                                <li>
+                                    <a href="@Url.Action("khachsan", "khachsan", new {ma = Session["MaKhachSanPhong"],
                                           batdau = Session["batdau"], ketthuc = Session["ketthuc"]})">
-                                    Khách sạn
+                                        Khách sạn
                                     </a>
                                 </li>
                                 <li><a href="@Url.Action("nhanxet", "nhanxet")">Nhận xét</a></li>
@@ -113,9 +114,10 @@
             <div class="header__menu__body--content">
                 <ul>
                     <li><a href="@Url.Action("trangchu", "trangchu")">Trang chủ</a></li>
-                    <li><a href="@Url.Action("khachsan", "khachsan", new {ma = Session["MaKhachSanPhong"],
+                    <li>
+                        <a href="@Url.Action("khachsan", "khachsan", new {ma = Session["MaKhachSanPhong"],
                                 batdau = Session["batdau"], ketthuc = Session["ketthuc"]})">
-                        Khách sạn
+                            Khách sạn
                         </a>
                     </li>
                     <li><a href="@Url.Action("nhanxet", "nhanxet")">Nhận xét</a></li>
@@ -152,5 +154,12 @@
             danhmucsp.scrollIntoView({ behavior: 'smooth' });
         });
     </script>
+
+    @if (TempData["WebMsgBox"] != null && (bool)TempData["WebMsgBox"] == true)
+    {
+        <script type="text/javascript">
+        alert('@Html.Raw(TempData["Message"])');
+        </script>
+    }
 </body>
 </html>

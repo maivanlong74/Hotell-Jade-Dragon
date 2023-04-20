@@ -9,6 +9,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using Jade_Dragon.common;
 using Jade_Dragon.Models;
 
 namespace Jade_Dragon.Areas.Admin.Controllers
@@ -52,7 +53,7 @@ namespace Jade_Dragon.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaKh,HoTen,SoDienThoai,CMND,DiaChi,Gmail,TheNganHang,TenNganHang,Avt,TenDn,Mk,IDGroup,Code,DaXacMinh")] khachhang khachhang, HttpPostedFileBase uploadhinh)
+        public ActionResult Create([Bind(Include = "MaKh,HoTen,SoDienThoai,CMND,DiaChi,Gmail,Avt,TenDn,Mk,IDGroup,Code,DaXacMinh")] khachhang khachhang, HttpPostedFileBase uploadhinh)
         {
             if (ModelState.IsValid)
             {
@@ -90,8 +91,8 @@ namespace Jade_Dragon.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaKh,HoTen,SoDienThoai,CMND,DiaChi,Gmail,TheNganHang," +
-            "TenNganHang,Avt,TenDn,Mk,IDGroup,Code,DaXacMinh")] khachhang khachhang, HttpPostedFileBase uploadhinh)
+        public ActionResult Edit([Bind(Include = "MaKh,HoTen,SoDienThoai,CMND,DiaChi,Gmail," +
+            "Avt,TenDn,Mk,IDGroup,Code,DaXacMinh")] khachhang khachhang, HttpPostedFileBase uploadhinh)
         {
             if (ModelState.IsValid)
             {
@@ -104,8 +105,6 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                 unv.CMND = khachhang.CMND;
                 unv.DiaChi = khachhang.DiaChi;
                 unv.Gmail = khachhang.Gmail;
-                unv.TheNganHang = khachhang.TheNganHang;
-                unv.TenNganHang = khachhang.TenNganHang;
                 unv.TenDn = khachhang.TenDn;
                 unv.IDGroup = khachhang.IDGroup;
 

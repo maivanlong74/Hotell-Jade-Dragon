@@ -51,8 +51,6 @@ namespace Jade_Dragon.Controllers
                 unv.CMND = khachhang.CMND;
                 unv.DiaChi = khachhang.DiaChi;
                 unv.Gmail = khachhang.Gmail;
-                unv.TheNganHang = khachhang.TheNganHang;
-                unv.TenNganHang = khachhang.TenNganHang;
                 unv.TenDn = khachhang.TenDn;
                 unv.IDGroup = khachhang.IDGroup;
 

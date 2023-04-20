@@ -242,3 +242,10 @@
 <script src="~/Style/css/ThanhCuon/Cuon.js"></script>
 <script src="~/Style/js/DongHo.js"></script>
 <script src="~/Style/js/main.js"></script>
+
+@if (TempData["WebMsgBox"] != null && (bool)TempData["WebMsgBox"] == true)
+{
+    <script type="text/javascript">
+        alert('@Html.Raw(TempData["Message"])');
+    </script>
+}
