@@ -5,12 +5,18 @@
     Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
 }
 
+<script src="~/Style/js/BanDo.js"></script>
+<link href="~/Style/css/layout/BanDo.css" rel="stylesheet" />
+
 <style>
-    .home .body .Content form .one {
-        padding-bottom: 55px;
-        padding-left: 150px;
+    .home .body .Content form #result i {
+        width: 410px;
+        word-wrap: break-word;
+        margin-left: -15px;
+        color: white;
     }
 </style>
+
 <div class="home">
     <div class="body">
 
@@ -22,72 +28,74 @@
             {
                 @Html.AntiForgeryToken()
 
-            <div class="Info">
-                <div class="one">
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                </div>
-                <div class="tenkh one">
-                    <label for="">Avt: </label>
-                    <input type="file" id="uploadhinh" name="uploadhinh" accept="image/*"
-                           style=" color: aliceblue;" />
-                </div>
-                <div style="display:flex">
+                <div class="Info">
                     <div class="one">
-                        <div class="label">
-                            <label for="">Tên Khách sạn: </label>
-                        </div>
-                        @Html.EditorFor(model => model.TenKhachSan, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.TenKhachSan, "", new { @class = "text-danger" })
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     </div>
-                    <div class="one">
-                        <div class="label">
-                            <label for="">Số điện thoại: </label>
+                    <div class="tenkh one">
+                        <label for="">Avt: </label>
+                        <input type="file" id="uploadhinh" name="uploadhinh" accept="image/*"
+                               style=" color: aliceblue;" />
+                    </div>
+                    <div style="display:flex">
+                        <div class="one">
+                            <div class="label">
+                                <label for="">Tên Khách sạn: </label>
+                            </div>
+                            @Html.EditorFor(model => model.TenKhachSan, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.TenKhachSan, "", new { @class = "text-danger" })
                         </div>
-                        @Html.EditorFor(model => model.SoDienThoai, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.SoDienThoai, "", new { @class = "text-danger" })
+                        <div class="one">
+                            <div class="label">
+                                <label for="">Số điện thoại: </label>
+                            </div>
+                            @Html.EditorFor(model => model.SoDienThoai, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.SoDienThoai, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div style="display:flex;">
+                        <div class="one">
+                            <div class="label">
+                                <label for="">Gmail: </label>
+                            </div>
+                            @Html.EditorFor(model => model.Gmail, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Gmail, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="one">
+                            <div class="label">
+                                <label for="">Địa chỉ: </label>
+                            </div>
+                            @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div style="display:flex;">
+                        <div class="one">
+                            <div class="label">
+                                <label for="">Giá: </label>
+                            </div>
+                            @Html.EditorFor(model => model.Gia, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Gia, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="one">
+                            <div class="label">
+                                <label for="">Khu vực: </label>
+                            </div>
+                            @Html.DropDownListFor(model => model.MaKhuVuc, null, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.MaKhuVuc, "", new { @class = "text-danger" })
+                        </div> <br />
+                    </div>
+                    <div class="one" id="result"></div>
+                    <div class="one">
+                        <input type="submit" class="save two" value="Create">
                     </div>
                 </div>
-                <div style="display:flex;">
-                    <div class="one">
-                        <div class="label">
-                            <label for="">Gmail: </label>
-                        </div>
-                        @Html.EditorFor(model => model.Gmail, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Gmail, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="one">
-                        <div class="label">
-                            <label for="">Địa chỉ: </label>
-                        </div>
-                        @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div style="display:flex;">
-                    <div class="one">
-                        <div class="label">
-                            <label for="">Giá: </label>
-                        </div>
-                        @Html.EditorFor(model => model.Gia, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Gia, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="one">
-                        <div class="label">
-                            <label for="">Khu vực: </label>
-                        </div>
-                        @Html.DropDownListFor(model => model.MaKhuVuc, null, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.MaKhuVuc, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="one">
-                    <input type="submit" class="save two" value="Create">
-                </div>
-            </div>
             }
             <div class="button">
                 <a href="@Url.Action("QuanLyKs", "QLKhachSan")" class="out two">Quay về trang khách sạn</a>
             </div>
         </div>
+        <div id="map" class="map"></div>
     </div>
 </div>
 <script src="~/Areas/Admin/Public/js/ChucNang.js"></script>

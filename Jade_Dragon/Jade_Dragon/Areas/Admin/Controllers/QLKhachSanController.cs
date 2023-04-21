@@ -15,6 +15,11 @@ namespace Jade_Dragon.Areas.Admin.Controllers
     {
         private Connect db = new Connect();
 
+        public ActionResult test()
+        {
+            return View();
+        }
+
         // GET: Admin/khachsans
         public ActionResult QuanLyKs()
         {

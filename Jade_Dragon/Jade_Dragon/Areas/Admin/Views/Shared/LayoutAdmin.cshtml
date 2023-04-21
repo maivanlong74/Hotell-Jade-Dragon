@@ -3,6 +3,13 @@
 <head>
     <title>@Page.Title</title>
     <link rel="shortcut icon" href="~/Style/img/avt/logo.jpg">
+    <link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css">
+    <script src="https://openlayers.org/en/v4.6.5/build/ol.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
+
+
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
     <link href="~/Areas/Admin/Public/css/admin.css" rel="stylesheet" />
     <script src="~/Areas/Admin/Public/js/js_jquery.js"></script>
@@ -10,7 +17,7 @@
     <link href="~/Areas/Admin/Public/css/css_chuc_nang.css" rel="stylesheet" />
     @RenderSection("head", required: false)
 </head>
-<body>
+<body onload="initMap()">
     <nav class="sidebar">
         <header>
             <div class="image-text">

@@ -1,0 +1,41 @@
+﻿.home .body {
+    display: flex;
+}
+
+    .home .body .Content .button {
+        margin-left: 175px;
+    }
+
+    .home .body .Content .out {
+        margin-left: 0px;
+    }
+
+    .home .body .Content {
+        margin-left: 0px;
+        margin-top: 0px;
+        width: 40%;
+        height: 100%;
+    }
+
+        .home .body .Content form {
+            margin-top: 60px;
+            margin-left: 0px;
+            display: flex;
+        }
+
+            .home .body .Content form #result i {
+                width: 410px;
+                word-wrap: break-word;
+                margin-left: -15px;
+                color: white;
+            }
+
+    /*-------------------------------*/
+    .home .body .map {
+        border: 2px solid white;
+        width: 60%;
+    }
+
+        .home .body .map .ol-viewport {
+            border: 3px solid yellow;
+        }
