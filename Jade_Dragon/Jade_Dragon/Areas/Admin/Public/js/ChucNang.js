@@ -1,5 +1,5 @@
 ﻿const dropArea = document.querySelector('.khuvuc');
-const Text = dropArea.querySelector('header');
+/*const Text = dropArea.querySelector('header');*/
 const Button = dropArea.querySelector('.button-file');
 const Input = dropArea.querySelector('.input-file');
 

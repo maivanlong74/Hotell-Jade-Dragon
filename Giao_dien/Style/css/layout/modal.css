@@ -77,14 +77,6 @@
     box-sizing: border-box
 }
 
-
-
-
-
-
-
-
-
     .list-group-horizontal-lg>.list-group-item:first-child:not(:last-child) {
         border-bottom-left-radius: var(--bs-list-group-border-radius);
         border-top-right-radius: 0
@@ -316,7 +308,7 @@
     height: 1em;
     padding: .25em .25em;
     color: #000;
-    background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat;
+    background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e");
     border: 0;
     border-radius: .375rem;
     opacity: .5
@@ -562,12 +554,51 @@
     background: #c7ecee;
 }
 
-.modal-body textarea{
-    width: 466px;
-    height: 200px;
-    padding: 20px;
-    color: white;
-    background: rgba(0,0,0,0.8);
+.modal-body input{
+    width: 480px;
+    height: 30px;
+    color: black;
+    background: white;
+}
+
+.modal-body input::placeholder{
+    color: black;
+}
+
+.modal-content .hienthi_tinnhan{
+    border: 1px solid;
+    height: 40vh;
+    overflow: auto;
+}
+
+.modal-content .hienthi_tinnhan::-webkit-scrollbar{
+    width: 10px;
+}
+
+.modal-content .hienthi_tinnhan::-webkit-scrollbar-thumb{
+    background-color: #000;
+}
+
+.modal-content .hienthi_tinnhan::-webkit-scrollbar-track{
+    border: 3px solid black;
+}
+
+.modal-content .hienthi_tinnhan ul{
+    height: 100%;
+}
+
+.modal-content .hienthi_tinnhan ul li{
+    margin-bottom: 10px;
+    background: white;
+    color: black;
+    padding-left: 20px;
+    overflow-wrap: break-word;
+}
+
+.modal-content .hienthi_tinnhan ul li i{
+    padding-right: 10px;
+    color: black;
+    font-weight: 700;
 }
 
 .modal-footer {
@@ -6910,5 +6941,7 @@
         display: none!important
     }
 }
+
+
 
 /*# sourceMappingURL=bootstrap.min.css.map */

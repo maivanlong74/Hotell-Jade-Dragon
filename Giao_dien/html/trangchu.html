@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="/Style/css/html/trangchu2.css">
     <link rel="stylesheet" href="/Style/css/layout/menu_Login.css">
     <link rel="stylesheet" href="/Style/css/html/user.css">
+    <link rel="stylesheet" href="/Style/css/layout/Chat.css">
 </head>
 <body>
     <header class="header">
@@ -105,64 +106,40 @@
         <i class="fas fa-arrow-up"></i>
         </div>
     </header>
+
     <div class="home">
       <div class="home__background"></div>
       <div class="grid wide">
-        <div class="row">
-          <div class="home__container__slider">
-            <div class="User--avt">
-              <div class="User--avt-a">
-                <form action="" method="post" class="Content--user">
-                  <input type="text" placeholder="Họ Và Tên" value="Mai Văn Long" class="name"> <br>
-                  <div class="List-Content" style="margin-top: 50px;">
-                    <label for="">Sđt: </label>
-                    <input type="text" placeholder="Nhập số điện thoại" value="01673213087">
+          <div class="row">
+              <div class="home__container__slider">
+                  <!-- <div>
+                      <input type="hidden" id="hName" value="@Session["HoTen"]" />
+                      <input type="text" id="txtMessage" placeholder="Nhập chat" />
+                      <button class="btn btn-success" id="btnSend">Send</button>
                   </div>
-                  <div class="List-Content">
-                    <label>Gmail: </label>
-                    <input type="email" placeholder="Nhập gmail" value="maivanlong@gmail.com">
+                  <div>
+                      <ul id="contentMsg">
+                      </ul>
+                  </div> -->
+                  <div class="item-chat">
+                      <div class="body-chat">
+                          <div class="body-item-chat">
+                            <ul id="contentMsg">
+                              <li><i>Long:</i> Yêu bé nhiều</li>
+                              <li><i>Ngọc:</i> Bé cũng yêu anh nhiềuuuu</li>
+                            </ul>
+                          </div>
+                          <div class="body-send-chat">
+                            <input type="hidden" id="hName" value="@Session["HoTen"]" />
+                            <input type="text" id="txtMessage" placeholder="Nhập chat" class="txtchat"/>
+                            <button type="submit" id="btnSend" class="txtchat">Gửi</button>
+                          </div>
+                      </div>
                   </div>
-                  <div class="List-Content">
-                    <label for="">Địa chỉ: </label>
-                    <input type="text" placeholder="Nhập địa chỉ" value="79 Duy Tân"> 
-                  </div>
-                  <div class="List-Content the" style="margin-top: -130px;">
-                    <label for="">Thẻ CMND: </label>
-                  <input type="text" placeholder="Nhập CMND" value="25378215378">
-                  </div>
-                  <div class="List-Content the">
-                    <label for="">Thẻ ngân hàng: </label>
-                  <input type="text" placeholder="Nhập thẻ ngân hàng" value="25378215378">
-
-                  </div>
-                  <div class="List-Content the">
-                    <label for="">Tên ngân hàng</label>
-                  <input type="text" placeholder="Nhập tên ngân hàng" value="VietComBank"> 
-                  </div>
-                  <div class="Account">
-                    <div class="List-Content">
-                      <label for="">Tên đăng nhập: </label>
-                      <input type="text" placeholder="Nhập tên đăng nhập" value="Long"> 
-                    </div>
-                  <div class="matkhau">
-                    <i>Long123@</i>
-                    <a href=""><img src="/Style/img/icon/icon-edit.jpg" alt=""></a>
-                  </div>
-                  </div>
-                  <button>SAVE</button>
-                </form>
               </div>
-            </div>
-            <div class="Anh_avt">
-              <img src="/Style/img/chup_anh/4.jpg" alt="">
-              <div class="tai-img">
-                <input type="file">
-              </div>
-            </div>
           </div>
-        </div>
       </div>
-    </div>
+  </div>
         
     <nav class="nav"></nav>
     <script src="/layout/nav.js"></script>

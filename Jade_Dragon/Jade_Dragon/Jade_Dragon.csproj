@@ -73,6 +73,12 @@
     <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.3\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.4.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.4.3\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.4.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.4.3\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNetCore.Antiforgery, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.Antiforgery.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Antiforgery.dll</HintPath>
     </Reference>
@@ -328,6 +334,9 @@
     </Reference>
     <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.2.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
@@ -728,6 +737,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.min.js" />
+    <Content Include="Scripts\jquery.signalR-2.4.3.js" />
+    <Content Include="Scripts\jquery.signalR-2.4.3.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
@@ -741,8 +752,8 @@
     <Content Include="Style\css\html\trangchu.css" />
     <Content Include="Style\css\html\User.css" />
     <Content Include="Style\css\layout\BanDo.css" />
+    <Content Include="Style\css\layout\htchat.css" />
     <Content Include="Style\css\layout\menu__login.css" />
-    <Content Include="Style\css\layout\modal.css" />
     <Content Include="Style\css\layout\onee.css" />
     <Content Include="Style\css\layout\phan_trang.css" />
     <Content Include="Style\css\layout\Search.css" />
@@ -783,11 +794,10 @@
     <Content Include="Style\img\nen.jpg" />
     <Content Include="Style\img\travel.jpg" />
     <Content Include="Style\js\app.js" />
-    <Content Include="Style\js\BanDo.js" />
+    <Content Include="Style\js\Map_BanDo.js" />
     <Content Include="Style\js\DongHo.js" />
     <Content Include="Style\js\main.js" />
     <Content Include="Style\js\main_2.js" />
-    <Content Include="Style\js\nav.js" />
     <Content Include="Style\js\SignUp-min.js" />
     <Content Include="Style\js\SignUp.js" />
     <Content Include="Web.config" />
@@ -814,11 +824,13 @@
     <Compile Include="Controllers\KhuVucController.cs" />
     <Compile Include="Controllers\nhanxetController.cs" />
     <Compile Include="Controllers\PayNganHangController.cs" />
+    <Compile Include="Controllers\TinNhanController.cs" />
     <Compile Include="Controllers\trangchuController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Hubs\DemoChat.cs" />
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\chitiethoadon.cs">
       <DependentUpon>Model.tt</DependentUpon>
@@ -885,6 +897,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -921,8 +934,6 @@
     <Content Include="Views\khachhangs\Edit.cshtml" />
     <Content Include="Views\khachhangs\Index.cshtml" />
     <Content Include="Views\User\TrangCaNhan.cshtml" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\User\QuenMatKhauu.cshtml" />
     <Content Include="Views\User\QuenMatKhau.cshtml" />
     <Content Include="Views\Shared\DatPhong_HoaDon.cshtml" />
@@ -931,6 +942,7 @@
     <Content Include="Views\GioHang\lichsu_new.cshtml" />
     <Content Include="Views\PayNganHang\HoaDon.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\TinNhan\Chat.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,0 +1,76 @@
+
+.item-chat{
+    height: 78vh;
+    width: 206vh;
+    background: rgba(0,0,0,0.4);
+}
+
+.body-chat{
+    background-color: wheat;
+    width: 90vh;
+    height: 77vh;
+    margin-left: 29%;
+    border: 5px solid black;
+}
+
+.body-item-chat{
+    height: 68vh;
+}
+
+.body-item-chat ul{
+    list-style: none;
+    background: white;
+    width: 81vh;
+    height: 68vh;
+    margin-left: 4%;
+    border: 1px solid black;
+}
+
+.body-item-chat ul li{
+    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-left: 30px;
+    color: black;
+}
+
+.body-item-chat ul li i{
+    font-weight: 700;
+    margin-right: 10px;
+}
+
+.body-send-chat{
+    display: flex;
+    background: black;
+    height: 50px;
+}
+
+.body-send-chat input, button{
+    height: 35px;
+}
+
+.body-send-chat input.txtchat{
+    margin-top: 10px;
+    width: 72vh;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    padding-left: 15px;
+    color: black;
+    border: 1px solid wheat;
+}
+
+.body-send-chat input.txtchat::placeholder{
+    color: black;
+}
+
+.body-send-chat button.txtchat{ 
+    margin-left: 0px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border: 1px solid wheat ;
+}
+
+.body-send-chat button.txtchat:hover{
+    background: #ffeaa7; 
+    color: black;
+    font-weight: 700;
+}

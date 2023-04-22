@@ -22,7 +22,7 @@
     <link href="~/Style/css/html/trangchu.css" rel="stylesheet" />
     <link href="~/Style/css/layout/onee.css" rel="stylesheet" />
     <link href="~/Style/css/layout/two.css" rel="stylesheet" />
-    <link href="~/Style/css/layout/modal.css" rel="stylesheet" />
+    <link href="~/Style/css/layout/modall.css" rel="stylesheet" />
     <link href="~/Style/css/layout/menu__login.css" rel="stylesheet" />
     @RenderSection("head", required: false)
 </head>
@@ -50,10 +50,7 @@
                                     </a>
                                 </li>
                                 <li><a href="@Url.Action("nhanxet", "nhanxet")">Nhận xét</a></li>
-                                <li>
-                                    <a href=""
-                                       class="active" data-bs-toggle="modal" data-bs-target="#myModal">Liên hệ</a>
-                                </li>
+                                <li><a href="@Url.Action("chat", "TinNhan", new {makh = Session["MaKh"]})">Nhắn tin</a></li>
                             </ul>
                         </div>
 
@@ -131,10 +128,8 @@
                         </a>
                     </li>
                     <li><a href="@Url.Action("nhanxet", "nhanxet")">Nhận xét</a></li>
-                    <li>
-                        <a href=""
-                           class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">Liên hệ</a>
-                    </li>
+                    <li><a href="@Url.Action("chat", "TinNhan", new {makh = Session["MaKh"]})">Nhắn tin</a></li>
+
                 </ul>
                 <i class="fas fa-times" id="menu_close"></i>
             </div>
@@ -155,8 +150,7 @@
             </div>
         </div>
     </div>
-    <script src="~/Style/js/nav.js"></script>
-
+    <script src="~/Style/js/GiaoDienChat.js"></script>
     <script>
         window.addEventListener('load', function () {
             var danhmucsp = document.getElementById('danhmucsp');
@@ -170,5 +164,37 @@
         alert('@Html.Raw(TempData["Message"])');
         </script>
     }
+
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.4.3.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+
+    <script>
+        $(function () {
+            var chat = $.connection.chat;
+            console.log(chat);
+            loadClient(chat);
+            $.connection.hub.start().done(function () {
+
+                $('#btnSend').click(function () {
+                    var msg = $('#txtMessage').val();
+                    var name = $('#hName').val();
+                    chat.server.message(name, msg);
+                    $('#txtMessage').val('').focus();
+                });
+            });
+
+        });
+
+        function loadClient(chat) {
+
+            chat.client.message = function (name, msg) {
+                $('#contentMsg').append("<li><strong>" + name + "</strong>: " + msg + "</li>");
+            }
+            chat.client.connect = function (name) {
+                $('#hName').val(name);
+            }
+        }
+    </script>
 </body>
 </html>

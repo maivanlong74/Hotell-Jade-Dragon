@@ -95,13 +95,14 @@ function initMap() {
     map.on('singleclick', function (evt) {
       var clickedCoordinate = evt.coordinate;
       var lonlat = ol.proj.toLonLat(clickedCoordinate);
+
       // Di chuyển marker tới vị trí click
       marker.getGeometry().setCoordinates(clickedCoordinate);
       handlePosition(lonlat, evt, clickedCoordinate);
   });
   
   
-  function handlePosition(lonlat, evt, clickedCoordinate) {
+  function handlePosition(lonlat, evt) {
     // Tìm kiếm địa điểm gần vị trí chọn nhất và hiển thị thông tin lên bản đồ
     var url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lonlat[1]}&lon=${lonlat[0]}`;
     fetch(url)
@@ -119,6 +120,7 @@ function initMap() {
         .catch(error => {
         console.error("Lỗi khi tìm nạp dữ liệu:", error);
         });
+
   }
 
     // Thêm control zoom slider

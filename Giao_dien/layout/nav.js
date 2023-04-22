@@ -13,7 +13,18 @@ nav.innerHTML= `
 
         <!-- Modal body -->
         <div class="modal-body">
-          <textarea name="" id="" cols="30" rows="10" placeholder="Message"></textarea>
+          <div class="hienthi_tinnhan">
+          <ul id="contentMsg">
+              <li><i>Name:</i> hahaa</li>
+              <li><i>Name:</i> heheh</li>
+              <li><i>Name:</i> hihi</li>
+              <li><i>Name:</i> shdj</li>
+              <li><i>Name:</i> hahaa</li>
+              <li><i>Name:</i> heheh</li>
+              <li><i>Name:</i> hihi</li>
+      </ul>
+          </div>
+          <input type="text" name="" id="" placeholder="Nhập tin nhắn">
         </div>
 
         <!-- Modal footer -->

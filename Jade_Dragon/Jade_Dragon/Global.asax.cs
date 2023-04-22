@@ -49,6 +49,7 @@ namespace Jade_Dragon
             Session["Avt"] = "";
             Session["TenDn"] = "";
             Session["Mk"] = "";
+            Session["IDGroup"] = "";
         }
 
         protected void Session_KhachSan()

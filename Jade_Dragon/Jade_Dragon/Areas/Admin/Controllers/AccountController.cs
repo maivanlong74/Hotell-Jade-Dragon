@@ -67,6 +67,7 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                 Session["Avt"] = Data.FirstOrDefault().Avt;
                 Session["TenDn"] = Data.FirstOrDefault().TenDn;
                 Session["Mk"] = Data.FirstOrDefault().Mk;
+                Session["IDGroup"] = Data.FirstOrDefault().IDGroup;
 
                 if (Data.FirstOrDefault().IDGroup == 1)
                 {

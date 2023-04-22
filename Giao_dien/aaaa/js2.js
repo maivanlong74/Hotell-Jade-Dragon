@@ -81,15 +81,15 @@ var searchControl = new L.Control.Search({
   });
   
   // Xử lý sự kiện
-//   def search():
-//   # Lấy từ khóa tìm kiếm
-//   keyword = search_box.get()
+  def search():
+  # Lấy từ khóa tìm kiếm
+  keyword = search_box.get()
 
-//   # Tìm kiếm trong danh sách sản phẩm
-//   results = []
-//   for product in products:
-//       if keyword.lower() in product['name'].lower():
-//           results.append(product)
+  # Tìm kiếm trong danh sách sản phẩm
+  results = []
+  for product in products:
+      if keyword.lower() in product['name'].lower():
+          results.append(product)
 
-//   # Hiển thị kết quả
-//   show_products(results)  
+  # Hiển thị kết quả
+  show_products(results)  
