@@ -1693,3 +1693,11 @@ L:\Chat\Jade_Dragon\Jade_Dragon\bin\Microsoft.AspNet.SignalR.Core.xml
 L:\Chat\Jade_Dragon\Jade_Dragon\bin\Microsoft.AspNet.SignalR.SystemWeb.pdb
 L:\Chat\Jade_Dragon\Jade_Dragon\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
 L:\Chat\Jade_Dragon\Jade_Dragon\bin\Microsoft.Owin.Host.SystemWeb.xml
+L:\Hotell-Jade-Dragon\Jade_Dragon\Jade_Dragon\bin\Microsoft.AspNet.SignalR.Core.dll
+L:\Hotell-Jade-Dragon\Jade_Dragon\Jade_Dragon\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+L:\Hotell-Jade-Dragon\Jade_Dragon\Jade_Dragon\bin\Microsoft.Owin.Host.SystemWeb.dll
+L:\Hotell-Jade-Dragon\Jade_Dragon\Jade_Dragon\bin\Microsoft.AspNet.SignalR.Core.pdb
+L:\Hotell-Jade-Dragon\Jade_Dragon\Jade_Dragon\bin\Microsoft.AspNet.SignalR.Core.xml
+L:\Hotell-Jade-Dragon\Jade_Dragon\Jade_Dragon\bin\Microsoft.AspNet.SignalR.SystemWeb.pdb
+L:\Hotell-Jade-Dragon\Jade_Dragon\Jade_Dragon\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+L:\Hotell-Jade-Dragon\Jade_Dragon\Jade_Dragon\bin\Microsoft.Owin.Host.SystemWeb.xml

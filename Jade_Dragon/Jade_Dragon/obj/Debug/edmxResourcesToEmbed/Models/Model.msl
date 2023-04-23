@@ -114,6 +114,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="PhongChats">
+      <EntityTypeMapping TypeName="Jade_DragonModel.PhongChat">
+        <MappingFragment StoreEntitySet="PhongChat">
+          <ScalarProperty Name="MaPhongChat" ColumnName="MaPhongChat" />
+          <ScalarProperty Name="TenPhongChat" ColumnName="TenPhongChat" />
+          <ScalarProperty Name="AdminID" ColumnName="AdminID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="sysdiagrams">
       <EntityTypeMapping TypeName="Jade_DragonModel.sysdiagram">
         <MappingFragment StoreEntitySet="sysdiagrams">
@@ -131,7 +140,8 @@
           <ScalarProperty Name="MaTinNhan" ColumnName="MaTinNhan" />
           <ScalarProperty Name="MaKh" ColumnName="MaKh" />
           <ScalarProperty Name="NoiDungTinNhanClient" ColumnName="NoiDungTinNhanClient" />
-          <ScalarProperty Name="NoiDungTinNhanAdmin" ColumnName="NoiDungTinNhanAdmin" />
+          <ScalarProperty Name="MaPhongChat" ColumnName="MaPhongChat" />
+          <ScalarProperty Name="NgayGui" ColumnName="NgayGui" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

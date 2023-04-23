@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.SignalR;
+﻿using Jade_Dragon.Models;
+using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using System;
 using System.Collections.Generic;
@@ -10,19 +11,45 @@ namespace Jade_Dragon.Hubs
     [HubName("chat")]
     public class DemoChat : Hub
     {
-        public void Hello()
+        private Connect db = new Connect();
+        public void Message(int roomId, long makh, string message)
         {
-            Clients.All.hello();
+            // Thêm mới tin nhắn chat vào CSDL
+            var newtn = new tinnhan();
+            {
+                newtn.MaPhongChat = roomId;
+                newtn.MaKh = makh;
+                newtn.NoiDungTinNhanClient = message;
+                newtn.NgayGui = DateTime.Now;
+            }
+            db.tinnhans.Add(newtn);
+            db.SaveChanges();
+
+            PhongChat phchat = db.PhongChats.Find(roomId);
+            khachhang kh = db.khachhangs.Find(makh);
+            string name = kh.HoTen;
+            string tenphong = phchat.TenPhongChat;
+
+            // Gửi tin nhắn chat đến tất cả các client đang kết nối đến phòng chat
+            Clients.All.Message(tenphong, name, message);
         }
 
-        public void Connect(string name)
+        public void GetMessages(int roomId)
         {
-            Clients.Caller.connect(name);
-        }
+            // Lấy ra các tin nhắn trong phòng chat và gửi cho client yêu cầu
+            var messages = db.tinnhans.Where(tn => tn.MaPhongChat == roomId).ToList();
 
-        public void Message(string name, string message)
-        {
-            Clients.All.Message(name, message);
+            // Lấy ra thông tin tên phòng chat
+            PhongChat phchat = db.PhongChats.Find(roomId);
+            string tenphong = phchat.TenPhongChat;
+
+            // Gửi danh sách tin nhắn về cho client
+            foreach (var msg in messages)
+            {
+                khachhang kh = db.khachhangs.Find(msg.MaKh);
+                string name = kh.HoTen;
+                Clients.Caller.Message(tenphong, name, msg.NoiDungTinNhanClient);
+            }
         }
     }
 }

@@ -1,0 +1,208 @@
+﻿
+.home .body {
+    margin-left: 20px;
+    width: 1096px;
+}
+
+.item-chat {
+    height: 78vh;
+    width: 206vh;
+    background: rgba(0,0,0,0.4);
+}
+
+.body-chat {
+    background-color: wheat;
+    width: 100%;
+    height: 100%;
+    margin-left: 0px;
+    border: 5px solid black;
+}
+
+.body-item-chat {
+    height: 70%;
+    display: flex;
+}
+
+    .body-item-chat .list-chat {
+        background: black;
+        width: 30%;
+        height: 98vh;
+    }
+
+    .body-item-chat .htchat {
+        height: 68vh;
+        width: 70%;
+        border: 1px solid black;
+    }
+
+    .body-item-chat .htchat div {
+        background-color: black;
+        height: 7%;
+    }
+
+    .body-item-chat .htchat div i {
+        color: wheat;
+        font-weight: 800;
+        padding-left: 30px;
+        padding-right: 30px;
+        border: 1px solid;
+    }
+
+    .body-item-chat .htchat ul {
+        width: 100%;
+        height: 100%;
+        list-style: none;
+        background: white;
+        word-wrap: break-word;
+        overflow: auto;
+    }
+
+    .body-item-chat .htchat ul::-webkit-scrollbar {
+        width: 30px;
+    }
+
+    .body-item-chat .htchat ul::-webkit-scrollbar-thumb {
+        border: 2px solid black;
+        background-color: yellow;
+    }
+
+    .body-item-chat .htchat ul::-webkit-scrollbar-track {
+        background-color: black;
+        border: 2px solid black;
+    }
+/*---------------------------*/
+
+        .list-chat ul {
+        list-style: none;
+        border: 1px solid white;
+        height: 80%;
+        overflow: auto;
+    }
+
+    .list-chat .list-chat-a span {
+        display: block;
+        color: wheat;
+        font-weight: 800;
+        padding-top: 10px;
+        padding-left: 10px;
+        border: 1px solid yellow;
+        background: #2f3542;
+    }
+
+    .list-chat .list-chat-a li {
+        color: white;
+    }
+
+    .list-chat .list-chat-a li:hover {
+        cursor: pointer;
+        padding-left: 10px;
+        background: #130f40;
+    }
+
+.list-chat .list-chat-a ul::-webkit-scrollbar {
+    width: 20px;
+}
+
+.list-chat .list-chat-a ul::-webkit-scrollbar-thumb {
+    background-color: yellow;
+}
+
+.list-chat .list-chat-a ul::-webkit-scrollbar-track {
+    border: 3px solid white;
+}
+/*---------------------------*/
+
+    .list-chat .list-Group {
+        height: 30%;
+    }
+
+    .list-chat .list-Group span{
+        height: 20%;
+    }
+
+    .list-chat .list-Group ul{
+        height: 80%;
+    }
+
+    .list-chat .list-Group li {
+    }
+
+    .list-chat .list-Group li:hover {
+    }
+
+/*------------------------------*/
+
+    .list-chat .list-User {
+        height: 65%;
+    }
+
+    .list-chat .list-User span{
+        height: 10%;
+    }
+
+    .list-chat .list-User ul{
+        height: 90%;
+    }
+
+    .list-chat .list-User li {
+    }
+
+    .list-chat .list-User li:hover {
+    }
+
+/*--------------------------------*/
+
+.body-item-chat ul li {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-left: 30px;
+    color: black;
+}
+
+    .body-item-chat ul li i {
+        font-weight: 700;
+        margin-right: 10px;
+    }
+
+.body-send-chat {
+    display: flex;
+    background: black;
+    height: 30%;
+    width: 756px;
+    margin-left: 325px;
+}
+
+    .body-send-chat input, button {
+        height: 35px;
+    }
+
+        .body-send-chat input.txtchat {
+            margin-top: 65px;
+            margin-left: 25px;
+            width: 90vh;
+            border-top-left-radius: 15px;
+            border-bottom-left-radius: 15px;
+            padding-left: 15px;
+            color: black;
+            border: 1px solid wheat;
+        }
+
+            .body-send-chat input.txtchat::placeholder {
+                color: black;
+            }
+
+    .body-send-chat button.txtchat {
+        margin-left: 0px;
+        border-top-right-radius: 15px;
+        border-bottom-right-radius: 15px;
+        border: 1px solid wheat;
+        margin-top: 65px;
+        width: 110px;
+        cursor: pointer;
+    }
+
+        .body-send-chat button.txtchat:hover {
+            background: #ffeaa7;
+            color: black;
+            font-weight: 700;
+        }

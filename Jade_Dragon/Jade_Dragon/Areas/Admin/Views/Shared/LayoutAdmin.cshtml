@@ -80,7 +80,7 @@
                     </li>
 
                     <li class="nav-link">
-                        <a href="phanhoi.html">
+                        <a href="@Url.Action("TinNhanAdmin", "TinNhanAdmin")">
                             <i class='bx bx-send icon'></i>
                             <span class="text nav-text">Tin nhắn</span>
                         </a>
@@ -115,5 +115,7 @@
         alert('@Html.Raw(TempData["Message"])');
         </script>
     }
+
+    
 </body>
 </html>

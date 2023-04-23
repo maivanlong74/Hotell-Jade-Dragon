@@ -1,0 +1,77 @@
+﻿
+@{
+    ViewBag.Title = "TinNhanAdmin";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+<link href="~/Areas/Admin/Public/css/css_ChatAdmin.css" rel="stylesheet" />
+
+<style>
+    
+</style>
+
+<div class="home">
+    <div class="body">
+        <div class="body-chat">
+            <div class="body-item-chat">
+                <div class="list-chat">
+                    <div style="height: 5%;"></div>
+                    <div class="list-Group list-chat-a">
+                        <span>Nhóm chat</span>
+                        <ul>
+                            <li>Tất cả</li>
+                            <li>Jade Dragon</li>
+                        </ul>
+                    </div>
+                    <div class="list-User list-chat-a">
+                        <span>Khách hàng</span>
+                        <ul>
+                            <li>Mai Văn Long</li>
+                            <li>Hồ Thị Như Ngọc</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="htchat">
+                    <div><i>Tất cả</i></div>
+                    <ul id="contentMsg"></ul>
+                </div>
+            </div>
+            <div class="body-send-chat">
+                <input type="hidden" id="hName" value="@Session["HoTen"]" />
+                <input type="hidden" id="hName" value="@Session["IDGroup"]" />
+                <input type="text" id="txtMessage" placeholder="Nhập chat" class="txtchat" />
+                <button type="submit" id="btnSend" class="txtchat">Gửi</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.signalR-2.4.3.min.js"></script>
+<script src="~/signalr/hubs"></script>
+
+<script>
+    $(function () {
+            var chat = $.connection.chat;
+            console.log(chat);
+            loadClient(chat);
+            $.connection.hub.start().done(function () {
+
+                $('#btnSend').click(function () {
+                    var msg = $('#txtMessage').val();
+                    var name = $('#hName').val();
+                    chat.server.message(name, msg);
+                    $('#txtMessage').val('').focus();
+                });
+            });
+
+        });
+
+        function loadClient(chat) {
+
+            chat.client.message = function (name, msg) {
+                $('#contentMsg').append("<li><strong>" + name + "</strong>: " + msg + "</li>");
+            }
+            chat.client.connect = function (name) {
+                $('#hName').val(name);
+            }
+        }</script>

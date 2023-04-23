@@ -17,8 +17,19 @@ namespace Jade_Dragon.Areas.Admin.Controllers
         // GET: Admin/PhanHoi
         public ActionResult PhanHoi()
         {
-            var phanhois = db.phanhois.Include(p => p.khachhang);
-            return View(phanhois.ToList());
+            var listkh = db.khachhangs.Select(kh => kh.MaKh).ToList();
+            var listph = db.phanhois.Include(k => k.khachhang).ToList();
+
+            foreach (var item in listph)
+            {
+                if (item.MaKh != null && !listkh.Contains(item.MaKh.Value))
+                {
+                    item.MaKh = null;
+                }
+            }
+            db.SaveChanges();
+
+            return View("PhanHoi", listph);
         }
         // GET: Admin/PhanHoi/Delete/5
         public ActionResult Delete(string id)

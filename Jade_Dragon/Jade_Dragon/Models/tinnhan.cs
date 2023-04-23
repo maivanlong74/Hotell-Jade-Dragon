@@ -17,8 +17,10 @@ namespace Jade_Dragon.Models
         public long MaTinNhan { get; set; }
         public Nullable<long> MaKh { get; set; }
         public string NoiDungTinNhanClient { get; set; }
-        public string NoiDungTinNhanAdmin { get; set; }
+        public Nullable<long> MaPhongChat { get; set; }
+        public Nullable<System.DateTime> NgayGui { get; set; }
     
         public virtual khachhang khachhang { get; set; }
+        public virtual PhongChat PhongChat { get; set; }
     }
 }

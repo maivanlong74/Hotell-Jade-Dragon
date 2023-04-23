@@ -172,29 +172,45 @@
     <script>
         $(function () {
             var chat = $.connection.chat;
-            console.log(chat);
+
             loadClient(chat);
+
             $.connection.hub.start().done(function () {
-
                 $('#btnSend').click(function () {
-                    var msg = $('#txtMessage').val();
-                    var name = $('#hName').val();
-                    chat.server.message(name, msg);
-                    $('#txtMessage').val('').focus();
+                    sendMessage(chat);
                 });
-            });
 
+                $('#txtMessage').keypress(function (e) {
+                    if (e.which === 13) { // Kiểm tra xem phím Enter đã được bấm chưa
+                        sendMessage(chat);
+                    }
+                });
+
+                // Lấy danh sách tin nhắn trong phòng chat và hiển thị lên
+                var roomId = $('#idphong').val();
+                chat.server.getMessages(roomId);
+            });
         });
 
-        function loadClient(chat) {
-
-            chat.client.message = function (name, msg) {
-                $('#contentMsg').append("<li><strong>" + name + "</strong>: " + msg + "</li>");
-            }
-            chat.client.connect = function (name) {
-                $('#hName').val(name);
-            }
+        function sendMessage(chat) {
+            var roomId = $('#idphong').val();
+            var msg = $('#txtMessage').val();
+            var makh = $('#makh').val();
+            chat.server.message(roomId, makh, msg);
+            $('#txtMessage').val('').focus();
         }
+
+            var isRoomNameSet = false;
+            function loadClient(chat) {
+                chat.client.message = function (tenphong, name, msg) {
+                    $('#contentMsg').append("<li><strong>" + name + "</strong>: " + msg + "</li>");
+                    if (!isRoomNameSet) { // kiểm tra xem tên phòng chat đã được hiển thị chưa
+                        $('#tenphong').append("<i>" + tenphong + "</i>");
+                        isRoomNameSet = true;
+                    }
+                }
+            }
+
     </script>
 </body>
 </html>

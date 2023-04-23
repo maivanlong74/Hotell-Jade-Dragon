@@ -104,6 +104,14 @@
     <Property Name="MaKhachSan" Type="bigint" />
     <Property Name="TrangThai" Type="bit" Nullable="false" />
   </EntityType>
+  <EntityType Name="PhongChat">
+    <Key>
+      <PropertyRef Name="MaPhongChat" />
+    </Key>
+    <Property Name="MaPhongChat" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenPhongChat" Type="nvarchar" MaxLength="50" />
+    <Property Name="AdminID" Type="bigint" />
+  </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
       <PropertyRef Name="diagram_id" />
@@ -121,7 +129,8 @@
     <Property Name="MaTinNhan" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="MaKh" Type="bigint" />
     <Property Name="NoiDungTinNhanClient" Type="nvarchar(max)" />
-    <Property Name="NoiDungTinNhanAdmin" Type="nvarchar(max)" />
+    <Property Name="MaPhongChat" Type="bigint" />
+    <Property Name="NgayGui" Type="datetime" />
   </EntityType>
   <EntityType Name="UserGroup">
     <Key>
@@ -250,6 +259,18 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_PhongChat_khachhang">
+    <End Role="khachhang" Type="Self.khachhang" Multiplicity="0..1" />
+    <End Role="PhongChat" Type="Self.PhongChat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="khachhang">
+        <PropertyRef Name="MaKh" />
+      </Principal>
+      <Dependent Role="PhongChat">
+        <PropertyRef Name="AdminID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_tinnhan_khachhang1">
     <End Role="khachhang" Type="Self.khachhang" Multiplicity="0..1" />
     <End Role="tinnhan" Type="Self.tinnhan" Multiplicity="*" />
@@ -259,6 +280,18 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
       </Principal>
       <Dependent Role="tinnhan">
         <PropertyRef Name="MaKh" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tinnhan_PhongChat">
+    <End Role="PhongChat" Type="Self.PhongChat" Multiplicity="0..1" />
+    <End Role="tinnhan" Type="Self.tinnhan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PhongChat">
+        <PropertyRef Name="MaPhongChat" />
+      </Principal>
+      <Dependent Role="tinnhan">
+        <PropertyRef Name="MaPhongChat" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -272,6 +305,7 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
     <EntitySet Name="Moc_Time" EntityType="Self.Moc_Time" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="phanhoi" EntityType="Self.phanhoi" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="phong" EntityType="Self.phong" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PhongChat" EntityType="Self.PhongChat" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tinnhan" EntityType="Self.tinnhan" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserGroup" EntityType="Self.UserGroup" Schema="dbo" store:Type="Tables" />
@@ -320,8 +354,16 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
       <End Role="khachsan" EntitySet="khachsan" />
       <End Role="phong" EntitySet="phong" />
     </AssociationSet>
+    <AssociationSet Name="FK_PhongChat_khachhang" Association="Self.FK_PhongChat_khachhang">
+      <End Role="khachhang" EntitySet="khachhang" />
+      <End Role="PhongChat" EntitySet="PhongChat" />
+    </AssociationSet>
     <AssociationSet Name="FK_tinnhan_khachhang1" Association="Self.FK_tinnhan_khachhang1">
       <End Role="khachhang" EntitySet="khachhang" />
+      <End Role="tinnhan" EntitySet="tinnhan" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tinnhan_PhongChat" Association="Self.FK_tinnhan_PhongChat">
+      <End Role="PhongChat" EntitySet="PhongChat" />
       <End Role="tinnhan" EntitySet="tinnhan" />
     </AssociationSet>
   </EntityContainer>

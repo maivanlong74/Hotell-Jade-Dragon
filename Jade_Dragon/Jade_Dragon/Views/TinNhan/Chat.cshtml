@@ -3,7 +3,7 @@
     ViewBag.Title = "Chat";
     Layout = "~/Views/Shared/TongHop.cshtml";
 }
-<link href="~/Style/css/layout/htchat.css" rel="stylesheet" />
+<link href="~/Style/css/layout/css_ChatClient.css" rel="stylesheet" />
 
 <div class="home">
     <div class="home__background"></div>
@@ -13,11 +13,21 @@
                 <div class="item-chat">
                     <div class="body-chat">
                         <div class="body-item-chat">
-                            <ul id="contentMsg"></ul>
+                            <div class="list-chat">
+                                <div class="chat-admin"><p>ADMIN</p></div>
+                                <ul class="list-user">
+                                    <li>All</li>
+                                    <li>Jade Dragon</li>
+                                </ul>
+                            </div>
+                            <div class="htchat">
+                                <div id="tenphong"></div>
+                                <ul id="contentMsg"></ul>
+                            </div>
                         </div>
                         <div class="body-send-chat">
-                            <input type="hidden" id="hName" value="@Session["HoTen"]" />
-                            <input type="hidden" id="hName" value="@Session["IDGroup"]" />
+                            <input type="hidden" id="makh" value="@Session["MaKh"]" />
+                            <input type="hidden" id="idphong" value="1" />
                             <input type="text" id="txtMessage" placeholder="Nhập chat" class="txtchat" />
                             <button type="submit" id="btnSend" class="txtchat">Gửi</button>
                         </div>

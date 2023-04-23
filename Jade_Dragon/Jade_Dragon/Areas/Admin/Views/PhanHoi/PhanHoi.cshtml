@@ -17,24 +17,60 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
+                @if (Model == null)
                 {
-                    <tr>
-                        <td style="text-align: center;">
-                            <img src="~/UpLoad_Img/KhachHang/@item.khachhang.Avt" alt="" style="
+
+
+                    <h1>Không có bình luận</h1>
+                }
+                else
+                {
+                    foreach (var item in Model)
+                    {
+                        if (item.MaKh != null)
+                        {
+                            <tr>
+                                <td style="text-align: center;">
+                                    <img src="~/UpLoad_Img/KhachHang/@item.khachhang.Avt" alt="" style="
                                                                     width: 100px;
                                                                     height: 100px;
                                                                     border-radius: 50px;">
-                        </td>
-                        <td style="text-align: center;"><a href="@Url.Action("Edit", "QLKhachHang", new { id = item.MaKh })" style="color:wheat;">
-                            @item.khachhang.HoTen</a></td>
-                        <td>@item.NoiDung</td>
-                        <td style="text-align: center;">
-                            <a href="@Url.Action("Delete", "PhanHoi", new {id = item.MaPhanHoi})">
-                                <img src="~/Style/img/icon/icon-xoa.jpg" style="width:40px;"/>
-                            </a>
-                        </td>
-                    </tr>
+                                </td>
+                                <td style="text-align: center;">
+                                    <a href="@Url.Action("Edit", "QLKhachHang", new { id = item.MaKh })" style="color:wheat;">
+                                        @item.khachhang.HoTen
+                                    </a>
+                                </td>
+                                <td>@item.NoiDung</td>
+                                <td style="text-align: center;">
+                                    <a href="@Url.Action("Delete", "PhanHoi", new {id = item.MaPhanHoi})">
+                                        <img src="~/Style/img/icon/icon-xoa.jpg" style="width:40px;" />
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <td style="text-align: center;">
+                                    <img src="~/Style/img/icon/icon-user.jpg" alt="" style="
+                                                                    width: 100px;
+                                                                    height: 100px;
+                                                                    border-radius: 50px;
+                                                                    background-color: wheat;">
+                                </td>
+                                <td style="text-align: center;">
+                                    <a style="color:wheat;">Tài khoản đã xóa</a>
+                                </td>
+                                <td>@item.NoiDung</td>
+                                <td style="text-align: center;">
+                                    <a href="@Url.Action("Delete", "PhanHoi", new {id = item.MaPhanHoi})">
+                                        <img src="~/Style/img/icon/icon-xoa.jpg" style="width:40px;" />
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
                 }
 
             </tbody>

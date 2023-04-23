@@ -605,6 +605,7 @@
   <ItemGroup>
     <Content Include="Areas\Admin\Public\css\admin.css" />
     <Content Include="Areas\Admin\Public\css\binhluan.css" />
+    <Content Include="Areas\Admin\Public\css\css_ChatAdmin.css" />
     <Content Include="Areas\Admin\Public\css\css_chuc_nang.css" />
     <Content Include="Areas\Admin\Public\css\css_khach_hang.css" />
     <Content Include="Areas\Admin\Public\css\khachsan.css" />
@@ -684,14 +685,17 @@
     <Content Include="Areas\Admin\Views\Account\NewPassword.cshtml" />
     <Content Include="Areas\Admin\Views\LichSu\HoaDon.cshtml" />
     <Content Include="Areas\Admin\Views\LichSu\ChiTiet.cshtml" />
-    <EntityDeploy Include="Models\Model.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Model.edmx.diagram">
-      <DependentUpon>Model.edmx</DependentUpon>
-    </Content>
     <Content Include="Areas\Admin\Views\QLKhachSan\test.cshtml" />
+    <Content Include="Models\Model.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model.edmx</DependentUpon>
+      <LastGenOutput>Model.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Model.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model.edmx</DependentUpon>
+      <LastGenOutput>Model.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -720,18 +724,16 @@
     <Content Include="Content\bootstrap-grid.rtl.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
-    <Content Include="Models\Model.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model.edmx</DependentUpon>
-      <LastGenOutput>Model.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\Model.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model.edmx</DependentUpon>
-      <LastGenOutput>Model.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\Controller\cartcontroller.js" />
     <Content Include="Areas\Admin\Views\Shared\test.cshtml" />
+    <Content Include="Areas\Admin\Views\TinNhanAdmin\TinNhanAdmin.cshtml" />
+    <EntityDeploy Include="Models\Model.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Model.edmx.diagram">
+      <DependentUpon>Model.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -752,7 +754,7 @@
     <Content Include="Style\css\html\trangchu.css" />
     <Content Include="Style\css\html\User.css" />
     <Content Include="Style\css\layout\BanDo.css" />
-    <Content Include="Style\css\layout\htchat.css" />
+    <Content Include="Style\css\layout\css_ChatClient.css" />
     <Content Include="Style\css\layout\menu__login.css" />
     <Content Include="Style\css\layout\onee.css" />
     <Content Include="Style\css\layout\phan_trang.css" />
@@ -813,6 +815,7 @@
     <Compile Include="Areas\Admin\Controllers\QLKhachHangController.cs" />
     <Compile Include="Areas\Admin\Controllers\QLKhachSanController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuanLyPhongController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TinNhanAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\TrangChuAdminController.cs" />
     <Compile Include="check_In_Out.cs" />
     <Compile Include="common\MailHelper.cs" />
@@ -877,6 +880,9 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\phong.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PhongChat.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagram.cs">
