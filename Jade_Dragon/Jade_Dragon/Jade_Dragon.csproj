@@ -58,6 +58,9 @@
     <Reference Include="BCrypt.Net, Version=0.1.5073.29922, Culture=neutral, PublicKeyToken=6bcd409ee6bc9292, processorArchitecture=MSIL">
       <HintPath>..\packages\BCrypt-Official.0.1.109\lib\BCrypt.Net.dll</HintPath>
     </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.20.0.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.20.0\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -572,6 +575,7 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="WindowsBase" />
     <Reference Include="Xamarin.Essentials, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Xamarin.Essentials.1.7.4\lib\netstandard2.0\Xamarin.Essentials.dll</HintPath>
     </Reference>
@@ -725,7 +729,6 @@
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="Scripts\Controller\cartcontroller.js" />
-    <Content Include="Areas\Admin\Views\Shared\test.cshtml" />
     <Content Include="Areas\Admin\Views\TinNhanAdmin\TinNhanAdmin.cshtml" />
     <EntityDeploy Include="Models\Model.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -754,7 +757,7 @@
     <Content Include="Style\css\html\trangchu.css" />
     <Content Include="Style\css\html\User.css" />
     <Content Include="Style\css\layout\BanDo.css" />
-    <Content Include="Style\css\layout\css_ChatClient.css" />
+    <Content Include="Style\css\layout\ChatClient.css" />
     <Content Include="Style\css\layout\menu__login.css" />
     <Content Include="Style\css\layout\onee.css" />
     <Content Include="Style\css\layout\phan_trang.css" />
@@ -889,6 +892,9 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tinnhan.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tinnhanAdmin.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserGroup.cs">

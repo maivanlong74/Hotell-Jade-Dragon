@@ -132,6 +132,17 @@
     <Property Name="MaPhongChat" Type="bigint" />
     <Property Name="NgayGui" Type="datetime" />
   </EntityType>
+  <EntityType Name="tinnhanAdmin">
+    <Key>
+      <PropertyRef Name="MaChatAdmin" />
+    </Key>
+    <Property Name="MaChatAdmin" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdAdmin" Type="bigint" />
+    <Property Name="IdClient" Type="bigint" />
+    <Property Name="NoiDungChat" Type="nvarchar(max)" />
+    <Property Name="NgayGuiChat" Type="datetime" />
+    <Property Name="IDGroup" Type="bigint" />
+  </EntityType>
   <EntityType Name="UserGroup">
     <Key>
       <PropertyRef Name="IDGroup" />
@@ -295,6 +306,42 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_tinnhanAdmin_khachhang">
+    <End Role="khachhang" Type="Self.khachhang" Multiplicity="0..1" />
+    <End Role="tinnhanAdmin" Type="Self.tinnhanAdmin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="khachhang">
+        <PropertyRef Name="MaKh" />
+      </Principal>
+      <Dependent Role="tinnhanAdmin">
+        <PropertyRef Name="IdAdmin" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tinnhanAdmin_khachhang1">
+    <End Role="khachhang" Type="Self.khachhang" Multiplicity="0..1" />
+    <End Role="tinnhanAdmin" Type="Self.tinnhanAdmin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="khachhang">
+        <PropertyRef Name="MaKh" />
+      </Principal>
+      <Dependent Role="tinnhanAdmin">
+        <PropertyRef Name="IdClient" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tinnhanAdmin_UserGroup">
+    <End Role="UserGroup" Type="Self.UserGroup" Multiplicity="0..1" />
+    <End Role="tinnhanAdmin" Type="Self.tinnhanAdmin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserGroup">
+        <PropertyRef Name="IDGroup" />
+      </Principal>
+      <Dependent Role="tinnhanAdmin">
+        <PropertyRef Name="IDGroup" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="Jade_DragonModelStoreContainer">
     <EntitySet Name="chitiethoadon" EntityType="Self.chitiethoadon" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ErrorPay" EntityType="Self.ErrorPay" Schema="dbo" store:Type="Tables" />
@@ -308,6 +355,7 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
     <EntitySet Name="PhongChat" EntityType="Self.PhongChat" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tinnhan" EntityType="Self.tinnhan" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tinnhanAdmin" EntityType="Self.tinnhanAdmin" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserGroup" EntityType="Self.UserGroup" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="lichsu" EntityType="Self.lichsu" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
@@ -365,6 +413,18 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
     <AssociationSet Name="FK_tinnhan_PhongChat" Association="Self.FK_tinnhan_PhongChat">
       <End Role="PhongChat" EntitySet="PhongChat" />
       <End Role="tinnhan" EntitySet="tinnhan" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tinnhanAdmin_khachhang" Association="Self.FK_tinnhanAdmin_khachhang">
+      <End Role="khachhang" EntitySet="khachhang" />
+      <End Role="tinnhanAdmin" EntitySet="tinnhanAdmin" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tinnhanAdmin_khachhang1" Association="Self.FK_tinnhanAdmin_khachhang1">
+      <End Role="khachhang" EntitySet="khachhang" />
+      <End Role="tinnhanAdmin" EntitySet="tinnhanAdmin" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tinnhanAdmin_UserGroup" Association="Self.FK_tinnhanAdmin_UserGroup">
+      <End Role="UserGroup" EntitySet="UserGroup" />
+      <End Role="tinnhanAdmin" EntitySet="tinnhanAdmin" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

@@ -4,21 +4,22 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="99ae590cf67e43d69778ffb16734abb6" Name="Diagram1">
-        <EntityTypeShape EntityType="Jade_DragonModel.chitiethoadon" Width="1.5" PointX="7.5" PointY="14.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Jade_DragonModel.ErrorPay" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Jade_DragonModel.hoadon" Width="1.5" PointX="5.25" PointY="3.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Jade_DragonModel.khachhang" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Jade_DragonModel.khachsan" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Jade_DragonModel.khuvuc" Width="1.5" PointX="0.75" PointY="10.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Jade_DragonModel.Moc_Time" Width="1.5" PointX="7.5" PointY="18" IsExpanded="true" />
-        <EntityTypeShape EntityType="Jade_DragonModel.phanhoi" Width="1.5" PointX="5.25" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Jade_DragonModel.phong" Width="1.5" PointX="5.25" PointY="16" IsExpanded="true" />
-        <EntityTypeShape EntityType="Jade_DragonModel.PhongChat" Width="1.5" PointX="5.25" PointY="11.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Jade_DragonModel.sysdiagram" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Jade_DragonModel.tinnhan" Width="1.5" PointX="7.5" PointY="7.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Jade_DragonModel.UserGroup" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Jade_DragonModel.lichsu" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
+      <Diagram DiagramId="6a265cc17aae48c9b78049351639a4a4" Name="Diagram1">
+        <EntityTypeShape EntityType="Jade_DragonModel.chitiethoadon" Width="1.5" PointX="7.5" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Jade_DragonModel.ErrorPay" Width="1.5" PointX="3" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Jade_DragonModel.hoadon" Width="1.5" PointX="5.25" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Jade_DragonModel.khachhang" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Jade_DragonModel.khachsan" Width="1.5" PointX="3" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Jade_DragonModel.khuvuc" Width="1.5" PointX="0.75" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Jade_DragonModel.Moc_Time" Width="1.5" PointX="7.5" PointY="20" IsExpanded="true" />
+        <EntityTypeShape EntityType="Jade_DragonModel.phanhoi" Width="1.5" PointX="5.25" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Jade_DragonModel.phong" Width="1.5" PointX="5.25" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Jade_DragonModel.PhongChat" Width="1.5" PointX="5.25" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Jade_DragonModel.sysdiagram" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Jade_DragonModel.tinnhan" Width="1.5" PointX="7.5" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Jade_DragonModel.tinnhanAdmin" Width="1.5" PointX="8.25" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Jade_DragonModel.UserGroup" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Jade_DragonModel.lichsu" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="Jade_DragonModel.FK_machitiethoadon_phong" ManuallyRouted="false" />
         <AssociationConnector Association="Jade_DragonModel.FK_hoadon_ErrorPay" ManuallyRouted="false" />
         <AssociationConnector Association="Jade_DragonModel.FK_hoadon_khachhang" ManuallyRouted="false" />
@@ -27,10 +28,13 @@
         <AssociationConnector Association="Jade_DragonModel.FK_phanhoi_khachhang1" ManuallyRouted="false" />
         <AssociationConnector Association="Jade_DragonModel.FK_PhongChat_khachhang" ManuallyRouted="false" />
         <AssociationConnector Association="Jade_DragonModel.FK_tinnhan_khachhang1" ManuallyRouted="false" />
+        <AssociationConnector Association="Jade_DragonModel.FK_tinnhanAdmin_khachhang" ManuallyRouted="false" />
+        <AssociationConnector Association="Jade_DragonModel.FK_tinnhanAdmin_khachhang1" ManuallyRouted="false" />
         <AssociationConnector Association="Jade_DragonModel.FK_khachsan_khuvuc1" ManuallyRouted="false" />
         <AssociationConnector Association="Jade_DragonModel.FK_phong_khachsan1" ManuallyRouted="false" />
         <AssociationConnector Association="Jade_DragonModel.FK_Moc_Time_phong" ManuallyRouted="false" />
         <AssociationConnector Association="Jade_DragonModel.FK_tinnhan_PhongChat" ManuallyRouted="false" />
+        <AssociationConnector Association="Jade_DragonModel.FK_tinnhanAdmin_UserGroup" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

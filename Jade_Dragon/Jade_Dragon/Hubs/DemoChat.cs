@@ -3,6 +3,7 @@ using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -29,9 +30,10 @@ namespace Jade_Dragon.Hubs
             khachhang kh = db.khachhangs.Find(makh);
             string name = kh.HoTen;
             string tenphong = phchat.TenPhongChat;
+            DateTime timenow = DateTime.Now;
 
             // Gửi tin nhắn chat đến tất cả các client đang kết nối đến phòng chat
-            Clients.All.Message(tenphong, name, message);
+            Clients.All.Message(tenphong, name, message, makh, timenow);
         }
 
         public void GetMessages(int roomId)
@@ -48,8 +50,16 @@ namespace Jade_Dragon.Hubs
             {
                 khachhang kh = db.khachhangs.Find(msg.MaKh);
                 string name = kh.HoTen;
-                Clients.Caller.Message(tenphong, name, msg.NoiDungTinNhanClient);
+                Clients.Caller.Message(tenphong, name, msg.NoiDungTinNhanClient, msg.MaKh, msg.NgayGui);
             }
+        }
+
+        public void ClearMessages(long roomId)
+        {
+            // Xóa tất cả tin nhắn trong phòng chat
+            var room = "room_" + roomId;
+            Clients.Group(roomId.ToString()).Clear();
         }
     }
 }
+

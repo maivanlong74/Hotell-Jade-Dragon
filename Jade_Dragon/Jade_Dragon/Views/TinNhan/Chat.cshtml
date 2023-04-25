@@ -1,9 +1,20 @@
-﻿
+﻿@model IEnumerable<Jade_Dragon.Models.PhongChat>
 @{
     ViewBag.Title = "Chat";
     Layout = "~/Views/Shared/TongHop.cshtml";
 }
-<link href="~/Style/css/layout/css_ChatClient.css" rel="stylesheet" />
+<link href="~/Style/css/layout/ChatClient.css" rel="stylesheet" />
+<style>
+    .chat-admin button {
+        height: 100%;
+        width: 100%;
+        background: none;
+    }
+    .chat-admin button:hover {
+        font-weight: 800;
+        color: white;
+    }
+</style>
 
 <div class="home">
     <div class="home__background"></div>
@@ -14,21 +25,40 @@
                     <div class="body-chat">
                         <div class="body-item-chat">
                             <div class="list-chat">
-                                <div class="chat-admin"><p>ADMIN</p></div>
+                                <div class="chat-admin">
+                                    <input type="hidden" id="idchatadmin" value="2" />
+                                    <button type="submit" id="btnChatAdmin">
+                                        ADMIN
+                                    </button>
+                                </div>
                                 <ul class="list-user">
-                                    <li>All</li>
-                                    <li>Jade Dragon</li>
+                                    @if (Model == null)
+                                    {
+                                        <li></li>
+                                    }
+                                    else { 
+                                        foreach(var item in Model) { 
+                                            <li>
+                                                <button type="submit" class="btnChatPhong" data-id="@item.MaPhongChat">
+                                                    @item.TenPhongChat
+                                                </button>
+                                            </li>
+                                        }
+                                    }
                                 </ul>
                             </div>
                             <div class="htchat">
-                                <div id="tenphong"></div>
+                                <div>
+                                    <i id="tenphong">Tất cả</i>
+                                    <input type="hidden" id="idphong" value="1" /> 
+                                </div>
                                 <ul id="contentMsg"></ul>
                             </div>
                         </div>
                         <div class="body-send-chat">
                             <input type="hidden" id="makh" value="@Session["MaKh"]" />
-                            <input type="hidden" id="idphong" value="1" />
-                            <input type="text" id="txtMessage" placeholder="Nhập chat" class="txtchat" />
+
+                            <input type="text" id="txtMessage" placeholder="Nhập chat" class="txtchat" required/>
                             <button type="submit" id="btnSend" class="txtchat">Gửi</button>
                         </div>
                     </div>

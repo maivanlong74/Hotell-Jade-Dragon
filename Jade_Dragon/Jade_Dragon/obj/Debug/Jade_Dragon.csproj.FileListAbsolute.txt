@@ -1701,3 +1701,5 @@ L:\Hotell-Jade-Dragon\Jade_Dragon\Jade_Dragon\bin\Microsoft.AspNet.SignalR.Core.
 L:\Hotell-Jade-Dragon\Jade_Dragon\Jade_Dragon\bin\Microsoft.AspNet.SignalR.SystemWeb.pdb
 L:\Hotell-Jade-Dragon\Jade_Dragon\Jade_Dragon\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
 L:\Hotell-Jade-Dragon\Jade_Dragon\Jade_Dragon\bin\Microsoft.Owin.Host.SystemWeb.xml
+L:\Hotell-Jade-Dragon\Jade_Dragon\Jade_Dragon\bin\DocumentFormat.OpenXml.dll
+L:\Hotell-Jade-Dragon\Jade_Dragon\Jade_Dragon\bin\DocumentFormat.OpenXml.xml

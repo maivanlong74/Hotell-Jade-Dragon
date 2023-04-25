@@ -37,6 +37,7 @@ namespace Jade_Dragon.Models
         public virtual DbSet<PhongChat> PhongChats { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<tinnhan> tinnhans { get; set; }
+        public virtual DbSet<tinnhanAdmin> tinnhanAdmins { get; set; }
         public virtual DbSet<UserGroup> UserGroups { get; set; }
         public virtual DbSet<lichsu> lichsus { get; set; }
     }

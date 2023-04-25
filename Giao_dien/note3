@@ -1,0 +1,122 @@
+Tôi có những thông tin sau
+    - Tôi có Code file chat.cshtml
+        @model IEnumerable<Jade_Dragon.Models.PhongChat>
+@{
+    ViewBag.Title = "Chat";
+    Layout = "~/Views/Shared/TongHop.cshtml";
+}
+<link href="~/Style/css/layout/css_ChatClient.css" rel="stylesheet" />
+
+<style>
+    .list-chat .list-user li button{
+        width: 100%;
+        background: none;
+    }
+</style>
+
+<div class="home">
+    <div class="home__background"></div>
+    <div class="grid wide">
+        <div class="row">
+            <div class="home__container__slider">
+                <div class="item-chat">
+                    <div class="body-chat">
+                        <div class="body-item-chat">
+                            <div class="list-chat">
+                                <div class="chat-admin">
+                                    @*<input type="hidden" id="idchatadmin" value="2" />
+                                    <button type="submit" id="btnChatAdmin">
+                                        ADMIN
+                                    </button>*@
+                                </div>
+                                <ul class="list-user">
+                                    @if (Model == null)
+                                    {
+                                        <li></li>
+                                    }
+                                    else { 
+                                        foreach(var item in Model) { 
+                                            <li>
+                                                <button type="submit" class="btnChatPhong" data-id="@item.MaPhongChat">
+                                                    @item.TenPhongChat
+                                                </button>
+                                            </li>
+                                        }
+                                    }
+                                </ul>
+                            </div>
+                            <div class="htchat">
+                                <div>
+                                    <i id="tenphong">Tất cả</i>
+                                    <input type="hidden" id="idphong" value="1" />
+                                </div>
+                                <ul id="contentMsg"></ul>
+                            </div>
+                        </div>
+                        <div class="body-send-chat">
+                            <input type="hidden" id="makh" value="@Session["MaKh"]" />
+
+                            <input type="text" id="txtMessage" placeholder="Nhập chat" class="txtchat" />
+                            <button type="submit" id="btnSend" class="txtchat">Gửi</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    - Tôi có code file js:
+        $(function () {
+            var chat = $.connection.chat;
+            loadClient(chat);
+            var idphong = 1;
+            $.connection.hub.start().done(function () {
+                $('#btnSend').click(function () {
+                    sendMessage(chat);
+                });
+
+                $('.btnChatPhong').click(function () {
+                    var roomId = $(this).data('id');
+                    var tenphong = $(this).text();
+                    ChatAdmin(chat, roomId, tenphong);
+                });
+
+                // Xử lý sự kiện nhấn phím Enter để gửi tin nhắn
+                $('#txtMessage').keypress(function (e) {
+                    if (e.which === 13) { // Kiểm tra xem phím Enter đã được bấm chưa
+                        sendMessage(chat);
+                    }
+                });
+
+                // Lấy danh sách tin nhắn trong phòng chat và hiển thị lên
+                var roomId = $('#idphong').val();
+                chat.server.getMessages(roomId);
+            });
+        });
+
+        function sendMessage(chat) {
+            var roomId = $('#idphong').val();
+            var msg = $('#txtMessage').val();
+            var makh = $('#makh').val();
+            chat.server.message(roomId, makh, msg);
+            $('#txtMessage').val('').focus();
+        }
+
+        function ChatAdmin(chat, roomId, tenphong) {
+            $('#idphong').val(roomId);
+            $('#tenphong').text(tenphong);
+            $('#contentMsg li').hide(); // hide all messages
+            $('#contentMsg li.admin').show(); // show only admin messages
+            chat.server.getMessages(roomId);
+        }
+
+        /*-----------------------------------------------*/
+
+        function loadClient(chat) {
+            chat.client.message = function (tenphong, name, msg) {
+                $('#contentMsg').append("<li><strong>" + name + "</strong>: " + msg + "</li>");
+            }
+        }
+    tôi có một yêu cầu sau, tôi muốn những tin nhắn của người dùng đang truy cập chat trên tài khoản của chính mình sẽ được hiện thị bên phải giao diện chat.
+    Còn những tin nhắn của những người dùng khác thì sẽ nằm bên trái giao diện chat.

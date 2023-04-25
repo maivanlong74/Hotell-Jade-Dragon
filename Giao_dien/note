@@ -1,0 +1,96 @@
+Tôi có những thông tin như thế này
+    - Tôi có Model PhongChat:
+        public long MaPhongChat { get; set; }
+        public string TenPhongChat { get; set; }
+        public Nullable<long> AdminID { get; set; }
+    - Tôi có 1 phần code nhỏ ở code file chat.cshtml
+        <li>
+            <button type="submit" id="btnChatPhong1">Phong1</button>
+            <input type="hidden" id="IdPhongChat1" value="1"/>
+            <input type="hidden" id="TenPhongChat1" value="Phong1"/>
+        </li>
+        <li>
+            <button type="submit" id="btnChatPhong2">Phong2</button>
+            <input type="hidden" id="IdPhongChat2" value="2"/>
+            <input type="hidden" id="TenPhongChat2" value="Phong2"/>
+        </li>
+    - Tôi có code js:
+        $(function () {
+            var chat = $.connection.chat;
+            loadClient(chat);
+            var idphong = 1;
+            $.connection.hub.start().done(function () {
+                $('#btnSend').click(function () {
+                    sendMessage(chat);
+                });
+
+                $('#btnChatPhong1').click(function () {
+                    ChatAdmin1(chat);
+                });
+
+                $('#btnChatPhong2').click(function () {
+                    ChatAdmin2(chat);
+                });
+
+                // Xử lý sự kiện nhấn phím Enter để gửi tin nhắn
+                $('#txtMessage').keypress(function (e) {
+                    if (e.which === 13) { // Kiểm tra xem phím Enter đã được bấm chưa
+                        sendMessage(chat);
+                    }
+                });
+
+                // Lấy danh sách tin nhắn trong phòng chat và hiển thị lên
+                var roomId = $('#idphong').val();
+                chat.server.getMessages(roomId);
+            });
+        });
+
+        function sendMessage(chat) {
+            var roomId = $('#idphong').val();
+            var msg = $('#txtMessage').val();
+            var makh = $('#makh').val();
+            chat.server.message(roomId, makh, msg);
+            $('#txtMessage').val('').focus();
+        }
+
+        function ChatAdmin1(chat) {
+            var room = $('#IdPhongChat1').val();
+            var tenphong = $('#TenPhongChat1').val();
+            $('#idphong').val(room);
+            $('#tenphong').text(tenphong);
+            $('#contentMsg li').hide(); // hide all messages
+            $('#contentMsg li.admin').show(); // show only admin messages
+        }
+
+        function ChatAdmin2(chat) {
+            var room = $('#IdPhongChat2').val();
+            var tenphong = $('#TenPhongChat2').val();
+            $('#idphong').val(room);
+            $('#tenphong').text(tenphong);
+            $('#contentMsg li').hide(); // hide all messages
+            $('#contentMsg li.admin').show(); // show only admin messages
+        }
+
+        /*-----------------------------------------------*/
+
+        function loadClient(chat) {
+            chat.client.message = function (tenphong, name, msg) {
+                $('#contentMsg').append("<li><strong>" + name + "</strong>: " + msg + "</li>");
+            }
+        }
+    Bởi vì button btnChatPhong1 và button btnChatPhong2 phải đặt tên khác nhau để ở bên js có thể xử lý sự kiện.
+    Nhưng ở Code file chat.cshtml tôi có thể in ra danh sách phòng bằng code sau:
+        @if (Model == null)
+            {
+                <li></li>
+            }
+            else { 
+                foreach(var item in Model) { 
+                    <li>
+                        <button type="submit" id="btnChatPhong">@item.TenPhongChat</button>
+                        <input type="hidden" id="IdPhongChat" value="@item.MaPhongChat"/>
+                        <input type="hidden" id="TenPhongChat" value="hihi"/>
+                    </li>
+                }
+            } 
+    Nhưng nếu in ra như này thì tôi lại không biết nên sửa như thế nào mới được, hãy giúp tôi

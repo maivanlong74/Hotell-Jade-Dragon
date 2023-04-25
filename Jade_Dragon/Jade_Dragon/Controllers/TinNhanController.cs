@@ -10,6 +10,7 @@ namespace Jade_Dragon.Controllers
 {
     public class TinNhanController : Controller
     {
+        private Connect db = new Connect();
         // GET: TinNhan
         public ActionResult Chat(long? makh)
         {
@@ -18,7 +19,8 @@ namespace Jade_Dragon.Controllers
                 WebMsgBox.Show("Bạn cần phải đăng nhập để nhắn tin", this);
                 return RedirectToAction("trangchu", "trangchu");
             }
-            return View();
+            var listphong = db.PhongChats.ToList();
+            return View("Chat", listphong);
         }
     }
 }

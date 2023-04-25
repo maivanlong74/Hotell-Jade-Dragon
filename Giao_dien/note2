@@ -1,0 +1,58 @@
+<script>
+        $(function () {
+            var chat = $.connection.chat;
+            loadClient(chat);
+            var idphong = 1;
+            $.connection.hub.start().done(function () {
+                $('#btnSend').click(function () {
+                    sendMessage(chat);
+                });
+
+                $('.btnChatPhong').click(function () {
+                    var roomId = $(this).data('id');
+                    var tenphong = $(this).text();
+                    ChatAdmin(chat, roomId, tenphong);
+                });
+
+                // Xử lý sự kiện nhấn phím Enter để gửi tin nhắn
+                $('#txtMessage').keypress(function (e) {
+                    if (e.which === 13) { // Kiểm tra xem phím Enter đã được bấm chưa
+                        sendMessage(chat);
+                    }
+                });
+
+                // Lấy danh sách tin nhắn trong phòng chat và hiển thị lên
+                var roomId = $('#idphong').val();
+                chat.server.getMessages(roomId);
+            });
+        });
+
+        function sendMessage(chat) {
+            var roomId = $('#idphong').val();
+            var msg = $('#txtMessage').val();
+            var makh = $('#makh').val();
+            chat.server.message(roomId, makh, msg);
+            $('#txtMessage').val('').focus();
+        }
+
+        function ChatAdmin(chat, roomId, tenphong) {
+            $('#idphong').val(roomId);
+            $('#tenphong').text(tenphong);
+            $('#contentMsg li').hide(); // hide all messages
+            $('#contentMsg li.admin').show(); // show only admin messages
+            chat.server.getMessages(roomId);
+        }
+
+        /*-----------------------------------------------*/
+
+        function loadClient(chat) {
+            chat.client.message = function (tenphong, name, msg, makh) {
+                var li = "<li data-sender='" + makh + "'><strong>" + name + "</strong>: " + msg + "</li>";
+                if (makh == $('#makh').val()) { // người gửi tin nhắn là người dùng đang truy cập
+                    li = $(li).addClass('me');
+                }
+                $('#contentMsg').append(li);
+            }
+        }
+
+    </script>

@@ -145,6 +145,18 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="tinnhanAdmins">
+      <EntityTypeMapping TypeName="Jade_DragonModel.tinnhanAdmin">
+        <MappingFragment StoreEntitySet="tinnhanAdmin">
+          <ScalarProperty Name="MaChatAdmin" ColumnName="MaChatAdmin" />
+          <ScalarProperty Name="IdAdmin" ColumnName="IdAdmin" />
+          <ScalarProperty Name="IdClient" ColumnName="IdClient" />
+          <ScalarProperty Name="NoiDungChat" ColumnName="NoiDungChat" />
+          <ScalarProperty Name="NgayGuiChat" ColumnName="NgayGuiChat" />
+          <ScalarProperty Name="IDGroup" ColumnName="IDGroup" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="UserGroups">
       <EntityTypeMapping TypeName="Jade_DragonModel.UserGroup">
         <MappingFragment StoreEntitySet="UserGroup">

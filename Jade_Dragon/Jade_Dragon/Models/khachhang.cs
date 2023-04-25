@@ -21,6 +21,8 @@ namespace Jade_Dragon.Models
             this.phanhois = new HashSet<phanhoi>();
             this.PhongChats = new HashSet<PhongChat>();
             this.tinnhans = new HashSet<tinnhan>();
+            this.tinnhanAdmins = new HashSet<tinnhanAdmin>();
+            this.tinnhanAdmins1 = new HashSet<tinnhanAdmin>();
         }
     
         public long MaKh { get; set; }
@@ -45,5 +47,9 @@ namespace Jade_Dragon.Models
         public virtual ICollection<PhongChat> PhongChats { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tinnhan> tinnhans { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tinnhanAdmin> tinnhanAdmins { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tinnhanAdmin> tinnhanAdmins1 { get; set; }
     }
 }

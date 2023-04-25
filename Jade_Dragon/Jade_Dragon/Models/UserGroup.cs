@@ -18,6 +18,7 @@ namespace Jade_Dragon.Models
         public UserGroup()
         {
             this.khachhangs = new HashSet<khachhang>();
+            this.tinnhanAdmins = new HashSet<tinnhanAdmin>();
         }
     
         public long IDGroup { get; set; }
@@ -25,5 +26,7 @@ namespace Jade_Dragon.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<khachhang> khachhangs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tinnhanAdmin> tinnhanAdmins { get; set; }
     }
 }
