@@ -119,7 +119,7 @@
         <MappingFragment StoreEntitySet="PhongChat">
           <ScalarProperty Name="MaPhongChat" ColumnName="MaPhongChat" />
           <ScalarProperty Name="TenPhongChat" ColumnName="TenPhongChat" />
-          <ScalarProperty Name="AdminID" ColumnName="AdminID" />
+          <ScalarProperty Name="Admin" ColumnName="Admin" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -154,6 +154,7 @@
           <ScalarProperty Name="NoiDungChat" ColumnName="NoiDungChat" />
           <ScalarProperty Name="NgayGuiChat" ColumnName="NgayGuiChat" />
           <ScalarProperty Name="IDGroup" ColumnName="IDGroup" />
+          <ScalarProperty Name="MaPhongChat" ColumnName="MaPhongChat" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

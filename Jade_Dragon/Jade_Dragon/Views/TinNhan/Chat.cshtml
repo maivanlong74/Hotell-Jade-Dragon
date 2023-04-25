@@ -5,15 +5,7 @@
 }
 <link href="~/Style/css/layout/ChatClient.css" rel="stylesheet" />
 <style>
-    .chat-admin button {
-        height: 100%;
-        width: 100%;
-        background: none;
-    }
-    .chat-admin button:hover {
-        font-weight: 800;
-        color: white;
-    }
+
 </style>
 
 <div class="home">
@@ -26,9 +18,8 @@
                         <div class="body-item-chat">
                             <div class="list-chat">
                                 <div class="chat-admin">
-                                    <input type="hidden" id="idchatadmin" value="2" />
-                                    <button type="submit" id="btnChatAdmin">
-                                        ADMIN
+                                    <button type="submit" class="btnChatAdmin" data-id="@Session["MaPhongAdmin"]">
+                                        @Session["PhongAdmin"]
                                     </button>
                                 </div>
                                 <ul class="list-user">
@@ -50,7 +41,8 @@
                             <div class="htchat">
                                 <div>
                                     <i id="tenphong">Tất cả</i>
-                                    <input type="hidden" id="idphong" value="1" /> 
+                                    <input type="hidden" id="idphong" value="1" />
+                                    <input type="hidden" id="idphongadmin" value="1" />
                                 </div>
                                 <ul id="contentMsg"></ul>
                             </div>

@@ -60,7 +60,6 @@
     <NavigationProperty Name="hoadons" Relationship="Self.FK_hoadon_khachhang" FromRole="khachhang" ToRole="hoadon" />
     <NavigationProperty Name="UserGroup" Relationship="Self.FK_khachhang_UserGroup" FromRole="khachhang" ToRole="UserGroup" />
     <NavigationProperty Name="phanhois" Relationship="Self.FK_phanhoi_khachhang1" FromRole="khachhang" ToRole="phanhoi" />
-    <NavigationProperty Name="PhongChats" Relationship="Self.FK_PhongChat_khachhang" FromRole="khachhang" ToRole="PhongChat" />
     <NavigationProperty Name="tinnhans" Relationship="Self.FK_tinnhan_khachhang1" FromRole="khachhang" ToRole="tinnhan" />
     <NavigationProperty Name="tinnhanAdmins" Relationship="Self.FK_tinnhanAdmin_khachhang" FromRole="khachhang" ToRole="tinnhanAdmin" />
     <NavigationProperty Name="tinnhanAdmins1" Relationship="Self.FK_tinnhanAdmin_khachhang1" FromRole="khachhang" ToRole="tinnhanAdmin" />
@@ -131,8 +130,7 @@
     </Key>
     <Property Name="MaPhongChat" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="TenPhongChat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="AdminID" Type="Int64" />
-    <NavigationProperty Name="khachhang" Relationship="Self.FK_PhongChat_khachhang" FromRole="PhongChat" ToRole="khachhang" />
+    <Property Name="Admin" Type="Boolean" />
     <NavigationProperty Name="tinnhans" Relationship="Self.FK_tinnhan_PhongChat" FromRole="PhongChat" ToRole="tinnhan" />
   </EntityType>
   <EntityType Name="sysdiagram">
@@ -167,6 +165,7 @@
     <Property Name="NoiDungChat" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="NgayGuiChat" Type="DateTime" Precision="3" />
     <Property Name="IDGroup" Type="Int64" />
+    <Property Name="MaPhongChat" Type="Int64" />
     <NavigationProperty Name="khachhang" Relationship="Self.FK_tinnhanAdmin_khachhang" FromRole="tinnhanAdmin" ToRole="khachhang" />
     <NavigationProperty Name="khachhang1" Relationship="Self.FK_tinnhanAdmin_khachhang1" FromRole="tinnhanAdmin" ToRole="khachhang" />
     <NavigationProperty Name="UserGroup" Relationship="Self.FK_tinnhanAdmin_UserGroup" FromRole="tinnhanAdmin" ToRole="UserGroup" />
@@ -259,18 +258,6 @@
       </Principal>
       <Dependent Role="phanhoi">
         <PropertyRef Name="MaKh" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_PhongChat_khachhang">
-    <End Role="khachhang" Type="Self.khachhang" Multiplicity="0..1" />
-    <End Role="PhongChat" Type="Self.PhongChat" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="khachhang">
-        <PropertyRef Name="MaKh" />
-      </Principal>
-      <Dependent Role="PhongChat">
-        <PropertyRef Name="AdminID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -409,10 +396,6 @@
     <AssociationSet Name="FK_phanhoi_khachhang1" Association="Self.FK_phanhoi_khachhang1">
       <End Role="khachhang" EntitySet="khachhangs" />
       <End Role="phanhoi" EntitySet="phanhois" />
-    </AssociationSet>
-    <AssociationSet Name="FK_PhongChat_khachhang" Association="Self.FK_PhongChat_khachhang">
-      <End Role="khachhang" EntitySet="khachhangs" />
-      <End Role="PhongChat" EntitySet="PhongChats" />
     </AssociationSet>
     <AssociationSet Name="FK_tinnhan_khachhang1" Association="Self.FK_tinnhan_khachhang1">
       <End Role="khachhang" EntitySet="khachhangs" />

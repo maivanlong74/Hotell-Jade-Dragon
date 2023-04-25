@@ -798,6 +798,7 @@
     <Content Include="Style\img\map.jpg" />
     <Content Include="Style\img\nen.jpg" />
     <Content Include="Style\img\travel.jpg" />
+    <Content Include="Style\js\aaa.js" />
     <Content Include="Style\js\app.js" />
     <Content Include="Style\js\Map_BanDo.js" />
     <Content Include="Style\js\DongHo.js" />

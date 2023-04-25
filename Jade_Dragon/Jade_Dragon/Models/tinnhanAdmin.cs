@@ -20,6 +20,7 @@ namespace Jade_Dragon.Models
         public string NoiDungChat { get; set; }
         public Nullable<System.DateTime> NgayGuiChat { get; set; }
         public Nullable<long> IDGroup { get; set; }
+        public Nullable<long> MaPhongChat { get; set; }
     
         public virtual khachhang khachhang { get; set; }
         public virtual khachhang khachhang1 { get; set; }

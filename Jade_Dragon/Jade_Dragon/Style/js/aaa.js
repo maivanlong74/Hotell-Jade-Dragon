@@ -1,5 +1,4 @@
-<script>
-$(function () {
+﻿$(function () {
     var chat = $.connection.chat;
     loadClient(chat);
     var idphong = 1;
@@ -51,10 +50,10 @@ function sendMessage(chat) {
         return;
     }
 
-    if (roomId != null) {
-        chat.server.message(roomId, makh, msg);
-    } else {
+    if (roomId == null || roomId.trim() == '') {
         chat.server.message(roomIdAdmin, makh, msg);
+    } else {
+        chat.server.message(roomId, makh, msg);
     }
 
     $('#txtMessage').val('').focus();
@@ -70,7 +69,7 @@ function ChatGroup(chat, roomId, tenphong) {
 }
 
 function ChatAdmin(chat, roomId, tenphong, makh) {
-    $('#idphong').val("");
+    $('#idphong').val(null);
     $('#idphongadmin').val(roomId);
     $('#tenphong').text(tenphong);
     $('#contentMsg p').hide();
@@ -117,4 +116,3 @@ function loadClient(chat) {
         messagesContainer.scrollTop(messagesContainer[0].scrollHeight);
     }
 }
-</script> 

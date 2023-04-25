@@ -19,7 +19,10 @@ namespace Jade_Dragon.Controllers
                 WebMsgBox.Show("Bạn cần phải đăng nhập để nhắn tin", this);
                 return RedirectToAction("trangchu", "trangchu");
             }
-            var listphong = db.PhongChats.ToList();
+            PhongChat phongadmin = db.PhongChats.FirstOrDefault(m => m.Admin == true);
+            Session["MaPhongAdmin"] = phongadmin.MaPhongChat;
+            Session["PhongAdmin"] = phongadmin.TenPhongChat;
+            var listphong = db.PhongChats.Where(m => m.Admin == false).ToList();
             return View("Chat", listphong);
         }
     }

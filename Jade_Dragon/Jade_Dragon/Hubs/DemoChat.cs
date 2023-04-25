@@ -15,20 +15,55 @@ namespace Jade_Dragon.Hubs
         private Connect db = new Connect();
         public void Message(int roomId, long makh, string message)
         {
+            PhongChat chat = db.PhongChats.FirstOrDefault(m => m.Admin == true);
+            khachhang kh = db.khachhangs.FirstOrDefault(n => n.IDGroup == 1);
+            khachhang kh2 = db.khachhangs.Find(makh);
             // Thêm mới tin nhắn chat vào CSDL
-            var newtn = new tinnhan();
+            if(chat != null)
             {
-                newtn.MaPhongChat = roomId;
-                newtn.MaKh = makh;
-                newtn.NoiDungTinNhanClient = message;
-                newtn.NgayGui = DateTime.Now;
+                if (roomId != chat.MaPhongChat)
+                {
+                    var newtn = new tinnhan();
+                    {
+                        newtn.MaPhongChat = roomId;
+                        newtn.MaKh = makh;
+                        newtn.NoiDungTinNhanClient = message;
+                        newtn.NgayGui = DateTime.Now;
+                    }
+                    db.tinnhans.Add(newtn);
+                    db.SaveChanges();
+                }
+                else if (roomId == chat.MaPhongChat)
+                {
+                    var newtnadmin = new tinnhanAdmin();
+                    {
+                        newtnadmin.MaPhongChat = roomId;
+                        newtnadmin.IdClient = makh;
+                        newtnadmin.IdAdmin = kh.MaKh;
+                        newtnadmin.NoiDungChat = message;
+                        newtnadmin.IDGroup = kh2.IDGroup;
+                        newtnadmin.NgayGuiChat = DateTime.Now;
+                    }
+                    db.tinnhanAdmins.Add(newtnadmin);
+                    db.SaveChanges();
+                }
             }
-            db.tinnhans.Add(newtn);
-            db.SaveChanges();
+            else
+            {
+                var newtn = new tinnhan();
+                {
+                    newtn.MaPhongChat = roomId;
+                    newtn.MaKh = makh;
+                    newtn.NoiDungTinNhanClient = message;
+                    newtn.NgayGui = DateTime.Now;
+                }
+                db.tinnhans.Add(newtn);
+                db.SaveChanges();
+            }
 
             PhongChat phchat = db.PhongChats.Find(roomId);
-            khachhang kh = db.khachhangs.Find(makh);
-            string name = kh.HoTen;
+
+            string name = kh2.HoTen;
             string tenphong = phchat.TenPhongChat;
             DateTime timenow = DateTime.Now;
 
@@ -51,6 +86,24 @@ namespace Jade_Dragon.Hubs
                 khachhang kh = db.khachhangs.Find(msg.MaKh);
                 string name = kh.HoTen;
                 Clients.Caller.Message(tenphong, name, msg.NoiDungTinNhanClient, msg.MaKh, msg.NgayGui);
+            }
+        }
+
+        public void GetMessagesAdmin(int roomId, long makh)
+        {
+            // Lấy ra các tin nhắn trong phòng chat và gửi cho client yêu cầu
+            var messagesAdmin = db.tinnhanAdmins.Where(tn => tn.IdClient == makh).ToList();
+
+            // Lấy ra thông tin tên phòng chat
+            PhongChat phchat = db.PhongChats.Find(roomId);
+            string tenphong = phchat.TenPhongChat;
+
+            // Gửi danh sách tin nhắn về cho client
+            foreach (var msg in messagesAdmin)
+            {
+                khachhang kh = db.khachhangs.Find(msg.IdClient);
+                string name = kh.HoTen;
+                Clients.Caller.Message(tenphong, name, msg.NoiDungChat, msg.IdClient, msg.NgayGuiChat);
             }
         }
 

@@ -113,6 +113,8 @@ namespace Jade_Dragon
             Session["GiaTien"] = "";
             Session["Menu_VIP"] = "";
             Session["TrangThaiPhong"] = "";
+            Session["PhongAdmin"] = "";
+            Session["MaPhongAdmin"] = "";
         }
     }
 }

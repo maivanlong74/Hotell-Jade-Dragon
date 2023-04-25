@@ -22,9 +22,8 @@ namespace Jade_Dragon.Models
     
         public long MaPhongChat { get; set; }
         public string TenPhongChat { get; set; }
-        public Nullable<long> AdminID { get; set; }
+        public Nullable<bool> Admin { get; set; }
     
-        public virtual khachhang khachhang { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tinnhan> tinnhans { get; set; }
     }
