@@ -15,15 +15,12 @@ namespace Jade_Dragon.Models
     public partial class tinnhanAdmin
     {
         public long MaChatAdmin { get; set; }
-        public Nullable<long> IdAdmin { get; set; }
-        public Nullable<long> IdClient { get; set; }
+        public Nullable<long> IdNguoiNhan { get; set; }
+        public Nullable<long> IdNguoiGui { get; set; }
         public string NoiDungChat { get; set; }
         public Nullable<System.DateTime> NgayGuiChat { get; set; }
-        public Nullable<long> IDGroup { get; set; }
-        public Nullable<long> MaPhongChat { get; set; }
     
         public virtual khachhang khachhang { get; set; }
         public virtual khachhang khachhang1 { get; set; }
-        public virtual UserGroup UserGroup { get; set; }
     }
 }

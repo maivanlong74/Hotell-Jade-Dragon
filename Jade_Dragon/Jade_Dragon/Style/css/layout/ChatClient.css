@@ -58,13 +58,15 @@
             }
 
             .body-item-chat .htchat ul::-webkit-scrollbar-thumb {
-                background-color: yellow;
-                border: 1px solid black;
-                border-radius: 15px;
+                border-radius: 10px;
+                background-color: #2c3e50;
+                height: 20px;
             }
 
             .body-item-chat .htchat ul::-webkit-scrollbar-track {
-                border: 3px solid black;
+                background-color: #95a5a6;
+                border: 2px solid black;
+                border-radius: 10px;
             }
 
     .body-item-chat .list-chat .chat-admin {
@@ -87,19 +89,39 @@
             font-weight: 800;
         }
 
-.list-chat .list-user {
-    list-style: none;
-}
+    /*-------List Phòng-------*/
+    .list-chat .list-user {
+        list-style: none;
+        height: 100%;
+        overflow: auto;
+    }
 
     .list-chat .list-user li {
         color: white;
     }
 
-        .list-chat .list-user li:hover {
-            cursor: pointer;
-            padding-left: 5px;
-            background: #130f40;
+    .list-chat .list-user li:hover {
+        cursor: pointer;
+        padding-left: 5px;
+        background: #130f40;
+    }
+
+        .list-chat .list-user::-webkit-scrollbar {
+            width: 20px;
         }
+
+        .list-chat .list-user::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background-color: #2c3e50;
+            height: 20px;
+        }
+
+        .list-chat .list-user::-webkit-scrollbar-track {
+            background-color: #95a5a6;
+            border: 2px solid black;
+            border-radius: 10px;
+        }
+/*-------------------------------*/
 
 .body-item-chat .list-chat ul li {
     margin-bottom: 10px;

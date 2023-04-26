@@ -1,4 +1,5 @@
-﻿
+﻿@model Jade_Dragon.Models.Chat_Admin
+
 @{
     ViewBag.Title = "TinNhanAdmin";
     Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
@@ -6,7 +7,20 @@
 <link href="~/Areas/Admin/Public/css/css_ChatAdmin.css" rel="stylesheet" />
 
 <style>
-    
+    .list-chat .list-Group .hidden{
+        display: none;
+    }
+    .list-chat .list-Group li .input {
+        height: 35px;
+        width: 190px;
+        border: 1px solid;
+        background: none;
+        color: white;
+        text-align: center;
+    }
+    .list-chat .list-Group li .button {
+        width: 60px;
+    }
 </style>
 
 <div class="home">
@@ -17,27 +31,49 @@
                     <div style="height: 5%;"></div>
                     <div class="list-Group list-chat-a">
                         <span>Nhóm chat</span>
-                        <ul>
-                            <li>Tất cả</li>
-                            <li>Jade Dragon</li>
+                        <ul id="Create_Room">
+                            <li class="Show">
+                                <button type="submit" id="Create">
+                                    <img src="~/Style/img/icon/icon-them.jpg" style="width: 20px;"/>
+                                </button>
+                            </li>
+                            <li class="Create-new">
+                                <input type="text" placeholder="Tạo nhóm mới" class="input" id="txtCreate"/>
+                                <button type="submit" class="button">Thêm</button>
+                                <input type="hidden" id="hihi" value="hehe"/>
+                            </li>
+                            @*@foreach(var dem in Model.phchat) { 
+                                <li><button type="submit" class="btnChatPhong" data-id="@dem.MaPhongChat">
+                                        @dem.TenPhongChat
+                                    </button>
+                                </li>
+                            }*@
                         </ul>
                     </div>
                     <div class="list-User list-chat-a">
                         <span>Khách hàng</span>
                         <ul>
-                            <li>Mai Văn Long</li>
-                            <li>Hồ Thị Như Ngọc</li>
+                            @foreach (var dem in Model.kh)
+                            {
+                                <li><button type="submit" class="btnUser" data-id="@dem.MaKh">
+                                        @dem.HoTen
+                                    </button>
+                                </li>
+                            }
                         </ul>
                     </div>
                 </div>
                 <div class="htchat">
-                    <div id="tenphong"></div>
+                    <div id="tenphong">Tất cả</div>
+                    <input type="hidden" id="idphong" value="1" />
+                    <input type="hidden" id="idUser" value="" />
+
                     <ul id="contentMsg"></ul>
                 </div>
             </div>
             <div class="body-send-chat">
-                <input type="hidden" id="hName" value="@Session["HoTen"]" />
-                <input type="hidden" id="idphong" value="1" />
+                <input type="hidden" id="makh" value="@Session["MaKh"]" />
+
                 <input type="text" id="txtMessage" placeholder="Nhập chat" class="txtchat" />
                 <button type="submit" id="btnSend" class="txtchat">Gửi</button>
             </div>
@@ -48,47 +84,6 @@
 <script src="~/Scripts/jquery-1.10.2.js"></script>
 <script src="~/Scripts/jquery.signalR-2.4.3.min.js"></script>
 <script src="~/signalr/hubs"></script>
+<script src="~/Areas/Admin/Public/js/chatadmin.js"></script>
 
-<script>
-    $(function () {
-        var chat = $.connection.chat;
 
-        loadClient(chat);
-
-        $.connection.hub.start().done(function () {
-            $('#btnSend').click(function () {
-                sendMessage(chat);
-            });
-
-            $('#txtMessage').keypress(function (e) {
-                if (e.which === 13) { // Kiểm tra xem phím Enter đã được bấm chưa
-                    sendMessage(chat);
-                }
-            });
-
-            // Lấy danh sách tin nhắn trong phòng chat và hiển thị lên
-            var roomId = $('#idphong').val();
-            chat.server.getMessages(roomId);
-        });
-    });
-
-    function sendMessage(chat) {
-        var roomId = $('#idphong').val();
-        var msg = $('#txtMessage').val();
-        var makh = $('#makh').val();
-        chat.server.message(roomId, makh, msg);
-        $('#txtMessage').val('').focus();
-    }
-
-    var isRoomNameSet = false;
-    function loadClient(chat) {
-        chat.client.message = function (tenphong, name, msg) {
-            $('#contentMsg').append("<li><strong>" + name + "</strong>: " + msg + "</li>");
-            if (!isRoomNameSet) { // kiểm tra xem tên phòng chat đã được hiển thị chưa
-                $('#tenphong').append("<i>" + tenphong + "</i>");
-                isRoomNameSet = true;
-            }
-        }
-    }
-
-</script>

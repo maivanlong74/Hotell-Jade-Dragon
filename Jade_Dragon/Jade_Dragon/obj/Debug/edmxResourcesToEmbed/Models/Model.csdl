@@ -130,7 +130,6 @@
     </Key>
     <Property Name="MaPhongChat" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="TenPhongChat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Admin" Type="Boolean" />
     <NavigationProperty Name="tinnhans" Relationship="Self.FK_tinnhan_PhongChat" FromRole="PhongChat" ToRole="tinnhan" />
   </EntityType>
   <EntityType Name="sysdiagram">
@@ -160,15 +159,12 @@
       <PropertyRef Name="MaChatAdmin" />
     </Key>
     <Property Name="MaChatAdmin" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="IdAdmin" Type="Int64" />
-    <Property Name="IdClient" Type="Int64" />
+    <Property Name="IdNguoiNhan" Type="Int64" />
+    <Property Name="IdNguoiGui" Type="Int64" />
     <Property Name="NoiDungChat" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="NgayGuiChat" Type="DateTime" Precision="3" />
-    <Property Name="IDGroup" Type="Int64" />
-    <Property Name="MaPhongChat" Type="Int64" />
     <NavigationProperty Name="khachhang" Relationship="Self.FK_tinnhanAdmin_khachhang" FromRole="tinnhanAdmin" ToRole="khachhang" />
     <NavigationProperty Name="khachhang1" Relationship="Self.FK_tinnhanAdmin_khachhang1" FromRole="tinnhanAdmin" ToRole="khachhang" />
-    <NavigationProperty Name="UserGroup" Relationship="Self.FK_tinnhanAdmin_UserGroup" FromRole="tinnhanAdmin" ToRole="UserGroup" />
   </EntityType>
   <EntityType Name="UserGroup">
     <Key>
@@ -177,7 +173,6 @@
     <Property Name="IDGroup" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="khachhangs" Relationship="Self.FK_khachhang_UserGroup" FromRole="UserGroup" ToRole="khachhang" />
-    <NavigationProperty Name="tinnhanAdmins" Relationship="Self.FK_tinnhanAdmin_UserGroup" FromRole="UserGroup" ToRole="tinnhanAdmin" />
   </EntityType>
   <EntityType Name="lichsu">
     <Key>
@@ -281,7 +276,7 @@
         <PropertyRef Name="MaKh" />
       </Principal>
       <Dependent Role="tinnhanAdmin">
-        <PropertyRef Name="IdAdmin" />
+        <PropertyRef Name="IdNguoiNhan" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -293,7 +288,7 @@
         <PropertyRef Name="MaKh" />
       </Principal>
       <Dependent Role="tinnhanAdmin">
-        <PropertyRef Name="IdClient" />
+        <PropertyRef Name="IdNguoiGui" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -342,18 +337,6 @@
       </Principal>
       <Dependent Role="tinnhan">
         <PropertyRef Name="MaPhongChat" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tinnhanAdmin_UserGroup">
-    <End Role="UserGroup" Type="Self.UserGroup" Multiplicity="0..1" />
-    <End Role="tinnhanAdmin" Type="Self.tinnhanAdmin" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="UserGroup">
-        <PropertyRef Name="IDGroup" />
-      </Principal>
-      <Dependent Role="tinnhanAdmin">
-        <PropertyRef Name="IDGroup" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -424,10 +407,6 @@
     <AssociationSet Name="FK_tinnhan_PhongChat" Association="Self.FK_tinnhan_PhongChat">
       <End Role="PhongChat" EntitySet="PhongChats" />
       <End Role="tinnhan" EntitySet="tinnhans" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tinnhanAdmin_UserGroup" Association="Self.FK_tinnhanAdmin_UserGroup">
-      <End Role="UserGroup" EntitySet="UserGroups" />
-      <End Role="tinnhanAdmin" EntitySet="tinnhanAdmins" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

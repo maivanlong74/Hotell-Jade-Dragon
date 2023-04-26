@@ -3,21 +3,22 @@
     loadClient(chat);
 
     $.connection.hub.start().done(function () {
+
         $('#btnSend').click(function () {
             sendMessage(chat);
+        });
+
+        $('.btnUser').click(function () {
+            var MaNguoiNhan = $(this).data('id');
+            var TenNguoiNhan = $(this).text();
+            var MaNguoiGui = $('#makh').val();
+            ChatUser(chat, MaNguoiNhan, TenNguoiNhan, MaNguoiGui);
         });
 
         $('.btnChatPhong').click(function () {
             var roomId = $(this).data('id');
             var tenphong = $(this).text();
             ChatGroup(chat, roomId, tenphong);
-        });
-
-        $('.btnChatAdmin').click(function () {
-            var makh = $('#makh').val();
-            roomId = $(this).data('id');
-            tenphong = $(this).text();
-            ChatAdmin(chat, roomId, tenphong, makh);
         });
 
         // Xử lý sự kiện nhấn phím Enter để gửi tin nhắn
@@ -29,19 +30,20 @@
 
         // Lấy danh sách tin nhắn trong phòng chat và hiển thị lên
         var roomId = $('#idphong').val();
-        if (roomId != null) {
-            chat.server.getMessages(roomId);
+        if (roomId == null || roomId.trim() == '') {
+            var idnhan = $('#idUser').val();
+            var idgui = $('#makh').val();
+            chat.server.getMessagesAdmin(idnhan, idgui);
         } else {
-            var roomIdAdmin = $('#idphongadmin').val();
-            var makh = $('#makh').val();
-            chat.server.getMessagesAdmin(roomIdAdmin, makh);
+            chat.server.getMessages(roomId);
         }
+
     });
 });
 
 function sendMessage(chat) {
     var roomId = $('#idphong').val();
-    var roomIdAdmin = $('#idphongadmin').val();
+    var IdNhan = $('#idUser').val();
     var msg = $('#txtMessage').val();
     var makh = $('#makh').val();
 
@@ -51,9 +53,9 @@ function sendMessage(chat) {
     }
 
     if (roomId == null || roomId.trim() == '') {
-        chat.server.message(roomIdAdmin, makh, msg);
+        chat.server.message(IdNhan, makh, msg, true);
     } else {
-        chat.server.message(roomId, makh, msg);
+        chat.server.message(roomId, makh, msg, false);
     }
 
     $('#txtMessage').val('').focus();
@@ -65,17 +67,20 @@ function ChatGroup(chat, roomId, tenphong) {
     $('#contentMsg p').hide();
     $('#contentMsg li').hide(); // hide all messages
     $('#contentMsg li.admin').show(); // show only admin messages
+
     chat.server.getMessages(roomId);
 }
 
-function ChatAdmin(chat, roomId, tenphong, makh) {
-    $('#idphong').val(null);
-    $('#idphongadmin').val(roomId);
-    $('#tenphong').text(tenphong);
+function ChatUser(chat, MaNguoiNhan, TenNguoiNhan, MaNguoiGui) {
+
+    $('#idphong').val("");
+    $('#idUser').val(MaNguoiNhan);
+    $('#tenphong').text(TenNguoiNhan);
     $('#contentMsg p').hide();
     $('#contentMsg li').hide(); // hide all messages
     $('#contentMsg li.admin').show(); // show only admin messages
-    chat.server.getMessagesAdmin(roomId, makh);
+
+    chat.server.getMessagesAdmin(MaNguoiNhan, MaNguoiGui);
 }
 
 /*-----------------------------------------------*/
@@ -84,7 +89,7 @@ var lastSenderId = null; // khởi tạo biến lưu trữ mã khách hàng ở 
 var lastMessageTime = null; // khởi tạo biến lưu trữ thời gian tin nhắn cuối cùng
 
 function loadClient(chat) {
-    chat.client.message = function (tenphong, name, msg, makh, ngaygui) {
+    chat.client.message = function (name, msg, makh, ngaygui) {
         var li = "";
         var me = "me";
         var you = "you";
@@ -97,16 +102,24 @@ function loadClient(chat) {
             var messageDateString = messageDate.toLocaleString();
             var messageTimeHTML = '<p class= "timenow" >' + messageDateString + '</p>';
             $('#contentMsg').append(messageTimeHTML);
-        }
 
-        if (makh == $('#makh').val()) { // người gửi tin nhắn là người dùng đang truy cập
-            li = "<li data-sender='" + makh + "' class = '" + me + "' ><span>" + msg + "</span></li>";
+            if (makh == $('#makh').val()) { // người gửi tin nhắn là người dùng đang truy cập
+                li = "<li data-sender='" + makh + "' class = '" + me + "' ><span>" + msg + "</span></li>";
+            } else {
+                li = "<li data-sender='" + makh + "' class = '" + you + "' ><p>"
+                    + name + "</p> <span>" + msg + "</span></li>";
+            }
+            $('#contentMsg').append(li);
         } else {
-            li = "<li data-sender='" + makh + "' class = '" + you + "' ><p>"
-                + (makh !== lastSenderId ? name + ":" : "") + "</p> <span>"
-                + msg + "</span></li>";
+            if (makh == $('#makh').val()) { // người gửi tin nhắn là người dùng đang truy cập
+                li = "<li data-sender='" + makh + "' class = '" + me + "' ><span>" + msg + "</span></li>";
+            } else {
+                li = "<li data-sender='" + makh + "' class = '" + you + "' ><p>"
+                    + (makh !== lastSenderId ? name + ":" : "") + "</p> <span>"
+                    + msg + "</span></li>";
+            }
+            $('#contentMsg').append(li);
         }
-        $('#contentMsg').append(li);
 
         lastSenderId = makh; // lưu mã khách hàng hiện tại cho lần so sánh ở vòng sau
         lastMessageTime = messageTime; // lưu lại thời gian gửi tin nhắn cuối cùng

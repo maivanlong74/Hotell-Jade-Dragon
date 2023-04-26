@@ -615,6 +615,7 @@
     <Content Include="Areas\Admin\Public\css\khachsan.css" />
     <Content Include="Areas\Admin\Public\css\lichsu.css" />
     <Content Include="Areas\Admin\Public\css\Table.css" />
+    <Content Include="Areas\Admin\Public\js\chatadmin.js" />
     <Content Include="Areas\Admin\Public\js\ChucNang.js" />
     <Content Include="Areas\Admin\Public\js\dataTables_min.js" />
     <Content Include="Areas\Admin\Public\js\js_jquery.js" />
@@ -800,6 +801,7 @@
     <Content Include="Style\img\travel.jpg" />
     <Content Include="Style\js\aaa.js" />
     <Content Include="Style\js\app.js" />
+    <Content Include="Style\js\ChatClient.js" />
     <Content Include="Style\js\Map_BanDo.js" />
     <Content Include="Style\js\DongHo.js" />
     <Content Include="Style\js\main.js" />
@@ -839,6 +841,7 @@
     </Compile>
     <Compile Include="Hubs\DemoChat.cs" />
     <Compile Include="Models\Cart.cs" />
+    <Compile Include="Models\Chat_Admin.cs" />
     <Compile Include="Models\chitiethoadon.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -956,6 +959,7 @@
     <Content Include="Views\PayNganHang\HoaDon.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\TinNhan\Chat.cshtml" />
+    <Content Include="Views\Shared\Layout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

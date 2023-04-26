@@ -110,7 +110,6 @@
     </Key>
     <Property Name="MaPhongChat" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="TenPhongChat" Type="nvarchar" MaxLength="50" />
-    <Property Name="Admin" Type="bit" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
@@ -137,12 +136,10 @@
       <PropertyRef Name="MaChatAdmin" />
     </Key>
     <Property Name="MaChatAdmin" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="IdAdmin" Type="bigint" />
-    <Property Name="IdClient" Type="bigint" />
+    <Property Name="IdNguoiNhan" Type="bigint" />
+    <Property Name="IdNguoiGui" Type="bigint" />
     <Property Name="NoiDungChat" Type="nvarchar(max)" />
     <Property Name="NgayGuiChat" Type="datetime" />
-    <Property Name="IDGroup" Type="bigint" />
-    <Property Name="MaPhongChat" Type="bigint" />
   </EntityType>
   <EntityType Name="UserGroup">
     <Key>
@@ -303,7 +300,7 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
         <PropertyRef Name="MaKh" />
       </Principal>
       <Dependent Role="tinnhanAdmin">
-        <PropertyRef Name="IdAdmin" />
+        <PropertyRef Name="IdNguoiNhan" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -315,19 +312,7 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
         <PropertyRef Name="MaKh" />
       </Principal>
       <Dependent Role="tinnhanAdmin">
-        <PropertyRef Name="IdClient" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tinnhanAdmin_UserGroup">
-    <End Role="UserGroup" Type="Self.UserGroup" Multiplicity="0..1" />
-    <End Role="tinnhanAdmin" Type="Self.tinnhanAdmin" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="UserGroup">
-        <PropertyRef Name="IDGroup" />
-      </Principal>
-      <Dependent Role="tinnhanAdmin">
-        <PropertyRef Name="IDGroup" />
+        <PropertyRef Name="IdNguoiGui" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -405,10 +390,6 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
     </AssociationSet>
     <AssociationSet Name="FK_tinnhanAdmin_khachhang1" Association="Self.FK_tinnhanAdmin_khachhang1">
       <End Role="khachhang" EntitySet="khachhang" />
-      <End Role="tinnhanAdmin" EntitySet="tinnhanAdmin" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tinnhanAdmin_UserGroup" Association="Self.FK_tinnhanAdmin_UserGroup">
-      <End Role="UserGroup" EntitySet="UserGroup" />
       <End Role="tinnhanAdmin" EntitySet="tinnhanAdmin" />
     </AssociationSet>
   </EntityContainer>

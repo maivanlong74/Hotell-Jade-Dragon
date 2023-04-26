@@ -119,7 +119,6 @@
         <MappingFragment StoreEntitySet="PhongChat">
           <ScalarProperty Name="MaPhongChat" ColumnName="MaPhongChat" />
           <ScalarProperty Name="TenPhongChat" ColumnName="TenPhongChat" />
-          <ScalarProperty Name="Admin" ColumnName="Admin" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -149,12 +148,10 @@
       <EntityTypeMapping TypeName="Jade_DragonModel.tinnhanAdmin">
         <MappingFragment StoreEntitySet="tinnhanAdmin">
           <ScalarProperty Name="MaChatAdmin" ColumnName="MaChatAdmin" />
-          <ScalarProperty Name="IdAdmin" ColumnName="IdAdmin" />
-          <ScalarProperty Name="IdClient" ColumnName="IdClient" />
+          <ScalarProperty Name="IdNguoiNhan" ColumnName="IdNguoiNhan" />
+          <ScalarProperty Name="IdNguoiGui" ColumnName="IdNguoiGui" />
           <ScalarProperty Name="NoiDungChat" ColumnName="NoiDungChat" />
           <ScalarProperty Name="NgayGuiChat" ColumnName="NgayGuiChat" />
-          <ScalarProperty Name="IDGroup" ColumnName="IDGroup" />
-          <ScalarProperty Name="MaPhongChat" ColumnName="MaPhongChat" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

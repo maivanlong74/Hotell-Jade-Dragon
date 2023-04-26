@@ -5,7 +5,26 @@
 }
 <link href="~/Style/css/layout/ChatClient.css" rel="stylesheet" />
 <style>
+    .list-chat .list-user {
+        list-style: none;
+        height: 100%;
+        overflow: auto;
+    }
+        .list-chat .list-user::-webkit-scrollbar {
+            width: 20px;
+        }
 
+        .list-chat .list-user::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background-color: #2c3e50;
+            height: 20px;
+        }
+
+        .list-chat .list-user::-webkit-scrollbar-track {
+            background-color: #95a5a6;
+            border: 2px solid black;
+            border-radius: 10px;
+        }
 </style>
 
 <div class="home">
@@ -18,8 +37,8 @@
                         <div class="body-item-chat">
                             <div class="list-chat">
                                 <div class="chat-admin">
-                                    <button type="submit" class="btnChatAdmin" data-id="@Session["MaPhongAdmin"]">
-                                        @Session["PhongAdmin"]
+                                    <button type="submit" class="btnUser" data-id="@Session["MaPhongAdmin"]">
+                                        Chat với Admin
                                     </button>
                                 </div>
                                 <ul class="list-user">
@@ -27,8 +46,10 @@
                                     {
                                         <li></li>
                                     }
-                                    else { 
-                                        foreach(var item in Model) { 
+                                    else
+                                    {
+                                        foreach (var item in Model)
+                                        {
                                             <li>
                                                 <button type="submit" class="btnChatPhong" data-id="@item.MaPhongChat">
                                                     @item.TenPhongChat
@@ -42,7 +63,7 @@
                                 <div>
                                     <i id="tenphong">Tất cả</i>
                                     <input type="hidden" id="idphong" value="1" />
-                                    <input type="hidden" id="idphongadmin" value="1" />
+                                    <input type="hidden" id="idUser" value="" />
                                 </div>
                                 <ul id="contentMsg"></ul>
                             </div>
@@ -50,7 +71,7 @@
                         <div class="body-send-chat">
                             <input type="hidden" id="makh" value="@Session["MaKh"]" />
 
-                            <input type="text" id="txtMessage" placeholder="Nhập chat" class="txtchat" required/>
+                            <input type="text" id="txtMessage" placeholder="Nhập chat" class="txtchat"/>
                             <button type="submit" id="btnSend" class="txtchat">Gửi</button>
                         </div>
                     </div>
