@@ -115,6 +115,9 @@ namespace Jade_Dragon
             Session["TrangThaiPhong"] = "";
             Session["PhongAdmin"] = "";
             Session["MaPhongAdmin"] = "";
+
+            Session["MaPhong"] = "";
+            Session["TenPhong"] = "";
         }
     }
 }

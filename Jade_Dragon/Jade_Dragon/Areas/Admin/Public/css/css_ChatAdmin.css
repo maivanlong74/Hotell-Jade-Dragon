@@ -74,12 +74,14 @@
             border-radius: 10px;
         }
 
-    .body-chat .list-chat ul li button {
-        width: 100%;
-        background: none;
-        color: wheat;
-        cursor: pointer;
-    }
+.body-chat .list-chat #Create_Room li .btnChatPhong {
+    width: 230px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background: none;
+    color: wheat;
+    cursor: pointer;
+}
 
 /*---------Create---------------*/
 
@@ -159,11 +161,23 @@
     }
 
     .list-chat .list-Group li {
+        display: flex;
     }
 
     .list-chat .list-Group li:hover {
     }
+.body-chat .list-chat #Create_Room li .btnDelete {
+    width: 30px;
+    display: none;
+}
 
+    .body-chat .list-chat #Create_Room li .btnDelete img {
+        width: 30px;
+    }
+
+.body-chat .list-chat #Create_Room li:hover .btnDelete {
+    display: block;
+}
 /*------------------------------*/
 
     .list-chat .list-User {
@@ -292,3 +306,56 @@
     }
 
 /*------------------*/
+
+.list-chat .list-Group li {
+    display: flex;
+}
+
+.body-chat .list-chat #Create_Room li .btnDelete {
+    width: 30px;
+    display: none;
+}
+
+    .body-chat .list-chat #Create_Room li .btnDelete img {
+        width: 30px;
+    }
+
+.body-chat .list-chat #Create_Room li:hover .btnDelete {
+    display: block;
+}
+
+.body-chat .list-chat ul li button {
+    width: 230px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background: none;
+    color: wheat;
+    cursor: pointer;
+}
+
+/*-------Delete Tin Nhắn*/
+.body-item-chat .htchat #contentMsg li .Delete {
+    position: relative;
+    z-index: 999;
+    padding-right: 5px;
+    background: none;
+    height: 0px;
+    display: none;
+}
+
+.body-item-chat .htchat #contentMsg li:hover .Delete {
+    display: block;
+}
+
+.body-item-chat .htchat #contentMsg li button {
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+    .body-item-chat .htchat #contentMsg li button img {
+        width: 20px;
+        background-color: black;
+        border-radius: 50px;
+    }

@@ -1,57 +1,70 @@
-- Tôi có đoạn code js:          
-    var lastSenderId = null; // khởi tạo biến lưu trữ mã khách hàng ở vòng trước
-    var lastMessageTime = null; // khởi tạo biến lưu trữ thời gian tin nhắn cuối cùng
+Đây là code js của tôi:
+    $(function () {
+        var chat = $.connection.chat;
+        loadClient(chat);
+        loadGroup(chat);
 
-    function loadClient(chat) {
-        chat.client.message = function (tenphong, name, msg, makh, ngaygui) {
-            var li = "";
-            var me = "me";
-            var you = "you";
-            var messageTime = new Date(ngaygui).getTime(); // chuyển đổi ngày gửi tin nhắn thành thời gian (đơn vị: milliseconds)
+        $.connection.hub.start().done(function () {
+            // Xóa tin nhắn
+            $('#contentMsg').on("click", "button#deleteButton", (function () {
+                var matn = $(this).data('id');
+                var nguoigui = $(this).data('gui');
+                var khachhang = $(this).data('makh');
+                chat.server.deleteTinNhan(matn, nguoigui, khachhang);
+            }));
 
-            // Kiểm tra nếu đã đủ 1 giờ kể từ lần gửi tin nhắn cuối cùng
-            if (lastMessageTime && (messageTime - lastMessageTime) >= (60 * 60 * 1000)) {
-                // Nếu đã đủ 1 giờ, in ra thời gian của tin nhắn mới
-                var messageDate = new Date(messageTime);
-                var messageDateString = messageDate.toLocaleString();
-                var messageTimeHTML = '<p class= "timenow" >' + messageDateString + '</p>';
+            $.connection.sendAsync.client.TinNhanDaXoa = function (id, kh, loai) {
+                // Lấy danh sách tin nhắn trong phòng chat và hiển thị lên
+                if (loai == true) {
+                    chat.server.getMessagesAdmin(id, kh);
+                } else {
+                    chat.server.getMessages(id);
+                }
+            };
+        });
+    });
 
-                $('#contentMsg').append(messageTimeHTML);
+Đây là code DemoChat.cs của Hubs:
+    namespace Jade_Dragon.Hubs
+    {
+        [HubName("chat")]
+        public class DemoChat : Hub
+        {
+            private Connect db = new Connect();
+
+            public async Task DeleteTinNhan(long id, long gui, long makh)
+            {
+                tinnhan tn = db.tinnhans.FirstOrDefault(m => m.MaTinNhan == id && m.MaKh == gui);
+                tinnhanAdmin tnAdmin = db.tinnhanAdmins.FirstOrDefault(m => m.MaChatAdmin == id && m.IdNguoiGui == gui);
+                if (tn != null)
+                {
+                    long idphong = (long)tn.MaPhongChat;
+                    long kh = (long)tn.MaKh;
+                    db.tinnhans.Remove(tn);
+                    db.SaveChanges();
+                    // Gửi thông báo đến các client rằng một tin nhắn đã bị xóa
+                    await Clients.All.SendAsync("TinNhanDaXoa", idphong, kh, true);
+                }
+                else
+                {
+                    long idphong = (long)tnAdmin.IdNguoiNhan;
+                    long kh = (long)tnAdmin.IdNguoiGui;
+                    db.tinnhanAdmins.Remove(tnAdmin);
+                    db.SaveChanges();
+                    // Gửi thông báo đến các client rằng một tin nhắn đã bị xóa
+                    await Clients.All.SendAsync("TinNhanDaXoa", idphong, kh, false);
+                }
             }
-
-            if (makh == $('#makh').val()) { // người gửi tin nhắn là người dùng đang truy cập
-                li = "<li data-sender='" + makh + "' class = '" + me + "' ><span>" + msg + "</span></li>";
-            } else {
-                li = "<li data-sender='" + makh + "' class = '" + you + "' ><p>"
-                    + (makh !== lastSenderId ? name + ":" : "") + "</p> <span>"
-                    + msg + "</span></li>";
-            }
-            $('#contentMsg').append(li);
-
-            lastSenderId = makh; // lưu mã khách hàng hiện tại cho lần so sánh ở vòng sau
-            lastMessageTime = messageTime; // lưu lại thời gian gửi tin nhắn cuối cùng
-
-            // Cuộn thanh cuộn xuống tin nhắn mới nhất
-            var messagesContainer = $('#contentMsg');
-            messagesContainer.scrollTop(messagesContainer[0].scrollHeight);
         }
-    }           
-    
-- Tôi muốn thêm điều kiện ở đây: 
-        if (makh == $('#makh').val()) { // người gửi tin nhắn là người dùng đang truy cập
-            li = "<li data-sender='" + makh + "' class = '" + me + "' ><span>" + msg + "</span></li>";
+    }
+
+Phần code js này của tôi chưa thể lấy thông tin bên hàm DeleteTinNhan về được:
+    $.connection.sendAsync.client.TinNhanDaXoa = function (id, kh, loai) {
+        // Lấy danh sách tin nhắn trong phòng chat và hiển thị lên
+        if (loai == true) {
+            chat.server.getMessagesAdmin(id, kh);
         } else {
-            li = "<li data-sender='" + makh + "' class = '" + you + "' ><p>"
-                + (makh !== lastSenderId ? name + ":" : "") + "</p> <span>"
-                + msg + "</span></li>";
+            chat.server.getMessages(id);
         }
-        $('#contentMsg').append(li);
-
-- Tôi muốn thêm điều kiện là: Kiểm tra nếu đã đủ 1 giờ kể từ lần gửi tin nhắn cuối cùng thì in ra:
-        li = "<li data-sender='" + makh + "' class = '" + you + "' ><p>"
-            + name + "</p> <span>"
-            + msg + "</span></li>";
-- Ngược lại: 
-        li = "<li data-sender='" + makh + "' class = '" + you + "' ><p>"
-            + (makh !== lastSenderId ? name + ":" : "") + "</p> <span>"
-            + msg + "</span></li>";
+    };
+    Hãy sửa giúp tôi

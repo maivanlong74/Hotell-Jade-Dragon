@@ -620,6 +620,7 @@
     <Content Include="Areas\Admin\Public\js\dataTables_min.js" />
     <Content Include="Areas\Admin\Public\js\js_jquery.js" />
     <Content Include="Areas\Admin\Public\js\js.js" />
+    <Content Include="Areas\Admin\Public\js\Test2.js" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -799,8 +800,8 @@
     <Content Include="Style\img\map.jpg" />
     <Content Include="Style\img\nen.jpg" />
     <Content Include="Style\img\travel.jpg" />
-    <Content Include="Style\js\aaa.js" />
     <Content Include="Style\js\app.js" />
+    <Content Include="Style\js\chatchat.js" />
     <Content Include="Style\js\ChatClient.js" />
     <Content Include="Style\js\Map_BanDo.js" />
     <Content Include="Style\js\DongHo.js" />

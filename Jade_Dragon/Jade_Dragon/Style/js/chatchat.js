@@ -3,7 +3,6 @@
     loadClient(chat);
     loadDelete(chat);
     loadGroup(chat);
-    document.querySelector('.Create-new').classList.add('hidden');
 
     $.connection.hub.start().done(function () {
         console.log("check", $('.btnChatPhong'))
@@ -26,27 +25,10 @@
             ChatGroup(chat, roomId, tenphong);
         }));
 
-        // CHuyển sang tạo mới phòng
-        $('#Create').click(function () {
-            document.querySelector('.Show').classList.add('hidden');
-            document.querySelector('.Create-new').classList.remove('hidden');
-        });
-
-        // Tạo mới phòng
-        $('.button').click(function () {
-            CreateGroup(chat);
-        });
-
         // Xử lý sự kiện nhấn phím Enter để gửi tin nhắn
         $('#txtMessage').keypress(function (e) {
             if (e.which === 13) { // Kiểm tra xem phím Enter đã được bấm chưa
                 sendMessage(chat);
-            }
-        });
-
-        $('#txtCreate').keypress(function (e) {
-            if (e.which === 13) { // Kiểm tra xem phím Enter đã được bấm chưa
-                CreateGroup(chat);
             }
         });
 
@@ -70,6 +52,7 @@
             var khachhang = $(this).data('makh');
             chat.server.deleteTinNhan(matn, nguoigui, khachhang);
         }));
+
     });
 });
 
@@ -115,36 +98,20 @@ function ChatUser(chat, MaNguoiNhan, TenNguoiNhan, MaNguoiGui) {
     chat.server.getMessagesAdmin(MaNguoiNhan, MaNguoiGui);
 }
 
-function CreateGroup(chat) {
-    var room_new = $('#txtCreate').val();
-
-
-    if (room_new.length > 25) {
-        alert("Tên phòng không được vượt quá 25 ký tự!");
-        return;
-    }
-
-    alert("Thêm mới phòng thành công!");
-    chat.server.taoMoi(room_new);
-    document.querySelector('.Create-new').classList.add('hidden');
-    document.querySelector('.Show').classList.remove('hidden');
-    $('#txtCreate').val('').focus();
-}
-
 /*-----------------------------------------------*/
 
 var lastSenderId = null; // khởi tạo biến lưu trữ mã khách hàng ở vòng trước
 var lastMessageTime = null; // khởi tạo biến lưu trữ thời gian tin nhắn cuối cùng
 
 function loadClient(chat) {
-
+    
     chat.client.message = function (name, msg, makh, ngaygui, matinnhan) {
         var MaKhachHang = $('#makh').val();
         var li = "";
         var messageTime = new Date(ngaygui).getTime(); // chuyển đổi ngày gửi tin nhắn thành thời gian (đơn vị: milliseconds)
         var link = "/TinNhan/DeleteTinNhan?id=" + matinnhan + "&gui=" + makh + "&makh=" + MaKhachHang;
         var linkanh = "/Style/img/icon/icon-X.jpg";
-
+        
         // Kiểm tra nếu đã đủ 1 giờ kể từ lần gửi tin nhắn cuối cùng
         if (lastMessageTime && (messageTime - lastMessageTime) >= (60 * 60 * 1000)) {
             // Nếu đã đủ 1 giờ, in ra thời gian của tin nhắn mới
@@ -202,15 +169,10 @@ function loadDelete(chat) {
 }
 
 function loadGroup(chat) {
-    var btnChatPhong = "btnChatPhong";
     var linkanh = "/Style/img/icon/icon-X.jpg";
-    var title = "Xóa nhóm";
     chat.client.taoMoi = function (maphong, tenphong) {
-        var href = "/Admin/TinNhanAdmin/DeletePhong?id=" + maphong;
         var ht = "<li><button type='button' class='btnChatPhong' data-id='" + maphong + "'>" +
-            tenphong + "</button>" +
-            "<a href='" + href + "' class='btnDelete'>" +
-            "<img src='" + linkanh + "' class='btn-icon' id='btn-delete-" + maphong + "' title='" + title + "'/></a></li>"
+            tenphong + "</button></li>"
         $('#Create_Room').append(ht);
     }
 }

@@ -1,7 +1,6 @@
 ﻿$(function () {
     var chat = $.connection.chat;
     loadClient(chat);
-    loadDelete(chat);
     loadGroup(chat);
     document.querySelector('.Create-new').classList.add('hidden');
 
@@ -19,7 +18,7 @@
         });
 
         // Đổi phòng
-        $('#Create_Room').on("click", "button", (function () {
+        $('#Create_Room').on("click", "button", ".btnChatPhong", (function () {
             var roomId = $(this).data('id');
 
             var tenphong = $(this).text();
@@ -36,6 +35,12 @@
         $('.button').click(function () {
             CreateGroup(chat);
         });
+
+        // Xóa phòng
+        /*$('#Create_Room').on("click", "button", ".btnDelete", (function () {
+            var maPhong = $(this).data('id');
+            DeleteGroup(chat, maPhong);
+        }));*/
 
         // Xử lý sự kiện nhấn phím Enter để gửi tin nhắn
         $('#txtMessage').keypress(function (e) {
@@ -63,13 +68,6 @@
         //Lấy danh sách phòng
         chat.server.getTaoMoi();
 
-        // Xóa tin nhắn
-        $('#contentMsg').on("click", "button#deleteButton", (function () {
-            var matn = $(this).data('id');
-            var nguoigui = $(this).data('gui');
-            var khachhang = $(this).data('makh');
-            chat.server.deleteTinNhan(matn, nguoigui, khachhang);
-        }));
     });
 });
 
@@ -118,32 +116,34 @@ function ChatUser(chat, MaNguoiNhan, TenNguoiNhan, MaNguoiGui) {
 function CreateGroup(chat) {
     var room_new = $('#txtCreate').val();
 
-
     if (room_new.length > 25) {
         alert("Tên phòng không được vượt quá 25 ký tự!");
         return;
     }
 
-    alert("Thêm mới phòng thành công!");
     chat.server.taoMoi(room_new);
-    document.querySelector('.Create-new').classList.add('hidden');
-    document.querySelector('.Show').classList.remove('hidden');
+    alert("Thêm mới phòng thành công!");
     $('#txtCreate').val('').focus();
 }
 
+/*function DeleteGroup(chat, maphong) {
+    if (maphong == null) {
+        return;
+    } else {
+        chat.server.xoaPhong(maphong);
+    }
+}*/
 /*-----------------------------------------------*/
 
 var lastSenderId = null; // khởi tạo biến lưu trữ mã khách hàng ở vòng trước
 var lastMessageTime = null; // khởi tạo biến lưu trữ thời gian tin nhắn cuối cùng
 
 function loadClient(chat) {
-
-    chat.client.message = function (name, msg, makh, ngaygui, matinnhan) {
-        var MaKhachHang = $('#makh').val();
+    chat.client.message = function (name, msg, makh, ngaygui) {
         var li = "";
+        var me = "me";
+        var you = "you";
         var messageTime = new Date(ngaygui).getTime(); // chuyển đổi ngày gửi tin nhắn thành thời gian (đơn vị: milliseconds)
-        var link = "/TinNhan/DeleteTinNhan?id=" + matinnhan + "&gui=" + makh + "&makh=" + MaKhachHang;
-        var linkanh = "/Style/img/icon/icon-X.jpg";
 
         // Kiểm tra nếu đã đủ 1 giờ kể từ lần gửi tin nhắn cuối cùng
         if (lastMessageTime && (messageTime - lastMessageTime) >= (60 * 60 * 1000)) {
@@ -154,27 +154,19 @@ function loadClient(chat) {
             $('#contentMsg').append(messageTimeHTML);
 
             if (makh == $('#makh').val()) { // người gửi tin nhắn là người dùng đang truy cập
-                li = "<li data-sender='" + makh + "' class = 'me' >" +
-                    "<div class='Delete'><button type='button' id='deleteButton' data-id='" + matinnhan + "' data-gui='" + makh + "' data-makh='" + MaKhachHang + "'>" +
-                    "<img src='" + linkanh + "' title='Xóa tin nhắn'/>" +
-                    "</button></div > " +
-                    "<span>" + msg + "</span></li > ";
+                li = "<li data-sender='" + makh + "' class = '" + me + "' ><span>" + msg + "</span></li>";
             } else {
-                li = "<li data-sender='" + makh + "' class = 'you' ><p>"
-                    + name + "</p><span>" + msg + "</span></li>";
+                li = "<li data-sender='" + makh + "' class = '" + you + "' ><p>"
+                    + name + "</p> <span>" + msg + "</span></li>";
             }
             $('#contentMsg').append(li);
         } else {
             if (makh == $('#makh').val()) { // người gửi tin nhắn là người dùng đang truy cập
-                li = "<li data-sender='" + makh + "' class = 'me' >" +
-                    "<div class='Delete'><button type='button' id='deleteButton' data-id='" + matinnhan + "' data-gui='" + makh + "' data-makh='" + MaKhachHang + "'>" +
-                    "<img src='" + linkanh + "' title='Xóa tin nhắn'/>" +
-                    "</button></div > " +
-                    "<span>" + msg + "</span></li>";
+                li = "<li data-sender='" + makh + "' class = '" + me + "' ><span>" + msg + "</span></li>";
             } else {
-                li = "<li data-sender='" + makh + "' class = 'you' ><p>"
-                    + (makh !== lastSenderId ? name + ":" : "") + "</p>" +
-                    "<span>" + msg + "</span></li>";
+                li = "<li data-sender='" + makh + "' class = '" + you + "' ><p>"
+                    + (makh !== lastSenderId ? name + ":" : "") + "</p> <span>"
+                    + msg + "</span></li>";
             }
             $('#contentMsg').append(li);
         }
@@ -188,29 +180,17 @@ function loadClient(chat) {
     }
 }
 
-function loadDelete(chat) {
-    chat.client.tinNhanDaXoa = function (id, kh, loai) {
-        // Lấy danh sách tin nhắn trong phòng chat và hiển thị lên
-        if (loai == true) {
-            $('#contentMsg').empty();
-            chat.server.getMessagesAdmin(id, kh);
-        } else {
-            chat.server.getMessages(id);
-            $('#contentMsg').empty();
-        }
-    };
-}
-
 function loadGroup(chat) {
+    var submit = "button";
     var btnChatPhong = "btnChatPhong";
+    var btnDelete = "btnDelete";
     var linkanh = "/Style/img/icon/icon-X.jpg";
     var title = "Xóa nhóm";
     chat.client.taoMoi = function (maphong, tenphong) {
-        var href = "/Admin/TinNhanAdmin/DeletePhong?id=" + maphong;
         var ht = "<li><button type='button' class='btnChatPhong' data-id='" + maphong + "'>" +
             tenphong + "</button>" +
-            "<a href='" + href + "' class='btnDelete'>" +
-            "<img src='" + linkanh + "' class='btn-icon' id='btn-delete-" + maphong + "' title='" + title + "'/></a></li>"
+            "<button type='button' class='btnDelete' data-id='" + maphong + "'>" +
+            "<img src='" + linkanh + "' class='btn-icon' id='btn-delete-" + maphong + "' title='" + title + "'/></button></li>"
         $('#Create_Room').append(ht);
     }
 }

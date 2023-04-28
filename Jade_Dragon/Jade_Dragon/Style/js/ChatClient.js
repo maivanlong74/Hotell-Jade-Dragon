@@ -1,9 +1,10 @@
 ﻿$(function () {
     var chat = $.connection.chat;
     loadClient(chat);
+    loadGroup(chat);
 
     $.connection.hub.start().done(function () {
-
+        console.log("check", $('.btnChatPhong'))
         $('#btnSend').click(function () {
             sendMessage(chat);
         });
@@ -15,11 +16,13 @@
             ChatUser(chat, MaNguoiNhan, TenNguoiNhan, MaNguoiGui);
         });
 
-        $('.btnChatPhong').click(function () {
+        // Đổi phòng
+        $('#Create_Room').on("click", "button", (function () {
             var roomId = $(this).data('id');
+
             var tenphong = $(this).text();
             ChatGroup(chat, roomId, tenphong);
-        });
+        }));
 
         // Xử lý sự kiện nhấn phím Enter để gửi tin nhắn
         $('#txtMessage').keypress(function (e) {
@@ -37,6 +40,9 @@
         } else {
             chat.server.getMessages(roomId);
         }
+
+        //Lấy danh sách phòng
+        chat.server.getTaoMoi();
 
     });
 });
@@ -89,11 +95,12 @@ var lastSenderId = null; // khởi tạo biến lưu trữ mã khách hàng ở 
 var lastMessageTime = null; // khởi tạo biến lưu trữ thời gian tin nhắn cuối cùng
 
 function loadClient(chat) {
-    chat.client.message = function (name, msg, makh, ngaygui) {
+    chat.client.message = function (name, msg, makh, ngaygui, matinnhan) {
+        var MaKhachHang = $('#makh').val();
         var li = "";
-        var me = "me";
-        var you = "you";
         var messageTime = new Date(ngaygui).getTime(); // chuyển đổi ngày gửi tin nhắn thành thời gian (đơn vị: milliseconds)
+        var link = "/TinNhan/DeleteTinNhan?id=" + matinnhan + "&gui=" + makh + "&makh=" + MaKhachHang;
+        var linkanh = "/Style/img/icon/icon-X.jpg";
 
         // Kiểm tra nếu đã đủ 1 giờ kể từ lần gửi tin nhắn cuối cùng
         if (lastMessageTime && (messageTime - lastMessageTime) >= (60 * 60 * 1000)) {
@@ -104,19 +111,27 @@ function loadClient(chat) {
             $('#contentMsg').append(messageTimeHTML);
 
             if (makh == $('#makh').val()) { // người gửi tin nhắn là người dùng đang truy cập
-                li = "<li data-sender='" + makh + "' class = '" + me + "' ><span>" + msg + "</span></li>";
+                li = "<li data-sender='" + makh + "' class = 'me' >" +
+                    "<div class='Delete'><a href='" + link + "'>" +
+                    "<img src='" + linkanh + "' title='Xóa tin nhắn'/>" +
+                    "</a ></div > " +
+                    "<span>" + msg + "</span></li > ";
             } else {
-                li = "<li data-sender='" + makh + "' class = '" + you + "' ><p>"
-                    + name + "</p> <span>" + msg + "</span></li>";
+                li = "<li data-sender='" + makh + "' class = 'you' ><p>"
+                    + name + "</p><span>" + msg + "</span></li>";
             }
             $('#contentMsg').append(li);
         } else {
             if (makh == $('#makh').val()) { // người gửi tin nhắn là người dùng đang truy cập
-                li = "<li data-sender='" + makh + "' class = '" + me + "' ><span>" + msg + "</span></li>";
+                li = "<li data-sender='" + makh + "' class = 'me' >" +
+                    "<div class='Delete'><a href='" + link + "'>" +
+                    "<img src='" + linkanh + "' title='Xóa tin nhắn'/>" +
+                    "</a ></div > " +
+                    "<span>" + msg + "</span></li>";
             } else {
-                li = "<li data-sender='" + makh + "' class = '" + you + "' ><p>"
-                    + (makh !== lastSenderId ? name + ":" : "") + "</p> <span>"
-                    + msg + "</span></li>";
+                li = "<li data-sender='" + makh + "' class = 'you' ><p>"
+                    + (makh !== lastSenderId ? name + ":" : "") + "</p>" +
+                    "<span>" + msg + "</span></li>";
             }
             $('#contentMsg').append(li);
         }
@@ -127,5 +142,14 @@ function loadClient(chat) {
         // Cuộn thanh cuộn xuống tin nhắn mới nhất
         var messagesContainer = $('#contentMsg');
         messagesContainer.scrollTop(messagesContainer[0].scrollHeight);
+    }
+}
+
+function loadGroup(chat) {
+    var linkanh = "/Style/img/icon/icon-X.jpg";
+    chat.client.taoMoi = function (maphong, tenphong) {
+        var ht = "<li><button type='button' class='btnChatPhong' data-id='" + maphong + "'>" +
+            tenphong + "</button></li>"
+        $('#Create_Room').append(ht);
     }
 }
