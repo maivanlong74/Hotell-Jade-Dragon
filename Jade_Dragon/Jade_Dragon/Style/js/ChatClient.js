@@ -1,6 +1,7 @@
 ﻿$(function () {
     var chat = $.connection.chat;
     loadClient(chat);
+    loadDelete(chat);
     loadGroup(chat);
 
     $.connection.hub.start().done(function () {
@@ -43,6 +44,14 @@
 
         //Lấy danh sách phòng
         chat.server.getTaoMoi();
+
+        // Xóa tin nhắn
+        $('#contentMsg').on("click", "button#deleteButton", (function () {
+            var matn = $(this).data('id');
+            var nguoigui = $(this).data('gui');
+            var khachhang = $(this).data('makh');
+            chat.server.deleteTinNhan(matn, nguoigui, khachhang);
+        }));
 
     });
 });
@@ -95,6 +104,7 @@ var lastSenderId = null; // khởi tạo biến lưu trữ mã khách hàng ở 
 var lastMessageTime = null; // khởi tạo biến lưu trữ thời gian tin nhắn cuối cùng
 
 function loadClient(chat) {
+
     chat.client.message = function (name, msg, makh, ngaygui, matinnhan) {
         var MaKhachHang = $('#makh').val();
         var li = "";
@@ -112,9 +122,9 @@ function loadClient(chat) {
 
             if (makh == $('#makh').val()) { // người gửi tin nhắn là người dùng đang truy cập
                 li = "<li data-sender='" + makh + "' class = 'me' >" +
-                    "<div class='Delete'><a href='" + link + "'>" +
+                    "<div class='Delete'><button type='button' id='deleteButton' data-id='" + matinnhan + "' data-gui='" + makh + "' data-makh='" + MaKhachHang + "'>" +
                     "<img src='" + linkanh + "' title='Xóa tin nhắn'/>" +
-                    "</a ></div > " +
+                    "</button></div > " +
                     "<span>" + msg + "</span></li > ";
             } else {
                 li = "<li data-sender='" + makh + "' class = 'you' ><p>"
@@ -124,9 +134,9 @@ function loadClient(chat) {
         } else {
             if (makh == $('#makh').val()) { // người gửi tin nhắn là người dùng đang truy cập
                 li = "<li data-sender='" + makh + "' class = 'me' >" +
-                    "<div class='Delete'><a href='" + link + "'>" +
+                    "<div class='Delete'><button type='button' id='deleteButton' data-id='" + matinnhan + "' data-gui='" + makh + "' data-makh='" + MaKhachHang + "'>" +
                     "<img src='" + linkanh + "' title='Xóa tin nhắn'/>" +
-                    "</a ></div > " +
+                    "</button></div > " +
                     "<span>" + msg + "</span></li>";
             } else {
                 li = "<li data-sender='" + makh + "' class = 'you' ><p>"
@@ -143,6 +153,19 @@ function loadClient(chat) {
         var messagesContainer = $('#contentMsg');
         messagesContainer.scrollTop(messagesContainer[0].scrollHeight);
     }
+}
+
+function loadDelete(chat) {
+    chat.client.tinNhanDaXoa = function (id, kh, loai) {
+        // Lấy danh sách tin nhắn trong phòng chat và hiển thị lên
+        if (loai == true) {
+            $('#contentMsg').empty();
+            chat.server.getMessagesAdmin(id, kh);
+        } else {
+            chat.server.getMessages(id);
+            $('#contentMsg').empty();
+        }
+    };
 }
 
 function loadGroup(chat) {

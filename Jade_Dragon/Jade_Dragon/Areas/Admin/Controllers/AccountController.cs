@@ -112,7 +112,6 @@ namespace Jade_Dragon.Areas.Admin.Controllers
 
         }
 
-
         public string GenerateVerificationCode()
         {
             int codeLength = 6; // Độ dài của mã xác minh

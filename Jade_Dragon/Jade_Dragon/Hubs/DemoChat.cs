@@ -15,6 +15,7 @@ using System.Windows.Interop;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Threading.Tasks;
 
+
 namespace Jade_Dragon.Hubs
 {
     [HubName("chat")]

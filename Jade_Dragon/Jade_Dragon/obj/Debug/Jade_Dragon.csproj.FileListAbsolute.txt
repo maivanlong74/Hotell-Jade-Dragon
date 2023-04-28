@@ -1703,3 +1703,13 @@ L:\Hotell-Jade-Dragon\Jade_Dragon\Jade_Dragon\bin\Microsoft.AspNet.SignalR.Syste
 L:\Hotell-Jade-Dragon\Jade_Dragon\Jade_Dragon\bin\Microsoft.Owin.Host.SystemWeb.xml
 L:\Hotell-Jade-Dragon\Jade_Dragon\Jade_Dragon\bin\DocumentFormat.OpenXml.dll
 L:\Hotell-Jade-Dragon\Jade_Dragon\Jade_Dragon\bin\DocumentFormat.OpenXml.xml
+L:\Hotell-Jade-Dragon\Jade_Dragon\Jade_Dragon\bin\grpc_csharp_ext.x86.dll
+L:\Hotell-Jade-Dragon\Jade_Dragon\Jade_Dragon\bin\grpc_csharp_ext.x64.dll
+L:\Hotell-Jade-Dragon\Jade_Dragon\Jade_Dragon\bin\libgrpc_csharp_ext.x64.so
+L:\Hotell-Jade-Dragon\Jade_Dragon\Jade_Dragon\bin\libgrpc_csharp_ext.x64.dylib
+L:\Hotell-Jade-Dragon\Jade_Dragon\Jade_Dragon\bin\Grpc.Core.Api.dll
+L:\Hotell-Jade-Dragon\Jade_Dragon\Jade_Dragon\bin\Grpc.Core.dll
+L:\Hotell-Jade-Dragon\Jade_Dragon\Jade_Dragon\bin\Grpc.Core.pdb
+L:\Hotell-Jade-Dragon\Jade_Dragon\Jade_Dragon\bin\Grpc.Core.xml
+L:\Hotell-Jade-Dragon\Jade_Dragon\Jade_Dragon\bin\Grpc.Core.Api.pdb
+L:\Hotell-Jade-Dragon\Jade_Dragon\Jade_Dragon\bin\Grpc.Core.Api.xml
