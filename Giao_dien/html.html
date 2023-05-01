@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .fileInputWrapper {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+          }
+          
+          .fileInputIcon {
+            width: 30px;
+            height: 30px;
+            object-fit: contain;
+          }
+          
+          input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            visibility: hidden;
+            cursor: pointer;
+          }
+          
+    </style>
+</head>
+<body>
+    <label for="fileInput" class="fileInputWrapper">
+        <img src="./Icon_Img.jpg" alt="Upload Image" class="fileInputIcon">
+        <input id="fileInput" type="file" accept="image/*">
+      </label>      
+</body>
+</html>

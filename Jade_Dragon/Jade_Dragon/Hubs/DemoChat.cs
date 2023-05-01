@@ -22,16 +22,36 @@ namespace Jade_Dragon.Hubs
     public class DemoChat : Hub
     {
         private Connect db = new Connect();
-        public void Message(int roomId, long makh, string message, bool loai)
+        public void Message(int roomId, long makh, string message, string imageUrl, bool loai)
         {
+            var machat = db.tinnhans.ToList();
+            var machatadmin = db.tinnhanAdmins.ToList();
+
             // Thêm mới tin nhắn chat vào CSDL
-            if(loai == false)
+            if (loai == false)
             {
                 var newtn = new tinnhan();
                 {
+
+                    bool trungMaTinNhan = true;
+                    while (trungMaTinNhan)
+                    {
+                        newtn.MaTinNhan = "ChatGroup" + RadomCode();
+                        trungMaTinNhan = false;
+                        foreach (var i in machat)
+                        {
+                            if (newtn.MaTinNhan == i.MaTinNhan)
+                            {
+                                trungMaTinNhan = true;
+                                break;
+                            }
+                        }
+                    }
+
                     newtn.MaPhongChat = roomId;
                     newtn.MaKh = makh;
                     newtn.NoiDungTinNhanClient = message;
+                    newtn.LinkAnh = imageUrl;
                     newtn.NgayGui = DateTime.Now;
                 }
                 db.tinnhans.Add(newtn);
@@ -44,15 +64,32 @@ namespace Jade_Dragon.Hubs
                 DateTime timenow = DateTime.Now;
                 tinnhan tn = db.tinnhans.FirstOrDefault(m => m.MaKh == makh);
                 // Gửi tin nhắn chat đến tất cả các client đang kết nối đến phòng chat
-                Clients.All.Message(name, message, makh, timenow, tn.MaTinNhan);
+                Clients.All.Message(name, message, makh, timenow, tn.MaTinNhan, imageUrl);
             }
             else
             {
                 var tn = new tinnhanAdmin();
                 {
+                    bool trungMaTinNhan = true;
+                    while (trungMaTinNhan)
+                    {
+                        tn.MaChatAdmin = "ChatClient" + RadomCode();
+                        trungMaTinNhan = false;
+                        foreach (var i in machatadmin)
+                        {
+                            if (tn.MaChatAdmin == i.MaChatAdmin)
+                            {
+                                trungMaTinNhan = true;
+                                break;
+                            }
+                        }
+                    }
+
+
                     tn.IdNguoiNhan = roomId;
                     tn.IdNguoiGui = makh;
                     tn.NoiDungChat = message;
+                    tn.LinkAnhAdmin = imageUrl;
                     tn.NgayGuiChat = DateTime.Now;
                 }
                 db.tinnhanAdmins.Add(tn);
@@ -63,7 +100,7 @@ namespace Jade_Dragon.Hubs
                 DateTime timenow = DateTime.Now;
                 tinnhanAdmin tnadmin = db.tinnhanAdmins.FirstOrDefault(m => m.IdNguoiNhan == roomId && m.IdNguoiGui == makh);
                 // Gửi tin nhắn chat đến tất cả các client đang kết nối đến phòng chat
-                Clients.Caller.Message(name, message, makh, timenow, tnadmin.MaChatAdmin);
+                Clients.Caller.Message(name, message, makh, timenow, tnadmin.MaChatAdmin, imageUrl);
             }
 
         }
@@ -78,7 +115,7 @@ namespace Jade_Dragon.Hubs
             {
                 khachhang kh = db.khachhangs.Find(msg.MaKh);
                 string name = kh.HoTen;
-                Clients.Caller.Message(name, msg.NoiDungTinNhanClient, msg.MaKh, msg.NgayGui, msg.MaTinNhan);
+                Clients.Caller.Message(name, msg.NoiDungTinNhanClient, msg.MaKh, msg.NgayGui, msg.MaTinNhan, msg.LinkAnh);
             }
         }
 
@@ -93,7 +130,7 @@ namespace Jade_Dragon.Hubs
             {
                 khachhang kh = db.khachhangs.Find(msg.IdNguoiGui);
                 string name = kh.HoTen;
-                Clients.Caller.Message(name, msg.NoiDungChat, msg.IdNguoiGui, msg.NgayGuiChat, msg.MaChatAdmin);
+                Clients.Caller.Message(name, msg.NoiDungChat, msg.IdNguoiGui, msg.NgayGuiChat, msg.MaChatAdmin, msg.LinkAnhAdmin);
             }
         }
 
@@ -154,7 +191,7 @@ namespace Jade_Dragon.Hubs
             Clients.Caller.DaXoaPhong();
         }
 
-        public void DeleteTinNhan(long id, long gui, long makh)
+        public void DeleteTinNhan(string id, long gui, long makh)
         {
             tinnhan tn = db.tinnhans.FirstOrDefault(m => m.MaTinNhan == id && m.MaKh == gui);
             tinnhanAdmin tnAdmin = db.tinnhanAdmins.FirstOrDefault(m => m.MaChatAdmin == id && m.IdNguoiGui == gui);
@@ -176,6 +213,20 @@ namespace Jade_Dragon.Hubs
             }
         }
 
+        public string RadomCode()
+        {
+            int codeLength = 3; // Độ dài của mã xác minh
+            Random random = new Random();
+            string code = "";
+
+            for (int i = 0; i < codeLength; i++)
+            {
+                int digit = random.Next(0, 9); // Lấy ngẫu nhiên một số từ 0 đến 9
+                code += digit.ToString(); // Thêm số vào chuỗi mã xác minh
+            }
+
+            return code;
+        }
     }
 }
 

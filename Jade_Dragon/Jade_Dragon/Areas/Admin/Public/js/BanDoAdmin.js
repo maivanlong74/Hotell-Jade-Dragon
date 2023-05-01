@@ -1,9 +1,4 @@
-Tôi có code View cshtml:
-    <body onload="initMap()">
-        <div id="map" class="map"></div>
-    </body>
-Tôi có code js:
-var map;
+﻿var map;
 function initMap() {
     // Thiết lập bản đồ
     map = new ol.Map({
@@ -148,15 +143,72 @@ function initMap() {
     // Thêm control full screen
     var fullScreen = new ol.control.FullScreen();
     map.addControl(fullScreen);
-}
-Tôi có một Model khachsan:
-    public long MaKhachSan { get; set; }
-    public string TenKhachSan { get; set; }
-    public Nullable<long> SoDienThoai { get; set; }
-    public string Gmail { get; set; }
-    public string DiaChi { get; set; }
-    public Nullable<long> Gia { get; set; }
-    public string AnhKs { get; set; }
-    public Nullable<long> MaKhuVuc { get; set; }
-    public Nullable<bool> TrangThaiKs { get; set; }
 
+    /*--------*/
+    // Lấy các phần tử input và button tìm kiếm
+    var searchInput = document.getElementById('search-input');
+    var searchButton = document.getElementById('search-button');
+
+    // Xử lý sự kiện click vào nút tìm kiếm
+    searchButton.addEventListener('click', function () {
+        var searchText = searchInput.value;
+        if (searchText !== '') {
+            // Kiểm tra xem người dùng đã nhập vào một từ khóa hay là một tọa độ
+            if (isNaN(searchText)) {
+                // Tìm kiếm địa điểm dựa trên từ khóa
+                searchPlaceByName(searchText);
+            } else {
+                // Chuyển đổi tọa độ kinh độ/vĩ độ thành đối tượng OpenLayers và di chuyển marker tới vị trí đó
+                var coordinates = [parseFloat(searchText.split(',')[0]), parseFloat(searchText.split(',')[1])];
+                var pos = ol.proj.fromLonLat(coordinates);
+                marker.getGeometry().setCoordinates(pos);
+                // Set lại center của map
+                map.getView().setCenter(pos);
+                map.getView().setZoom(15);
+            }
+        }
+    });
+
+    // Xử lý sự kiện nhấn phím Enter để gửi tin nhắn
+    $('#search-input').keypress(function (e) {
+        if (e.which === 13) { // Kiểm tra xem phím Enter đã được bấm chưa
+            var searchText = searchInput.value;
+            if (searchText !== '') {
+                // Kiểm tra xem người dùng đã nhập vào một từ khóa hay là một tọa độ
+                if (isNaN(searchText)) {
+                    // Tìm kiếm địa điểm dựa trên từ khóa
+                    searchPlaceByName(searchText);
+                } else {
+                    // Chuyển đổi tọa độ kinh độ/vĩ độ thành đối tượng OpenLayers và di chuyển marker tới vị trí đó
+                    var coordinates = [parseFloat(searchText.split(',')[0]), parseFloat(searchText.split(',')[1])];
+                    var pos = ol.proj.fromLonLat(coordinates);
+                    marker.getGeometry().setCoordinates(pos);
+                    // Set lại center của map
+                    map.getView().setCenter(pos);
+                    map.getView().setZoom(15);
+                }
+            }
+        }
+    });
+
+    // Hàm tìm kiếm địa điểm dựa trên từ khóa
+    function searchPlaceByName(searchText) {
+        var url = `https://nominatim.openstreetmap.org/search?q=${searchText}&format=json`;
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+                    var result = data[0];
+                    var pos = ol.proj.fromLonLat([parseFloat(result.lon), parseFloat(result.lat)]);
+                    // Di chuyển marker tới vị trí tìm kiếm được
+                    marker.getGeometry().setCoordinates(pos);
+                    // Set lại center của map
+                    map.getView().setCenter(pos);
+                    map.getView().setZoom(15);
+                } else {
+                    alert('Không tìm thấy địa điểm');
+                }
+            })
+
+    }
+}

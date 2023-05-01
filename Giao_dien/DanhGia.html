@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .rating {
+            font-size: 30px;
+            display: inline-block;
+            position: relative;
+          }
+          
+          .star {
+            font-size: 30px;
+            cursor: pointer;
+            color: #ccc;
+            transition: color .25s ease-out;
+          }
+          
+          .rated {
+            color: orange;
+          }
+          
+          .rating:hover .star {
+            color: orange;
+          }
+          
+          .rating:hover .star:hover ~ .star {
+            color: #ccc;
+          }
+          
+          .rating:hover .star:hover {
+            color: orange;
+          }
+          
+    </style>
+</head>
+<body>
+    <div class="rating">
+        <span class="star rated" data-rating="1">&#9733;</span>
+        <span class="star" data-rating="2">&#9733;</span>
+        <span class="star" data-rating="3">&#9733;</span>
+        <span class="star" data-rating="4">&#9733;</span>
+        <span class="star" data-rating="5">&#9733;</span>
+        <input type="hidden" name="rating" class="rating-value" value="">
+    </div>
+    
+    <!-- <script>
+        const stars = document.querySelectorAll(".star");
+        const ratingValue = document.querySelector(".rating-value");
+
+        stars.forEach(function(star) {
+            star.addEventListener("click", function() {
+                ratingValue.value = this.dataset.rating;
+                alert('Bạn đã chọn ' + ratingValue.value + ' sao');
+                setStars(this.dataset.rating);
+            });
+
+            star.addEventListener("mouseover", function() {
+                setStars(this.dataset.rating);
+            });
+
+            star.addEventListener("mouseout", function() {
+                setStars(ratingValue.value);
+            });
+        });
+
+        function setStars(rating) {
+            stars.forEach(function(star) {
+                if (star.dataset.rating <= rating) {
+                    star.classList.add("rated");
+                } else {
+                    star.classList.remove("rated");
+                }
+            });
+        }
+
+    </script> -->
+</body>
+</html>

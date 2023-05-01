@@ -1,5 +1,4 @@
-﻿var map; // Khai báo biến map ở đầu file js.js
-
+﻿var map; 
 function initMap() {
     // Thiết lập bản đồ
     map = new ol.Map({
@@ -10,7 +9,6 @@ function initMap() {
             }),
         ],
     });
-
     // ------------------------------
     if ('geolocation' in navigator) {
         navigator.geolocation.getCurrentPosition(function (position) {
@@ -66,12 +64,6 @@ function initMap() {
             })
         })
     }));
-
-    //----------------------------------------
-
-
-
-
     // Tạo một đối tượng marker
     var marker = new ol.Feature({
         geometry: new ol.geom.Point(ol.proj.fromLonLat([0, 0]))
@@ -90,7 +82,6 @@ function initMap() {
         })
     });
     map.addLayer(markerLayer);
-
     // Xử lý thông tin địa điểm khi click vào bản đồ
     map.on('singleclick', function (evt) {
         var clickedCoordinate = evt.coordinate;
@@ -99,8 +90,6 @@ function initMap() {
         marker.getGeometry().setCoordinates(clickedCoordinate);
         handlePosition(lonlat, evt, clickedCoordinate);
     });
-
-
     function handlePosition(lonlat, evt, clickedCoordinate) {
         // Tìm kiếm địa điểm gần vị trí chọn nhất và hiển thị thông tin lên bản đồ
         var url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lonlat[1]}&lon=${lonlat[0]}`;
@@ -120,13 +109,48 @@ function initMap() {
                 console.error("Lỗi khi tìm nạp dữ liệu:", error);
             });
     }
-
     // Thêm control zoom slider
     var zoomSlider = new ol.control.ZoomSlider();
     map.addControl(zoomSlider);
-
     // Thêm control full screen
     var fullScreen = new ol.control.FullScreen();
     map.addControl(fullScreen);
+
+/*--------*/
+    // Lấy các phần tử input và button tìm kiếm
+    var searchInput = document.getElementById('search-input');
+    var searchButton = document.getElementById('search-button');
+
+    // Xử lý sự kiện click vào nút tìm kiếm
+    searchButton.addEventListener('click', function () {
+        var searchText = searchInput.value;
+        if (searchText !== '') {
+            // Gọi hàm searchPlace với tham số là từ khóa tìm kiếm
+            searchPlace(searchText);
+        }
+    });
+
+    // Hàm tìm kiếm địa điểm và đưa marker tới vị trí đó
+    function searchPlace(searchText) {
+        var url = `https://nominatim.openstreetmap.org/search?q=${searchText}&format=json`;
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+                    var result = data[0];
+                    var pos = ol.proj.fromLonLat([parseFloat(result.lon), parseFloat(result.lat)]);
+                    // Di chuyển marker tới vị trí tìm kiếm được
+                    marker.getGeometry().setCoordinates(pos);
+                    // Set lại center của map
+                    map.getView().setCenter(pos);
+                    map.getView().setZoom(15);
+                } else {
+                    alert('Không tìm thấy địa điểm');
+                }
+            })
+            .catch(error => {
+                console.error("Lỗi khi tìm nạp dữ liệu:", error);
+            });
+    }
 
 }

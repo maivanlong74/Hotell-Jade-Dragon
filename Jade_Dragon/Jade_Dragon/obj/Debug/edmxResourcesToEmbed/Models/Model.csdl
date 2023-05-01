@@ -12,6 +12,17 @@
     <Property Name="MaHoaDon" Type="Int64" />
     <NavigationProperty Name="phong" Relationship="Self.FK_machitiethoadon_phong" FromRole="chitiethoadon" ToRole="phong" />
   </EntityType>
+  <EntityType Name="DanhGiaK">
+    <Key>
+      <PropertyRef Name="MaDanhGia" />
+    </Key>
+    <Property Name="MaDanhGia" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SoSao" Type="Int64" />
+    <Property Name="MaKh" Type="Int64" />
+    <Property Name="MaKs" Type="Int64" />
+    <NavigationProperty Name="khachhang" Relationship="Self.FK_DanhGiaKs_khachhang" FromRole="DanhGiaKs" ToRole="khachhang" />
+    <NavigationProperty Name="khachsan" Relationship="Self.FK_DanhGiaKs_khachsan" FromRole="DanhGiaKs" ToRole="khachsan" />
+  </EntityType>
   <EntityType Name="ErrorPay">
     <Key>
       <PropertyRef Name="MaError" />
@@ -57,6 +68,7 @@
     <Property Name="IDGroup" Type="Int64" />
     <Property Name="Code" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
     <Property Name="DaXacMinh" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="DanhGiaKs" Relationship="Self.FK_DanhGiaKs_khachhang" FromRole="khachhang" ToRole="DanhGiaKs" />
     <NavigationProperty Name="hoadons" Relationship="Self.FK_hoadon_khachhang" FromRole="khachhang" ToRole="hoadon" />
     <NavigationProperty Name="UserGroup" Relationship="Self.FK_khachhang_UserGroup" FromRole="khachhang" ToRole="UserGroup" />
     <NavigationProperty Name="phanhois" Relationship="Self.FK_phanhoi_khachhang1" FromRole="khachhang" ToRole="phanhoi" />
@@ -73,10 +85,13 @@
     <Property Name="SoDienThoai" Type="Int64" />
     <Property Name="Gmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="DiaChi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="KinhDo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ViDo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Gia" Type="Int64" />
     <Property Name="AnhKs" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="MaKhuVuc" Type="Int64" />
     <Property Name="TrangThaiKs" Type="Boolean" />
+    <NavigationProperty Name="DanhGiaKs" Relationship="Self.FK_DanhGiaKs_khachsan" FromRole="khachsan" ToRole="DanhGiaKs" />
     <NavigationProperty Name="hoadons" Relationship="Self.FK_hoadon_khachsan" FromRole="khachsan" ToRole="hoadon" />
     <NavigationProperty Name="khuvuc" Relationship="Self.FK_khachsan_khuvuc1" FromRole="khachsan" ToRole="khuvuc" />
     <NavigationProperty Name="phongs" Relationship="Self.FK_phong_khachsan1" FromRole="khachsan" ToRole="phong" />
@@ -146,9 +161,10 @@
     <Key>
       <PropertyRef Name="MaTinNhan" />
     </Key>
-    <Property Name="MaTinNhan" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MaTinNhan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="MaKh" Type="Int64" />
     <Property Name="NoiDungTinNhanClient" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="LinkAnh" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="MaPhongChat" Type="Int64" />
     <Property Name="NgayGui" Type="DateTime" Precision="3" />
     <NavigationProperty Name="khachhang" Relationship="Self.FK_tinnhan_khachhang1" FromRole="tinnhan" ToRole="khachhang" />
@@ -158,11 +174,12 @@
     <Key>
       <PropertyRef Name="MaChatAdmin" />
     </Key>
-    <Property Name="MaChatAdmin" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MaChatAdmin" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="IdNguoiNhan" Type="Int64" />
     <Property Name="IdNguoiGui" Type="Int64" />
     <Property Name="NoiDungChat" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="NgayGuiChat" Type="DateTime" Precision="3" />
+    <Property Name="LinkAnhAdmin" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="khachhang" Relationship="Self.FK_tinnhanAdmin_khachhang" FromRole="tinnhanAdmin" ToRole="khachhang" />
     <NavigationProperty Name="khachhang1" Relationship="Self.FK_tinnhanAdmin_khachhang1" FromRole="tinnhanAdmin" ToRole="khachhang" />
   </EntityType>
@@ -193,6 +210,30 @@
       </Principal>
       <Dependent Role="chitiethoadon">
         <PropertyRef Name="MaPhong" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DanhGiaKs_khachhang">
+    <End Role="khachhang" Type="Self.khachhang" Multiplicity="0..1" />
+    <End Role="DanhGiaKs" Type="Self.DanhGiaK" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="khachhang">
+        <PropertyRef Name="MaKh" />
+      </Principal>
+      <Dependent Role="DanhGiaKs">
+        <PropertyRef Name="MaKh" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DanhGiaKs_khachsan">
+    <End Role="khachsan" Type="Self.khachsan" Multiplicity="0..1" />
+    <End Role="DanhGiaKs" Type="Self.DanhGiaK" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="khachsan">
+        <PropertyRef Name="MaKhachSan" />
+      </Principal>
+      <Dependent Role="DanhGiaKs">
+        <PropertyRef Name="MaKs" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -342,6 +383,7 @@
   </Association>
   <EntityContainer Name="Connect" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="chitiethoadons" EntityType="Self.chitiethoadon" />
+    <EntitySet Name="DanhGiaKs" EntityType="Self.DanhGiaK" />
     <EntitySet Name="ErrorPays" EntityType="Self.ErrorPay" />
     <EntitySet Name="hoadons" EntityType="Self.hoadon" />
     <EntitySet Name="khachhangs" EntityType="Self.khachhang" />
@@ -359,6 +401,14 @@
     <AssociationSet Name="FK_machitiethoadon_phong" Association="Self.FK_machitiethoadon_phong">
       <End Role="phong" EntitySet="phongs" />
       <End Role="chitiethoadon" EntitySet="chitiethoadons" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DanhGiaKs_khachhang" Association="Self.FK_DanhGiaKs_khachhang">
+      <End Role="khachhang" EntitySet="khachhangs" />
+      <End Role="DanhGiaKs" EntitySet="DanhGiaKs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DanhGiaKs_khachsan" Association="Self.FK_DanhGiaKs_khachsan">
+      <End Role="khachsan" EntitySet="khachsans" />
+      <End Role="DanhGiaKs" EntitySet="DanhGiaKs" />
     </AssociationSet>
     <AssociationSet Name="FK_hoadon_ErrorPay" Association="Self.FK_hoadon_ErrorPay">
       <End Role="ErrorPay" EntitySet="ErrorPays" />

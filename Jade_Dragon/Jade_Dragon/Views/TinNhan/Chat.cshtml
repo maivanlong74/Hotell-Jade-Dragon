@@ -5,29 +5,9 @@
 }
 <link href="~/Style/css/layout/ChatClient.css" rel="stylesheet" />
 <style>
-    .body-item-chat .htchat #contentMsg li .Delete {
-        position: relative;
-        z-index: 999;
-        padding-right: 5px;
-        background: none;
-        height: 0px;
-        display: none;
-    }
-
-    .body-item-chat .htchat #contentMsg li:hover .Delete {
-        display: block;
-    }
-
-    .body-item-chat .htchat #contentMsg li #deleteButton {
-        height: 20px;
-        background: none;
-        border: none;
-    }
-
-    .body-item-chat .htchat #contentMsg li #deleteButton img {
-        width: 20px;
-        background-color: black;
-        border-radius: 50px;
+    .body-item-chat .htchat #contentMsg li img {
+        border: 1px solid black;
+        margin: 5px;
     }
 </style>
 
@@ -59,8 +39,14 @@
                         <div class="body-send-chat">
                             <input type="hidden" id="makh" value="@Session["MaKh"]" />
 
-                            <input type="text" id="txtMessage" placeholder="Nhập chat" class="txtchat"/>
-                            <button type="submit" id="btnSend" class="txtchat">Gửi</button>
+                            <input type="text" id="txtMessage" placeholder="Nhập chat" class="txtchat" />
+                            <label for="fileInput" class="fileInputWrapper">
+                                <img src="~/Style/img/icon/Icon_Img.jpg" alt="Upload Image" class="fileInputIcon">
+                                <input id="fileInput" type="file" accept="image/*">
+                            </label>
+                            <button type="submit" id="btnSend" class="txtchat">
+                                <img src="~/Style/img/icon/Icon-Send2.png" />
+                            </button>
                         </div>
                     </div>
                 </div>

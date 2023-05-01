@@ -13,14 +13,12 @@
 
     <link href="~/Style/css/layout/onee.css" rel="stylesheet" />
     <link href="~/Style/css/layout/two.css" rel="stylesheet" />
-    <link href="~/Style/css/layout/modall.css" rel="stylesheet" />
     <link href="~/Style/css/layout/menu__login.css" rel="stylesheet" />
     @RenderSection("head", required: false)
 </head>
 <body>
     @RenderBody()
 
-    <script src="~/Style/js/GiaoDienChat.js"></script>
     <script>
         window.addEventListener('load', function () {
             var danhmucsp = document.getElementById('danhmucsp');
@@ -31,13 +29,15 @@
     @if (TempData["WebMsgBox"] != null && (bool)TempData["WebMsgBox"] == true)
     {
         <script type="text/javascript">
-        alert('@Html.Raw(TempData["Message"])');
+            alert('@Html.Raw(TempData["Message"])');
         </script>
     }
+
 
     <script src="~/Scripts/jquery-1.10.2.js"></script>
     <script src="~/Scripts/jquery.signalR-2.4.3.min.js"></script>
     <script src="~/signalr/hubs"></script>
     <script src="~/Style/js/ChatClient.js"></script>
+
 </body>
 </html>

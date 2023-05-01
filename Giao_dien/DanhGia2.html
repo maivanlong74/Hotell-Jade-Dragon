@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .rating {
+            font-size: 30px;
+            display: inline-block;
+            position: relative;
+          }
+          
+          .star {
+            font-size: 30px;
+            cursor: pointer;
+            color: #ccc;
+            transition: color .25s ease-out;
+          }
+          
+          .rated {
+            color: orange;
+          }
+          
+          .rating:hover .star {
+            color: orange;
+          }
+          
+          .rating:hover .star:hover ~ .star {
+            color: #ccc;
+          }
+          
+          .rating:hover .star:hover {
+            color: orange;
+          }
+    </style>
+</head>
+<body>
+    <div class="rating">
+        <span class="star" data-rating="1">&#9733;</span>
+        <span class="star" data-rating="2">&#9733;</span>
+        <span class="star" data-rating="3">&#9733;</span>
+        <span class="star" data-rating="4">&#9733;</span>
+        <span class="star" data-rating="5">&#9733;</span>
+        <input type="hidden" name="rating" class="rating-value" value="">
+    </div>
+
+    <script>
+        const stars = document.querySelectorAll('.star');
+        const ratingValue = document.querySelector('.rating-value');
+    
+        // Set initial rating value
+        ratingValue.value = parseInt(ratingValue.getAttribute('value'));
+        if(ratingValue.value != "NaN"){
+            for (let i = 0; i < ratingValue.value; i++) {
+                stars[i].classList.add('rated');
+            }
+            stars.forEach(star => {
+                star.addEventListener('click', function() {
+                    alert('Bạn đã đánh giá ' + ratingValue.value + ' sao rồi. \n'
+                       + 'Bạn không thể thay đổi đánh giá nữa');
+                });
+            });
+            }else{
+            // Update rating value on star click
+        stars.forEach(star => {
+            star.addEventListener('click', function() {
+                ratingValue.value = this.dataset.rating;
+
+                if (confirm("Bạn có chắc sẽ đánh giá " + ratingValue.value + " sao không? \n"
+                            + "nếu ok bạn sẽ không được thay đổi đánh giá !!!")) {
+                    stars.forEach(s => s.classList.remove('rated'));
+                    for (let i = 0; i < this.dataset.rating; i++) {
+                        stars[i].classList.add('rated');
+                    }
+                } else {
+                    return;
+                } 
+            });
+        });
+        }
+
+        // Cập nhật giá trị xếp hạng nếu lớp 'giá trị xếp hạng' được cập nhật
+        const observer = new MutationObserver(mutationsList => {
+            mutationsList.forEach(mutation => {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'value') {
+                    const rating = parseInt(ratingValue.getAttribute('value'));
+                    ratingValue.value = rating;
+                    stars.forEach(s => s.classList.remove('rated'));
+                    for (let i = 0; i < rating; i++) {
+                        stars[i].classList.add('rated');
+                    }
+                }
+            });
+        });
+        observer.observe(ratingValue, { attributes: true });
+    </script>
+</body>
+</html>
+a

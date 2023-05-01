@@ -6,24 +6,19 @@
 
 <script src="~/Areas/Admin/Public/js/dataTables_min.js"></script>
 <link href="~/Areas/Admin/Public/css/Table.css" rel="stylesheet" />
-
 <style>
-    .body i .tieude {
-        margin-left: 50px;
+    .body i {
+        background-color: black;
+        padding: 0px;
         display: block;
-        margin-top: 10px;
-        color: aliceblue;
-        font-weight: 900;
-        text-decoration: none;
-    }
-    .body i .tieude:hover {
-        margin-left: 100px;
-        color: yellow;
-        transition: 1s;
     }
 
+        .body i a {
+            color: wheat;
+            padding: 20px;
+            text-decoration: none;
+        }
 </style>
-
 <div class="home">
     <div class="body">
         <i><a href="@Url.Action("khuvuc", "khuvuc")" class="tieude">

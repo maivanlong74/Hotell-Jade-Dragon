@@ -26,6 +26,7 @@ namespace Jade_Dragon.Models
         }
     
         public virtual DbSet<chitiethoadon> chitiethoadons { get; set; }
+        public virtual DbSet<DanhGiaK> DanhGiaKs { get; set; }
         public virtual DbSet<ErrorPay> ErrorPays { get; set; }
         public virtual DbSet<hoadon> hoadons { get; set; }
         public virtual DbSet<khachhang> khachhangs { get; set; }

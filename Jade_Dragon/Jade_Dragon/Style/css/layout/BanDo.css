@@ -39,3 +39,33 @@
         .home .body .map .ol-viewport {
             border: 3px solid yellow;
         }
+
+/*-------------*/
+
+#map .Search-Search {
+        position: absolute;
+        z-index: 999;
+        margin-left: 110px;
+        margin-top: 30px;
+    }
+
+#map .Search-Search #search-input {
+    width: 230px;
+    height: 40px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+#map .Search-Search button {
+    height: 40px;
+    width: 100px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+#map .Search-Search button:hover {
+    background: #95a5a6;
+    color: wheat;
+    font-weight: 700;
+}
+/*---------------*/

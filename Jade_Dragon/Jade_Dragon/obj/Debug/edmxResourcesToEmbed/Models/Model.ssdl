@@ -11,6 +11,15 @@
     <Property Name="MaPhong" Type="bigint" />
     <Property Name="MaHoaDon" Type="bigint" />
   </EntityType>
+  <EntityType Name="DanhGiaKs">
+    <Key>
+      <PropertyRef Name="MaDanhGia" />
+    </Key>
+    <Property Name="MaDanhGia" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SoSao" Type="bigint" />
+    <Property Name="MaKh" Type="bigint" />
+    <Property Name="MaKs" Type="bigint" />
+  </EntityType>
   <EntityType Name="ErrorPay">
     <Key>
       <PropertyRef Name="MaError" />
@@ -62,6 +71,8 @@
     <Property Name="SoDienThoai" Type="bigint" />
     <Property Name="Gmail" Type="nvarchar" MaxLength="50" />
     <Property Name="DiaChi" Type="nvarchar" MaxLength="50" />
+    <Property Name="KinhDo" Type="nvarchar" MaxLength="50" />
+    <Property Name="ViDo" Type="nvarchar" MaxLength="50" />
     <Property Name="Gia" Type="bigint" />
     <Property Name="AnhKs" Type="nvarchar" MaxLength="50" />
     <Property Name="MaKhuVuc" Type="bigint" />
@@ -125,9 +136,10 @@
     <Key>
       <PropertyRef Name="MaTinNhan" />
     </Key>
-    <Property Name="MaTinNhan" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaTinNhan" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="MaKh" Type="bigint" />
     <Property Name="NoiDungTinNhanClient" Type="nvarchar(max)" />
+    <Property Name="LinkAnh" Type="nvarchar(max)" />
     <Property Name="MaPhongChat" Type="bigint" />
     <Property Name="NgayGui" Type="datetime" />
   </EntityType>
@@ -135,11 +147,12 @@
     <Key>
       <PropertyRef Name="MaChatAdmin" />
     </Key>
-    <Property Name="MaChatAdmin" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaChatAdmin" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="IdNguoiNhan" Type="bigint" />
     <Property Name="IdNguoiGui" Type="bigint" />
     <Property Name="NoiDungChat" Type="nvarchar(max)" />
     <Property Name="NgayGuiChat" Type="datetime" />
+    <Property Name="LinkAnhAdmin" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="UserGroup">
     <Key>
@@ -160,6 +173,30 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
     <Property Name="TenKhuVuc" Type="nvarchar" MaxLength="50" />
     <Property Name="NgayDat" Type="datetime" />
   </EntityType>
+  <Association Name="FK_DanhGiaKs_khachhang">
+    <End Role="khachhang" Type="Self.khachhang" Multiplicity="0..1" />
+    <End Role="DanhGiaKs" Type="Self.DanhGiaKs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="khachhang">
+        <PropertyRef Name="MaKh" />
+      </Principal>
+      <Dependent Role="DanhGiaKs">
+        <PropertyRef Name="MaKh" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DanhGiaKs_khachsan">
+    <End Role="khachsan" Type="Self.khachsan" Multiplicity="0..1" />
+    <End Role="DanhGiaKs" Type="Self.DanhGiaKs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="khachsan">
+        <PropertyRef Name="MaKhachSan" />
+      </Principal>
+      <Dependent Role="DanhGiaKs">
+        <PropertyRef Name="MaKs" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_hoadon_ErrorPay">
     <End Role="ErrorPay" Type="Self.ErrorPay" Multiplicity="0..1" />
     <End Role="hoadon" Type="Self.hoadon" Multiplicity="*" />
@@ -318,6 +355,7 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
   </Association>
   <EntityContainer Name="Jade_DragonModelStoreContainer">
     <EntitySet Name="chitiethoadon" EntityType="Self.chitiethoadon" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DanhGiaKs" EntityType="Self.DanhGiaKs" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ErrorPay" EntityType="Self.ErrorPay" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="hoadon" EntityType="Self.hoadon" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="khachhang" EntityType="Self.khachhang" Schema="dbo" store:Type="Tables" />
@@ -340,6 +378,14 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
     [lichsu].[NgayDat] AS [NgayDat]
     FROM [dbo].[lichsu] AS [lichsu]</DefiningQuery>
     </EntitySet>
+    <AssociationSet Name="FK_DanhGiaKs_khachhang" Association="Self.FK_DanhGiaKs_khachhang">
+      <End Role="khachhang" EntitySet="khachhang" />
+      <End Role="DanhGiaKs" EntitySet="DanhGiaKs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DanhGiaKs_khachsan" Association="Self.FK_DanhGiaKs_khachsan">
+      <End Role="khachsan" EntitySet="khachsan" />
+      <End Role="DanhGiaKs" EntitySet="DanhGiaKs" />
+    </AssociationSet>
     <AssociationSet Name="FK_hoadon_ErrorPay" Association="Self.FK_hoadon_ErrorPay">
       <End Role="ErrorPay" EntitySet="ErrorPay" />
       <End Role="hoadon" EntitySet="hoadon" />

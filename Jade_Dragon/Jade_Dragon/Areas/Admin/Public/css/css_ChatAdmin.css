@@ -19,7 +19,7 @@
 }
 
 .body-item-chat {
-    height: 70%;
+    height: 80%;
     display: flex;
 }
 
@@ -30,7 +30,7 @@
     }
 
     .body-item-chat .htchat {
-        height: 68vh;
+        height: 73vh;
         width: 70%;
         border: 1px solid black;
     }
@@ -59,7 +59,12 @@
     }
 
         .body-item-chat .htchat ul::-webkit-scrollbar {
-            width: 30px;
+            width: 10px;
+            transition: width 0.5s ease-in-out;
+        }
+
+        .body-item-chat .htchat ul:hover::-webkit-scrollbar {
+            width: 25px;
         }
 
         .body-item-chat .htchat ul::-webkit-scrollbar-thumb {
@@ -215,7 +220,7 @@
 .body-send-chat {
     display: flex;
     background: black;
-    height: 30%;
+    height: 20%;
     width: 756px;
     margin-left: 325px;
 }
@@ -235,9 +240,9 @@
             border: 1px solid wheat;
         }
 
-            .body-send-chat input.txtchat::placeholder {
-                color: black;
-            }
+        .body-send-chat input.txtchat::placeholder {
+            color: black;
+        }
 
     .body-send-chat button.txtchat {
         margin-left: 0px;
@@ -245,19 +250,25 @@
         border-bottom-right-radius: 15px;
         border: 1px solid wheat;
         margin-top: 65px;
-        width: 110px;
+        width: 60px;
         cursor: pointer;
     }
 
-        .body-send-chat button.txtchat:hover {
-            background: #ffeaa7;
-            color: black;
-            font-weight: 700;
-        }
-/*-----------Hiển thị tin nhắn--------------------*/
-    .body-item-chat .htchat #contentMsg .timenow {
-        text-align: center;
+    .body-send-chat button.txtchat:hover {
+        background: #535c68;
     }
+
+    .body-send-chat button.txtchat img{
+        height: 100%;
+    }
+
+    .body-send-chat button.txtchat:hover img{
+        width: 40px;
+    }
+        /*-----------Hiển thị tin nhắn--------------------*/
+        .body-item-chat .htchat #contentMsg .timenow {
+            text-align: center;
+        }
 
     .body-item-chat .htchat #contentMsg li {
         color: black;
@@ -278,6 +289,12 @@
             white-space: break-spaces;
             padding: 10px;
             border-radius: 15px;
+        }
+
+        .body-item-chat .htchat #contentMsg li img {
+            max-width: 150px;
+            max-height: 150px;
+            border: 1px solid black;
         }
 
     .body-item-chat .htchat #contentMsg .you {
@@ -359,3 +376,33 @@
         background-color: black;
         border-radius: 50px;
     }
+
+/*------Hiển thị hình ảnh----------*/
+.body-send-chat .fileInputWrapper {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    z-index: 999;
+    margin-left: -112px;
+    margin-top: 65px;
+    border: 1px solid black;
+    padding: 0px 10px 0px 10px;
+    height: 36px;
+}
+
+.body-send-chat .fileInputIcon {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.body-send-chat input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    cursor: pointer;
+}

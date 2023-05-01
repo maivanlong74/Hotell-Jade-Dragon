@@ -71,7 +71,7 @@ function sendMessage(chat) {
             var file = fileInput.files[i];
             if (file.size > (10 * 1024)) {
                 /*var fileSizeMB = (file.size / (1024*1024)).toFixed(2);*/
-                alert('Dung lượng ảnh cho phép tải lên chỉ tối đa 10.000KB \n' +
+                alert('Dung lượng ảnh cho phép tải lên chỉ tối đa 10.000KB \n' + 
                     'Ảnh Bạn đang tải là: ' + file.size + 'KB');
                 return;
             }
@@ -154,7 +154,7 @@ function loadClient(chat) {
                     (msg ? "<span>" + msg + "</span>" : "") +
                     (imageUrl ? '<br/><img src="' + imageUrl + '" />' : '') + "</li>";
             } else {
-                li = "<li data-sender='" + makh + "' class = 'you' ><p>" + name + "</p>" +
+                li = "<li data-sender='" + makh + "' class = 'you' ><p>"+ name + "</p>" +
                     (msg ? "<span>" + msg + "</span>" : "") +
                     (imageUrl ? '<br/><img src="' + imageUrl + '" />' : '') + "</li>";
             }

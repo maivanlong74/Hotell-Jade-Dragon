@@ -78,18 +78,46 @@ function sendMessage(chat) {
     var IdNhan = $('#idUser').val();
     var msg = $('#txtMessage').val();
     var makh = $('#makh').val();
-
-    if (msg == null || msg.trim() == '') {
-        // Nếu msg rỗng, chuyển người dùng trở lại giao diện và kết thúc hàm.
+    var fileInput = document.getElementById('fileInput');
+    if ((msg == null || msg.trim() == '') && (fileInput.files.length <= 0)) {
+        // Nếu msg và file input đều rỗng
         return;
     }
-
-    if (roomId == null || roomId.trim() == '') {
-        chat.server.message(IdNhan, makh, msg, true);
+    // Nếu file input không rỗng
+    if (fileInput.files.length > 0) {
+        for (var i = 0; i < fileInput.files.length; i++) {
+            var file = fileInput.files[i];
+            if (file.size > (10 * 1024 * 1024)) {
+                /*var fileSizeMB = (file.size / (1024*1024)).toFixed(2);*/
+                alert('Dung lượng ảnh cho phép tải lên chỉ tối đa 10MB \n' +
+                    'Ảnh Bạn đang tải là: ' + file.size + 'MB');
+                return;
+            }
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                if (msg == null || msg.trim() == '') {
+                    if (roomId == null || roomId.trim() == '') {
+                        chat.server.message(IdNhan, makh, null, e.target.result, true);
+                    } else {
+                        chat.server.message(roomId, makh, null, e.target.result, false);
+                    }
+                } else {
+                    if (roomId == null || roomId.trim() == '') {
+                        chat.server.message(IdNhan, makh, msg, e.target.result, true);
+                    } else {
+                        chat.server.message(roomId, makh, msg, e.target.result, false);
+                    }
+                }
+                // Clear file input.
+                fileInput.value = '';
+            };
+            reader.readAsDataURL(file);
+        }
     } else {
-        chat.server.message(roomId, makh, msg, false);
+        // Call the message method on the hub with isPrivate = false.
+        chat.server.message(roomId, makh, msg, null, false);
     }
-
+    // Clear message input.
     $('#txtMessage').val('').focus();
 }
 
@@ -141,11 +169,10 @@ var lastMessageTime = null; // khởi tạo biến lưu trữ thời gian tin nh
 
 function loadClient(chat) {
 
-    chat.client.message = function (name, msg, makh, ngaygui, matinnhan) {
+    chat.client.message = function (name, msg, makh, ngaygui, matinnhan, imageUrl) {
         var MaKhachHang = $('#makh').val();
         var li = "";
-        var messageTime = new Date(ngaygui).getTime(); // chuyển đổi ngày gửi tin nhắn thành thời gian (đơn vị: milliseconds)
-        var link = "/TinNhan/DeleteTinNhan?id=" + matinnhan + "&gui=" + makh + "&makh=" + MaKhachHang;
+        var messageTime = new Date(ngaygui).getTime(); 
         var linkanh = "/Style/img/icon/icon-X.jpg";
 
         // Kiểm tra nếu đã đủ 1 giờ kể từ lần gửi tin nhắn cuối cùng
@@ -161,14 +188,16 @@ function loadClient(chat) {
                     "<div class='Delete'><button type='button' id='deleteButton' data-id='" + matinnhan + "' data-gui='" + makh + "' data-makh='" + MaKhachHang + "'>" +
                     "<img src='" + linkanh + "' title='Xóa tin nhắn'/>" +
                     "</button></div > " +
-                    "<span>" + msg + "</span></li > ";
+                    (msg ? "<span>" + msg + "</span>" : "") +
+                    (imageUrl ? '<br/><img src="' + imageUrl + '" />' : '') + "</li>";
             } else {
                 li = "<li data-sender='" + makh + "' class = 'you' ><p>"
                     + name + "</p>" +
                     "<div class='Delete'><button type='button' id='deleteButton' data-id='" + matinnhan + "' data-gui='" + makh + "' data-makh='" + MaKhachHang + "'>" +
                     "<img src='" + linkanh + "' title='Xóa tin nhắn'/>" +
                     "</button></div > " +
-                    "<span>" + msg + "</span></li> ";
+                    (msg ? "<span>" + msg + "</span>" : "") +
+                    (imageUrl ? '<br/><img src="' + imageUrl + '" />' : '') + "</li>";
             }
             $('#contentMsg').append(li);
         } else {
@@ -177,14 +206,16 @@ function loadClient(chat) {
                     "<div class='Delete'><button type='button' id='deleteButton' data-id='" + matinnhan + "' data-gui='" + makh + "' data-makh='" + MaKhachHang + "'>" +
                     "<img src='" + linkanh + "' title='Xóa tin nhắn'/>" +
                     "</button></div > " +
-                    "<span>" + msg + "</span></li>";
+                    (msg ? "<span>" + msg + "</span>" : "") +
+                    (imageUrl ? '<br/><img src="' + imageUrl + '" />' : '') + "</li>";
             } else {
                 li = "<li data-sender='" + makh + "' class = 'you' ><p>"
                     + (makh !== lastSenderId ? name + ":" : "") + "</p>" +
                     "<div class='Delete'><button type='button' id='deleteButton' data-id='" + matinnhan + "' data-gui='" + makh + "' data-makh='" + MaKhachHang + "'>" +
                     "<img src='" + linkanh + "' title='Xóa tin nhắn'/>" +
                     "</button></div > " +
-                    "<span>" + msg + "</span></li>";
+                    (msg ? "<span>" + msg + "</span>" : "") +
+                    (imageUrl ? '<br/><img src="' + imageUrl + '" />' : '') + "</li>";
             }
             $('#contentMsg').append(li);
         }

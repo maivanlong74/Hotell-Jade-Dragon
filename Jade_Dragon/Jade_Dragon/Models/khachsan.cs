@@ -17,6 +17,7 @@ namespace Jade_Dragon.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public khachsan()
         {
+            this.DanhGiaKs = new HashSet<DanhGiaK>();
             this.hoadons = new HashSet<hoadon>();
             this.phongs = new HashSet<phong>();
         }
@@ -26,11 +27,15 @@ namespace Jade_Dragon.Models
         public Nullable<long> SoDienThoai { get; set; }
         public string Gmail { get; set; }
         public string DiaChi { get; set; }
+        public string KinhDo { get; set; }
+        public string ViDo { get; set; }
         public Nullable<long> Gia { get; set; }
         public string AnhKs { get; set; }
         public Nullable<long> MaKhuVuc { get; set; }
         public Nullable<bool> TrangThaiKs { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DanhGiaK> DanhGiaKs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<hoadon> hoadons { get; set; }
         public virtual khuvuc khuvuc { get; set; }

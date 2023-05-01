@@ -8,6 +8,45 @@
 <link href="~/Style/css/ThanhCuon/owl.carousel.min.css" rel="stylesheet" />
 <link href="~/Style/css/ThanhCuon/owl.theme.default.min.css" rel="stylesheet" />
 
+<style>
+    .slider-item-one .info .noidung .datphong i {
+        display: block;
+        margin-top: 30px;
+        background-color: black;
+        border-radius: 30px;
+    }
+    .rating {
+        font-size: 30px;
+        display: inline-block;
+        position: relative;
+    }
+
+    .star {
+        font-size: 30px;
+        cursor: pointer;
+        color: #ccc;
+        transition: color .25s ease-out;
+        background: none;
+        border: none;
+    }
+
+    .rated {
+        color: orange;
+    }
+
+    .rating:hover .star {
+        color: orange;
+    }
+
+    .rating:hover .star:hover ~ .star {
+        color: #ccc;
+    }
+
+    .rating:hover .star:hover {
+        color: orange;
+    }
+</style>
+
 <div class="home">
     <div class="home__background"></div>
     <div class="grid wide">
@@ -85,16 +124,29 @@
                                         <i class="one">Địa chỉ: @item.DiaChi</i>
                                         <p class="one">Giá: @item.Gia VND</p>
                                     </div>
-                                    <div class="item_rating">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
+                                    <div class="rating">
+                                        <span class="star" data-rating="1">&#9733;</span>
+                                        <span class="star" data-rating="2">&#9733;</span>
+                                        <span class="star" data-rating="3">&#9733;</span>
+                                        <span class="star" data-rating="4">&#9733;</span>
+                                        <span class="star" data-rating="5">&#9733;</span>
+                                        <input type="hidden" name="rating" class="rating-value" value="" id="so_sao">
+                                        <input type="hidden" id="maks" value="@item.MaKhachSan"/>
+                                        <input type="hidden" id="makh" value="@Session["MaKh"]"/>
                                     </div>
                                 </div>
                                 <div class="datphong" style="margin-left: 40px;">
                                     <a href="~/khachsan/khachsan?ma=@item.MaKhachSan">Đặt phòng</a>
+                                    @if (item.TrangThaiKs == true)
+                                    {
+
+
+                                        <i>Còn phòng</i>
+                                    }
+                                    else
+                                    {
+                                        <i>Hết phòng</i>
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -114,16 +166,29 @@
                                         <i class="one">Địa chỉ: @item.DiaChi</i>
                                         <p class="one">Giá: @item.Gia VND</p>
                                     </div>
-                                    <div class="item_rating">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
+                                    <div class="rating">
+                                        <button type="submit" class="star" id="star1" data-rating="1">&#9733;</button>
+                                        <button type="submit" class="star" id="star2" data-rating="2">&#9733;</button>
+                                        <button type="submit" class="star" id="star3" data-rating="3">&#9733;</button>
+                                        <button type="submit" class="star" id="star4" data-rating="4">&#9733;</button>
+                                        <button type="submit" class="star" id="star5" data-rating="5">&#9733;</button>
+                                        <input type="hidden" name="rating" class="rating-value" value="" id="so_sao">
+                                        <input type="hidden" id="maks" value="@item.MaKhachSan" />
+                                        <input type="hidden" id="makh" value="@Session["MaKh"]" />
                                     </div>
                                 </div>
                                 <div class="datphong" style="margin-left: 40px;">
                                     <a href="~/khachsan/khachsan?ma=@item.MaKhachSan">Đặt phòng</a>
+                                    @if (item.TrangThaiKs == true)
+                                    {
+
+
+                                        <i>Còn phòng</i>
+                                    }
+                                    else
+                                    {
+                                        <i>Hết phòng</i>
+                                    }
                                 </div>
                             </div>
                         </div>

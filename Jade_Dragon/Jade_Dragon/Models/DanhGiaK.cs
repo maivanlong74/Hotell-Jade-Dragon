@@ -12,16 +12,14 @@ namespace Jade_Dragon.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tinnhan
+    public partial class DanhGiaK
     {
-        public string MaTinNhan { get; set; }
+        public long MaDanhGia { get; set; }
+        public Nullable<long> SoSao { get; set; }
         public Nullable<long> MaKh { get; set; }
-        public string NoiDungTinNhanClient { get; set; }
-        public string LinkAnh { get; set; }
-        public Nullable<long> MaPhongChat { get; set; }
-        public Nullable<System.DateTime> NgayGui { get; set; }
+        public Nullable<long> MaKs { get; set; }
     
         public virtual khachhang khachhang { get; set; }
-        public virtual PhongChat PhongChat { get; set; }
+        public virtual khachsan khachsan { get; set; }
     }
 }

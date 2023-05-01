@@ -144,7 +144,7 @@
     }
 
         .body-send-chat input.txtchat {
-            margin-left: 255px;
+            margin-left: 300px;
             margin-top: 10px;
             width: 72vh;
             border-top-left-radius: 15px;
@@ -164,15 +164,16 @@
         border-bottom-right-radius: 15px;
         border: 1px solid wheat;
         margin-top: 10px;
-        width: 110px;
-        color: black;
+        width: 70px;
     }
 
-        .body-send-chat button.txtchat:hover {
-            background: #ffeaa7;
-            color: black;
-            font-weight: 700;
-        }
+    .body-send-chat button.txtchat:hover {
+        background: #95afc0;
+    }
+
+    .body-send-chat button.txtchat img {
+        height: 100%;
+    }
 /*-----------Hiển thị tin nhắn--------------------*/
     .body-item-chat .htchat #contentMsg .timenow {
         text-align: center;
@@ -234,4 +235,67 @@
 .chat-admin button:hover {
     font-weight: 800;
     color: white;
+}
+
+/*-------Xóa Tin Nhắn Chat--------------*/
+.body-item-chat .htchat #contentMsg li .Delete {
+    position: relative;
+    z-index: 999;
+    padding-right: 5px;
+    background: none;
+    height: 0px;
+    display: none;
+}
+
+.body-item-chat .htchat #contentMsg li:hover .Delete {
+    display: block;
+}
+
+.body-item-chat .htchat #contentMsg li #deleteButton {
+    height: 42px;
+    background: none;
+    border: none;
+}
+
+.body-item-chat .htchat #contentMsg li #deleteButton img {
+    width: 20px;
+    background-color: black;
+    border-radius: 50px;
+}
+
+/*------Hiển thị hình ảnh----------*/
+.body-send-chat .fileInputWrapper {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    z-index: 999;
+    margin-left: -50px;
+    margin-top: 10px;
+    border: 1px solid black;
+    padding: 0px 10px 0px 10px;
+}
+
+.body-send-chat .fileInputIcon {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.body-send-chat input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    cursor: pointer;
+}
+
+.body-item-chat .htchat #contentMsg li img {
+    max-width: 150px;
+    max-height: 150px;
+    padding: 5px;
+    border: 1px solid black;
+    margin: 5px;
 }

@@ -18,10 +18,38 @@ namespace Jade_Dragon.Controllers
         public ActionResult trangchu(long? ma, string searchTerm, string searchType)
         {
             KhachSanTrinhChieu m = new KhachSanTrinhChieu();
-            List<khuvuc> list = new List<khuvuc>();
-            list = db.khuvucs.ToList();
+            /*List<khuvuc> list = new List<khuvuc>();*/
+            /*var list = db.khuvucs.ToList();*/
 
             var khachsans = db.khachsans.Include(k => k.khuvuc);
+
+            foreach (var i in khachsans)
+            {
+                var phong = db.phongs.Where(m => m.MaKhachSan == i.MaKhachSan).ToList();
+
+                bool tatCaPhongFalse = true;
+
+                foreach (var p in phong)
+                {
+                    if (p.TrangThai == true)
+                    {
+                        tatCaPhongFalse = false;
+                        break;
+                    }
+                }
+
+                if (tatCaPhongFalse)
+                {
+                    i.TrangThaiKs = false;
+                }
+                else
+                {
+                    i.TrangThaiKs = true;
+                }
+            }
+
+            db.SaveChanges();
+
 
             // Thực hiện tìm kiếm nếu có giá trị tìm kiếm được truyền vào
             if (!string.IsNullOrEmpty(searchTerm) && !string.IsNullOrEmpty(searchType))
@@ -38,7 +66,7 @@ namespace Jade_Dragon.Controllers
                 m.ks = khachsans.ToList();
             }
 
-            m.kv = list;
+            m.kv = db.khuvucs.ToList();
 
             return View("trangchu", m);
         }

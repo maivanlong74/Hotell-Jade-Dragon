@@ -16,6 +16,15 @@
           <Property Name="MaPhong" Type="bigint" />
           <Property Name="MaHoaDon" Type="bigint" />
         </EntityType>
+        <EntityType Name="DanhGiaKs">
+          <Key>
+            <PropertyRef Name="MaDanhGia" />
+          </Key>
+          <Property Name="MaDanhGia" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SoSao" Type="bigint" />
+          <Property Name="MaKh" Type="bigint" />
+          <Property Name="MaKs" Type="bigint" />
+        </EntityType>
         <EntityType Name="ErrorPay">
           <Key>
             <PropertyRef Name="MaError" />
@@ -67,6 +76,8 @@
           <Property Name="SoDienThoai" Type="bigint" />
           <Property Name="Gmail" Type="nvarchar" MaxLength="50" />
           <Property Name="DiaChi" Type="nvarchar" MaxLength="50" />
+          <Property Name="KinhDo" Type="nvarchar" MaxLength="50" />
+          <Property Name="ViDo" Type="nvarchar" MaxLength="50" />
           <Property Name="Gia" Type="bigint" />
           <Property Name="AnhKs" Type="nvarchar" MaxLength="50" />
           <Property Name="MaKhuVuc" Type="bigint" />
@@ -130,9 +141,10 @@
           <Key>
             <PropertyRef Name="MaTinNhan" />
           </Key>
-          <Property Name="MaTinNhan" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaTinNhan" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="MaKh" Type="bigint" />
           <Property Name="NoiDungTinNhanClient" Type="nvarchar(max)" />
+          <Property Name="LinkAnh" Type="nvarchar(max)" />
           <Property Name="MaPhongChat" Type="bigint" />
           <Property Name="NgayGui" Type="datetime" />
         </EntityType>
@@ -140,11 +152,12 @@
           <Key>
             <PropertyRef Name="MaChatAdmin" />
           </Key>
-          <Property Name="MaChatAdmin" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaChatAdmin" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="IdNguoiNhan" Type="bigint" />
           <Property Name="IdNguoiGui" Type="bigint" />
           <Property Name="NoiDungChat" Type="nvarchar(max)" />
           <Property Name="NgayGuiChat" Type="datetime" />
+          <Property Name="LinkAnhAdmin" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="UserGroup">
           <Key>
@@ -165,6 +178,30 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
           <Property Name="TenKhuVuc" Type="nvarchar" MaxLength="50" />
           <Property Name="NgayDat" Type="datetime" />
         </EntityType>
+        <Association Name="FK_DanhGiaKs_khachhang">
+          <End Role="khachhang" Type="Self.khachhang" Multiplicity="0..1" />
+          <End Role="DanhGiaKs" Type="Self.DanhGiaKs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="khachhang">
+              <PropertyRef Name="MaKh" />
+            </Principal>
+            <Dependent Role="DanhGiaKs">
+              <PropertyRef Name="MaKh" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DanhGiaKs_khachsan">
+          <End Role="khachsan" Type="Self.khachsan" Multiplicity="0..1" />
+          <End Role="DanhGiaKs" Type="Self.DanhGiaKs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="khachsan">
+              <PropertyRef Name="MaKhachSan" />
+            </Principal>
+            <Dependent Role="DanhGiaKs">
+              <PropertyRef Name="MaKs" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_hoadon_ErrorPay">
           <End Role="ErrorPay" Type="Self.ErrorPay" Multiplicity="0..1" />
           <End Role="hoadon" Type="Self.hoadon" Multiplicity="*" />
@@ -323,6 +360,7 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
         </Association>
         <EntityContainer Name="Jade_DragonModelStoreContainer">
           <EntitySet Name="chitiethoadon" EntityType="Self.chitiethoadon" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DanhGiaKs" EntityType="Self.DanhGiaKs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ErrorPay" EntityType="Self.ErrorPay" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="hoadon" EntityType="Self.hoadon" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="khachhang" EntityType="Self.khachhang" Schema="dbo" store:Type="Tables" />
@@ -345,6 +383,14 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
     [lichsu].[NgayDat] AS [NgayDat]
     FROM [dbo].[lichsu] AS [lichsu]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_DanhGiaKs_khachhang" Association="Self.FK_DanhGiaKs_khachhang">
+            <End Role="khachhang" EntitySet="khachhang" />
+            <End Role="DanhGiaKs" EntitySet="DanhGiaKs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DanhGiaKs_khachsan" Association="Self.FK_DanhGiaKs_khachsan">
+            <End Role="khachsan" EntitySet="khachsan" />
+            <End Role="DanhGiaKs" EntitySet="DanhGiaKs" />
+          </AssociationSet>
           <AssociationSet Name="FK_hoadon_ErrorPay" Association="Self.FK_hoadon_ErrorPay">
             <End Role="ErrorPay" EntitySet="ErrorPay" />
             <End Role="hoadon" EntitySet="hoadon" />
@@ -415,6 +461,17 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
           <Property Name="MaHoaDon" Type="Int64" />
           <NavigationProperty Name="phong" Relationship="Self.FK_machitiethoadon_phong" FromRole="chitiethoadon" ToRole="phong" />
         </EntityType>
+        <EntityType Name="DanhGiaK">
+          <Key>
+            <PropertyRef Name="MaDanhGia" />
+          </Key>
+          <Property Name="MaDanhGia" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SoSao" Type="Int64" />
+          <Property Name="MaKh" Type="Int64" />
+          <Property Name="MaKs" Type="Int64" />
+          <NavigationProperty Name="khachhang" Relationship="Self.FK_DanhGiaKs_khachhang" FromRole="DanhGiaKs" ToRole="khachhang" />
+          <NavigationProperty Name="khachsan" Relationship="Self.FK_DanhGiaKs_khachsan" FromRole="DanhGiaKs" ToRole="khachsan" />
+        </EntityType>
         <EntityType Name="ErrorPay">
           <Key>
             <PropertyRef Name="MaError" />
@@ -460,6 +517,7 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
           <Property Name="IDGroup" Type="Int64" />
           <Property Name="Code" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="DaXacMinh" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="DanhGiaKs" Relationship="Self.FK_DanhGiaKs_khachhang" FromRole="khachhang" ToRole="DanhGiaKs" />
           <NavigationProperty Name="hoadons" Relationship="Self.FK_hoadon_khachhang" FromRole="khachhang" ToRole="hoadon" />
           <NavigationProperty Name="UserGroup" Relationship="Self.FK_khachhang_UserGroup" FromRole="khachhang" ToRole="UserGroup" />
           <NavigationProperty Name="phanhois" Relationship="Self.FK_phanhoi_khachhang1" FromRole="khachhang" ToRole="phanhoi" />
@@ -476,10 +534,13 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
           <Property Name="SoDienThoai" Type="Int64" />
           <Property Name="Gmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DiaChi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="KinhDo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ViDo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Gia" Type="Int64" />
           <Property Name="AnhKs" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MaKhuVuc" Type="Int64" />
           <Property Name="TrangThaiKs" Type="Boolean" />
+          <NavigationProperty Name="DanhGiaKs" Relationship="Self.FK_DanhGiaKs_khachsan" FromRole="khachsan" ToRole="DanhGiaKs" />
           <NavigationProperty Name="hoadons" Relationship="Self.FK_hoadon_khachsan" FromRole="khachsan" ToRole="hoadon" />
           <NavigationProperty Name="khuvuc" Relationship="Self.FK_khachsan_khuvuc1" FromRole="khachsan" ToRole="khuvuc" />
           <NavigationProperty Name="phongs" Relationship="Self.FK_phong_khachsan1" FromRole="khachsan" ToRole="phong" />
@@ -549,9 +610,10 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
           <Key>
             <PropertyRef Name="MaTinNhan" />
           </Key>
-          <Property Name="MaTinNhan" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaTinNhan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="MaKh" Type="Int64" />
           <Property Name="NoiDungTinNhanClient" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LinkAnh" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="MaPhongChat" Type="Int64" />
           <Property Name="NgayGui" Type="DateTime" Precision="3" />
           <NavigationProperty Name="khachhang" Relationship="Self.FK_tinnhan_khachhang1" FromRole="tinnhan" ToRole="khachhang" />
@@ -561,11 +623,12 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
           <Key>
             <PropertyRef Name="MaChatAdmin" />
           </Key>
-          <Property Name="MaChatAdmin" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaChatAdmin" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IdNguoiNhan" Type="Int64" />
           <Property Name="IdNguoiGui" Type="Int64" />
           <Property Name="NoiDungChat" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="NgayGuiChat" Type="DateTime" Precision="3" />
+          <Property Name="LinkAnhAdmin" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="khachhang" Relationship="Self.FK_tinnhanAdmin_khachhang" FromRole="tinnhanAdmin" ToRole="khachhang" />
           <NavigationProperty Name="khachhang1" Relationship="Self.FK_tinnhanAdmin_khachhang1" FromRole="tinnhanAdmin" ToRole="khachhang" />
         </EntityType>
@@ -596,6 +659,30 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
             </Principal>
             <Dependent Role="chitiethoadon">
               <PropertyRef Name="MaPhong" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DanhGiaKs_khachhang">
+          <End Role="khachhang" Type="Self.khachhang" Multiplicity="0..1" />
+          <End Role="DanhGiaKs" Type="Self.DanhGiaK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="khachhang">
+              <PropertyRef Name="MaKh" />
+            </Principal>
+            <Dependent Role="DanhGiaKs">
+              <PropertyRef Name="MaKh" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DanhGiaKs_khachsan">
+          <End Role="khachsan" Type="Self.khachsan" Multiplicity="0..1" />
+          <End Role="DanhGiaKs" Type="Self.DanhGiaK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="khachsan">
+              <PropertyRef Name="MaKhachSan" />
+            </Principal>
+            <Dependent Role="DanhGiaKs">
+              <PropertyRef Name="MaKs" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -745,6 +832,7 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
         </Association>
         <EntityContainer Name="Connect" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="chitiethoadons" EntityType="Self.chitiethoadon" />
+          <EntitySet Name="DanhGiaKs" EntityType="Self.DanhGiaK" />
           <EntitySet Name="ErrorPays" EntityType="Self.ErrorPay" />
           <EntitySet Name="hoadons" EntityType="Self.hoadon" />
           <EntitySet Name="khachhangs" EntityType="Self.khachhang" />
@@ -762,6 +850,14 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
           <AssociationSet Name="FK_machitiethoadon_phong" Association="Self.FK_machitiethoadon_phong">
             <End Role="phong" EntitySet="phongs" />
             <End Role="chitiethoadon" EntitySet="chitiethoadons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DanhGiaKs_khachhang" Association="Self.FK_DanhGiaKs_khachhang">
+            <End Role="khachhang" EntitySet="khachhangs" />
+            <End Role="DanhGiaKs" EntitySet="DanhGiaKs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DanhGiaKs_khachsan" Association="Self.FK_DanhGiaKs_khachsan">
+            <End Role="khachsan" EntitySet="khachsans" />
+            <End Role="DanhGiaKs" EntitySet="DanhGiaKs" />
           </AssociationSet>
           <AssociationSet Name="FK_hoadon_ErrorPay" Association="Self.FK_hoadon_ErrorPay">
             <End Role="ErrorPay" EntitySet="ErrorPays" />
@@ -830,6 +926,16 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="DanhGiaKs">
+            <EntityTypeMapping TypeName="Jade_DragonModel.DanhGiaK">
+              <MappingFragment StoreEntitySet="DanhGiaKs">
+                <ScalarProperty Name="MaDanhGia" ColumnName="MaDanhGia" />
+                <ScalarProperty Name="SoSao" ColumnName="SoSao" />
+                <ScalarProperty Name="MaKh" ColumnName="MaKh" />
+                <ScalarProperty Name="MaKs" ColumnName="MaKs" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ErrorPays">
             <EntityTypeMapping TypeName="Jade_DragonModel.ErrorPay">
               <MappingFragment StoreEntitySet="ErrorPay">
@@ -883,6 +989,8 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
                 <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
                 <ScalarProperty Name="Gmail" ColumnName="Gmail" />
                 <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="KinhDo" ColumnName="KinhDo" />
+                <ScalarProperty Name="ViDo" ColumnName="ViDo" />
                 <ScalarProperty Name="Gia" ColumnName="Gia" />
                 <ScalarProperty Name="AnhKs" ColumnName="AnhKs" />
                 <ScalarProperty Name="MaKhuVuc" ColumnName="MaKhuVuc" />
@@ -956,6 +1064,7 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
                 <ScalarProperty Name="MaTinNhan" ColumnName="MaTinNhan" />
                 <ScalarProperty Name="MaKh" ColumnName="MaKh" />
                 <ScalarProperty Name="NoiDungTinNhanClient" ColumnName="NoiDungTinNhanClient" />
+                <ScalarProperty Name="LinkAnh" ColumnName="LinkAnh" />
                 <ScalarProperty Name="MaPhongChat" ColumnName="MaPhongChat" />
                 <ScalarProperty Name="NgayGui" ColumnName="NgayGui" />
               </MappingFragment>
@@ -969,6 +1078,7 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
                 <ScalarProperty Name="IdNguoiGui" ColumnName="IdNguoiGui" />
                 <ScalarProperty Name="NoiDungChat" ColumnName="NoiDungChat" />
                 <ScalarProperty Name="NgayGuiChat" ColumnName="NgayGuiChat" />
+                <ScalarProperty Name="LinkAnhAdmin" ColumnName="LinkAnhAdmin" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

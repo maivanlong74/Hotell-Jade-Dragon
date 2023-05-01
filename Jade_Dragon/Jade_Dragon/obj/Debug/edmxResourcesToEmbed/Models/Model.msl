@@ -13,6 +13,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="DanhGiaKs">
+      <EntityTypeMapping TypeName="Jade_DragonModel.DanhGiaK">
+        <MappingFragment StoreEntitySet="DanhGiaKs">
+          <ScalarProperty Name="MaDanhGia" ColumnName="MaDanhGia" />
+          <ScalarProperty Name="SoSao" ColumnName="SoSao" />
+          <ScalarProperty Name="MaKh" ColumnName="MaKh" />
+          <ScalarProperty Name="MaKs" ColumnName="MaKs" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="ErrorPays">
       <EntityTypeMapping TypeName="Jade_DragonModel.ErrorPay">
         <MappingFragment StoreEntitySet="ErrorPay">
@@ -66,6 +76,8 @@
           <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
           <ScalarProperty Name="Gmail" ColumnName="Gmail" />
           <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+          <ScalarProperty Name="KinhDo" ColumnName="KinhDo" />
+          <ScalarProperty Name="ViDo" ColumnName="ViDo" />
           <ScalarProperty Name="Gia" ColumnName="Gia" />
           <ScalarProperty Name="AnhKs" ColumnName="AnhKs" />
           <ScalarProperty Name="MaKhuVuc" ColumnName="MaKhuVuc" />
@@ -139,6 +151,7 @@
           <ScalarProperty Name="MaTinNhan" ColumnName="MaTinNhan" />
           <ScalarProperty Name="MaKh" ColumnName="MaKh" />
           <ScalarProperty Name="NoiDungTinNhanClient" ColumnName="NoiDungTinNhanClient" />
+          <ScalarProperty Name="LinkAnh" ColumnName="LinkAnh" />
           <ScalarProperty Name="MaPhongChat" ColumnName="MaPhongChat" />
           <ScalarProperty Name="NgayGui" ColumnName="NgayGui" />
         </MappingFragment>
@@ -152,6 +165,7 @@
           <ScalarProperty Name="IdNguoiGui" ColumnName="IdNguoiGui" />
           <ScalarProperty Name="NoiDungChat" ColumnName="NoiDungChat" />
           <ScalarProperty Name="NgayGuiChat" ColumnName="NgayGuiChat" />
+          <ScalarProperty Name="LinkAnhAdmin" ColumnName="LinkAnhAdmin" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

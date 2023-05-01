@@ -14,11 +14,12 @@ namespace Jade_Dragon.Models
     
     public partial class tinnhanAdmin
     {
-        public long MaChatAdmin { get; set; }
+        public string MaChatAdmin { get; set; }
         public Nullable<long> IdNguoiNhan { get; set; }
         public Nullable<long> IdNguoiGui { get; set; }
         public string NoiDungChat { get; set; }
         public Nullable<System.DateTime> NgayGuiChat { get; set; }
+        public string LinkAnhAdmin { get; set; }
     
         public virtual khachhang khachhang { get; set; }
         public virtual khachhang khachhang1 { get; set; }
