@@ -70,7 +70,7 @@
     <Property Name="TenKhachSan" Type="nvarchar" MaxLength="50" />
     <Property Name="SoDienThoai" Type="bigint" />
     <Property Name="Gmail" Type="nvarchar" MaxLength="50" />
-    <Property Name="DiaChi" Type="nvarchar" MaxLength="50" />
+    <Property Name="DiaChi" Type="nvarchar(max)" />
     <Property Name="KinhDo" Type="nvarchar" MaxLength="50" />
     <Property Name="ViDo" Type="nvarchar" MaxLength="50" />
     <Property Name="Gia" Type="bigint" />
@@ -84,6 +84,8 @@
     </Key>
     <Property Name="MaKhuVuc" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="TenKhuVuc" Type="nvarchar" MaxLength="50" />
+    <Property Name="KinhDo" Type="nvarchar" MaxLength="50" />
+    <Property Name="ViDo" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Moc_Time">
     <Key>

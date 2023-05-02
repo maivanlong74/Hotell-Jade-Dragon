@@ -15,10 +15,10 @@
     <script src="~/Areas/Admin/Public/js/js_jquery.js"></script>
     <link href="~/Areas/Admin/Public/css/css_khach_hang.css" rel="stylesheet" />
     <link href="~/Areas/Admin/Public/css/css_chuc_nang.css" rel="stylesheet" />
-
+    <link href="~/Areas/Admin/Public/css/Search.css" rel="stylesheet" />
     @RenderSection("head", required: false)
 </head>
-<body >
+<body>
     <nav class="sidebar">
         <header>
             <div class="image-text">
@@ -112,10 +112,20 @@
     @if (TempData["WebMsgBox"] != null && (bool)TempData["WebMsgBox"] == true)
     {
         <script type="text/javascript">
-        alert('@Html.Raw(TempData["Message"])');
+            alert('@Html.Raw(TempData["Message"])');
         </script>
     }
 
-    
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+
+        window.addEventListener('load', function () {
+            var danhmucsp = document.querySelector('.danhmucsp');
+            danhmucsp.scrollIntoView({ behavior: 'smooth' });
+        });
+
+    </script>
 </body>
 </html>

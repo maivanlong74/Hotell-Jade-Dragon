@@ -620,13 +620,18 @@
     <Content Include="Areas\Admin\Public\css\css_khach_hang.css" />
     <Content Include="Areas\Admin\Public\css\khachsan.css" />
     <Content Include="Areas\Admin\Public\css\lichsu.css" />
+    <Content Include="Areas\Admin\Public\css\MuiTen.css" />
+    <Content Include="Areas\Admin\Public\css\Search.css" />
     <Content Include="Areas\Admin\Public\css\Table.css" />
+    <Content Include="Areas\Admin\Public\img\muiten.jpg" />
     <Content Include="Areas\Admin\Public\js\BanDoAdmin.js" />
     <Content Include="Areas\Admin\Public\js\Chat_Admin.js" />
     <Content Include="Areas\Admin\Public\js\ChucNang.js" />
     <Content Include="Areas\Admin\Public\js\dataTables_min.js" />
     <Content Include="Areas\Admin\Public\js\js_jquery.js" />
     <Content Include="Areas\Admin\Public\js\js.js" />
+    <Content Include="Areas\Admin\Views\khuvuc\Map_Kv.js" />
+    <Content Include="Areas\Admin\Views\QLKhachSan\Map_Ks.js" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -683,7 +688,6 @@
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="Global.asax" />
-    <Content Include="HtmlPage1.html" />
     <Content Include="LICENSE.txt" />
     <Content Include="Areas\Admin\Views\QuanLyPhong\Create.cshtml" />
     <Content Include="Areas\Admin\Views\QuanLyPhong\Delete.cshtml" />
@@ -822,11 +826,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_GlobalResources\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
@@ -1002,12 +1001,6 @@
   <ItemGroup>
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_GlobalResources\Resources.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

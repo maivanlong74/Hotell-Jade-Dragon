@@ -4,14 +4,14 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b4be3db1d78447c4bb5fb18132fae546" Name="Diagram1">
+      <Diagram DiagramId="328f4b62ab2c4e76989d8f536e3842ce" Name="Diagram1">
         <EntityTypeShape EntityType="Jade_DragonModel.chitiethoadon" Width="1.5" PointX="7.5" PointY="25.25" IsExpanded="true" />
         <EntityTypeShape EntityType="Jade_DragonModel.DanhGiaK" Width="1.5" PointX="5.25" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Jade_DragonModel.ErrorPay" Width="1.5" PointX="6" PointY="12" IsExpanded="true" />
         <EntityTypeShape EntityType="Jade_DragonModel.hoadon" Width="1.5" PointX="8.25" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Jade_DragonModel.khachhang" Width="1.5" PointX="3" PointY="7.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Jade_DragonModel.khachsan" Width="1.5" PointX="3" PointY="13.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Jade_DragonModel.khuvuc" Width="1.5" PointX="0.75" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="Jade_DragonModel.khuvuc" Width="1.5" PointX="0.75" PointY="14.875" IsExpanded="true" />
         <EntityTypeShape EntityType="Jade_DragonModel.Moc_Time" Width="1.5" PointX="7.5" PointY="28.375" IsExpanded="true" />
         <EntityTypeShape EntityType="Jade_DragonModel.phanhoi" Width="1.5" PointX="5.25" PointY="15" IsExpanded="true" />
         <EntityTypeShape EntityType="Jade_DragonModel.phong" Width="1.5" PointX="5.25" PointY="26.375" IsExpanded="true" />

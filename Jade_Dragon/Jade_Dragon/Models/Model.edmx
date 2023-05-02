@@ -75,7 +75,7 @@
           <Property Name="TenKhachSan" Type="nvarchar" MaxLength="50" />
           <Property Name="SoDienThoai" Type="bigint" />
           <Property Name="Gmail" Type="nvarchar" MaxLength="50" />
-          <Property Name="DiaChi" Type="nvarchar" MaxLength="50" />
+          <Property Name="DiaChi" Type="nvarchar(max)" />
           <Property Name="KinhDo" Type="nvarchar" MaxLength="50" />
           <Property Name="ViDo" Type="nvarchar" MaxLength="50" />
           <Property Name="Gia" Type="bigint" />
@@ -89,6 +89,8 @@
           </Key>
           <Property Name="MaKhuVuc" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TenKhuVuc" Type="nvarchar" MaxLength="50" />
+          <Property Name="KinhDo" Type="nvarchar" MaxLength="50" />
+          <Property Name="ViDo" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Moc_Time">
           <Key>
@@ -533,7 +535,7 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
           <Property Name="TenKhachSan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SoDienThoai" Type="Int64" />
           <Property Name="Gmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DiaChi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DiaChi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="KinhDo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ViDo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Gia" Type="Int64" />
@@ -551,6 +553,8 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
           </Key>
           <Property Name="MaKhuVuc" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TenKhuVuc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="KinhDo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ViDo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="khachsans" Relationship="Self.FK_khachsan_khuvuc1" FromRole="khuvuc" ToRole="khachsan" />
         </EntityType>
         <EntityType Name="Moc_Time">
@@ -1003,6 +1007,8 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
               <MappingFragment StoreEntitySet="khuvuc">
                 <ScalarProperty Name="MaKhuVuc" ColumnName="MaKhuVuc" />
                 <ScalarProperty Name="TenKhuVuc" ColumnName="TenKhuVuc" />
+                <ScalarProperty Name="KinhDo" ColumnName="KinhDo" />
+                <ScalarProperty Name="ViDo" ColumnName="ViDo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

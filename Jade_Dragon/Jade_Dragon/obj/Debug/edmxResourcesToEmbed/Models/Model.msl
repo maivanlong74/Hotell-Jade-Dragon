@@ -90,6 +90,8 @@
         <MappingFragment StoreEntitySet="khuvuc">
           <ScalarProperty Name="MaKhuVuc" ColumnName="MaKhuVuc" />
           <ScalarProperty Name="TenKhuVuc" ColumnName="TenKhuVuc" />
+          <ScalarProperty Name="KinhDo" ColumnName="KinhDo" />
+          <ScalarProperty Name="ViDo" ColumnName="ViDo" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

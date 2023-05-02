@@ -1,0 +1,57 @@
+﻿#DiaChi {
+    width: 450px;
+}
+
+#map {
+    width: 98%;
+    margin-left: 20px;
+}
+
+.body .MuiTen_Map {
+    text-align: center;
+}
+
+    .body .MuiTen_Map #MuiTen {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    .body .MuiTen_Map i {
+        color: white;
+        font-weight: 700;
+    }
+    .body .MuiTen_Map #MuiTen.move {
+        animation: moveUpDown 0.5s ease-in-out infinite alternate;
+    }
+
+@keyframes moveUpDown {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-10px);
+    }
+}
+
+.body .MuiTen_Map #MuiTen:hover {
+    background-image: linear-gradient(to right, violet, indigo, blue, green, yellow, orange, red);
+    background-size: 200% 200%;
+    animation: gradientBG 5s ease-in-out infinite;
+}
+
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}

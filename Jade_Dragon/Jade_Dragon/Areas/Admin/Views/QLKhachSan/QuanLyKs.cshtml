@@ -7,21 +7,28 @@
 <script src="~/Areas/Admin/Public/js/dataTables_min.js"></script>
 <link href="~/Areas/Admin/Public/css/Table.css" rel="stylesheet" />
 <style>
-    .body i {
+    .body .htkhuvuc-i {
+        position: relative;
         background-color: black;
         padding: 0px;
         display: block;
+        width: 115px;
+        margin: 36px;
+        margin-bottom: -25px;
+        border-radius: 20px;
+        cursor: pointer;
+        z-index: 999;
     }
 
-        .body i a {
-            color: wheat;
-            padding: 20px;
-            text-decoration: none;
-        }
+    .body .htkhuvuc-i .htkhuvuc-a {
+        color: wheat;
+        padding: 20px;
+        text-decoration: none;
+    }
 </style>
 <div class="home">
     <div class="body">
-        <i><a href="@Url.Action("khuvuc", "khuvuc")" class="tieude">
+        <i class="htkhuvuc-i"><a href="@Url.Action("khuvuc", "khuvuc")" class="htkhuvuc-a">
             KHU VỰC
             </a>
         </i>

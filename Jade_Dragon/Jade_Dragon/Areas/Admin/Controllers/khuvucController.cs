@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using DocumentFormat.OpenXml.EMMA;
 using Jade_Dragon.Models;
 
 namespace Jade_Dragon.Areas.Admin.Controllers
@@ -37,17 +38,23 @@ namespace Jade_Dragon.Areas.Admin.Controllers
         }
 
         // GET: Admin/khuvuc/Create
-        public ActionResult Create(khuvuc khuvuc, string TenKhuVuc)
+        public ActionResult Create(khuvuc khuvuc, string TenKhuVuc, string DiaChi, double KinhDo, double ViDo)
         {
-            /*if (Request.Cookies["TenKhuVuc"] != null)
+            khuvuc kv = db.khuvucs.FirstOrDefault(m => m.TenKhuVuc == TenKhuVuc);
+            if (kv != null)
             {
-                TenKhuVuc = Request.Cookies["TenKhuVuc"].Value;
-            }*/
-            if (db.khuvucs.Where(m => m.TenKhuVuc == TenKhuVuc).Count() > 0)
-            {
-                return Redirect("khuvuc");
+                kv.TenKhuVuc = TenKhuVuc;
+                kv.KinhDo = KinhDo.ToString();
+                kv.ViDo = ViDo.ToString();
             }
-            db.khuvucs.Add(khuvuc);
+            else
+            {
+                khuvuc.TenKhuVuc = TenKhuVuc;
+                khuvuc.KinhDo = KinhDo.ToString();
+                khuvuc.ViDo = ViDo.ToString();
+                db.khuvucs.Add(khuvuc);
+            }
+            
             db.SaveChanges();
             return Redirect("khuvuc");
         }
@@ -90,6 +97,16 @@ namespace Jade_Dragon.Areas.Admin.Controllers
             db.SaveChanges();
             return RedirectToAction("khuvuc");
         }
+
+        public JsonResult Search(string search)
+        {
+            var results = db.khuvucs
+                .Where(khuvuc => khuvuc.TenKhuVuc.Contains(search))
+                .Select(khuvuc => new { khuvuc.TenKhuVuc, khuvuc.KinhDo, khuvuc.ViDo })
+                .ToList();
+            return Json(results, JsonRequestBehavior.AllowGet);
+        }
+
 
         protected override void Dispose(bool disposing)
         {

@@ -1,0 +1,74 @@
+
+Để hiển thị gợi ý khu vực khi tìm kiếm, bạn có thể sử dụng thư viện Autocomplete của jQuery UI. Đầu tiên, bạn cần thêm đoạn mã sau vào phần head của trang:
+
+php
+Copy code
+<link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+Sau đó, bạn có thể tạo một input tìm kiếm với tính năng Autocomplete bằng cách sử dụng mã sau:
+
+python
+Copy code
+<input id="search-input" type="text" placeholder="Tìm kiếm khu vực" />
+Sau đó, bạn có thể gọi hàm Autocomplete trên input này bằng cách sử dụng mã sau:
+
+php
+Copy code
+$("#search-input").autocomplete({
+    source: function (request, response) {
+        $.ajax({
+            url: "/Admin/khuvuc/Search",
+            type: "POST",
+            dataType: "json",
+            data: {
+                search: request.term
+            },
+            success: function (data) {
+                response($.map(data, function (item) {
+                    return {
+                        label: item.TenKhuVuc,
+                        value: item.TenKhuVuc,
+                        kinhdo: item.KinhDo,
+                        vido: item.ViDo
+                    }
+                }));
+            }
+        });
+    },
+    minLength: 2,
+    select: function (event, ui) {
+        var tenKhuVuc = ui.item.value;
+        var kinhDo = ui.item.kinhdo;
+        var viDo = ui.item.vido;
+        // Do something with tenKhuVuc, kinhDo, and viDo here
+    }
+});
+Trong đoạn mã trên, khi người dùng bắt đầu gõ từ khóa tìm kiếm vào input, hàm Autocomplete sẽ gửi một yêu cầu AJAX đến phương thức Search của controller với thông tin từ khóa tìm kiếm. Sau đó, phương thức Search sẽ trả về danh sách các khu vực phù hợp với từ khóa tìm kiếm. Kết quả này được xử lý bằng cách chuyển đổi thành một mảng các đối tượng với các thuộc tính label, value, kinhdo và vido. Thuộc tính label và value được sử dụng để hiển thị kết quả gợi ý, còn thuộc tính kinhdo và vido được sử dụng để lưu trữ thông tin kinh độ và vĩ độ của khu vực tương ứng.
+
+Khi người dùng chọn một khu vực từ danh sách gợi ý, sự kiện select sẽ được kích hoạt, và bạn có thể lấy thông tin tên khu vực, kinh độ và vĩ độ của khu vực tương ứng bằ
+
+
+
+
+
+User
+Tôi có cần thêm hàm Search ở ActionResult của controller không
+ChatGPT
+Đúng rồi, để xử lý yêu cầu AJAX của Autocomplete, bạn cần thêm một phương thức Search vào controller của mình. Phương thức này sẽ nhận thông tin từ khóa tìm kiếm và trả về danh sách các khu vực phù hợp.
+
+Ví dụ, phương thức Search của bạn có thể được triển khai như sau:
+
+scss
+Copy code
+public JsonResult Search(string search)
+{
+    var results = db.khuvucs
+        .Where(khuvuc => khuvuc.TenKhuVuc.Contains(search))
+        .Select(khuvuc => new { khuvuc.TenKhuVuc, khuvuc.KinhDo, khuvuc.ViDo })
+        .ToList();
+    return Json(results, JsonRequestBehavior.AllowGet);
+}
+Trong đoạn mã trên, chúng tôi sử dụng LINQ để truy vấn trong CSDL của mình các khu vực có tên chứa từ khóa tìm kiếm. Sau đó, chúng tôi chọn ra các thuộc tính TenKhuVuc, KinhDo và ViDo của các khu vực tìm thấy và đóng gói chúng vào một đối tượng JSON. Cuối cùng, chúng tôi trả về đối tượng JSON này dưới dạng một đối tượng JsonResult.
+
+Lưu ý rằng chúng tôi sử dụng JsonRequestBehavior.AllowGet trong phương thức trả về JsonResult. Điều này được sử dụng để cho phép việc truy xuất GET từ phía client, vì mặc định, ASP.NET MVC không cho phép các yêu cầu GET trả về đối tượng JSON.

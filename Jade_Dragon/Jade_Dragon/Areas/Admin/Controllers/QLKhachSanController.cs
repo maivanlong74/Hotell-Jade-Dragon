@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Jade_Dragon.common;
 using Jade_Dragon.Models;
 
 namespace Jade_Dragon.Areas.Admin.Controllers
@@ -14,12 +15,6 @@ namespace Jade_Dragon.Areas.Admin.Controllers
     public class QLKhachSanController : baseController
     {
         private Connect db = new Connect();
-
-        public ActionResult test()
-        {
-            return View();
-        }
-
         // GET: Admin/khachsans
         public ActionResult QuanLyKs()
         {
@@ -45,7 +40,6 @@ namespace Jade_Dragon.Areas.Admin.Controllers
         // GET: Admin/khachsans/Create
         public ActionResult Create()
         {
-            ViewBag.MaKhuVuc = new SelectList(db.khuvucs, "MaKhuVuc", "TenKhuVuc");
             return View();
         }
 
@@ -54,18 +48,62 @@ namespace Jade_Dragon.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaKhachSan,TenKhachSan,SoDienThoai,Gmail,DiaChi,Gia,AnhKs,MaKhuVuc")] khachsan khachsan, HttpPostedFileBase uploadhinh)
+        public ActionResult Create(string TenKhachSan, long SoDienThoai, string Gmail, string DiaChi, 
+            long Gia, string KinhDo, string ViDo, string TenKhuVuc, HttpPostedFileBase uploadhinh)
         {
-            if (ModelState.IsValid)
+            khuvuc khuvuc = db.khuvucs.FirstOrDefault(m => m.TenKhuVuc == TenKhuVuc);
+            if (khuvuc == null)
             {
-                db.khachsans.Add(khachsan);
+                if(KinhDo == null && ViDo == null)
+                {
+                    WebMsgBox.Show("Bạn vui lòng chọn địa điểm trên bản đồ", this);
+                    return View();
+                }
+                var kv = new khuvuc();
+                {
+                    kv.TenKhuVuc = TenKhuVuc;
+                    kv.KinhDo = KinhDo;
+                    kv.ViDo = ViDo;
+                }
+                db.khuvucs.Add(kv);
                 db.SaveChanges();
-                Up_IMG(khachsan, uploadhinh);
-                return RedirectToAction("QuanLyKs");
-            }
+                khuvuc k_v = db.khuvucs.FirstOrDefault(m => m.TenKhuVuc == TenKhuVuc);
 
-            ViewBag.MaKhuVuc = new SelectList(db.khuvucs, "MaKhuVuc", "TenKhuVuc", khachsan.MaKhuVuc);
-            return View(khachsan);
+                var ks = new khachsan();
+                {
+                    ks.TenKhachSan = TenKhachSan;
+                    ks.SoDienThoai = SoDienThoai;
+                    ks.Gmail = Gmail;
+                    ks.DiaChi = DiaChi;
+                    ks.KinhDo = KinhDo;
+                    ks.ViDo = ViDo;
+                    ks.Gia = Gia;
+                    ks.MaKhuVuc = k_v.MaKhuVuc;
+                    ks.TrangThaiKs = true;
+                }
+                db.khachsans.Add(ks);
+                db.SaveChanges();
+                Up_IMG(ks, uploadhinh);
+            }
+            else
+            {
+                var ks = new khachsan();
+                {
+                    ks.TenKhachSan = TenKhachSan;
+                    ks.SoDienThoai = SoDienThoai;
+                    ks.Gmail = Gmail;
+                    ks.DiaChi = DiaChi;
+                    ks.KinhDo = KinhDo;
+                    ks.ViDo = ViDo;
+                    ks.Gia = Gia;
+                    ks.MaKhuVuc = khuvuc.MaKhuVuc;
+                    ks.TrangThaiKs = true;
+                }
+                db.khachsans.Add(ks);
+                db.SaveChanges();
+                Up_IMG(ks, uploadhinh);
+            }
+            return RedirectToAction("QuanLyKs");
         }
 
         // GET: Admin/khachsans/Edit/5
@@ -80,8 +118,6 @@ namespace Jade_Dragon.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.MaKhuVuc = new SelectList(db.khuvucs, "MaKhuVuc", "TenKhuVuc", khachsan.MaKhuVuc);
-            Session["TenKhachSan"] = khachsan.TenKhachSan;
             return View(khachsan);
         }
 
@@ -90,22 +126,58 @@ namespace Jade_Dragon.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaKhachSan,TenKhachSan,SoDienThoai,Gmail,DiaChi,Gia,AnhKs,MaKhuVuc")] khachsan khachsan, HttpPostedFileBase uploadhinh)
+        public ActionResult Edit(long MaKhachSan, string TenKhachSan, long SoDienThoai, string Gmail, string DiaChi,
+            long Gia, string KinhDo, string ViDo, string TenKhuVuc, HttpPostedFileBase uploadhinh)
         {
-            if (ModelState.IsValid)
+            khuvuc khuvuc = db.khuvucs.FirstOrDefault(m => m.TenKhuVuc == TenKhuVuc);
+            if (khuvuc == null)
             {
-                khachsan unv = db.khachsans.FirstOrDefault(x => x.MaKhachSan == khachsan.MaKhachSan);
+                if (KinhDo == null && ViDo == null)
+                {
+                    WebMsgBox.Show("Bạn vui lòng chọn địa điểm trên bản đồ", this);
+                    return View();
+                }
+                var kv = new khuvuc();
+                {
+                    kv.TenKhuVuc = TenKhuVuc;
+                    kv.KinhDo = KinhDo;
+                    kv.ViDo = ViDo;
+                }
+                db.khuvucs.Add(kv);
+                db.SaveChanges();
+                khuvuc k_v = db.khuvucs.FirstOrDefault(m => m.TenKhuVuc == TenKhuVuc);
 
-                unv.TenKhachSan = khachsan.TenKhachSan;
-                unv.SoDienThoai = khachsan.SoDienThoai;
-                unv.Gmail = khachsan.Gmail;
-                unv.DiaChi = khachsan.DiaChi;
-                unv.Gia = khachsan.Gia;
-                unv.MaKhuVuc = khachsan.MaKhuVuc;
+                khachsan ks = db.khachsans.Find(MaKhachSan);
+                {
+                    ks.TenKhachSan = TenKhachSan;
+                    ks.SoDienThoai = SoDienThoai;
+                    ks.Gmail = Gmail;
+                    ks.DiaChi = DiaChi;
+                    ks.KinhDo = KinhDo;
+                    ks.ViDo = ViDo;
+                    ks.Gia = Gia;
+                    ks.MaKhuVuc = k_v.MaKhuVuc;
+                }
+                db.SaveChanges();
+            }
+            else
+            {
+                khachsan ks = db.khachsans.Find(MaKhachSan);
+                {
+                    ks.TenKhachSan = TenKhachSan;
+                    ks.SoDienThoai = SoDienThoai;
+                    ks.Gmail = Gmail;
+                    ks.DiaChi = DiaChi;
+                    ks.KinhDo = KinhDo;
+                    ks.ViDo = ViDo;
+                    ks.Gia = Gia;
+                    ks.MaKhuVuc = khuvuc.MaKhuVuc;
+                }
+                db.SaveChanges();
 
                 if (uploadhinh != null && uploadhinh.ContentLength > 0)
                 {
-                    long id = khachsan.MaKhachSan;
+                    long id = ks.MaKhachSan;
 
                     string _FileName = "";
                     string code = RandomCode();
@@ -113,14 +185,11 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                     _FileName = "nv" + code + "." + uploadhinh.FileName.Substring(index + 1);
                     string _path = Path.Combine(Server.MapPath("~/UpLoad_Img/KhachSan"), _FileName);
                     uploadhinh.SaveAs(_path);
-                    unv.AnhKs = _FileName;
+                    ks.AnhKs = _FileName;
                 }
-
                 db.SaveChanges();
-                return Redirect("~/Admin/QLKhachSan/Details/" + khachsan.MaKhachSan);
+                return Redirect("~/Admin/QLKhachSan/Details/" + ks.MaKhachSan);
             }
-            ViewBag.MaKhuVuc = new SelectList(db.khuvucs, "MaKhuVuc", "TenKhuVuc", khachsan.MaKhuVuc);
-            return View(khachsan);
         }
 
         // GET: Admin/khachsans/Delete/5

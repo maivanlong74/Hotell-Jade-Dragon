@@ -22,6 +22,8 @@ namespace Jade_Dragon.Models
     
         public long MaKhuVuc { get; set; }
         public string TenKhuVuc { get; set; }
+        public string KinhDo { get; set; }
+        public string ViDo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<khachsan> khachsans { get; set; }
