@@ -61,6 +61,16 @@
                         <div class="one">
                             <label for="">Khu vực: </label>
                             <span>@Html.DisplayFor(model => model.khuvuc.TenKhuVuc)</span>
+
+                            <label style="margin-left: 20px;">Trạng thái: </label>
+                            @if (Model.TrangThaiKs == true)
+                            {
+                                <span>Đang mở</span>
+                            }
+                            else
+                            {
+                                <span>Đang đóng</span>
+                            }
                         </div>
                     </div>
                 </div>

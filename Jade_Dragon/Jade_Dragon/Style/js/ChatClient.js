@@ -96,8 +96,11 @@ function sendMessage(chat) {
             reader.readAsDataURL(file);
         }
     } else {
-        // Call the message method on the hub with isPrivate = false.
-        chat.server.message(roomId, makh, msg, null, false);
+        if (roomId == null || roomId.trim() == '') {
+            chat.server.message(IdNhan, makh, msg, null, true);
+        } else {
+            chat.server.message(roomId, makh, msg, null, false);
+        }
     }
     // Clear message input.
     $('#txtMessage').val('').focus();

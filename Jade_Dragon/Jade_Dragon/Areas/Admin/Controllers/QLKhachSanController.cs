@@ -44,8 +44,6 @@ namespace Jade_Dragon.Areas.Admin.Controllers
         }
 
         // POST: Admin/khachsans/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(string TenKhachSan, long SoDienThoai, string Gmail, string DiaChi, 
@@ -118,18 +116,18 @@ namespace Jade_Dragon.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
+            Session["TenKhachSan"] = khachsan.TenKhachSan;
             return View(khachsan);
         }
 
         // POST: Admin/khachsans/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(long MaKhachSan, string TenKhachSan, long SoDienThoai, string Gmail, string DiaChi,
-            long Gia, string KinhDo, string ViDo, string TenKhuVuc, HttpPostedFileBase uploadhinh)
+            long Gia, string KinhDo, string ViDo, string TenKhuVuc, bool TrangThaiKs, HttpPostedFileBase uploadhinh)
         {
             khuvuc khuvuc = db.khuvucs.FirstOrDefault(m => m.TenKhuVuc == TenKhuVuc);
+            khachsan ks = db.khachsans.Find(MaKhachSan);
             if (khuvuc == null)
             {
                 if (KinhDo == null && ViDo == null)
@@ -147,38 +145,40 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                 db.SaveChanges();
                 khuvuc k_v = db.khuvucs.FirstOrDefault(m => m.TenKhuVuc == TenKhuVuc);
 
-                khachsan ks = db.khachsans.Find(MaKhachSan);
-                {
-                    ks.TenKhachSan = TenKhachSan;
-                    ks.SoDienThoai = SoDienThoai;
-                    ks.Gmail = Gmail;
-                    ks.DiaChi = DiaChi;
-                    ks.KinhDo = KinhDo;
-                    ks.ViDo = ViDo;
-                    ks.Gia = Gia;
-                    ks.MaKhuVuc = k_v.MaKhuVuc;
-                }
+                ks.TenKhachSan = TenKhachSan;
+                ks.SoDienThoai = SoDienThoai;
+                ks.Gmail = Gmail;
+                ks.DiaChi = DiaChi;
+                ks.KinhDo = KinhDo;
+                ks.ViDo = ViDo;
+                ks.Gia = Gia;
+                ks.MaKhuVuc = k_v.MaKhuVuc;
+                ks.TrangThaiKs = TrangThaiKs;
                 db.SaveChanges();
             }
             else
             {
-                khachsan ks = db.khachsans.Find(MaKhachSan);
-                {
-                    ks.TenKhachSan = TenKhachSan;
-                    ks.SoDienThoai = SoDienThoai;
-                    ks.Gmail = Gmail;
-                    ks.DiaChi = DiaChi;
-                    ks.KinhDo = KinhDo;
-                    ks.ViDo = ViDo;
-                    ks.Gia = Gia;
-                    ks.MaKhuVuc = khuvuc.MaKhuVuc;
-                }
+                ks.TenKhachSan = TenKhachSan;
+                ks.SoDienThoai = SoDienThoai;
+                ks.Gmail = Gmail;
+                ks.DiaChi = DiaChi;
+                ks.KinhDo = KinhDo;
+                ks.ViDo = ViDo;
+                ks.Gia = Gia;
+                ks.MaKhuVuc = khuvuc.MaKhuVuc;
+                ks.TrangThaiKs = TrangThaiKs;
                 db.SaveChanges();
+            }
 
-                if (uploadhinh != null && uploadhinh.ContentLength > 0)
+            if (uploadhinh != null && uploadhinh.ContentLength > 0)
+            {
+                if (uploadhinh.ContentLength > 1024000) // check if image size is greater than 1MB
                 {
-                    long id = ks.MaKhachSan;
-
+                    WebMsgBox.Show("Kích thước ảnh vượt quá giới hạn cho phép (1MB)", this);
+                    return Redirect("~/Admin/QLKhachSan/Details/" + ks.MaKhachSan);
+                }
+                else
+                {
                     string _FileName = "";
                     string code = RandomCode();
                     int index = uploadhinh.FileName.IndexOf('.');
@@ -187,9 +187,10 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                     uploadhinh.SaveAs(_path);
                     ks.AnhKs = _FileName;
                 }
-                db.SaveChanges();
-                return Redirect("~/Admin/QLKhachSan/Details/" + ks.MaKhachSan);
+                
             }
+            db.SaveChanges();
+            return Redirect("~/Admin/QLKhachSan/Details/" + ks.MaKhachSan);
         }
 
         // GET: Admin/khachsans/Delete/5

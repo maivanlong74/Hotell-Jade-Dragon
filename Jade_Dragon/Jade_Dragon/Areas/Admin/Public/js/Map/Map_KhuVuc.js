@@ -88,47 +88,28 @@ function initMap() {
         var lonlat = ol.proj.toLonLat(clickedCoordinate);
         // Di chuyển marker tới vị trí click
         marker.getGeometry().setCoordinates(clickedCoordinate);
-        handlePosition(lonlat, evt, clickedCoordinate);
+        handlePosition(lonlat);
     });
 
-    function handlePosition(lonlat, evt, clickedCoordinate) {
+    function handlePosition(lonlat) {
         // Tìm kiếm địa điểm gần vị trí chọn nhất và hiển thị thông tin lên bản đồ
         var url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lonlat[1]}&lon=${lonlat[0]}&addressdetails=1&zoom=18`;
         fetch(url)
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                var result = document.getElementById("result");
-                if (result) {
+                var formkhuvuc = document.getElementById("form-kv");
+                if (formkhuvuc) {
                     var address = data.address;
-                    var houseNumber = address.house_number || '';
-                    var road = address.road || '';
-                    var suburb = address.suburb || address.neighbourhood || '';
-                    var city = address.city || address.town || address.village || '';
-                    var state = address.state || '';
-                    var country = address.country || '';
-                    var postcode = address.postcode || '';
-                    var displayName = `${houseNumber} ${road}, ${suburb}, ${city}, ${state}, ${postcode}`;
-
+                    var displayName = address.road || '';
                     var latitude = lonlat[1];
                     var longitude = lonlat[0];
-                    result.innerHTML = `
-                                <div>
-                                    <i>Kinh độ:</i> ${longitude} 
-                                    <br>
-                                    <i>Vĩ độ:</i> ${latitude}
-                                    <br>
-                                    <i>Tên đất nước:</i> ${country}
-                                    <br>
-                                    <i>Mã bưu chính:</i> ${postcode}
-                                    <br>
-                                    <i>Địa chỉ đầy đủ:</i> ${data.display_name}
-                                </div>
-                                <input type="hidden" placeholder="" value="${road}" name="DiaChi" required>
-                                <input type="hidden" value="${longitude}" name="KinhDo" readonly required>
-                                <input type="hidden" value="${latitude}" name="ViDo" readonly required>
-                                <input type="hidden" value="${road}" name="TenKhuVuc" readonly required>`;
 
+                    formkhuvuc.innerHTML = `
+                                    <input id="tenkhuvuc" name="TenKhuVuc" type="text" class="create" placeholder="Vui lòng chọn lại" value="${displayName}"/>
+                                    <input id="kinhdo" name="KinhDo" type="hidden" value="${longitude}"/>
+                                    <input id="vido" name="ViDo" type="hidden" value="${latitude}"/>
+                                    <button type="submit" class="button-create">Thêm mới</button>`
                 } else {
                     console.log("Không tìm thấy phần tử có ID 'kết quả'");
                 }
@@ -163,9 +144,10 @@ function initMap() {
                 var coordinates = [parseFloat(searchText.split(',')[0]), parseFloat(searchText.split(',')[1])];
                 var pos = ol.proj.fromLonLat(coordinates);
                 marker.getGeometry().setCoordinates(pos);
+
                 // Set lại center của map
                 map.getView().setCenter(pos);
-                map.getView().setZoom(15);
+                map.getView().setZoom(20);
             }
         }
     });
@@ -184,9 +166,10 @@ function initMap() {
                     var coordinates = [parseFloat(searchText.split(',')[0]), parseFloat(searchText.split(',')[1])];
                     var pos = ol.proj.fromLonLat(coordinates);
                     marker.getGeometry().setCoordinates(pos);
+
                     // Set lại center của map
                     map.getView().setCenter(pos);
-                    map.getView().setZoom(15);
+                    map.getView().setZoom(20);
                 }
             }
         }
@@ -203,9 +186,19 @@ function initMap() {
                     var pos = ol.proj.fromLonLat([parseFloat(result.lon), parseFloat(result.lat)]);
                     // Di chuyển marker tới vị trí tìm kiếm được
                     marker.getGeometry().setCoordinates(pos);
+
+                    var formkhuvuc = document.getElementById("form-kv");
+                    var mapElement = document.getElementById("map");
+                    formkhuvuc.classList.remove("danhmucsp");
+                    mapElement.classList.add("danhmucsp");
+                    var danhmucsp = document.querySelector('.danhmucsp');
+                    if (danhmucsp) {
+                        danhmucsp.scrollIntoView({ behavior: 'smooth' });
+                    }
+
                     // Set lại center của map
                     map.getView().setCenter(pos);
-                    map.getView().setZoom(15);
+                    map.getView().setZoom(18);
 
                     var lonlat = ol.proj.toLonLat(pos);
                     handlePosition(lonlat);
@@ -213,6 +206,37 @@ function initMap() {
                     alert('Không tìm thấy địa điểm');
                 }
             })
-
     }
+
+    $('#MuiTen_Top').click(function () {
+        var formkhuvuc = document.getElementById("form-kv");
+        var mapElement = document.getElementById("map");
+        var MuiTenTop = document.getElementById("MuiTen_Top");
+        var MuiTenBot = document.getElementById("MuiTen_Bot");
+
+        formkhuvuc.classList.remove("danhmucsp");
+        mapElement.classList.add("danhmucsp");
+        MuiTenBot.classList.remove("xoa");
+        MuiTenTop.classList.add("xoa");
+        var danhmucsp = document.querySelector('.danhmucsp');
+        if (danhmucsp) {
+            danhmucsp.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+
+    $('#MuiTen_Bot').click(function () {
+        var formkhuvuc = document.getElementById("form-kv");
+        var mapElement = document.getElementById("map");
+        var MuiTenTop = document.getElementById("MuiTen_Top");
+        var MuiTenBot = document.getElementById("MuiTen_Bot");
+
+        mapElement.classList.remove("danhmucsp");
+        formkhuvuc.classList.add("danhmucsp");
+        MuiTenTop.classList.remove("xoa");
+        MuiTenBot.classList.add("xoa");
+        var danhmucsp = document.querySelector('.danhmucsp');
+        if (danhmucsp) {
+            danhmucsp.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
 }

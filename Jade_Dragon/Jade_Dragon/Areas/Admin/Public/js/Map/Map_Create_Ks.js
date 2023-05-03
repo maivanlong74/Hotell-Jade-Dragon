@@ -108,26 +108,17 @@ function initMap() {
                     var state = address.state || '';
                     var country = address.country || '';
                     var postcode = address.postcode || '';
-                    var displayName = `${houseNumber} ${road}, ${suburb}, ${city}, ${state}, ${country} ${postcode}`;
+                    var displayName = `${houseNumber} ${road}, ${suburb}, ${city}, ${state}`;
 
                     var latitude = lonlat[1];
                     var longitude = lonlat[0];
                     result.innerHTML = `
-                        <div>
-                            <b>${displayName}</b>
-                            <br>
-                            <i>Kinh độ:</i> ${longitude} 
-                            <br>
-                            <i>Vĩ độ:</i> ${latitude}
-                            <br>
-                            <i>Tên đất nước:</i> ${country}
-                            <br>
-                            <i>Mã bưu chính:</i> ${postcode}
-                            <br>
-                            <i>Địa chỉ đầy đủ:</i> ${data.display_name}
-                        </div>
-                        <input type="hidden" placeholder="" value="${displayName}" name="">
-                        <input type="hidden" value="Kinh độ: ${longitude} Vĩ độ: ${latitude}" readonly>`;
+                                <div><i>Địa chỉ:</i> </br> ${displayName}</div>
+                                <input type="hidden" placeholder="" value="${displayName}" name="DiaChi" required>
+                                <input type="hidden" value="${longitude}" name="KinhDo" readonly required>
+                                <input type="hidden" value="${latitude}" name="ViDo" readonly required>
+                                <input type="hidden" value="${road}" name="TenKhuVuc" readonly required>`;
+
                 } else {
                     console.log("Không tìm thấy phần tử có ID 'kết quả'");
                 }
@@ -205,6 +196,9 @@ function initMap() {
                     // Set lại center của map
                     map.getView().setCenter(pos);
                     map.getView().setZoom(15);
+
+                    var lonlat = ol.proj.toLonLat(pos);
+                    handlePosition(lonlat);
                 } else {
                     alert('Không tìm thấy địa điểm');
                 }

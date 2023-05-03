@@ -108,7 +108,7 @@ namespace Jade_Dragon.Hubs
         public void GetMessages(int roomId)
         {
             // Lấy ra các tin nhắn trong phòng chat và gửi cho client yêu cầu
-            var messages = db.tinnhans.Where(tn => tn.MaPhongChat == roomId).ToList();
+            var messages = db.tinnhans.Where(tn => tn.MaPhongChat == roomId).OrderBy(tn => tn.NgayGui).ToList();
 
             // Gửi danh sách tin nhắn về cho client
             foreach (var msg in messages)
@@ -123,7 +123,7 @@ namespace Jade_Dragon.Hubs
         {
             // Lấy ra các tin nhắn trong phòng chat và gửi cho client yêu cầu
             var messagesAdmin = db.tinnhanAdmins.Where(tn => tn.IdNguoiNhan == MaNguoiNhan && tn.IdNguoiGui == MaNguoiGui
-                                                        || tn.IdNguoiNhan == MaNguoiGui && tn.IdNguoiGui == MaNguoiNhan).ToList();
+                                                        || tn.IdNguoiNhan == MaNguoiGui && tn.IdNguoiGui == MaNguoiNhan).OrderBy(tn => tn.NgayGuiChat).ToList();
 
             // Gửi danh sách tin nhắn về cho client
             foreach (var msg in messagesAdmin)

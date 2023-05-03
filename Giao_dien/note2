@@ -1,28 +1,134 @@
-Đây là code View cshtml:
-   <div class="body" id="body">
-        <div class="MuiTen_Map">
-            <button type="button" id="MuiTen" class="MuiTen">
-                <img src="~/Areas/Admin/Public/img/muiten.jpg" />
-            </button> <br />
-            <i>Bản đồ</i>
-        </div>
-    </div>
-Đây là code css:
-    .body .MuiTen_Map{
-        text-align: center;
-    }
-    .body .MuiTen_Map #MuiTen {
-        width: 70px;
-        height: 70px;
-        border-radius: 50%;
-        cursor: pointer;
-    }
-    .body .MuiTen_Map #MuiTen:hover{
+Đây là code js:
+    var map;
+    function initMap() {
+        // Thiết lập bản đồ
+        map = new ol.Map({
+            target: 'map',
+            layers: [
+                new ol.layer.Tile({
+                    source: new ol.source.OSM(),
+                }),
+            ],
+        });
+        // ------------------------------
+        if ('geolocation' in navigator) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                var pos = ol.proj.fromLonLat([position.coords.longitude, position.coords.latitude]);
+                var data = {
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude
+                };
+                $.ajax({
+                    type: 'POST',
+                    url: '/Admin/QLKhachSan/Create',
+                    data: JSON.stringify(data),
+                    contentType: 'application/json',
+                    success: function () {
+                        console.log('Đã gửi vị trí đến máy chủ');
+                    }
+                });
+                var marker = new ol.Feature({
+                    geometry: new ol.geom.Point(pos)
+                });
+                var markerSource = new ol.source.Vector({
+                    features: [marker]
+                });
+                var markerLayer = new ol.layer.Vector({
+                    source: markerSource
+                });
+                map.addLayer(markerLayer);
+                map.getView().setCenter(pos);
+                map.getView().setZoom(15);
+            });
+        } else {
+            alert('Định vị địa lý không được trình duyệt của bạn hỗ trợ');
+        }
 
-    }
-    .body .MuiTen_Map i {
-        color: white;
-        font-weight: 700;
+        // Thêm control để xác định vị trí hiện tại
+        var geolocation = new ol.Geolocation({
+            trackingOptions: {
+                enableHighAccuracy: true
+            },
+            projection: map.getView().getProjection()
+        });
+        var positionFeature = new ol.Feature();
+        positionFeature.setStyle(new ol.style.Style({
+            image: new ol.style.Circle({
+                radius: 6,
+                fill: new ol.style.Fill({
+                    color: '#3399CC'
+                }),
+                stroke: new ol.style.Stroke({
+                    color: '#fff',
+                    width: 2
+                })
+            })
+        }));
+        // Tạo một đối tượng marker
+        var marker = new ol.Feature({
+            geometry: new ol.geom.Point(ol.proj.fromLonLat([0, 0]))
+        });
+        marker.setStyle(new ol.style.Style({
+            image: new ol.style.Icon({
+                anchor: [0.5, 1],
+                src: 'https://openlayers.org/en/latest/examples/data/icon.png'
+            })
+        }));
+
+        // Thêm marker vào bản đồ
+        var markerLayer = new ol.layer.Vector({
+            source: new ol.source.Vector({
+                features: [marker]
+            })
+        });
+        map.addLayer(markerLayer);
+
+        // Xử lý thông tin địa điểm khi click vào bản đồ
+        map.on('singleclick', function (evt) {
+            var clickedCoordinate = evt.coordinate;
+            var lonlat = ol.proj.toLonLat(clickedCoordinate);
+            // Di chuyển marker tới vị trí click
+            marker.getGeometry().setCoordinates(clickedCoordinate);
+            handlePosition(lonlat, evt, clickedCoordinate);
+        });
+
+        function handlePosition(lonlat, evt, clickedCoordinate) {
+            // Tìm kiếm địa điểm gần vị trí chọn nhất và hiển thị thông tin lên bản đồ
+            var url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lonlat[1]}&lon=${lonlat[0]}&addressdetails=1&zoom=18`;
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    var result = document.getElementById("result");
+                    if (result) {
+                        var address = data.address;
+                        var houseNumber = address.house_number || '';
+                        var road = address.road || '';
+                        var suburb = address.suburb || address.neighbourhood || '';
+                        var city = address.city || address.town || address.village || '';
+                        var state = address.state || '';
+                        var country = address.country || '';
+                        var postcode = address.postcode || '';
+                        var displayName = `${houseNumber} ${road}, ${suburb}, ${city}, ${state}`;
+
+                        var latitude = lonlat[1];
+                        var longitude = lonlat[0];
+                        result.innerHTML = `
+                                    <div><i>Địa chỉ:</i> </br> ${displayName}</div>
+                                    <input type="hidden" placeholder="" value="${displayName}" name="DiaChi" required>
+                                    <input type="hidden" value="${longitude}" name="KinhDo" readonly required>
+                                    <input type="hidden" value="${latitude}" name="ViDo" readonly required>
+                                    <input type="hidden" value="${road}" name="TenKhuVuc" readonly required>`;
+
+                    } else {
+                        console.log("Không tìm thấy phần tử có ID 'kết quả'");
+                    }
+                })
+                .catch(error => {
+                    console.error("Lỗi khi tìm nạp dữ liệu:", error);
+                });
+        }
     }
 
-Tôi muốn cái Button Mũi tên đó có hiệu ứng di chuyển lên xuống và khi hover chuột bào thì backround Biến đổi 7 sắc cầu vòng
+    Làm thế nào để tôi đăng ký 1 thông tin khách sạn khi click trên bản đồ. 
+    và từ sau trở đi ở vị trí tôi click đó sẽ có 1 icon khách sạn. Click icon khách sạn đó sẽ có thông tin khách sạn đó

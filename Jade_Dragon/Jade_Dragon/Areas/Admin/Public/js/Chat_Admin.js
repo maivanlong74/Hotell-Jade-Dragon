@@ -6,7 +6,7 @@
     document.querySelector('.Create-new').classList.add('hidden');
 
     $.connection.hub.start().done(function () {
-        console.log("check", $('.btnChatPhong'))
+
         $('#btnSend').click(function () {
             sendMessage(chat);
         });
@@ -87,9 +87,8 @@ function sendMessage(chat) {
     if (fileInput.files.length > 0) {
         for (var i = 0; i < fileInput.files.length; i++) {
             var file = fileInput.files[i];
-            if (file.size > (10 * 1024 * 1024)) {
-                /*var fileSizeMB = (file.size / (1024*1024)).toFixed(2);*/
-                alert('Dung lượng ảnh cho phép tải lên chỉ tối đa 10MB \n' +
+            if (file.size > 1024000) {
+                alert('Dung lượng ảnh cho phép tải lên chỉ tối đa 1MB \n' +
                     'Ảnh Bạn đang tải là: ' + file.size + 'MB');
                 return;
             }
@@ -114,8 +113,11 @@ function sendMessage(chat) {
             reader.readAsDataURL(file);
         }
     } else {
-        // Call the message method on the hub with isPrivate = false.
-        chat.server.message(roomId, makh, msg, null, false);
+        if (roomId == null || roomId.trim() == '') {
+            chat.server.message(IdNhan, makh, msg, null, true);
+        } else {
+            chat.server.message(roomId, makh, msg, null, false);
+        }
     }
     // Clear message input.
     $('#txtMessage').val('').focus();
@@ -172,7 +174,7 @@ function loadClient(chat) {
     chat.client.message = function (name, msg, makh, ngaygui, matinnhan, imageUrl) {
         var MaKhachHang = $('#makh').val();
         var li = "";
-        var messageTime = new Date(ngaygui).getTime(); 
+        var messageTime = new Date(ngaygui).getTime();
         var linkanh = "/Style/img/icon/icon-X.jpg";
 
         // Kiểm tra nếu đã đủ 1 giờ kể từ lần gửi tin nhắn cuối cùng
@@ -223,9 +225,16 @@ function loadClient(chat) {
         lastSenderId = makh; // lưu mã khách hàng hiện tại cho lần so sánh ở vòng sau
         lastMessageTime = messageTime; // lưu lại thời gian gửi tin nhắn cuối cùng
 
-        // Cuộn thanh cuộn xuống tin nhắn mới nhất
-        var messagesContainer = $('#contentMsg');
-        messagesContainer.scrollTop(messagesContainer[0].scrollHeight);
+        var hasImage = imageUrl !== null && imageUrl !== '';
+        if (hasImage) {
+            setTimeout(function () {
+                var messagesContainer = $('#contentMsg');
+                messagesContainer.scrollTop(messagesContainer[0].scrollHeight);
+            }, 500); // chờ 500ms để hình ảnh được tải xong
+        } else {
+            var messagesContainer = $('#contentMsg');
+            messagesContainer.scrollTop(messagesContainer[0].scrollHeight);
+        }
     }
 }
 

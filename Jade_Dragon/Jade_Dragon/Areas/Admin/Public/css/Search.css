@@ -32,3 +32,45 @@
             background: #95a5a6;
             font-weight: 700;
         }
+/*-----------------------*/
+    .body #form-kv {
+        padding: 40px;
+        padding-bottom: 0;
+        margin-left: 15%;
+        padding-top: 0px;
+    }
+/*--------------top*/
+    #map .Search-Search #MuiTen_Top {
+        background-color: wheat;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+    }
+
+        #map .Search-Search #MuiTen_Top:hover {
+            background-color: yellow;
+        }
+
+        #map .Search-Search #MuiTen_Top img {
+            width: 30px;
+        }
+/*--------------bot*/
+
+    #map .Search-Search .xoa {
+        display: none;
+    }
+
+    #map .Search-Search #MuiTen_Bot {
+        background-color: wheat;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+    }
+
+    #map .Search-Search #MuiTen_Bot:hover {
+        background-color: yellow;
+    }
+
+    #map .Search-Search #MuiTen_Bot img {
+        width: 30px;
+    }
