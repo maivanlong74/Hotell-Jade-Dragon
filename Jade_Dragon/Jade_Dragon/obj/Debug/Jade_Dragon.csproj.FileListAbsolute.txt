@@ -2041,3 +2041,7 @@ L:\Jade_Dragon\Jade_Dragon\obj\Debug\Jade_Dragon.csproj.CoreCompileInputs.cache
 L:\Jade_Dragon\Jade_Dragon\obj\Debug\Jade_Dragon.csproj.CopyComplete
 L:\Jade_Dragon\Jade_Dragon\obj\Debug\Jade_Dragon.dll
 L:\Jade_Dragon\Jade_Dragon\obj\Debug\Jade_Dragon.pdb
+L:\Hotell-Jade-Dragon\Jade_Dragon\Jade_Dragon\bin\System.Net.Http.Formatting.dll
+L:\Hotell-Jade-Dragon\Jade_Dragon\Jade_Dragon\bin\System.Web.Http.dll
+L:\Hotell-Jade-Dragon\Jade_Dragon\Jade_Dragon\bin\System.Net.Http.Formatting.xml
+L:\Hotell-Jade-Dragon\Jade_Dragon\Jade_Dragon\bin\System.Web.Http.xml

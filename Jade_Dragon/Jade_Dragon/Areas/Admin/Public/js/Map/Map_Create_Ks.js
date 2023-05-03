@@ -88,10 +88,10 @@ function initMap() {
         var lonlat = ol.proj.toLonLat(clickedCoordinate);
         // Di chuyển marker tới vị trí click
         marker.getGeometry().setCoordinates(clickedCoordinate);
-        handlePosition(lonlat, evt, clickedCoordinate);
+        handlePosition(lonlat);
     });
 
-    function handlePosition(lonlat, evt, clickedCoordinate) {
+    function handlePosition(lonlat) {
         // Tìm kiếm địa điểm gần vị trí chọn nhất và hiển thị thông tin lên bản đồ
         var url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lonlat[1]}&lon=${lonlat[0]}&addressdetails=1&zoom=18`;
         fetch(url)
@@ -195,7 +195,7 @@ function initMap() {
                     marker.getGeometry().setCoordinates(pos);
                     // Set lại center của map
                     map.getView().setCenter(pos);
-                    map.getView().setZoom(15);
+                    map.getView().setZoom(18);
 
                     var lonlat = ol.proj.toLonLat(pos);
                     handlePosition(lonlat);
