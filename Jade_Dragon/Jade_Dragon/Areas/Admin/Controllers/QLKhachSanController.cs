@@ -40,11 +40,12 @@ namespace Jade_Dragon.Areas.Admin.Controllers
         // GET: Admin/khachsans/Create
         public ActionResult Create()
         {
-            return View();
+            var ks = db.khachsans.ToList();
+            return View("Create", ks);
         }
 
         // POST: Admin/khachsans/Create
-        [HttpPost]
+        /*[HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(string TenKhachSan, long SoDienThoai, string Gmail, string DiaChi, 
             long Gia, string KinhDo, string ViDo, string TenKhuVuc, HttpPostedFileBase uploadhinh)
@@ -102,7 +103,7 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                 Up_IMG(ks, uploadhinh);
             }
             return RedirectToAction("QuanLyKs");
-        }
+        }*/
 
         // GET: Admin/khachsans/Edit/5
         public ActionResult Edit(long? id)

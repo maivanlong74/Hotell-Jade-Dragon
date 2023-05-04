@@ -216,14 +216,6 @@ function initMap(locations) {
     // Thêm lớp vector vào bản đồ
     map.addLayer(vectorLayer);
 
-    // Tạo các tọa độ cần tìm kiếm
-    /*var locations = [
-        [107.59650349617002, 16.453547219873755],
-        [107.59800553321837, 16.45089251410262],
-        [107.6029622554779, 16.451756840899662],
-        // Thêm các tọa độ khác nếu cần
-    ];*/
-
     // Tạo các lớp vector và thêm chúng vào bản đồ
     locations.forEach(function (lonlat) {
         var vectorLayer = Search_KD_VD(lonlat);
@@ -236,7 +228,7 @@ function initMap(locations) {
 
         // Tạo một đối tượng marker với vị trí tương ứng
         var marker = new ol.Feature({
-            geometry: new ol.geom.Point(ol.proj.fromLonLat([lon, lat]))
+            geometry: new ol.geom.Point(ol.proj.fromLonLat([lon, lat])),
         });
 
         // Thiết lập biểu tượng cho marker
@@ -256,4 +248,6 @@ function initMap(locations) {
 
         return vectorLayer;
     }
+
+
 }

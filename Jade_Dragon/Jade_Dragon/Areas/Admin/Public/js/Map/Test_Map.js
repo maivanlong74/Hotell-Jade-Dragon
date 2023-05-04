@@ -1,13 +1,15 @@
 ﻿var map;
-function initMap(locations) {
+function initMap() {
+    // Thiết lập bản đồ
     map = new ol.Map({
         target: 'map',
         layers: [
             new ol.layer.Tile({
-                source: new ol.source.OSM()
-            })
+                source: new ol.source.OSM(),
+            }),
         ],
     });
+
     // ------------------------------
     if ('geolocation' in navigator) {
         navigator.geolocation.getCurrentPosition(function (position) {
@@ -53,6 +55,24 @@ function initMap(locations) {
             })
         })
     }));
+    // Tạo một đối tượng marker
+    var marker = new ol.Feature({
+        geometry: new ol.geom.Point(ol.proj.fromLonLat([0, 0]))
+    });
+    marker.setStyle(new ol.style.Style({
+        image: new ol.style.Icon({
+            anchor: [0.5, 1],
+            src: 'https://openlayers.org/en/latest/examples/data/icon.png'
+        })
+    }));
+
+    // Thêm marker vào bản đồ
+    var markerLayer = new ol.layer.Vector({
+        source: new ol.source.Vector({
+            features: [marker]
+        })
+    });
+    map.addLayer(markerLayer);
 
     // Xử lý thông tin địa điểm khi click vào bản đồ
     map.on('singleclick', function (evt) {
@@ -117,6 +137,7 @@ function initMap(locations) {
                 console.error("Lỗi khi tìm nạp dữ liệu:", error);
             });
     }
+
 
     // Thêm control zoom slider
     var zoomSlider = new ol.control.ZoomSlider();
@@ -194,66 +215,24 @@ function initMap(locations) {
                 }
             })
     }
-
-    // Tạo một đối tượng marker
-    var marker = new ol.Feature({
-        geometry: new ol.geom.Point(ol.proj.fromLonLat([0, 0]))
-    });
-
-    marker.setStyle(new ol.style.Style({
-        image: new ol.style.Icon({
-            anchor: [0.5, 1],
-            src: 'https://openlayers.org/en/latest/examples/data/icon.png'
-        })
-    }));
-
-    // Tạo một lớp vector để chứa marker
-    var vectorLayer = new ol.layer.Vector({
-        source: new ol.source.Vector({
-            features: [marker]
-        })
-    });
-    // Thêm lớp vector vào bản đồ
-    map.addLayer(vectorLayer);
-
-    // Tạo các tọa độ cần tìm kiếm
-    /*var locations = [
-        [107.59650349617002, 16.453547219873755],
-        [107.59800553321837, 16.45089251410262],
-        [107.6029622554779, 16.451756840899662],
-        // Thêm các tọa độ khác nếu cần
-    ];*/
-
-    // Tạo các lớp vector và thêm chúng vào bản đồ
-    locations.forEach(function (lonlat) {
-        var vectorLayer = Search_KD_VD(lonlat);
-        map.addLayer(vectorLayer);
-    });
-
+    // Tìm kiếm dựa vào kinh độ vĩ độ
     function Search_KD_VD(lonlat) {
-        // Lấy kinh độ và vĩ độ từ mảng lonlat
-        var [lon, lat] = lonlat;
+        var url = `https://nominatim.openstreetmap.org/reverse?lon=${lonlat[0]}&lat=${lonlat[1]}&format=json`;
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    var pos = ol.proj.fromLonLat(lonlat);
+                    // Di chuyển marker tới vị trí tìm kiếm được
+                    marker.getGeometry().setCoordinates(pos);
+                    // Set lại center của map
+                    map.getView().setCenter(pos);
+                    /*map.getView().setZoom(18);*/
 
-        // Tạo một đối tượng marker với vị trí tương ứng
-        var marker = new ol.Feature({
-            geometry: new ol.geom.Point(ol.proj.fromLonLat([lon, lat]))
-        });
-
-        // Thiết lập biểu tượng cho marker
-        marker.setStyle(new ol.style.Style({
-            image: new ol.style.Icon({
-                anchor: [0.5, 1],
-                src: 'https://openlayers.org/en/latest/examples/data/icon.png'
-            })
-        }));
-
-        // Tạo một lớp vector để chứa marker
-        var vectorLayer = new ol.layer.Vector({
-            source: new ol.source.Vector({
-                features: [marker]
-            })
-        });
-
-        return vectorLayer;
+                    handlePosition(lonlat);
+                } else {
+                    alert('Không tìm thấy địa điểm');
+                }
+            });
     }
 }
