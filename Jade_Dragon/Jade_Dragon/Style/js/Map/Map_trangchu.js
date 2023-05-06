@@ -340,3 +340,4 @@ function initMap(hotels) {
     });
     return map;
 }
+

@@ -104,7 +104,13 @@ namespace Jade_Dragon.Controllers
             return query.ToList();
         }
 
-       
+       public ActionResult abc()
+        {
+            KhachSanTrinhChieu m = new KhachSanTrinhChieu();
+            var listksks = db.khachsans.ToList();
+            m.ks = listksks;
+            return View(m);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

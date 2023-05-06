@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Jade_Dragon.Models.khachsan>
+@{
+    ViewBag.Title = "haha";
+
+}
+<link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css">
+<script src="https://openlayers.org/en/v4.6.5/build/ol.js" type="text/javascript"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<link href="~/Areas/Admin/Public/css/Map/Create_Ks.css" rel="stylesheet" />
+
+<div class="home">
+    <div class="body">
+        <div id="map" class="map">
+            <div class="Search-Search">
+                <input type="text" id="search-input" placeholder="Tìm kiếm địa điểm">
+                <button id="search-button">Tìm kiếm</button>
+            </div>
+            <div class="DangKy_Map" id="DangKy_Map">
+                <form id="register-form" action="/Admin/QLKhachSan/DangKyKs" method="post" enctype="multipart/form-data"></form>
+            </div>
+            <div id="popup" class="popup"></div>
+        </div>
+    </div>
+</div>
+<script>
+        var hotels = [
+          @foreach (var i in Model) {
+              <text>{
+                maks: '@i.MaKhachSan',
+                name: '@i.TenKhachSan',
+                address: '@i.DiaChi',
+                phone: '@i.SoDienThoai',
+                gmail: '@i.Gmail',
+                moeny: '@i.Gia',
+                coordinates: [@i.KinhDo, @i.ViDo]
+            },</text>
+          }
+        ];
+</script>
+<script src="~/Areas/Admin/Public/js/Map/Map_Create_Ks.js"></script>
+<script>var map = initMap(hotels);</script>
+
