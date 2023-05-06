@@ -23,32 +23,17 @@
 
                     @if (Session["SESSION_GROUP"] != null)
                     {
-                        List<string> privilegeLevels = (List<string>)Session["SESSION_GROUP"];
-
-                        if (privilegeLevels[0].CompareTo("Client") == 0)
-                        {
-                            <form action="~/nhanxet/Create" method="post" class="cmt">
-                                @Html.AntiForgeryToken()
-                                <input type="hidden" name="MaPhanHoi" id="MaPhanHoi" />
-                                <input type="text" placeholder="Mời bạn nhận xét" name="NoiDung">
-                                <input type="hidden" value="@Session["MaKh"]" name="MaKh" id="MaKh" />
-                                <button type="submit">Gửi</button>
-                            </form>
-                        }
-                        else
-                        {
-                            <form action="~/Admin/Account/Login" method="post" class="cmt">
-                                @Html.AntiForgeryToken()
-                                <input type="hidden" name="MaPhanHoi" id="MaPhanHoi" />
-                                <input type="text" placeholder="Mời bạn nhận xét" name="NoiDung">
-                                <input type="hidden" value="@Session["MaKh"]" name="MaKh" id="MaKh" />
-                                <button type="submit">Gửi</button>
-                            </form>
-                        }
+                        <form action="~/nhanxet/Create" method="post" class="cmt">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="MaPhanHoi" id="MaPhanHoi" />
+                            <input type="text" placeholder="Mời bạn nhận xét" name="NoiDung">
+                            <input type="hidden" value="@Session["MaKh"]" name="MaKh" id="MaKh" />
+                            <button type="submit">Gửi</button>
+                        </form>
                     }
                     else
                     {
-                        <form action="~/Admin/Account/Login" method="post" class="cmt">
+                        <form action = "~/Admin/Account/Login" method = "post" class="cmt">
                             @Html.AntiForgeryToken()
                             <input type="hidden" name="MaPhanHoi" id="MaPhanHoi" />
                             <input type="text" placeholder="Mời bạn nhận xét" name="NoiDung">

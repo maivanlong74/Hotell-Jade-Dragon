@@ -5,32 +5,8 @@
 }
 <script src="~/Areas/Admin/Public/js/dataTables_min.js"></script>
 <link href="~/Areas/Admin/Public/css/Table.css" rel="stylesheet" />
-
-<style>
-    .body #form-kv {
-        padding: 40px;
-        padding-bottom: 0;
-        margin-left: 15%;
-        padding-top: 0px;
-    }
-    #map .Search-Search .xoa{
-        display: none;
-    }
-    #map .Search-Search #MuiTen_Bot {
-        background-color: wheat;
-        width: 30px;
-        height: 30px;
-        cursor: pointer;
-    }
-    #map .Search-Search #MuiTen_Bot:hover {
-        background-color: yellow;
-    }
-    #map .Search-Search #MuiTen_Bot img{
-        width: 30px;
-    }
-</style>
-
-<body onload="initMap()">
+<link href="~/Areas/Admin/Public/css/Map/KhuVuc.css" rel="stylesheet" />
+<body>
     <div class="home">
         <div class="body">
 
@@ -45,12 +21,14 @@
                         <img src="~/Areas/Admin/Public/img/icon_MuiTenBot.jpg" />
                     </button>
                 </div>
+                <div class="DangKy_Map" id="DangKy_Map">
+                    <form action="~/Admin/khuvuc/Create" method="post" id="form-khuvuc">
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    </form>
+                </div>
+                <div id="popup" class="popup"></div>
             </div>
-
-            <form action="~/Admin/khuvuc/Create" method="post" id="form-kv">
-                @Html.AntiForgeryToken()
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            </form>
 
             <input type="hidden" name="_method" value="PUT" />
             <table id="example" class="display danhmucsp">
@@ -103,7 +81,24 @@
             </table>
         </div>
     </div>
-    <script src="~/Areas/Admin/Public/js/Map/Map_KhuVuc.js"></script>
+    <script>
+        var hotels = [
+          @foreach (var i in ViewBag.ListKs) {
+              <text>{
+                maks: '@i.MaKhachSan',
+                name: '@i.TenKhachSan',
+                address: '@i.DiaChi',
+                phone: '@i.SoDienThoai',
+                gmail: '@i.Gmail',
+                moeny: '@i.Gia',
+                coordinates: [@i.KinhDo, @i.ViDo]
+            },</text>
+          }
+        ];
+    </script>
+    @*<script src="~/Areas/Admin/Public/js/Map/Map_KhuVuc.js"></script>*@
+    <script src="~/Areas/Admin/Public/js/Map/test.js"></script>
+    <script>var map = initMap(hotels);</script>
 </body>
 
 

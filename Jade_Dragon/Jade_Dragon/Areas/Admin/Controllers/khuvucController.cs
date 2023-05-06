@@ -18,6 +18,9 @@ namespace Jade_Dragon.Areas.Admin.Controllers
         // GET: Admin/khuvuc
         public ActionResult khuvuc()
         {
+            List<khachsan> Ks = new List<khachsan>();
+            Ks = db.khachsans.ToList();
+            ViewBag.ListKs = Ks;
             var ListKv = db.khuvucs.ToList();
             return View("khuvuc", ListKv);
         }

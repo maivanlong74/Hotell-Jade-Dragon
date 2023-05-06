@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <label for="price">Giá tiền:</label>
+        <input type="text" id="price" name="price" oninput="formatCurrency(this)">
+
+<script>
+    function formatCurrency(input) {
+    // Lấy giá trị nhập vào
+    let value = input.value;
+    // Xóa bỏ các dấu phẩy hiện tại
+    value = value.replace(/,/g, '');
+    // Chuyển đổi giá trị thành số thực
+    value = parseFloat(value);
+    // Kiểm tra nếu giá trị không phải là số thực, hoặc không phải là số hợp lệ
+    if (isNaN(value) || value <= 0) {
+        input.value = '';
+    } else {
+        // Định dạng giá trị thành chuỗi có dấu phẩy
+        value = value.toLocaleString('en-US');
+        // Gán giá trị định dạng vào ô input
+        input.value = value;
+    }
+    }
+</script>
+    </body>
+</html>

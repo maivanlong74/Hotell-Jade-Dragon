@@ -1,6 +1,5 @@
 ﻿var map;
-function initMap() {
-    // Thiết lập bản đồ
+function initMap(hotels) {
     map = new ol.Map({
         target: 'map',
         layers: [
@@ -17,15 +16,6 @@ function initMap() {
                 latitude: position.coords.latitude,
                 longitude: position.coords.longitude
             };
-            $.ajax({
-                type: 'POST',
-                url: '/Admin/QLKhachSan/Create',
-                data: JSON.stringify(data),
-                contentType: 'application/json',
-                success: function () {
-                    console.log('Đã gửi vị trí đến máy chủ');
-                }
-            });
             var marker = new ol.Feature({
                 geometry: new ol.geom.Point(pos)
             });
@@ -63,32 +53,21 @@ function initMap() {
             })
         })
     }));
-    // Tạo một đối tượng marker
-    var marker = new ol.Feature({
-        geometry: new ol.geom.Point(ol.proj.fromLonLat([0, 0]))
-    });
-    marker.setStyle(new ol.style.Style({
-        image: new ol.style.Icon({
-            anchor: [0.5, 1],
-            src: 'https://openlayers.org/en/latest/examples/data/icon.png'
-        })
-    }));
-
-    // Thêm marker vào bản đồ
-    var markerLayer = new ol.layer.Vector({
-        source: new ol.source.Vector({
-            features: [marker]
-        })
-    });
-    map.addLayer(markerLayer);
 
     // Xử lý thông tin địa điểm khi click vào bản đồ
     map.on('singleclick', function (evt) {
-        var clickedCoordinate = evt.coordinate;
-        var lonlat = ol.proj.toLonLat(clickedCoordinate);
-        // Di chuyển marker tới vị trí click
-        marker.getGeometry().setCoordinates(clickedCoordinate);
-        handlePosition(lonlat);
+        var maks = $('#maks_map').val();
+
+        if (maks == null || maks.trim() == '') {
+            var clickedCoordinate = evt.coordinate;
+            var lonlat = ol.proj.toLonLat(clickedCoordinate);
+            // Di chuyển marker tới vị trí click
+            marker.getGeometry().setCoordinates(clickedCoordinate);
+            handlePosition(lonlat);
+        } else {
+            window.location.href = "https://localhost:44336/khachsan/khachsan?ma=" + maks;
+        }
+
     });
 
     function handlePosition(lonlat) {
@@ -97,14 +76,16 @@ function initMap() {
         fetch(url)
             .then(response => response.json())
             .then(data => {
-                console.log(data);
-                var formkhuvuc = document.getElementById("form-kv");
-                if (formkhuvuc) {
-                    var address = data.address;
-                    var displayName = address.road || '';
-                    var latitude = lonlat[1];
-                    var longitude = lonlat[0];
+                var address = data.address;
+                var displayName = address.suburb || address.neighbourhood || '';
+                var latitude = lonlat[1];
+                var longitude = lonlat[0];
 
+                var div_form = document.getElementById("DangKy_Map");
+                var formkhuvuc = document.getElementById("form-khuvuc");
+                if (formkhuvuc) {
+                    formkhuvuc.style.background = "rgba(0, 0, 0, 0.7)";
+                    div_form.style.zIndex = "999";
                     formkhuvuc.innerHTML = `
                                     <input id="tenkhuvuc" name="TenKhuVuc" type="text" class="create" placeholder="Vui lòng chọn lại" value="${displayName}"/>
                                     <input id="kinhdo" name="KinhDo" type="hidden" value="${longitude}"/>
@@ -125,6 +106,13 @@ function initMap() {
     // Thêm control full screen
     var fullScreen = new ol.control.FullScreen();
     map.addControl(fullScreen);
+    // Thêm control OverviewMap
+    var OverviewMap = new ol.control.OverviewMap();
+    map.addControl(OverviewMap);
+    // Thêm control ScaleLine
+    var ScaleLine = new ol.control.ScaleLine();
+    map.addControl(ScaleLine);
+
 
     /*--------*/
     // Lấy các phần tử input và button tìm kiếm
@@ -144,10 +132,9 @@ function initMap() {
                 var coordinates = [parseFloat(searchText.split(',')[0]), parseFloat(searchText.split(',')[1])];
                 var pos = ol.proj.fromLonLat(coordinates);
                 marker.getGeometry().setCoordinates(pos);
-
                 // Set lại center của map
                 map.getView().setCenter(pos);
-                map.getView().setZoom(20);
+                map.getView().setZoom(15);
             }
         }
     });
@@ -166,10 +153,9 @@ function initMap() {
                     var coordinates = [parseFloat(searchText.split(',')[0]), parseFloat(searchText.split(',')[1])];
                     var pos = ol.proj.fromLonLat(coordinates);
                     marker.getGeometry().setCoordinates(pos);
-
                     // Set lại center của map
                     map.getView().setCenter(pos);
-                    map.getView().setZoom(20);
+                    map.getView().setZoom(15);
                 }
             }
         }
@@ -186,35 +172,155 @@ function initMap() {
                     var pos = ol.proj.fromLonLat([parseFloat(result.lon), parseFloat(result.lat)]);
                     // Di chuyển marker tới vị trí tìm kiếm được
                     marker.getGeometry().setCoordinates(pos);
-
-                    var formkhuvuc = document.getElementById("form-kv");
-                    var mapElement = document.getElementById("map");
-                    formkhuvuc.classList.remove("danhmucsp");
-                    mapElement.classList.add("danhmucsp");
-                    var danhmucsp = document.querySelector('.danhmucsp');
-                    if (danhmucsp) {
-                        danhmucsp.scrollIntoView({ behavior: 'smooth' });
-                    }
-
                     // Set lại center của map
                     map.getView().setCenter(pos);
                     map.getView().setZoom(18);
-
-                    var lonlat = ol.proj.toLonLat(pos);
-                    handlePosition(lonlat);
                 } else {
                     alert('Không tìm thấy địa điểm');
                 }
             })
     }
 
+    // Tạo một đối tượng marker
+    var marker = new ol.Feature({
+        geometry: new ol.geom.Point(ol.proj.fromLonLat([0, 0]))
+    });
+
+    marker.setStyle(new ol.style.Style({
+        image: new ol.style.Icon({
+            anchor: [0.5, 1],
+            src: 'https://openlayers.org/en/latest/examples/data/icon.png'
+        })
+    }));
+
+    // Tạo một lớp vector để chứa marker
+    var vectorLayer = new ol.layer.Vector({
+        source: new ol.source.Vector({
+            features: [marker]
+        })
+    });
+    // Thêm lớp vector vào bản đồ
+    map.addLayer(vectorLayer);
+
+    // Tạo các lớp vector và thêm chúng vào bản đồ
+    hotels.forEach(function (lonlat) {
+        var vectorLayer = Search_KD_VD(lonlat);
+        map.addLayer(vectorLayer);
+    });
+
+    var overlays = [];
+    var maks_map = null;
+
+    function Search_KD_VD(location) {
+        var lon = location.coordinates[0];
+        var lat = location.coordinates[1];
+        maks_map = location.maks || null;
+        var name = location.name;
+        var address = location.address;
+        var phone = location.phone;
+        var gmail = location.gmail;
+        var moeny = location.moeny;
+
+        // Tạo feature của marker với nội dung thông tin khách sạn tương ứng
+        var marker = new ol.Feature({
+            geometry: new ol.geom.Point(ol.proj.fromLonLat([lon, lat])),
+            content:
+                `<div style="background-color: black; color: wheat; width: 400px; word-wrap: break-word; padding: 10px; border: 2px solid yellow; cursor: pointer;">` +
+                `<input type="hidden" id="maks_map" value="` + maks_map + `"/>` +
+                '<div><strong> Khách Sạn: ' + name + '</strong></div>' +
+                '<div>Địa chỉ: ' + address + '</div>' +
+                '<div>Số điện thoại: ' + phone + '</div>' +
+                '<div>Gmail: ' + gmail + '</div>' +
+                '<div>Giá tiền: ' + moeny + '</div>' +
+                `</div>`,
+            maks: maks_map
+        });
+        marker.setStyle(new ol.style.Style({
+            image: new ol.style.Icon({
+                anchor: [0.5, 1],
+                src: 'https://openlayers.org/en/latest/examples/data/icon.png'
+            })
+        }));
+
+        var vectorLayer = new ol.layer.Vector({
+            source: new ol.source.Vector({
+                features: [marker]
+            })
+        });
+
+        // Tạo một interaction để chọn feature
+        var selectInteraction = new ol.interaction.Select({
+            layers: [vectorLayer],
+        });
+
+        // Thêm interaction vào map
+        map.addInteraction(selectInteraction);
+
+        // Tạo overlay cho feature marker để hiển thị thông tin khách sạn khi hover chuột vào
+        var popup = new ol.Overlay({
+            element: document.createElement('div'),
+            autoPan: false,
+            autoPanAnimation: {
+                duration: 250
+            },
+            positioning: "bottom-center",
+            stopEvent: false,
+            offset: [0, -50],
+        });
+        map.addOverlay(popup);
+
+        map.on('pointermove', function (evt) {
+            var feature = map.forEachFeatureAtPixel(evt.pixel,
+                function (feature, layer) {
+                    return feature;
+                });
+            if (feature) {
+                var coordinates = feature.getGeometry().getCoordinates();
+                var maks_map = feature.get('maks') || null;
+                if (maks_map) {
+                    popup.getElement().innerHTML = `<input type="hidden" id="maks_map" value="${maks_map}"/>` + feature.get('content');
+                } else {
+                    popup.getElement().innerHTML = feature.get('content');
+                }
+                popup.setPosition(coordinates);
+                popup.getElement().style.display = 'block';
+            } else {
+                $('#maks_map').val(null);
+                popup.getElement().style.display = 'none';
+            }
+        });
+
+        return vectorLayer;
+    }
+
+    map.on('pointermove', function (evt) {
+        var feature = map.forEachFeatureAtPixel(evt.pixel,
+            function (feature, layer) {
+                return feature;
+            });
+        if (feature) {
+            var coordinates = feature.getGeometry().getCoordinates();
+            popup.setPosition(coordinates);
+            var content = feature.get('content');
+            document.getElementById('popup').innerHTML = content;
+        } else {
+            popup.setPosition(undefined);
+            map.getViewport().style.cursor = '';
+        }
+    });
+
+    map.on('pointerout', function () {
+        popup.setPosition(undefined);
+        map.getViewport().style.cursor = '';
+    });
+
     $('#MuiTen_Top').click(function () {
-        var formkhuvuc = document.getElementById("form-kv");
+        var table = document.getElementById("example_wrapper");
         var mapElement = document.getElementById("map");
         var MuiTenTop = document.getElementById("MuiTen_Top");
         var MuiTenBot = document.getElementById("MuiTen_Bot");
 
-        formkhuvuc.classList.remove("danhmucsp");
+        table.classList.remove("danhmucsp");
         mapElement.classList.add("danhmucsp");
         MuiTenBot.classList.remove("xoa");
         MuiTenTop.classList.add("xoa");
@@ -225,13 +331,13 @@ function initMap() {
     });
 
     $('#MuiTen_Bot').click(function () {
-        var formkhuvuc = document.getElementById("form-kv");
+        var table = document.getElementById("example_wrapper");
         var mapElement = document.getElementById("map");
         var MuiTenTop = document.getElementById("MuiTen_Top");
         var MuiTenBot = document.getElementById("MuiTen_Bot");
 
         mapElement.classList.remove("danhmucsp");
-        formkhuvuc.classList.add("danhmucsp");
+        table.classList.add("danhmucsp");
         MuiTenTop.classList.remove("xoa");
         MuiTenBot.classList.add("xoa");
         var danhmucsp = document.querySelector('.danhmucsp');
@@ -239,4 +345,6 @@ function initMap() {
             danhmucsp.scrollIntoView({ behavior: 'smooth' });
         }
     });
+
+    return map;
 }

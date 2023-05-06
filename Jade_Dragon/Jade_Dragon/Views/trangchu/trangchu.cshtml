@@ -7,7 +7,7 @@
 <link href="~/Style/css/ThanhCuon/thanh_cuon.css" rel="stylesheet" />
 <link href="~/Style/css/ThanhCuon/owl.carousel.min.css" rel="stylesheet" />
 <link href="~/Style/css/ThanhCuon/owl.theme.default.min.css" rel="stylesheet" />
-
+<link href="~/Style/css/Map/Map_trangchu.css" rel="stylesheet" />
 <style>
     .slider-item-one .info .noidung .datphong i {
         display: block;
@@ -15,6 +15,7 @@
         background-color: black;
         border-radius: 30px;
     }
+
     .rating {
         font-size: 30px;
         display: inline-block;
@@ -38,13 +39,13 @@
         color: orange;
     }
 
-    .rating:hover .star:hover ~ .star {
-        color: #ccc;
-    }
+        .rating:hover .star:hover ~ .star {
+            color: #ccc;
+        }
 
-    .rating:hover .star:hover {
-        color: orange;
-    }
+        .rating:hover .star:hover {
+            color: orange;
+        }
 </style>
 
 <div class="home">
@@ -77,7 +78,7 @@
             <div id="clock"></div>
         </div>
 
-        <div class="search__container" style="margin-left: 100px;">
+        <div class="search__container">
             <form method="get" action="@Url.Action("trangchu", "trangchu")" class="row">
                 <div class="Search Search-input">
                     <input type="text" placeholder="Mời bạn nhập tìm kiếm theo" class="input" name="searchTerm" />
@@ -131,8 +132,8 @@
                                         <span class="star" data-rating="4">&#9733;</span>
                                         <span class="star" data-rating="5">&#9733;</span>
                                         <input type="hidden" name="rating" class="rating-value" value="" id="so_sao">
-                                        <input type="hidden" id="maks" value="@item.MaKhachSan"/>
-                                        <input type="hidden" id="makh" value="@Session["MaKh"]"/>
+                                        <input type="hidden" id="maks" value="@item.MaKhachSan" />
+                                        <input type="hidden" id="makh" value="@Session["MaKh"]" />
                                     </div>
                                 </div>
                                 <div class="datphong" style="margin-left: 40px;">
@@ -265,6 +266,19 @@
 
 @*-------------------------------------------------------------------------*@
 
+<div id="map" class="map">
+    <div class="Search-Search">
+        <input type="text" id="search-input" placeholder="Tìm kiếm địa điểm">
+        <button id="search-button">Tìm kiếm</button>
+    </div>
+    <div class="DangKy_Map" id="DangKy_Map">
+        <form id="register-form" action="/Admin/QLKhachSan/DangKyKs" method="post" enctype="multipart/form-data"></form>
+    </div>
+    <div id="popup" class="popup"></div>
+</div>
+
+@*-------------------------------------------------------------------------*@
+
 <div class="offers">
     <div class="offers__container">
         <div class="grid wide">
@@ -309,3 +323,20 @@
 <script src="~/Style/js/main.js"></script>
 
 
+<script>
+        var hotels = [
+          @foreach (var i in Model.ks) {
+              <text>{
+                maks: '@i.MaKhachSan',
+                name: '@i.TenKhachSan',
+                address: '@i.DiaChi',
+                phone: '@i.SoDienThoai',
+                gmail: '@i.Gmail',
+                moeny: '@i.Gia',
+                coordinates: [@i.KinhDo, @i.ViDo]
+            },</text>
+          }
+        ];
+</script>
+<script src="~/Style/js/Map/Map_trangchu.js"></script>
+<script> var map = initMap(hotels); </script>

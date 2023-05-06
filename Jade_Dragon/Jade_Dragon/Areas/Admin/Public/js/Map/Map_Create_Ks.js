@@ -1,5 +1,5 @@
 ﻿var map;
-function initMap(locations) {
+function initMap(hotels) {
     map = new ol.Map({
         target: 'map',
         layers: [
@@ -56,11 +56,18 @@ function initMap(locations) {
 
     // Xử lý thông tin địa điểm khi click vào bản đồ
     map.on('singleclick', function (evt) {
-        var clickedCoordinate = evt.coordinate;
-        var lonlat = ol.proj.toLonLat(clickedCoordinate);
-        // Di chuyển marker tới vị trí click
-        marker.getGeometry().setCoordinates(clickedCoordinate);
-        handlePosition(lonlat);
+        var maks = $('#maks_map').val();
+
+        if (maks == null || maks.trim() == '') {
+            var clickedCoordinate = evt.coordinate;
+            var lonlat = ol.proj.toLonLat(clickedCoordinate);
+            // Di chuyển marker tới vị trí click
+            marker.getGeometry().setCoordinates(clickedCoordinate);
+            handlePosition(lonlat);
+        } else {
+            window.location.href = "https://localhost:44336/khachsan/khachsan?ma=" + maks;
+        }
+
     });
 
     function handlePosition(lonlat) {
@@ -99,12 +106,12 @@ function initMap(locations) {
                                 <input style="margin-left: 70px;" type="text" id="DiaChi" name="DiaChi" value="${displayName}" required> <br/>
 
                                 <label for="price">Giá:</label>
-                                <input style="margin-left: 99px;" type="number" id="Gia" name="Gia" required> <br/>
+                                <input style="margin-left: 99px;" type="text" id="Gia" name="GiaTien" oninput="formatCurrency(this)" required> <br/>
 
                                 <label for="image">Ảnh:</label>
                                 <input style="margin-left: 140px; width: 78px;" 
                                     type="file" id="Avt" name="Avt" accept="image/*"> <br/>
-                                <input type="hidden" id="KhuVuc" name="KhuVuc" value="${suburb}">
+                                <input type="hidden" id="KhuVuc" name="TenKhuVuc" value="${suburb}">
 
                                 <input type="hidden" id="KinhDo" name="KinhDo" value="${longitude}">
                                 <input type="hidden" id="ViDo" name="ViDo" value="${latitude}">
@@ -124,6 +131,13 @@ function initMap(locations) {
     // Thêm control full screen
     var fullScreen = new ol.control.FullScreen();
     map.addControl(fullScreen);
+    // Thêm control OverviewMap
+    var OverviewMap = new ol.control.OverviewMap();
+    map.addControl(OverviewMap);
+    // Thêm control ScaleLine
+    var ScaleLine = new ol.control.ScaleLine();
+    map.addControl(ScaleLine);
+
 
     /*--------*/
     // Lấy các phần tử input và button tìm kiếm
@@ -186,9 +200,6 @@ function initMap(locations) {
                     // Set lại center của map
                     map.getView().setCenter(pos);
                     map.getView().setZoom(18);
-
-                    var lonlat = ol.proj.toLonLat(pos);
-                    handlePosition(lonlat);
                 } else {
                     alert('Không tìm thấy địa điểm');
                 }
@@ -216,30 +227,39 @@ function initMap(locations) {
     // Thêm lớp vector vào bản đồ
     map.addLayer(vectorLayer);
 
-    // Tạo các tọa độ cần tìm kiếm
-    /*var locations = [
-        [107.59650349617002, 16.453547219873755],
-        [107.59800553321837, 16.45089251410262],
-        [107.6029622554779, 16.451756840899662],
-        // Thêm các tọa độ khác nếu cần
-    ];*/
-
     // Tạo các lớp vector và thêm chúng vào bản đồ
-    locations.forEach(function (lonlat) {
+    hotels.forEach(function (lonlat) {
         var vectorLayer = Search_KD_VD(lonlat);
         map.addLayer(vectorLayer);
     });
 
-    function Search_KD_VD(lonlat) {
-        // Lấy kinh độ và vĩ độ từ mảng lonlat
-        var [lon, lat] = lonlat;
+    var overlays = [];
+    var maks_map = null;
 
-        // Tạo một đối tượng marker với vị trí tương ứng
+    function Search_KD_VD(location) {
+        var lon = location.coordinates[0];
+        var lat = location.coordinates[1];
+        maks_map = location.maks || null;
+        var name = location.name;
+        var address = location.address;
+        var phone = location.phone;
+        var gmail = location.gmail;
+        var moeny = location.moeny;
+
+        // Tạo feature của marker với nội dung thông tin khách sạn tương ứng
         var marker = new ol.Feature({
-            geometry: new ol.geom.Point(ol.proj.fromLonLat([lon, lat]))
+            geometry: new ol.geom.Point(ol.proj.fromLonLat([lon, lat])),
+            content:
+                `<div style="background-color: black; color: wheat; width: 400px; word-wrap: break-word; padding: 10px; border: 2px solid yellow; cursor: pointer;">` +
+                `<input type="hidden" id="maks_map" value="` + maks_map + `"/>` +
+                '<div><strong> Khách Sạn: ' + name + '</strong></div>' +
+                '<div>Địa chỉ: ' + address + '</div>' +
+                '<div>Số điện thoại: ' + phone + '</div>' +
+                '<div>Gmail: ' + gmail + '</div>' +
+                '<div>Giá tiền: ' + moeny + '</div>' +
+                `</div>`,
+            maks: maks_map
         });
-
-        // Thiết lập biểu tượng cho marker
         marker.setStyle(new ol.style.Style({
             image: new ol.style.Icon({
                 anchor: [0.5, 1],
@@ -247,13 +267,76 @@ function initMap(locations) {
             })
         }));
 
-        // Tạo một lớp vector để chứa marker
         var vectorLayer = new ol.layer.Vector({
             source: new ol.source.Vector({
                 features: [marker]
             })
         });
 
+        // Tạo một interaction để chọn feature
+        var selectInteraction = new ol.interaction.Select({
+            layers: [vectorLayer],
+        });
+
+        // Thêm interaction vào map
+        map.addInteraction(selectInteraction);
+
+        // Tạo overlay cho feature marker để hiển thị thông tin khách sạn khi hover chuột vào
+        var popup = new ol.Overlay({
+            element: document.createElement('div'),
+            autoPan: false,
+            autoPanAnimation: {
+                duration: 250
+            },
+            positioning: "bottom-center",
+            stopEvent: false,
+            offset: [0, -50],
+        });
+        map.addOverlay(popup);
+
+        map.on('pointermove', function (evt) {
+            var feature = map.forEachFeatureAtPixel(evt.pixel,
+                function (feature, layer) {
+                    return feature;
+                });
+            if (feature) {
+                var coordinates = feature.getGeometry().getCoordinates();
+                var maks_map = feature.get('maks') || null;
+                if (maks_map) {
+                    popup.getElement().innerHTML = `<input type="hidden" id="maks_map" value="${maks_map}"/>` + feature.get('content');
+                } else {
+                    popup.getElement().innerHTML = feature.get('content');
+                }
+                popup.setPosition(coordinates);
+                popup.getElement().style.display = 'block';
+            } else {
+                $('#maks_map').val(null);
+                popup.getElement().style.display = 'none';
+            }
+        });
+
         return vectorLayer;
     }
+
+    map.on('pointermove', function (evt) {
+        var feature = map.forEachFeatureAtPixel(evt.pixel,
+            function (feature, layer) {
+                return feature;
+            });
+        if (feature) {
+            var coordinates = feature.getGeometry().getCoordinates();
+            popup.setPosition(coordinates);
+            var content = feature.get('content');
+            document.getElementById('popup').innerHTML = content;   
+        } else {
+            popup.setPosition(undefined);
+            map.getViewport().style.cursor = '';
+        }
+    });
+
+    map.on('pointerout', function () {
+        popup.setPosition(undefined);
+        map.getViewport().style.cursor = '';
+    });
+    return map;
 }

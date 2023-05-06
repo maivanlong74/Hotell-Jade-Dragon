@@ -18,8 +18,6 @@ namespace Jade_Dragon.Controllers
         public ActionResult trangchu(long? ma, string searchTerm, string searchType)
         {
             KhachSanTrinhChieu m = new KhachSanTrinhChieu();
-            /*List<khuvuc> list = new List<khuvuc>();*/
-            /*var list = db.khuvucs.ToList();*/
 
             var khachsans = db.khachsans.Include(k => k.khuvuc);
 

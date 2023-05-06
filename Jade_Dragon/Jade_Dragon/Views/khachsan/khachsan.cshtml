@@ -95,29 +95,12 @@
                             <div class="menu-top">
                                 @if (Session["SESSION_GROUP"] != null)
                                 {
-                                    List<string> privilegeLevels = (List<string>)Session["SESSION_GROUP"];
-
-                                    if (privilegeLevels[0].CompareTo("Client") == 0)
-                                    {
                                         <div class="menu-top-a">
                                             <div class="avt-img">
                                                 <img src="~/UpLoad_Img/KhachHang/@Session["Avt"]" />
                                             </div>
                                             <i>@Session["HoTen"]</i>
                                         </div>
-                                    }else
-                                    {
-                                        <div class="menu-top-a">
-                                            <div class="avt-img">
-                                                <img src="~/Style/img/avt/logo.jpg" />
-                                            </div>
-                                            <i style=" font-size: 20px; display: block; padding-top: 6px;">
-                                                <a href="@Url.Action("Login", "Account", new { area = "Admin" })">Đăng nhập</a>
-                                                <a>/</a>
-                                                <a href="@Url.Action("SignUpp", "Account", new { area = "Admin" })">Đăng ký tài khoản</a>
-                                            </i>
-                                        </div>
-                                    }
                                     } else
                                         {
                                             <div class="menu-top-a">
@@ -312,7 +295,7 @@
                                             {
                                                 <i style="width: 100%; text-align: center; margin-top: 80px; color: black;
                                                         font-weight: 900; font-size: 40px;">
-                                                    Chưa có phòng
+                                                    @ViewBag.ksks hiện chưa có phòng
                                                 </i>
                                             }
                                         </div>

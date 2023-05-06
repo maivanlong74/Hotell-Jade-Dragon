@@ -45,24 +45,19 @@ namespace Jade_Dragon.Areas.Admin.Controllers
         }
 
         // POST: Admin/khachsans/Create
-        /*[HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(string TenKhachSan, long SoDienThoai, string Gmail, string DiaChi, 
-            long Gia, string KinhDo, string ViDo, string TenKhuVuc, HttpPostedFileBase uploadhinh)
+        [HttpPost]
+        public ActionResult DangKyKs(string TenKhachSan, long SoDienThoai, string Gmail, string DiaChi,
+            string GiaTien, string KinhDo, string ViDo, string TenKhuVuc, HttpPostedFileBase Avt)
         {
             khuvuc khuvuc = db.khuvucs.FirstOrDefault(m => m.TenKhuVuc == TenKhuVuc);
+            decimal Gia = decimal.Parse(GiaTien);
             if (khuvuc == null)
             {
-                if(KinhDo == null && ViDo == null)
-                {
-                    WebMsgBox.Show("Bạn vui lòng chọn địa điểm trên bản đồ", this);
-                    return View();
-                }
                 var kv = new khuvuc();
                 {
                     kv.TenKhuVuc = TenKhuVuc;
-                    kv.KinhDo = KinhDo;
-                    kv.ViDo = ViDo;
+                    kv.KinhDo = KinhDo.ToString();
+                    kv.ViDo = ViDo.ToString();
                 }
                 db.khuvucs.Add(kv);
                 db.SaveChanges();
@@ -74,15 +69,15 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                     ks.SoDienThoai = SoDienThoai;
                     ks.Gmail = Gmail;
                     ks.DiaChi = DiaChi;
-                    ks.KinhDo = KinhDo;
-                    ks.ViDo = ViDo;
-                    ks.Gia = Gia;
+                    ks.KinhDo = KinhDo.ToString();
+                    ks.ViDo = ViDo.ToString();
+                    ks.Gia = (long?)Gia;
                     ks.MaKhuVuc = k_v.MaKhuVuc;
                     ks.TrangThaiKs = true;
                 }
                 db.khachsans.Add(ks);
                 db.SaveChanges();
-                Up_IMG(ks, uploadhinh);
+                Up_IMG(ks, Avt);
             }
             else
             {
@@ -92,18 +87,18 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                     ks.SoDienThoai = SoDienThoai;
                     ks.Gmail = Gmail;
                     ks.DiaChi = DiaChi;
-                    ks.KinhDo = KinhDo;
-                    ks.ViDo = ViDo;
-                    ks.Gia = Gia;
+                    ks.KinhDo = KinhDo.ToString();
+                    ks.ViDo = ViDo.ToString();
+                    ks.Gia = (long?)Gia;
                     ks.MaKhuVuc = khuvuc.MaKhuVuc;
                     ks.TrangThaiKs = true;
                 }
                 db.khachsans.Add(ks);
                 db.SaveChanges();
-                Up_IMG(ks, uploadhinh);
+                Up_IMG(ks, Avt);
             }
-            return RedirectToAction("QuanLyKs");
-        }*/
+            return Redirect("Create");
+        }
 
         // GET: Admin/khachsans/Edit/5
         public ActionResult Edit(long? id)
@@ -198,19 +193,42 @@ namespace Jade_Dragon.Areas.Admin.Controllers
         public ActionResult Delete(long? id)
         {
             khachsan ks = db.khachsans.FirstOrDefault(x => x.MaKhachSan == id);
-            /*phong phong = db.phongs.FirstOrDefault(x => x.MaKhachSan == id);*/
-            List<phong> phong = db.phongs.Where(x => x.MaKhachSan == id).ToList();
-            db.khachsans.Remove(ks);
-            if(phong != null)
+            List<hoadon> hoadon = db.hoadons.Where(x => x.MaKhachSan == id).ToList();
+            if (hoadon != null)
             {
-                foreach(var dem in phong)
+                foreach (var hd in hoadon)
                 {
+                    List<chitiethoadon> cthd = db.chitiethoadons.Where(x => x.MaHoaDon == hd.MaHoaDon).ToList();
+                    foreach(var ct in cthd)
+                    {
+                        db.chitiethoadons.Remove(ct);
+                    }
+                    db.hoadons.Remove(hd);
+                }
+            }
+            List<phong> phong = db.phongs.Where(x => x.MaKhachSan == id).ToList();
+            if (phong != null)
+            {
+                foreach (var dem in phong)
+                {
+                    List<Moc_Time> moc_time = db.Moc_Time.Where(x => x.MaPhong == dem.MaPhong).ToList();
+                    if (moc_time != null)
+                    {
+                        foreach (var moc in moc_time)
+                        {
+                            db.Moc_Time.Remove(moc);
+                        }
+                    }
                     db.phongs.Remove(dem);
                 }
             }
             db.SaveChanges();
+            db.khachsans.Remove(ks);
+            db.SaveChanges();
             return RedirectToAction("QuanLyKs");
         }
+
+
 
         public ActionResult Up_IMG(khachsan ks, HttpPostedFileBase uploadhinh)
         {

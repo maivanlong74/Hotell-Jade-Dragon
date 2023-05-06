@@ -1,89 +1,12 @@
-Tôi có một code js:
-    var map;
-    function initMap() {
-        // Thiết lập bản đồ
-        map = new ol.Map({
-            target: 'map',
-            layers: [
-                new ol.layer.Tile({
-                    source: new ol.source.OSM(),
-                }),
-            ],
-        }); 
-        var locations = [  
-            [105.8522, 21.0278],
-            [106.6856, 10.8231],
-            [107.6032, 16.4580],
-        // Thêm các tọa độ khác nếu cần
-        ];
-        locations.forEach(function(lonlat) {
-            Search_KD_VD(lonlat);
-        });
-        // ------------------------------
-        if ('geolocation' in navigator) {
-            navigator.geolocation.getCurrentPosition(function (position) {
-                var pos = ol.proj.fromLonLat([position.coords.longitude, position.coords.latitude]);
-                var data = {
-                    latitude: position.coords.latitude,
-                    longitude: position.coords.longitude
-                };
-                var marker = new ol.Feature({
-                    geometry: new ol.geom.Point(pos)
-                });
-                var markerSource = new ol.source.Vector({
-                    features: [marker]
-                });
-                var markerLayer = new ol.layer.Vector({
-                    source: markerSource
-                });
-                map.addLayer(markerLayer);
-                map.getView().setCenter(pos);
-                map.getView().setZoom(15);
-            });
-        } else {
-            alert('Định vị địa lý không được trình duyệt của bạn hỗ trợ');
-        }
-        // Tạo một đối tượng marker
-        var marker = new ol.Feature({
-            geometry: new ol.geom.Point(ol.proj.fromLonLat([0, 0]))
-        });
-        marker.setStyle(new ol.style.Style({
-            image: new ol.style.Icon({
-                anchor: [0.5, 1],
-                src: 'https://openlayers.org/en/latest/examples/data/icon.png'
-            })
-        }));
-        // Thêm marker vào bản đồ
-        var markerLayer = new ol.layer.Vector({
-            source: new ol.source.Vector({
-                features: [marker]
-            })
-        });
-        map.addLayer(markerLayer);
-        // Xử lý thông tin địa điểm khi click vào bản đồ
-        map.on('singleclick', function (evt) {
-            var clickedCoordinate = evt.coordinate;
-            var lonlat = ol.proj.toLonLat(clickedCoordinate);
-            // Di chuyển marker tới vị trí click
-            marker.getGeometry().setCoordinates(clickedCoordinate);
-            handlePosition(lonlat);
-        });
-        // Tìm kiếm dựa vào kinh độ vĩ độ
-        function Search_KD_VD(lonlat) {
-            var url = `https://nominatim.openstreetmap.org/reverse?lon=${lonlat[0]}&lat=${lonlat[1]}&format=json`;
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    if (data) {
-                        var pos = ol.proj.fromLonLat(lonlat);
-                        // Di chuyển marker tới vị trí tìm kiếm được
-                        marker.getGeometry().setCoordinates(pos);
-                        // Set lại center của map
-                        map.getView().setCenter(pos);
-                    } else {
-                        alert('Không tìm thấy địa điểm');
-                    }
-                });
-            }
-        }
-Hãy giúp tôi sửa lại hàm Search_KD_VD để tôi có thể hiện thị nhiều vị trí trong 1 lần load trang
+    // Thêm control zoom slider
+    var zoomSlider = new ol.control.ZoomSlider();
+    map.addControl(zoomSlider);
+    // Thêm control full screen
+    var fullScreen = new ol.control.FullScreen();
+    map.addControl(fullScreen);
+    // Thêm control OverviewMap
+    var OverviewMap = new ol.control.OverviewMap();
+    map.addControl(OverviewMap);
+    // Thêm control ScaleLine
+    var ScaleLine = new ol.control.ScaleLine();
+    map.addControl(ScaleLine);

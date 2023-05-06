@@ -25,7 +25,7 @@
                 <div class="grid wide">
                     <div class="row">
                         <div class="l-3 m-6 c-8">
-                            <a href="#">
+                            <a href="@Url.Action("TrangChu", "TrangChuAdmin", new {area = "Admin"})">
                                 <div class="header__nav__container--logo">
                                     Jade dradon
                                 </div>
@@ -49,43 +49,25 @@
                             <i class="fas fa-bars list-tablet-mobile" id="menu_open"></i>
                             @if (Session["SESSION_GROUP"] != null)
                             {
-                                List<string> privilegeLevels = (List<string>)Session["SESSION_GROUP"];
-
-                                if (privilegeLevels[0].CompareTo("Client") == 0)
-                                {
-                                    <div class="header__nav__container--search">
-                                        <div class="a">
-                                            <img src="~/UpLoad_Img/KhachHang/@Session["Avt"]" alt="" class="avt" title="@Session["HoTen"]">
-                                            <ul>
-                                                <li class="User--a">
-                                                    <a href="@Url.Action("TrangCaNhan", "User", new {id = Session["MaKh"] })">
-                                                        Trang cá nhân
-                                                    </a>
-                                                </li>
-                                                <li><a href="@Url.Action("SignUpp", "Account", new { area = "Admin" })">Đăng ký</a></li>
-                                                <li><a href="@Url.Action("QuenMatKhau", "User", new {id = Session["MaKh"] })">Quên mật khẩu</a></li>
-                                                <li>
-                                                    <a href="@Url.Action("SignOut", "Account", new { area = "Admin" })">
-                                                        Đăng xuất
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                <div class="header__nav__container--search">
+                                    <div class="a">
+                                        <img src="~/UpLoad_Img/KhachHang/@Session["Avt"]" alt="" class="avt" title="@Session["HoTen"]">
+                                        <ul>
+                                            <li class="User--a">
+                                                <a href="@Url.Action("TrangCaNhan", "User", new {id = Session["MaKh"] })">
+                                                    Trang cá nhân
+                                                </a>
+                                            </li>
+                                            <li><a href="@Url.Action("SignUpp", "Account", new { area = "Admin" })">Đăng ký</a></li>
+                                            <li><a href="@Url.Action("QuenMatKhau", "User", new {id = Session["MaKh"] })">Quên mật khẩu</a></li>
+                                            <li>
+                                                <a href="@Url.Action("SignOut", "Account", new { area = "Admin" })">
+                                                    Đăng xuất
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </div>
-                                }
-                                else
-                                {
-                                    <div class="header__nav__container--search">
-                                        <div class="a">
-                                            <a href="@Url.Action("Login", "Account", new { area = "Admin" })">
-                                                <img src="~/Style/img/icon/icon_Login.jpg" class="avt" title="Login" />
-                                            </a>
-                                            <a href="@Url.Action("SignUpp", "Account", new { area = "Admin" })">
-                                                <img src="~/Style/img/icon/icon_SignUp.jpg" class="avt" title="SignUp" />
-                                            </a>
-                                        </div>
-                                    </div>
-                                }
+                                </div>
                             }
                             else
                             {

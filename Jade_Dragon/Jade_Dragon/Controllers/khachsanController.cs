@@ -143,6 +143,8 @@ namespace Jade_Dragon.Controllers
                 if (ma != null)
                 {
                     Session["KhachSan"] = ma;
+                    khachsan ksks = db.khachsans.Find(ma);
+                    ViewBag.ksks = ksks.TenKhachSan;
                     Phong = Phong.Where(a => a.MaKhachSan == ma);
                 }
                 if (loai != null)

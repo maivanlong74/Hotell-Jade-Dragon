@@ -55,3 +55,23 @@
         background-position: 0% 50%;
     }
 }
+
+.body .map .ol-viewport {
+    border: 3px solid yellow;
+}
+
+.body .map .ol-zoomslider {
+    border: 1px solid !important;
+    background-color: aqua !important;
+}
+
+.body .map .ol-scale-line {
+    left: 40px;
+    bottom: 10px;
+}
+
+#map .popup {
+    position: absolute;
+    z-index: 999;
+    display: none;
+}
