@@ -58,7 +58,7 @@ namespace Jade_Dragon.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaPhong,TenPhong,LoaiHinh,Gia,VIP,MaKhachSan,TrangThai")] phong phong, long? MaKS)
+        public ActionResult Create([Bind(Include = "MaPhong,TenPhong,LoaiHinh,Gia,VIP,MaKhachSan,TrangThai,KhoaPhong")] phong phong, long? MaKS)
         {
             if (ModelState.IsValid)
             {
@@ -73,6 +73,7 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                 
                 db.phongs.Add(phong);
                 phong.MaKhachSan = MaKS;
+                phong.TrangThai = !phong.KhoaPhong;
                 db.SaveChanges();
 
                 return Redirect("~/Admin/QuanLyPhong/Phong?MaKS=" + MaKS);                
@@ -108,11 +109,12 @@ namespace Jade_Dragon.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaPhong,TenPhong,LoaiHinh,Gia,VIP,MaKhachSan,TrangThai")] phong phong, int? MaKS)
+        public ActionResult Edit([Bind(Include = "MaPhong,TenPhong,LoaiHinh,Gia,VIP,MaKhachSan,TrangThai,KhoaPhong")] phong phong, int? MaKS)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(phong).State = EntityState.Modified;
+                phong.TrangThai = !phong.KhoaPhong;
                 db.SaveChanges();
                 return Redirect("~/Admin/QuanLyPhong/Phong?MaKS=" + MaKS);
             }

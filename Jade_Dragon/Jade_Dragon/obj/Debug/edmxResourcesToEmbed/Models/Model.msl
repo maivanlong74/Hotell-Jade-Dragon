@@ -125,6 +125,7 @@
           <ScalarProperty Name="VIP" ColumnName="VIP" />
           <ScalarProperty Name="MaKhachSan" ColumnName="MaKhachSan" />
           <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+          <ScalarProperty Name="KhoaPhong" ColumnName="KhoaPhong" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

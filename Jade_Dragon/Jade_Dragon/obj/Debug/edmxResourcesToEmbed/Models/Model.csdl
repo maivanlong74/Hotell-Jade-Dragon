@@ -136,7 +136,8 @@
     <Property Name="Gia" Type="Int64" />
     <Property Name="VIP" Type="Boolean" Nullable="false" />
     <Property Name="MaKhachSan" Type="Int64" />
-    <Property Name="TrangThai" Type="Boolean" Nullable="false" />
+    <Property Name="TrangThai" Type="Boolean" />
+    <Property Name="KhoaPhong" Type="Boolean" />
     <NavigationProperty Name="chitiethoadons" Relationship="Self.FK_machitiethoadon_phong" FromRole="phong" ToRole="chitiethoadon" />
     <NavigationProperty Name="khachsan" Relationship="Self.FK_phong_khachsan1" FromRole="phong" ToRole="khachsan" />
     <NavigationProperty Name="Moc_Time" Relationship="Self.FK_Moc_Time_phong" FromRole="phong" ToRole="Moc_Time" />

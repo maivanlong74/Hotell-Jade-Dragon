@@ -754,6 +754,7 @@
     <Content Include="Scripts\Controller\cartcontroller.js" />
     <Content Include="Areas\Admin\Views\TinNhanAdmin\TinNhanAdmin.cshtml" />
     <Content Include="common\thua-thien-hue.geojson" />
+    <Content Include="Areas\Admin\Views\TrangChuAdmin\haha.cshtml" />
     <EntityDeploy Include="Models\Model.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model.Designer.cs</LastGenOutput>
@@ -761,7 +762,6 @@
     <Content Include="Models\Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
-    <Content Include="Areas\Admin\Views\TrangChuAdmin\haha.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Controller\turf.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -793,6 +793,7 @@
     <Content Include="Style\css\login_logout\reset.css" />
     <Content Include="Style\css\login_logout\SignUp.css" />
     <Content Include="Style\css\Map\Map_trangchu_css.css" />
+    <Content Include="Style\css\Map\tesst.css" />
     <Content Include="Style\css\ThanhCuon\Cuon.js" />
     <Content Include="Style\css\ThanhCuon\owl.carousel.min.css" />
     <Content Include="Style\css\ThanhCuon\owl.carousel.min.js" />

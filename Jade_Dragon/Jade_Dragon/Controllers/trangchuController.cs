@@ -17,8 +17,30 @@ namespace Jade_Dragon.Controllers
         // GET: trangchu
         public ActionResult trangchu(long? ma, string searchTerm, string searchType)
         {
-            KhachSanTrinhChieu m = new KhachSanTrinhChieu();
 
+            DateTime timenow = DateTime.Now;
+            List<Moc_Time> Time = new List<Moc_Time>();
+            Time = db.Moc_Time.ToList();
+            if (Time != null)
+            {
+                foreach (var item in Time)
+                {
+                    phong ph = db.phongs.FirstOrDefault(m => m.MaPhong == item.MaPhong);
+                    if (item.NgayDen <= timenow && timenow <= item.NgayDi)
+                    {
+                        ph.TrangThai = false;
+                    }
+                }
+            } else {
+                List<phong> ph_ong = db.phongs.Where(m => m.TrangThai == false).ToList();
+                foreach (var dem in ph_ong)
+                {
+                    dem.TrangThai = true;
+                }
+
+            }
+
+            KhachSanTrinhChieu m = new KhachSanTrinhChieu();
             var khachsans = db.khachsans.Include(k => k.khuvuc);
 
             foreach (var i in khachsans)
@@ -104,13 +126,6 @@ namespace Jade_Dragon.Controllers
             return query.ToList();
         }
 
-       public ActionResult abc()
-        {
-            KhachSanTrinhChieu m = new KhachSanTrinhChieu();
-            var listksks = db.khachsans.ToList();
-            m.ks = listksks;
-            return View(m);
-        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

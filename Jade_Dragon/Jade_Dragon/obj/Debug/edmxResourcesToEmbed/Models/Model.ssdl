@@ -115,7 +115,8 @@
     <Property Name="Gia" Type="bigint" />
     <Property Name="VIP" Type="bit" Nullable="false" />
     <Property Name="MaKhachSan" Type="bigint" />
-    <Property Name="TrangThai" Type="bit" Nullable="false" />
+    <Property Name="TrangThai" Type="bit" />
+    <Property Name="KhoaPhong" Type="bit" />
   </EntityType>
   <EntityType Name="PhongChat">
     <Key>

@@ -120,7 +120,8 @@
           <Property Name="Gia" Type="bigint" />
           <Property Name="VIP" Type="bit" Nullable="false" />
           <Property Name="MaKhachSan" Type="bigint" />
-          <Property Name="TrangThai" Type="bit" Nullable="false" />
+          <Property Name="TrangThai" Type="bit" />
+          <Property Name="KhoaPhong" Type="bit" />
         </EntityType>
         <EntityType Name="PhongChat">
           <Key>
@@ -587,7 +588,8 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
           <Property Name="Gia" Type="Int64" />
           <Property Name="VIP" Type="Boolean" Nullable="false" />
           <Property Name="MaKhachSan" Type="Int64" />
-          <Property Name="TrangThai" Type="Boolean" Nullable="false" />
+          <Property Name="TrangThai" Type="Boolean" />
+          <Property Name="KhoaPhong" Type="Boolean" />
           <NavigationProperty Name="chitiethoadons" Relationship="Self.FK_machitiethoadon_phong" FromRole="phong" ToRole="chitiethoadon" />
           <NavigationProperty Name="khachsan" Relationship="Self.FK_phong_khachsan1" FromRole="phong" ToRole="khachsan" />
           <NavigationProperty Name="Moc_Time" Relationship="Self.FK_Moc_Time_phong" FromRole="phong" ToRole="Moc_Time" />
@@ -1042,6 +1044,7 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
                 <ScalarProperty Name="VIP" ColumnName="VIP" />
                 <ScalarProperty Name="MaKhachSan" ColumnName="MaKhachSan" />
                 <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+                <ScalarProperty Name="KhoaPhong" ColumnName="KhoaPhong" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
