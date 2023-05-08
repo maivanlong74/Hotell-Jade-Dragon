@@ -78,6 +78,9 @@ namespace Jade_Dragon
             Session["TongSoLuong"] = "";
             Session["mahoadon"] = "";
             Session["MaKhachSanPhong"] = "";
+            Session["KinhDo"] = "";
+            Session["ViDo"] = "";
+
         }
         protected void Sesson_Kh()
         {

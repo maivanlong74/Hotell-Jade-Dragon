@@ -1,5 +1,13 @@
 ﻿var map;
 function initMap(hotels) {
+    var longitude = hotels[0].coordinates[0];
+    var latitude = hotels[0].coordinates[1];
+
+    var view = new ol.View({
+        center: ol.proj.fromLonLat([longitude, latitude]),
+        zoom: 17
+    });
+
     map = new ol.Map({
         target: 'map',
         layers: [
@@ -7,52 +15,8 @@ function initMap(hotels) {
                 source: new ol.source.OSM()
             })
         ],
+        view: view
     });
-    // ------------------------------
-    if ('geolocation' in navigator) {
-        navigator.geolocation.getCurrentPosition(function (position) {
-            var pos = ol.proj.fromLonLat([position.coords.longitude, position.coords.latitude]);
-            var data = {
-                latitude: position.coords.latitude,
-                longitude: position.coords.longitude
-            };
-            var marker = new ol.Feature({
-                geometry: new ol.geom.Point(pos)
-            });
-            var markerSource = new ol.source.Vector({
-                features: [marker]
-            });
-            var markerLayer = new ol.layer.Vector({
-                source: markerSource
-            });
-            map.addLayer(markerLayer);
-            map.getView().setCenter(pos);
-            map.getView().setZoom(15);
-        });
-    } else {
-        alert('Định vị địa lý không được trình duyệt của bạn hỗ trợ');
-    }
-
-    // Thêm control để xác định vị trí hiện tại
-    var geolocation = new ol.Geolocation({
-        trackingOptions: {
-            enableHighAccuracy: true
-        },
-        projection: map.getView().getProjection()
-    });
-    var positionFeature = new ol.Feature();
-    positionFeature.setStyle(new ol.style.Style({
-        image: new ol.style.Circle({
-            radius: 6,
-            fill: new ol.style.Fill({
-                color: '#3399CC'
-            }),
-            stroke: new ol.style.Stroke({
-                color: '#fff',
-                width: 2
-            })
-        })
-    }));
 
     // Xử lý thông tin địa điểm khi click vào bản đồ
     map.on('singleclick', function (evt) {

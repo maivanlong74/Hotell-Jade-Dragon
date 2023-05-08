@@ -781,6 +781,7 @@
     <Content Include="Style\css\html\hoadon.css" />
     <Content Include="Style\css\html\a_khach_san.css" />
     <Content Include="Style\css\html\css_trangchu.css" />
+    <Content Include="Style\css\html\TamDp.css" />
     <Content Include="Style\css\html\User.css" />
     <Content Include="Style\css\layout\BanDo.css" />
     <Content Include="Style\css\layout\ChatClient.css" />
@@ -792,6 +793,7 @@
     <Content Include="Style\css\login_logout\app.css" />
     <Content Include="Style\css\login_logout\reset.css" />
     <Content Include="Style\css\login_logout\SignUp.css" />
+    <Content Include="Style\css\Map\Map_DatPhong.css" />
     <Content Include="Style\css\Map\Map_trangchu_css.css" />
     <Content Include="Style\css\Map\tesst.css" />
     <Content Include="Style\css\ThanhCuon\Cuon.js" />
@@ -835,6 +837,7 @@
     <Content Include="Style\js\KeoTruot.js" />
     <Content Include="Style\js\main.js" />
     <Content Include="Style\js\main_2.js" />
+    <Content Include="Style\js\Map\Map_DatPhong.js" />
     <Content Include="Style\js\Map\Map_trangchu.js" />
     <Content Include="Style\js\SignUp-min.js" />
     <Content Include="Style\js\SignUp.js" />

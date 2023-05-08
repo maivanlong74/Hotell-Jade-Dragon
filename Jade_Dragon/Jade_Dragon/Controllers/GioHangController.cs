@@ -63,7 +63,10 @@ namespace Jade_Dragon.Controllers
                 Session["DiaChi"] = ks.DiaChi;
                 Session["SoDienThoai_ks"] = ks.SoDienThoai;
                 Session["GmailKhachSan"] = ks.Gmail;
+                Session["Gia"] = ks.Gia;
                 Session["AnhKs"] = ks.AnhKs;
+                Session["KinhDo"] = ks.KinhDo;
+                Session["ViDo"] = ks.ViDo;
                 ViewBag.tenkv = ks.khuvuc.TenKhuVuc;
                 ViewBag.makv = ks.MaKhuVuc;
             }

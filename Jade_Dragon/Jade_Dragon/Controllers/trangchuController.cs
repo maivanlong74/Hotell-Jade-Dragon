@@ -17,27 +17,52 @@ namespace Jade_Dragon.Controllers
         // GET: trangchu
         public ActionResult trangchu(long? ma, string searchTerm, string searchType)
         {
+            var ksks = db.phongs.ToList();
+            foreach (var k in ksks)
+            {
+                if (k.TrangThai == false)
+                {
+                    k.TrangThai = true;
+                    db.SaveChanges();
+                }
+            }
 
             DateTime timenow = DateTime.Now;
             List<Moc_Time> Time = new List<Moc_Time>();
             Time = db.Moc_Time.ToList();
-            if (Time != null)
+            if(ksks != null)
             {
-                foreach (var item in Time)
+                foreach(var i in ksks)
                 {
-                    phong ph = db.phongs.FirstOrDefault(m => m.MaPhong == item.MaPhong);
-                    if (item.NgayDen <= timenow && timenow <= item.NgayDi)
+                    if(i.KhoaPhong == true)
                     {
-                        ph.TrangThai = false;
+                        i.TrangThai = false;
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        if (Time != null)
+                        {
+                            foreach (var item in Time)
+                            {
+                                phong ph = db.phongs.FirstOrDefault(m => m.MaPhong == item.MaPhong);
+                                if (item.NgayDen <= timenow && timenow <= item.NgayDi)
+                                {
+                                    ph.TrangThai = false;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            List<phong> ph_ong = db.phongs.Where(m => m.TrangThai == false).ToList();
+                            foreach (var dem in ph_ong)
+                            {
+                                dem.TrangThai = true;
+                            }
+
+                        }
                     }
                 }
-            } else {
-                List<phong> ph_ong = db.phongs.Where(m => m.TrangThai == false).ToList();
-                foreach (var dem in ph_ong)
-                {
-                    dem.TrangThai = true;
-                }
-
             }
 
             KhachSanTrinhChieu m = new KhachSanTrinhChieu();
