@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Xamarin.Essentials;
 using static System.Net.Mime.MediaTypeNames;
+using Jade_Dragon.common;
 
 namespace Jade_Dragon
 {
@@ -16,7 +17,7 @@ namespace Jade_Dragon
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-
+            LuongTruyCap.TangSoLuongTruyCap();
             Application["NguoiTruyCap"] = 0;
             Application["NguoiOnline"] = 0;
         }

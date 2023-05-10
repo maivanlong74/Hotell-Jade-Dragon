@@ -28,6 +28,12 @@ function initMap(hotels) {
             map.addLayer(markerLayer);
             map.getView().setCenter(pos);
             map.getView().setZoom(15);
+
+            // thêm giá trị kinh độ và vĩ độ vào input
+            var dv_kinhdo = document.getElementById("Dv_KinhDo");
+            var dv_vido = document.getElementById("Dv_ViDo");
+            dv_kinhdo.value = position.coords.longitude;
+            dv_vido.value = position.coords.latitude;
         });
     } else {
         alert('Định vị địa lý không được trình duyệt của bạn hỗ trợ');
@@ -45,11 +51,11 @@ function initMap(hotels) {
         image: new ol.style.Circle({
             radius: 6,
             fill: new ol.style.Fill({
-                color: '#3399CC'
+                color: 'black'
             }),
             stroke: new ol.style.Stroke({
-                color: '#fff',
-                width: 2
+                color: 'black',
+                width: 5
             })
         })
     }));
@@ -57,15 +63,34 @@ function initMap(hotels) {
     // Xử lý thông tin địa điểm khi click vào bản đồ
     map.on('singleclick', function (evt) {
         var maks = $('#maks_map').val();
-
         if (maks == null || maks.trim() == '') {
             $('#DangKy_Map').css('z-index', '-999');
+            // lấy tọa độ vị trí click
+            var clickedCoordinate = evt.coordinate;
+            var lonlat = ol.proj.toLonLat(clickedCoordinate);
+            // Di chuyển marker tới vị trí click
+            marker.getGeometry().setCoordinates(clickedCoordinate);
+
+            // lấy kinh độ và vĩ độ từ tọa độ click
+            var kinhdo = lonlat[0];
+            var vido = lonlat[1];
+
+            // thêm giá trị kinh độ và vĩ độ vào input
+            var dv_kinhdo = document.getElementById("Dv_KinhDo");
+            var dv_vido = document.getElementById("Dv_ViDo");
+            dv_kinhdo.value = kinhdo;
+            dv_vido.value = vido;
         } else {
             handlePosition();
         }
     });
 
+
+
     function handlePosition() {
+        var Dv_KinhDo = $('#Dv_KinhDo').val();
+        var Dv_ViDo = $('#Dv_ViDo').val();
+
         var maks = $('#maks_map').val();
         var tenks = $('#tenks_map').val();
         var sdt = $('#sdtks_map').val();
@@ -73,6 +98,8 @@ function initMap(hotels) {
         var diachi = $('#diachiks_map').val();
         var gia = $('#giaks_map').val();
         var anhks = $('#avtks_map').val();
+        var KinhDo = $('#kinhdo_map').val();
+        var ViDo = $('#vido_map').val();
 
         // Hiển thị thông tin lên bản đồ
         var div_form = document.getElementById("DangKy_Map");
@@ -82,30 +109,62 @@ function initMap(hotels) {
             div_form.style.zIndex = "999";
             if (anhks.length > 0) {
                 info.innerHTML = `
-                        <h2>Khách sạn ${tenks}</h2>
-                        <div class="anhavtks">
-                            <img src="/UpLoad_Img/KhachSan/${anhks}" alt="">
-                        </div>
-                        <p class="dc">Địa chỉ: ${diachi}</p>
-                        <h2>${gia} VND</h2>
-                        <a href="/khachsan/khachsan?ma= ${maks}" class="oke">Đặt Phòng</a>
-                        <div class="lienhe_map">
-                            <p>Gmail: <br/> ${gmail}</p>
-                            <p>Sđt: <br/> ${sdt}</p>
-                        </div>`;
+                                <button id="thoat_form"><img src="/Style/img/icon/icon-X.jpg" style="width: 10px;" title="Đóng"/></button>
+                                <h2>Khách sạn ${tenks}</h2>
+                                <div class="anhavtks">
+                                    <img src="/UpLoad_Img/KhachSan/${anhks}" alt="">
+                                </div>
+                                <p class="dc">Địa chỉ: ${diachi}</p>
+                                <h2>${gia} VND</h2>
+                                <div style="display: flex;">
+                                    <a href="/khachsan/khachsan?ma= ${maks}" class="oke">Đặt Phòng</a>
+                                    <button id="btnChiduong">Chỉ đường</button>
+                                </div>
+                                <div class="lienhe_map">
+                                    <p>Gmail: <br/> ${gmail}</p>
+                                    <p>Sđt: <br/> ${sdt}</p>
+                                </div>`;
+                $('#btnChiduong').click(function () {
+                    var ChiDuong = [
+                        {
+                            DiemDi: [Dv_ViDo, Dv_KinhDo],
+                            DiemDen: [ViDo, KinhDo]
+                        },
+                    ];
+                    SaveInfo(ChiDuong);
+                });
+                $('#thoat_form').click(function () {
+                    $('#DangKy_Map').css('z-index', '-999');
+                });
             } else {
                 info.innerHTML = `
-                        <h2>Khách sạn ${tenks}</h2>
-                        <div class="anhavtks">
-                            <p>Ảnh hiện chưa có !</p>
-                        </div>
-                        <p class="dc">Địa chỉ: ${diachi}</p>
-                        <h2>${gia} VND</h2>
-                        <a href="/khachsan/khachsan?ma= ${maks}" class="oke">Đặt Phòng</a>
-                        <div class="lienhe_map">
-                            <p>Gmail: <br/> ${gmail}</p>
-                            <p>Sđt: <br/> ${sdt}</p>
-                        </div>`;
+                                <button id="thoat_form"><img src="/Style/img/icon/icon-X.jpg" style="width: 10px;" title="Đóng"/></button>
+                                <h2>Khách sạn ${tenks}</h2>
+                                <div class="anhavtks">
+                                    <p>Ảnh hiện chưa có !</p>
+                                </div>
+                                <p class="dc">Địa chỉ: ${diachi}</p>
+                                <h2>${gia} VND</h2>
+                                <div style="display: flex;">
+                                    <a href="/khachsan/khachsan?ma= ${maks}" class="oke">Đặt Phòng</a>
+                                    <button id="btnChiduong">Chỉ đường</button>
+                                </div>
+                                <div class="lienhe_map">
+                                    <p>Gmail: <br/> ${gmail}</p>
+                                    <p>Sđt: <br/> ${sdt}</p>
+                                </div>`;
+                $('#btnChiduong').click(function () {
+                    var ChiDuong = [
+                        {
+                            DiemDi: [Dv_ViDo, Dv_KinhDo],
+                            DiemDen: [ViDo, KinhDo]
+                        },
+                    ];
+                    SaveInfo(ChiDuong);
+                });
+                $('#thoat_form').click(function () {
+                    $('#DangKy_Map').css('z-index', '-999');
+                });
             }
         }
     }
@@ -178,13 +237,20 @@ function initMap(hotels) {
             .then(response => response.json())
             .then(data => {
                 if (data.length > 0) {
-                    var result = data[0];
-                    var pos = ol.proj.fromLonLat([parseFloat(result.lon), parseFloat(result.lat)]);
-                    // Di chuyển marker tới vị trí tìm kiếm được
-                    marker.getGeometry().setCoordinates(pos);
-                    // Set lại center của map
-                    map.getView().setCenter(pos);
-                    map.getView().setZoom(18);
+                    // Tìm khách sạn theo tên
+                    var result = _.find(hotels, { name: searchText });
+                    if (result) {
+                        var pos = ol.proj.fromLonLat(result.coordinates);
+                        map.getView().setCenter(pos);
+                        map.getView().setZoom(18);
+                    } else {
+                        var resultt = data[0];
+                        var pos = ol.proj.fromLonLat([parseFloat(resultt.lon), parseFloat(resultt.lat)]);
+                        // Di chuyển marker tới vị trí tìm kiếm được
+                        marker.getGeometry().setCoordinates(pos);
+                        map.getView().setCenter(pos);
+                        map.getView().setZoom(18);
+                    }
                 } else {
                     alert('Không tìm thấy địa điểm');
                 }
@@ -199,7 +265,7 @@ function initMap(hotels) {
     marker.setStyle(new ol.style.Style({
         image: new ol.style.Icon({
             anchor: [0.5, 1],
-            src: 'https://openlayers.org/en/latest/examples/data/icon.png'
+            src: '/Style/img/icon/icon-dinhvi.jpg'
         })
     }));
 
@@ -248,7 +314,9 @@ function initMap(hotels) {
                 `<input type="hidden" id="gmailks_map" value="` + gmail + `"/>` +
                 '<div >Giá tiền: ' + moeny + '</div>' +
                 `<input type="hidden" id="giaks_map" value="` + moeny + `"/>` +
-                `<input type="hidden" id="avtks_map" value="` + avtks + `"/></div>`,
+                `<input type="hidden" id="avtks_map" value="` + avtks + `"/></div>` +
+                `<input type="hidden" id="kinhdo_map" value="` + lon + `"/></div>` +
+                `<input type="hidden" id="vido_map" value="` + lat + `"/></div>`,
             maks: maks_map
         });
         marker.setStyle(new ol.style.Style({
@@ -300,6 +368,8 @@ function initMap(hotels) {
                 }
                 popup.setPosition(coordinates);
                 popup.getElement().style.display = 'block';
+                popup.getElement().style.cursor = 'pointer';
+
             } else {
                 $('#maks_map').val(null);
                 popup.getElement().style.display = 'none';
@@ -329,5 +399,60 @@ function initMap(hotels) {
         popup.setPosition(undefined);
         map.getViewport().style.cursor = '';
     });
+
+    function SaveInfo(ChiDuong) {
+        // Tạo lớp chỉ đường mới
+        var directionsLayer = new ol.layer.Vector({
+            name: 'directionsLayer',
+            source: new ol.source.Vector(),
+            style: new ol.style.Style({
+                stroke: new ol.style.Stroke({
+                    color: '#2c3e50',
+                    width: 5
+                })
+            })
+        });
+
+        ChiDuong.forEach(function (haha) {
+            getDirections(haha, directionsLayer);
+        });
+
+        // Xóa lớp chỉ đường cũ (nếu có)
+        map.getLayers().forEach(function (layer) {
+            if (layer.get('name') === 'directionsLayer') {
+                map.removeLayer(layer);
+            }
+        });
+
+        // Thêm lớp chỉ đường mới vào bản đồ
+        map.addLayer(directionsLayer);
+    }
+
+    // Hàm để lấy các chỉ dẫn từ vị trí hiện tại đến vị trí đích
+    function getDirections(ChiDuong, directionsLayer) {
+        const ORS_API_KEY = '5b3ce3597851110001cf62489fa5985f04e04c5e9fcc32a984e681cf';
+
+        const DiemDi = ChiDuong.DiemDi;
+        const DiemDen = ChiDuong.DiemDen;
+
+        const url = `https://api.openrouteservice.org/v2/directions/driving-car?api_key=${ORS_API_KEY}&start=${DiemDi[1]},${DiemDi[0]}&end=${DiemDen[1]},${DiemDen[0]}`;
+        const k = url;
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const route = data.features[0].geometry.coordinates;
+                const lineString = new ol.geom.LineString(route).transform('EPSG:4326', 'EPSG:3857');
+                const feature = new ol.Feature({
+                    geometry: lineString
+                });
+
+                // Thêm chỉ dẫn vào lớp chỉ đường mới
+                directionsLayer.getSource().addFeature(feature);
+                directionsLayer.getView().setZoom(15);
+            })
+            .catch(error => {
+                console.error('Lỗi: ', error);
+            });
+    }
     return map;
 }

@@ -130,6 +130,13 @@
           <Property Name="MaPhongChat" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TenPhongChat" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="SoLuongNguoiTruyCap">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SoLuongNguoi" Type="bigint" />
+        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -373,6 +380,7 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
           <EntitySet Name="phanhoi" EntityType="Self.phanhoi" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="phong" EntityType="Self.phong" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PhongChat" EntityType="Self.PhongChat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SoLuongNguoiTruyCap" EntityType="Self.SoLuongNguoiTruyCap" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tinnhan" EntityType="Self.tinnhan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tinnhanAdmin" EntityType="Self.tinnhanAdmin" Schema="dbo" store:Type="Tables" />
@@ -601,6 +609,13 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
           <Property Name="MaPhongChat" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TenPhongChat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tinnhans" Relationship="Self.FK_tinnhan_PhongChat" FromRole="PhongChat" ToRole="tinnhan" />
+        </EntityType>
+        <EntityType Name="SoLuongNguoiTruyCap">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SoLuongNguoi" Type="Int64" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -848,6 +863,7 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
           <EntitySet Name="phanhois" EntityType="Self.phanhoi" />
           <EntitySet Name="phongs" EntityType="Self.phong" />
           <EntitySet Name="PhongChats" EntityType="Self.PhongChat" />
+          <EntitySet Name="SoLuongNguoiTruyCaps" EntityType="Self.SoLuongNguoiTruyCap" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="tinnhans" EntityType="Self.tinnhan" />
           <EntitySet Name="tinnhanAdmins" EntityType="Self.tinnhanAdmin" />
@@ -1053,6 +1069,14 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
               <MappingFragment StoreEntitySet="PhongChat">
                 <ScalarProperty Name="MaPhongChat" ColumnName="MaPhongChat" />
                 <ScalarProperty Name="TenPhongChat" ColumnName="TenPhongChat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SoLuongNguoiTruyCaps">
+            <EntityTypeMapping TypeName="Jade_DragonModel.SoLuongNguoiTruyCap">
+              <MappingFragment StoreEntitySet="SoLuongNguoiTruyCap">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="SoLuongNguoi" ColumnName="SoLuongNguoi" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -14,7 +14,8 @@ namespace Jade_Dragon.Areas.Admin.Controllers
         // GET: Admin/LichSu
         public ActionResult LichSu()
         {
-            ViewBag.NguoiTruyCap = HttpContext.Application["NguoiTruyCap"].ToString();
+            var nguoiTruyCap = db.SoLuongNguoiTruyCaps.FirstOrDefault();
+            ViewBag.NguoiTruyCap = nguoiTruyCap.SoLuongNguoi.ToString();
             ViewBag.NguoiOnline = HttpContext.Application["NguoiOnline"].ToString();
             ViewBag.tongdoanhthu = doanhthu();
             ViewBag.sldonhang = thongkedonhang();

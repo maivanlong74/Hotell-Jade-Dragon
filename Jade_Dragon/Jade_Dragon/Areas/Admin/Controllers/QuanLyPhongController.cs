@@ -58,30 +58,37 @@ namespace Jade_Dragon.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaPhong,TenPhong,LoaiHinh,Gia,VIP,MaKhachSan,TrangThai,KhoaPhong")] phong phong, long? MaKS)
+        public ActionResult Create(string TenPhong, string LoaiHinh, string Gia, bool VIP, bool? KhoaPhong, long? MaKS)
         {
-            if (ModelState.IsValid)
+            decimal GiaTien = decimal.Parse(Gia);
+            var ph = db.phongs.Where(m => m.MaKhachSan == MaKS).ToList();
+            foreach (var Phong in ph)
             {
-                var ph = db.phongs.Where(m => m.MaKhachSan == MaKS).ToList();
-                foreach (var Phong in ph)
+                if (TenPhong == Phong.TenPhong)
                 {
-                    if (phong.TenPhong == Phong.TenPhong)
-                    {
-                        return View();
-                    }
+                    return View();
                 }
-                
-                db.phongs.Add(phong);
-                phong.MaKhachSan = MaKS;
-                phong.TrangThai = !phong.KhoaPhong;
-                db.SaveChanges();
-
-                return Redirect("~/Admin/QuanLyPhong/Phong?MaKS=" + MaKS);                
-
             }
 
-            ViewBag.MaKhachSan = new SelectList(db.khachsans, "MaKhachSan", "TenKhachSan", phong.MaKhachSan);
-            return View(phong);
+            if(KhoaPhong != true && KhoaPhong != false)
+            {
+                KhoaPhong = false;
+            }
+
+            var phph = new phong();
+            {
+                phph.TenPhong = TenPhong;
+                phph.LoaiHinh = LoaiHinh;
+                phph.Gia = (long?)GiaTien;
+                phph.VIP = VIP;
+                phph.MaKhachSan = MaKS;
+                phph.TrangThai = !KhoaPhong;
+                phph.KhoaPhong = KhoaPhong;
+            }
+            db.phongs.Add(phph);
+            db.SaveChanges();
+
+            return Redirect("~/Admin/QuanLyPhong/Phong?MaKS=" + MaKS);                
         }
 
         // GET: Admin/QuanLyPhong/Edit/5

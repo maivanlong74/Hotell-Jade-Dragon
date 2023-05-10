@@ -7,6 +7,10 @@
     z-index: 999;
 }
 
+#map .ol-unselectable {
+    cursor: pointer;
+}
+
 #map .ol-viewport {
         border: 3px solid yellow;
     }

@@ -137,6 +137,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="SoLuongNguoiTruyCaps">
+      <EntityTypeMapping TypeName="Jade_DragonModel.SoLuongNguoiTruyCap">
+        <MappingFragment StoreEntitySet="SoLuongNguoiTruyCap">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="SoLuongNguoi" ColumnName="SoLuongNguoi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="sysdiagrams">
       <EntityTypeMapping TypeName="Jade_DragonModel.sysdiagram">
         <MappingFragment StoreEntitySet="sysdiagrams">

@@ -150,6 +150,13 @@
     <Property Name="TenPhongChat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="tinnhans" Relationship="Self.FK_tinnhan_PhongChat" FromRole="PhongChat" ToRole="tinnhan" />
   </EntityType>
+  <EntityType Name="SoLuongNguoiTruyCap">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SoLuongNguoi" Type="Int64" />
+  </EntityType>
   <EntityType Name="sysdiagram">
     <Key>
       <PropertyRef Name="diagram_id" />
@@ -396,6 +403,7 @@
     <EntitySet Name="phanhois" EntityType="Self.phanhoi" />
     <EntitySet Name="phongs" EntityType="Self.phong" />
     <EntitySet Name="PhongChats" EntityType="Self.PhongChat" />
+    <EntitySet Name="SoLuongNguoiTruyCaps" EntityType="Self.SoLuongNguoiTruyCap" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
     <EntitySet Name="tinnhans" EntityType="Self.tinnhan" />
     <EntitySet Name="tinnhanAdmins" EntityType="Self.tinnhanAdmin" />

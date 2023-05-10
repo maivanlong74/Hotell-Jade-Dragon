@@ -4,7 +4,9 @@
     width: 100%;
     height: 657px;
 }
-
+.body #map .ol-unselectable {
+    cursor: pointer;
+}
 .body .map .ol-viewport {
     border: 3px solid yellow;
 }

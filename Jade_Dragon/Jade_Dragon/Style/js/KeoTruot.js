@@ -39,3 +39,16 @@ $('#Open_Map').click(function () {
         keotruot.scrollIntoView({ behavior: 'smooth' });
     }
 });
+
+$('#thoat_map').click(function () {
+    var info_ks = document.getElementById("info_ks");
+    var mapElement = document.getElementById("map");
+
+    mapElement.classList.remove("keotruot");
+    info_ks.classList.add("keotruot");
+    mapElement.style.zIndex = "-999";
+    var keotruot = document.querySelector('.keotruot');
+    if (keotruot) {
+        keotruot.scrollIntoView({ behavior: 'smooth' });
+    }
+});

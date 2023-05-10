@@ -352,7 +352,7 @@ namespace Jade_Dragon.Controllers
 
         public ActionResult lichsu_new(long? mahd)
         {
-            var list = db.chitiethoadons.Where(m => m.MaHoaDon == mahd).ToList();
+            var list = db.hoadons.Where(m => m.MaHoaDon == mahd).ToList();
             return View(list);
         }
 

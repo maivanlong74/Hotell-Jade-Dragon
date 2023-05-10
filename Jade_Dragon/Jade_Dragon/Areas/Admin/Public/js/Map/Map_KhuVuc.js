@@ -168,18 +168,32 @@ function initMap(hotels) {
             .then(response => response.json())
             .then(data => {
                 if (data.length > 0) {
-                    var result = data[0];
-                    var pos = ol.proj.fromLonLat([parseFloat(result.lon), parseFloat(result.lat)]);
-                    // Di chuyển marker tới vị trí tìm kiếm được
-                    marker.getGeometry().setCoordinates(pos);
-                    // Set lại center của map
-                    map.getView().setCenter(pos);
-                    map.getView().setZoom(18);
+                    // Tìm khách sạn theo tên
+                    var result = _.find(hotels, { name: searchText });
+                    var k = result;
+                    if (result) {
+                        var pos = ol.proj.fromLonLat(result.coordinates);
+                        marker.getGeometry().setCoordinates(pos);
+                        map.getView().setCenter(pos);
+                        map.getView().setZoom(18);
+                        dichuyen();
+                    } else {
+                        var resultt = data[0];
+                        var pos = ol.proj.fromLonLat([parseFloat(resultt.lon), parseFloat(resultt.lat)]);
+                        // Di chuyển marker tới vị trí tìm kiếm được
+                        marker.getGeometry().setCoordinates(pos);
+                        // Set lại center của map
+                        map.getView().setCenter(pos);
+                        map.getView().setZoom(18);
+                        dichuyen();
+                    }
                 } else {
                     alert('Không tìm thấy địa điểm');
                 }
             })
     }
+
+    /*---------------------------------*/
 
     // Tạo một đối tượng marker
     var marker = new ol.Feature({
@@ -345,6 +359,22 @@ function initMap(hotels) {
             danhmucsp.scrollIntoView({ behavior: 'smooth' });
         }
     });
+
+    function dichuyen() {
+        var table = document.getElementById("example_wrapper");
+        var mapElement = document.getElementById("map");
+        var MuiTenTop = document.getElementById("MuiTen_Top");
+        var MuiTenBot = document.getElementById("MuiTen_Bot");
+
+        table.classList.remove("danhmucsp");
+        mapElement.classList.add("danhmucsp");
+        MuiTenBot.classList.remove("xoa");
+        MuiTenTop.classList.add("xoa");
+        var danhmucsp = document.querySelector('.danhmucsp');
+        if (danhmucsp) {
+            danhmucsp.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
 
     return map;
 }

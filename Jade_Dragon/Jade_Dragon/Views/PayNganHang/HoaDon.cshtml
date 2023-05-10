@@ -21,7 +21,8 @@
 <div class="home">
     <div class="home_body">
         <div class="search--map">
-            <form action="" method="post" class="search">
+
+            <form action="@Url.Action("Search_GioHang", "GioHang")" method="post" class="search">
                 <div class="row">
                     <div class="tieude">
                         <p>Tìm khách sạn</p>
@@ -32,10 +33,14 @@
                                 <span>Điểm đến</span>
                             </div>
                             <div class="khuvuc">
-                                <select name="" id="">
+                                <select name="khuvuc" id="" required>
+                                    @if (ViewBag.makv != null)
+                                    {
+                                        <option value="@ViewBag.makv">@ViewBag.tenkv</option>
+                                    }
                                     @foreach (var kv in ViewBag.ListKhuVuc)
                                     {
-                                        <option value="">@kv.TenKhuVuc</option>
+                                        <option value="@kv.MaKhuVuc">@kv.TenKhuVuc</option>
                                     }
                                 </select>
                             </div>
@@ -44,22 +49,42 @@
                             <div class="mucluc">
                                 <span>Ngày nhận phòng</span>
                             </div>
-                            <input type="date" placeholder="DD-MM-YYYY" class="ngay" />
+                            @if (Session["batdau"] == null)
+                            {
+                                <input type="datetime-local" placeholder="DD-MM-YYYY" name="NgayDen" class="ngay"
+                                       min="@ViewBag.time_now" max="@ViewBag.time_max" required />
+                            }
+                            else
+                            {
+                                <input placeholder="@Session["batdau"]" type="text" onfocus="(this.type='datetime-local')"
+                                       onblur="(this.type='text')" name="NgayDen" required value="@Session["batdau"]"
+                                       min="@ViewBag.time_now" max="@ViewBag.time_max" class="ngay" />
+                            }
                         </div> <br>
                         <div class="search__container--item">
                             <div class="mucluc">
                                 <span>Ngày trả phòng</span>
                             </div>
-                            <input type="date" placeholder="DD-MM-YYYY" class="ngay" />
+                            @if (Session["ketthuc"] == null)
+                            {
+                                <input type="datetime-local" placeholder="DD-MM-YYYY" name="NgayDi" class="ngay"
+                                       min="@ViewBag.time_now" max="@ViewBag.time_max" required />
+                            }
+                            else
+                            {
+                                <input placeholder="@Session["ketthuc"]" type="text" onfocus="(this.type='datetime-local')"
+                                       onblur="(this.type='text')" name="NgayDi" required value="@Session["ketthuc"]"
+                                       min="@ViewBag.time_now" max="@ViewBag.time_max" class="ngay" />
+                            }
                         </div> <br>
                         <div class="search__container--item">
                             <div class="mucluc">
                                 <span>Loại hình phòng</span>
                             </div>
                             <div class="tuoi">
-                                <select name="" id="">
-                                    <option>Đơn</option>
-                                    <option>Đôi</option>
+                                <select name="loaihinh" id="" required>
+                                    <option value="Đơn">Đơn</option>
+                                    <option value="Đôi">Đôi</option>
                                 </select>
                             </div>
                         </div> <br>
@@ -68,14 +93,14 @@
                                 <span>Thuộc phòng</span>
                             </div>
                             <div class="tuoi">
-                                <select name="" id="">
-                                    <option>VIP</option>
-                                    <option>Thường</option>
+                                <select name="vip" id="" required>
+                                    <option value="True">VIP</option>
+                                    <option value="False">Thường</option>
                                 </select>
                             </div>
                         </div>
                         <div class="search__container--btn">
-                            <button>Tìm kiếm</button>
+                            <button type="submit">Tìm kiếm</button>
                             <span></span>
                             <span></span>
                             <span></span>
@@ -83,6 +108,7 @@
                     </div>
                 </div>
             </form>
+
             @if (ViewBag.Error != "DaCoLoi")
             {
                 <div class="map">

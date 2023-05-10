@@ -85,16 +85,17 @@
     margin-left: 125px;
 }
 
-/*---------------------------------*/
+    /*---------------------------------*/
     .search .row .search--search .search__container--btn button {
         background: rgba(0,0,0,0.5);
         padding: 12px;
         color: white;
     }
-    .search .row .search--search .search__container--btn button:hover {
-        background: rgba(0,0,0,0.8);
-        color: yellow;
-    }
+
+        .search .row .search--search .search__container--btn button:hover {
+            background: rgba(0,0,0,0.8);
+            color: yellow;
+        }
 /*-------------------------------------*/
 
 .home_body .search--map .map {
@@ -171,48 +172,48 @@
         margin-top: -20px;
     }
 
-    .home_body .info .backgroundd h1 {
-        color: white;
-        padding-top: 250px;
-    }
-
-        .home_body .info .background .khachsan {
-            background: rgba(0, 2, 3, 0.4);
-            height: 500px;
+        .home_body .info .backgroundd h1 {
+            color: white;
+            padding-top: 250px;
         }
 
-            .home_body .info .background .khachsan .name {
-                padding: 30px;
-                background: rgba(0, 2, 3, 0.5);
+    .home_body .info .background .khachsan {
+        background: rgba(0, 2, 3, 0.4);
+        height: 500px;
+    }
+
+        .home_body .info .background .khachsan .name {
+            padding: 30px;
+            background: rgba(0, 2, 3, 0.5);
+        }
+
+            .home_body .info .background .khachsan .name p {
+                font-size: 30px;
+                font-family: cursive;
             }
 
-                .home_body .info .background .khachsan .name p {
-                    font-size: 30px;
-                    font-family: cursive;
-                }
+        .home_body .info .background .khachsan .info_ks {
+            margin-left: 440px;
+            margin-top: 97px;
+            background: rgba(0,0,0,0.7);
+            width: 360px;
+            border: 1px solid;
+        }
 
-            .home_body .info .background .khachsan .info_ks {
-                margin-left: 440px;
-                margin-top: 97px;
-                background: rgba(0,0,0,0.7);
-                width: 360px;
-                border: 1px solid;
+        .home_body .info .background .khachsan .info--ct {
+            padding: 30px;
+        }
+
+        .home_body .info .background .khachsan .danhgia {
+            padding: 30px;
+            margin-top: 56px;
+            display: flex;
+            background: rgba(0, 2, 3, 0.5);
+        }
+
+            .home_body .info .background .khachsan .danhgia .item_rating {
+                margin-left: 20px;
             }
-
-                .home_body .info .background .khachsan .info--ct {
-                    padding: 30px;
-                }
-
-            .home_body .info .background .khachsan .danhgia {
-                padding: 30px;
-                margin-top: 56px;
-                display: flex;
-                background: rgba(0, 2, 3, 0.5);
-            }
-
-                .home_body .info .background .khachsan .danhgia .item_rating {
-                    margin-left: 20px;
-                }
 
     .home_body .info .check {
         background: rgba(0,0,0,0.5);
@@ -232,19 +233,19 @@
             overflow: auto;
         }
 
-        .home_body .info .check .info-ks::-webkit-scrollbar {
-            width: 10px;
-        }
+            .home_body .info .check .info-ks::-webkit-scrollbar {
+                width: 10px;
+            }
 
-        .home_body .info .check .info-ks::-webkit-scrollbar-thumb{
-            background-color: black;
-            border-radius: 25px;
-        }
+            .home_body .info .check .info-ks::-webkit-scrollbar-thumb {
+                background-color: black;
+                border-radius: 25px;
+            }
 
-        .home_body .info .check .info-ks::-webkit-scrollbar-track{
-            background-color: wheat;
-            border-radius: 25px;
-        }
+            .home_body .info .check .info-ks::-webkit-scrollbar-track {
+                background-color: wheat;
+                border-radius: 25px;
+            }
 
         .home_body .info .check .noidung {
             margin-top: 30px;
@@ -266,30 +267,30 @@
             margin-bottom: 5px;
         }
 
-        .home_body .info .check .khachhang label {
-            width: 120px;
-            font-weight: 700;
-        }
+            .home_body .info .check .khachhang label {
+                width: 120px;
+                font-weight: 700;
+            }
 
-        .home_body .info .check .khachhang input {
-            background: none;
-            border: none;
-            margin-left: 20px;
-            color: white;
-            width: 170px;
-        }
+            .home_body .info .check .khachhang input {
+                background: none;
+                border: none;
+                margin-left: 20px;
+                color: white;
+                width: 170px;
+            }
 
-        .home_body .info .check .khachhang input::placeholder{
-            color: aqua;
-        }
+                .home_body .info .check .khachhang input::placeholder {
+                    color: aqua;
+                }
 
         .home_body .info .check .ten_ks {
             display: flex;
         }
 
-        .home_body .info .check .ten_ks .sdt {
-            margin-left: 100px;
-        }
+            .home_body .info .check .ten_ks .sdt {
+                margin-left: 100px;
+            }
 
         .home_body .info .check p {
             margin-bottom: 5px;
@@ -301,14 +302,14 @@
 
         /*--- Phòng Đặt ---*/
 
-        .home_body .info .check .list-body{
+        .home_body .info .check .list-body {
             display: flex;
             margin-top: -10px;
         }
 
-        .home_body .info .check .list-body .list-p {
-            width: 210px;
-        }
+            .home_body .info .check .list-body .list-p {
+                width: 210px;
+            }
 
             .home_body .info .check .list-body .table-phong {
                 border: 3px solid skyblue;
@@ -317,42 +318,41 @@
                 overflow: auto;
             }
 
-            .home_body .info .check .list-body .table-phong table {
-                width: 360px;
-            }
+                .home_body .info .check .list-body .table-phong table {
+                    width: 360px;
+                }
 
-        .home_body .info .check .list-body .table-phong .table-tieude{
-            background-color: black;
-        }
+                .home_body .info .check .list-body .table-phong .table-tieude {
+                    background-color: black;
+                }
 
-            .home_body .info .check .list-body .table-phong::-webkit-scrollbar {
-                width: 5px;
-            }
+                .home_body .info .check .list-body .table-phong::-webkit-scrollbar {
+                    width: 5px;
+                }
 
-            .home_body .info .check .list-body .table-phong::-webkit-scrollbar-thumb {
-                background-color: black;
-                border-radius: 25px;
-            }
+                .home_body .info .check .list-body .table-phong::-webkit-scrollbar-thumb {
+                    background-color: black;
+                    border-radius: 25px;
+                }
 
-            .home_body .info .check .list-body .table-phong::-webkit-scrollbar-track {
-                background-color: wheat;
-                border-radius: 25px;
-            }
+                .home_body .info .check .list-body .table-phong::-webkit-scrollbar-track {
+                    background-color: wheat;
+                    border-radius: 25px;
+                }
 
-        .home_body .info .check .list-body .table-phong tbody tr{
+                .home_body .info .check .list-body .table-phong tbody tr {
+                }
 
-        }
+                .home_body .info .check .list-body .table-phong tr, th, td {
+                    border: 1px solid white;
+                    text-align: center;
+                }
 
-        .home_body .info .check .list-body .table-phong tr, th, td {
-            border: 1px solid white;
-            text-align: center;
-        }
+                .home_body .info .check .list-body .table-phong td {
+                    width: 90px;
+                }
 
-        .home_body .info .check .list-body .table-phong td {
-            width: 90px;
-        }
-        
-/*------------------------------------------------------------------*/
+        /*------------------------------------------------------------------*/
 
         .home_body .info .check .chucnang {
             margin-top: 12px;
@@ -366,11 +366,11 @@
             border-radius: 20px;
         }
 
-        .home_body .info .check .noidung .chucnang button:hover {
-            background: #2c3e50;
-            color: white;
-            font-weight: 500;
-        }
+            .home_body .info .check .noidung .chucnang button:hover {
+                background: #2c3e50;
+                color: white;
+                font-weight: 500;
+            }
 
         .home_body .info .check .noidung .chucnang a {
             margin-left: 30px;
@@ -383,11 +383,11 @@
             text-decoration: none;
         }
 
-        .home_body .info .check .noidung .chucnang a:hover {
-            background: #2c3e50;
-            color: white;
-            font-weight: 500;
-        }
+            .home_body .info .check .noidung .chucnang a:hover {
+                background: #2c3e50;
+                color: white;
+                font-weight: 500;
+            }
 
     /* ------slider------- */
     .home_body .info .slider-item {

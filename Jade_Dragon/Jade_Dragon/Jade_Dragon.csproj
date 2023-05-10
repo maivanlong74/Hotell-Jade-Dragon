@@ -753,8 +753,6 @@
     <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="Scripts\Controller\cartcontroller.js" />
     <Content Include="Areas\Admin\Views\TinNhanAdmin\TinNhanAdmin.cshtml" />
-    <Content Include="common\thua-thien-hue.geojson" />
-    <Content Include="Areas\Admin\Views\TrangChuAdmin\haha.cshtml" />
     <EntityDeploy Include="Models\Model.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model.Designer.cs</LastGenOutput>
@@ -774,7 +772,7 @@
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\modernizr-2.6.2.min.js" />
-    <Content Include="Style\css\html\datphong_new.css" />
+    <Content Include="Style\css\html\DatPhong.css" />
     <Content Include="Style\css\html\lichsu.css" />
     <Content Include="Style\css\html\lichsu2.css" />
     <Content Include="Style\css\html\nhan_xet.css" />
@@ -793,9 +791,9 @@
     <Content Include="Style\css\login_logout\app.css" />
     <Content Include="Style\css\login_logout\reset.css" />
     <Content Include="Style\css\login_logout\SignUp.css" />
+    <Content Include="Style\css\Map\BoSung.css" />
     <Content Include="Style\css\Map\Map_DatPhong.css" />
     <Content Include="Style\css\Map\Map_trangchu_css.css" />
-    <Content Include="Style\css\Map\tesst.css" />
     <Content Include="Style\css\ThanhCuon\Cuon.js" />
     <Content Include="Style\css\ThanhCuon\owl.carousel.min.css" />
     <Content Include="Style\css\ThanhCuon\owl.carousel.min.js" />
@@ -809,6 +807,7 @@
     <Content Include="Style\img\chup_anh\4.jpg" />
     <Content Include="Style\img\icon\home.png" />
     <Content Include="Style\img\icon\icon-Cart.jpg" />
+    <Content Include="Style\img\icon\icon-dinhvi.jpg" />
     <Content Include="Style\img\icon\icon-edit.jpg" />
     <Content Include="Style\img\icon\icon-ls.jpg" />
     <Content Include="Style\img\icon\Icon-Send2.png" />
@@ -848,7 +847,6 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\baseController.cs" />
-    <Compile Include="Areas\Admin\Controllers\DangKyKhachSanController.cs" />
     <Compile Include="Areas\Admin\Controllers\khuvucController.cs" />
     <Compile Include="Areas\Admin\Controllers\LichSuController.cs" />
     <Compile Include="Areas\Admin\Controllers\PhanHoiController.cs" />
@@ -858,6 +856,7 @@
     <Compile Include="Areas\Admin\Controllers\TinNhanAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\TrangChuAdminController.cs" />
     <Compile Include="check_In_Out.cs" />
+    <Compile Include="common\LuongTruyCap.cs" />
     <Compile Include="common\MailHelper.cs" />
     <Compile Include="common\MyAuthorizeAttribute.cs" />
     <Compile Include="common\UserLogin.cs" />
@@ -929,6 +928,9 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PhongChat.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SoLuongNguoiTruyCap.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagram.cs">
@@ -1010,7 +1012,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Views\base\" />
-    <Folder Include="Areas\Admin\Views\DangKyKhachSan\" />
     <Folder Include="Style\DongHo\" />
     <Folder Include="UpLoad_Img\KhachHang\" />
     <Folder Include="UpLoad_Img\KhachSan\" />

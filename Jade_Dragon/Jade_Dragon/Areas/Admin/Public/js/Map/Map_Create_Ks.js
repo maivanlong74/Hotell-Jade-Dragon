@@ -193,13 +193,23 @@ function initMap(hotels) {
             .then(response => response.json())
             .then(data => {
                 if (data.length > 0) {
-                    var result = data[0];
-                    var pos = ol.proj.fromLonLat([parseFloat(result.lon), parseFloat(result.lat)]);
-                    // Di chuyển marker tới vị trí tìm kiếm được
-                    marker.getGeometry().setCoordinates(pos);
-                    // Set lại center của map
-                    map.getView().setCenter(pos);
-                    map.getView().setZoom(18);
+                    // Tìm khách sạn theo tên
+                    var result = _.find(hotels, { name: searchText });
+                    var k = result;
+                    if (result) {
+                        var pos = ol.proj.fromLonLat(result.coordinates);
+                        marker.getGeometry().setCoordinates(pos);
+                        map.getView().setCenter(pos);
+                        map.getView().setZoom(18);
+                    } else {
+                        var resultt = data[0];
+                        var pos = ol.proj.fromLonLat([parseFloat(resultt.lon), parseFloat(resultt.lat)]);
+                        // Di chuyển marker tới vị trí tìm kiếm được
+                        marker.getGeometry().setCoordinates(pos);
+                        // Set lại center của map
+                        map.getView().setCenter(pos);
+                        map.getView().setZoom(18);
+                    }
                 } else {
                     alert('Không tìm thấy địa điểm');
                 }
@@ -214,7 +224,7 @@ function initMap(hotels) {
     marker.setStyle(new ol.style.Style({
         image: new ol.style.Icon({
             anchor: [0.5, 1],
-            src: 'https://openlayers.org/en/latest/examples/data/icon.png'
+            src: '/Style/img/icon/icon-dinhvi.jpg'
         })
     }));
 

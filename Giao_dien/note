@@ -1,12 +1,36 @@
-    // Thêm control zoom slider
-    var zoomSlider = new ol.control.ZoomSlider();
-    map.addControl(zoomSlider);
-    // Thêm control full screen
-    var fullScreen = new ol.control.FullScreen();
-    map.addControl(fullScreen);
-    // Thêm control OverviewMap
-    var OverviewMap = new ol.control.OverviewMap();
-    map.addControl(OverviewMap);
-    // Thêm control ScaleLine
-    var ScaleLine = new ol.control.ScaleLine();
-    map.addControl(ScaleLine);
+using Jade_Dragon.Models;
+Đây là code file Global.asax:
+    using System; using System.Collections.Generic; using System.Linq;
+    using System.Web; using System.Web.Mvc; using System.Web.Routing;
+    using Xamarin.Essentials; using static System.Net.Mime.MediaTypeNames; using Jade_Dragon.common;
+    namespace Jade_Dragon {
+        public class MvcApplication : System.Web.HttpApplication {
+            protected void Application_Start() {
+                AreaRegistration.RegisterAllAreas();
+                RouteConfig.RegisterRoutes(RouteTable.Routes);
+                Application["NguoiTruyCap"] = 0;
+                Application["NguoiOnline"] = 0; }
+            protected void Session_Start() {
+                Application.Lock();
+                Application["NguoiTruyCap"] = (int)Application["NguoiTruyCap"] + 1;
+                Application["NguoiOnline"] = (int)Application["NguoiOnline"] + 1;
+                Application.UnLock(); }
+            protected void Session_End() {
+                Application.Lock();
+                Application["NguoiOnline"] = (int)Application["NguoiOnline"] - 1;
+                Application.UnLock(); } } }
+Đây là file cs:
+    using System; using System.Collections.Generic; using System.Data.Entity;
+    using System.Linq; using System.Web; using System.Web.Mvc; using Jade_Dragon.Models;
+    namespace Jade_Dragon.common {
+        public class LuongTruyCap {
+            public static void TangSoLuongTruyCap() {
+                using (var context = new Connect()) {
+                    var nguoiTruyCap = context.SoLuongNguoiTruyCaps.FirstOrDefault();
+                    if (nguoiTruyCap == null) {
+                        nguoiTruyCap = new SoLuongNguoiTruyCap { SoLuongNguoi = 1 };
+                        context.SoLuongNguoiTruyCaps.Add(nguoiTruyCap); } else {
+                        nguoiTruyCap.SoLuongNguoi += 1;
+                        context.Entry(nguoiTruyCap).State = EntityState.Modified; }
+                    context.SaveChanges(); } } } }
+Tôi nên gọi hàm TangSoLuongTruyCap() ở đâu trong file Global.asax, và gọi như nào: 
