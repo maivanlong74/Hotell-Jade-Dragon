@@ -65,6 +65,7 @@
           <ScalarProperty Name="IDGroup" ColumnName="IDGroup" />
           <ScalarProperty Name="Code" ColumnName="Code" />
           <ScalarProperty Name="DaXacMinh" ColumnName="DaXacMinh" />
+          <ScalarProperty Name="QLKhachSan" ColumnName="QLKhachSan" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

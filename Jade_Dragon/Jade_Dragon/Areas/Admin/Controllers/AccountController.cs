@@ -68,15 +68,17 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                 Session["TenDn"] = Data.FirstOrDefault().TenDn;
                 Session["Mk"] = Data.FirstOrDefault().Mk;
                 Session["IDGroup"] = Data.FirstOrDefault().IDGroup;
+                Session["MaKhachSan_ks"] = Data.FirstOrDefault().QLKhachSan; 
 
-                if (Data.FirstOrDefault().IDGroup == 1)
-                {
-                    return Redirect("~/Admin/TrangChuAdmin");
+                if (Data.FirstOrDefault().UserGroup.Name == "Admin") {
+                    return Redirect("~/Admin/TrangChuAdmin/TrangChu");
+                } else
+                if (Data.FirstOrDefault().UserGroup.Name == "Client") {
+                    return Redirect("~/trangchu/trangchu");
                 }
                 else
-                if (Data.FirstOrDefault().IDGroup == 2)
-                {
-                    return Redirect("~/trangchu/trangchu");
+                if (Data.FirstOrDefault().UserGroup.Name == "Manage") {
+                    return Redirect("~/Admin/TrangChuAdmin/TrangChuManage");
                 }
 
 

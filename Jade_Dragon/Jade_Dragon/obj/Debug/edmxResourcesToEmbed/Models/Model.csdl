@@ -68,8 +68,10 @@
     <Property Name="IDGroup" Type="Int64" />
     <Property Name="Code" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
     <Property Name="DaXacMinh" Type="Boolean" Nullable="false" />
+    <Property Name="QLKhachSan" Type="Int64" />
     <NavigationProperty Name="DanhGiaKs" Relationship="Self.FK_DanhGiaKs_khachhang" FromRole="khachhang" ToRole="DanhGiaKs" />
     <NavigationProperty Name="hoadons" Relationship="Self.FK_hoadon_khachhang" FromRole="khachhang" ToRole="hoadon" />
+    <NavigationProperty Name="khachsan" Relationship="Self.FK_khachhang_khachsan" FromRole="khachhang" ToRole="khachsan" />
     <NavigationProperty Name="UserGroup" Relationship="Self.FK_khachhang_UserGroup" FromRole="khachhang" ToRole="UserGroup" />
     <NavigationProperty Name="phanhois" Relationship="Self.FK_phanhoi_khachhang1" FromRole="khachhang" ToRole="phanhoi" />
     <NavigationProperty Name="tinnhans" Relationship="Self.FK_tinnhan_khachhang1" FromRole="khachhang" ToRole="tinnhan" />
@@ -93,6 +95,7 @@
     <Property Name="TrangThaiKs" Type="Boolean" />
     <NavigationProperty Name="DanhGiaKs" Relationship="Self.FK_DanhGiaKs_khachsan" FromRole="khachsan" ToRole="DanhGiaKs" />
     <NavigationProperty Name="hoadons" Relationship="Self.FK_hoadon_khachsan" FromRole="khachsan" ToRole="hoadon" />
+    <NavigationProperty Name="khachhangs" Relationship="Self.FK_khachhang_khachsan" FromRole="khachsan" ToRole="khachhang" />
     <NavigationProperty Name="khuvuc" Relationship="Self.FK_khachsan_khuvuc1" FromRole="khachsan" ToRole="khuvuc" />
     <NavigationProperty Name="phongs" Relationship="Self.FK_phong_khachsan1" FromRole="khachsan" ToRole="phong" />
   </EntityType>
@@ -283,6 +286,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_khachhang_khachsan">
+    <End Role="khachsan" Type="Self.khachsan" Multiplicity="0..1" />
+    <End Role="khachhang" Type="Self.khachhang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="khachsan">
+        <PropertyRef Name="MaKhachSan" />
+      </Principal>
+      <Dependent Role="khachhang">
+        <PropertyRef Name="QLKhachSan" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_khachhang_UserGroup">
     <End Role="UserGroup" Type="Self.UserGroup" Multiplicity="0..1" />
     <End Role="khachhang" Type="Self.khachhang" Multiplicity="*" />
@@ -432,6 +447,10 @@
     <AssociationSet Name="FK_hoadon_khachsan" Association="Self.FK_hoadon_khachsan">
       <End Role="khachsan" EntitySet="khachsans" />
       <End Role="hoadon" EntitySet="hoadons" />
+    </AssociationSet>
+    <AssociationSet Name="FK_khachhang_khachsan" Association="Self.FK_khachhang_khachsan">
+      <End Role="khachsan" EntitySet="khachsans" />
+      <End Role="khachhang" EntitySet="khachhangs" />
     </AssociationSet>
     <AssociationSet Name="FK_khachhang_UserGroup" Association="Self.FK_khachhang_UserGroup">
       <End Role="UserGroup" EntitySet="UserGroups" />

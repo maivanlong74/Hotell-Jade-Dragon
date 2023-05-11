@@ -15,10 +15,10 @@ namespace Jade_Dragon.Areas.Admin.Controllers
         {
             return View();
         }
-        public ActionResult haha()
+
+        public ActionResult TrangChuManage()
         {
-            var ks = db.khachsans.ToList();
-            return View("haha", ks);
+            return View();
         }
     }
 }

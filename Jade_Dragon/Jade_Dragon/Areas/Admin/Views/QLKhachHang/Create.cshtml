@@ -48,6 +48,10 @@
                         <label for="">Tên đăng nhập: </label>
                         @Html.EditorFor(model => model.TenDn, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.TenDn, "", new { @class = "text-danger" })
+
+                        <label for="">Quản lý khách sạn: </label>
+                        @Html.DropDownList("QLKhachSan", (IEnumerable<SelectListItem>)ViewBag.KhachSans, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.QLKhachSan, "", new { @class = "text-danger" })
                     </div>
                     <div class="matkhau one">
                         <label for="">Mật Khẩu: </label>

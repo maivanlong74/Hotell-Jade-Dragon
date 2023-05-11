@@ -7,22 +7,26 @@
     margin-left: 20px;
 }
 
-.body .MuiTen_Map {
+.body .MuiTen_Map_Top{
+    display: none;
+}
+
+.body .muiten_map {
     text-align: center;
 }
 
-    .body .MuiTen_Map #MuiTen {
+    .body .muiten_map .MuiTen {
         width: 70px;
         height: 70px;
         border-radius: 50%;
         cursor: pointer;
     }
 
-    .body .MuiTen_Map i {
+    .body .muiten_map i {
         color: white;
         font-weight: 700;
     }
-    .body .MuiTen_Map #MuiTen.move {
+    .body .muiten_map .MuiTen.move {
         animation: moveUpDown 0.5s ease-in-out infinite alternate;
     }
 
@@ -36,7 +40,7 @@
     }
 }
 
-.body .MuiTen_Map #MuiTen:hover {
+.body .muiten_map .MuiTen:hover {
     background-image: linear-gradient(to right, violet, indigo, blue, green, yellow, orange, red);
     background-size: 200% 200%;
     animation: gradientBG 5s ease-in-out infinite;

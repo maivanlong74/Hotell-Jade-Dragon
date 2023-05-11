@@ -61,6 +61,7 @@
     <Property Name="IDGroup" Type="bigint" />
     <Property Name="Code" Type="nchar" MaxLength="10" />
     <Property Name="DaXacMinh" Type="bit" Nullable="false" />
+    <Property Name="QLKhachSan" Type="bigint" />
   </EntityType>
   <EntityType Name="khachsan">
     <Key>
@@ -243,6 +244,18 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_khachhang_khachsan">
+    <End Role="khachsan" Type="Self.khachsan" Multiplicity="0..1" />
+    <End Role="khachhang" Type="Self.khachhang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="khachsan">
+        <PropertyRef Name="MaKhachSan" />
+      </Principal>
+      <Dependent Role="khachhang">
+        <PropertyRef Name="QLKhachSan" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_khachhang_UserGroup">
     <End Role="UserGroup" Type="Self.UserGroup" Multiplicity="0..1" />
     <End Role="khachhang" Type="Self.khachhang" Multiplicity="*" />
@@ -408,6 +421,10 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
     <AssociationSet Name="FK_hoadon_khachsan" Association="Self.FK_hoadon_khachsan">
       <End Role="khachsan" EntitySet="khachsan" />
       <End Role="hoadon" EntitySet="hoadon" />
+    </AssociationSet>
+    <AssociationSet Name="FK_khachhang_khachsan" Association="Self.FK_khachhang_khachsan">
+      <End Role="khachsan" EntitySet="khachsan" />
+      <End Role="khachhang" EntitySet="khachhang" />
     </AssociationSet>
     <AssociationSet Name="FK_khachhang_UserGroup" Association="Self.FK_khachhang_UserGroup">
       <End Role="UserGroup" EntitySet="UserGroup" />

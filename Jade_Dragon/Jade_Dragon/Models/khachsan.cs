@@ -19,6 +19,7 @@ namespace Jade_Dragon.Models
         {
             this.DanhGiaKs = new HashSet<DanhGiaK>();
             this.hoadons = new HashSet<hoadon>();
+            this.khachhangs = new HashSet<khachhang>();
             this.phongs = new HashSet<phong>();
         }
     
@@ -38,6 +39,8 @@ namespace Jade_Dragon.Models
         public virtual ICollection<DanhGiaK> DanhGiaKs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<hoadon> hoadons { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<khachhang> khachhangs { get; set; }
         public virtual khuvuc khuvuc { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<phong> phongs { get; set; }

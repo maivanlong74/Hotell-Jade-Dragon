@@ -50,6 +50,7 @@ namespace Jade_Dragon
             Session["TenDn"] = "";
             Session["Mk"] = "";
             Session["IDGroup"] = "";
+            Session["MaKhachSan_ks"] = "";
         }
 
         protected void Session_KhachSan()

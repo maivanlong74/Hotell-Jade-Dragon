@@ -9,6 +9,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using DocumentFormat.OpenXml.EMMA;
 using Jade_Dragon.common;
 using Jade_Dragon.Models;
 
@@ -24,6 +25,13 @@ namespace Jade_Dragon.Areas.Admin.Controllers
             var khachhangs = db.khachhangs.Include(k => k.UserGroup);
             var ListKh = db.khachhangs.ToList();    
             return View("QuanLyKh", ListKh);
+        }
+
+        public ActionResult QuanLyKhManage()
+        {
+            var khachhangs = db.khachhangs.Include(k => k.UserGroup);
+            var ListKh = db.khachhangs.Where(m => m.IDGroup == 2 || m.IDGroup == 3).ToList();
+            return View("QuanLyKhManage", ListKh);
         }
 
         // GET: Admin/QLKhachHang/Details/5
@@ -44,6 +52,12 @@ namespace Jade_Dragon.Areas.Admin.Controllers
         // GET: Admin/Test/Create
         public ActionResult Create()
         {
+            ViewBag.KhachSans = new List<SelectListItem>
+            {
+                new SelectListItem { Text = "Không chọn khách sạn", Value = "" }
+            }.Concat(db.khachsans.Select(k => new SelectListItem { Text = k.TenKhachSan, Value = k.MaKhachSan.ToString() }));
+
+            ViewBag.QLKhachSan = new SelectList(db.khachsans, "MaKhachSan", "TenKhachSan");
             ViewBag.IDGroup = new SelectList(db.UserGroups, "IDGroup", "Name");
             return View();
         }
@@ -53,7 +67,7 @@ namespace Jade_Dragon.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaKh,HoTen,SoDienThoai,CMND,DiaChi,Gmail,Avt,TenDn,Mk,IDGroup,Code,DaXacMinh")] khachhang khachhang, HttpPostedFileBase uploadhinh)
+        public ActionResult Create([Bind(Include = "MaKh,HoTen,SoDienThoai,CMND,DiaChi,Gmail,Avt,TenDn,Mk,IDGroup,Code,DaXacMinh,QLKhachSan")] khachhang khachhang, HttpPostedFileBase uploadhinh)
         {
             if (ModelState.IsValid)
             {
@@ -81,6 +95,10 @@ namespace Jade_Dragon.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.KhachSans = new List<SelectListItem>
+            {
+                new SelectListItem { Text = "Không chọn khách sạn", Value = "" }
+            }.Concat(db.khachsans.Select(k => new SelectListItem { Text = k.TenKhachSan, Value = k.MaKhachSan.ToString() }));
             ViewBag.IDGroup = new SelectList(db.UserGroups, "IDGroup", "Name", khachhang.IDGroup);
             Session["HoTen"] = khachhang.HoTen;
             return View(khachhang);
@@ -92,7 +110,7 @@ namespace Jade_Dragon.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "MaKh,HoTen,SoDienThoai,CMND,DiaChi,Gmail," +
-            "Avt,TenDn,Mk,IDGroup,Code,DaXacMinh")] khachhang khachhang, HttpPostedFileBase uploadhinh)
+            "Avt,TenDn,Mk,IDGroup,Code,DaXacMinh,QLKhachSan")] khachhang khachhang, HttpPostedFileBase uploadhinh)
         {
             if (ModelState.IsValid)
             {

@@ -3,7 +3,7 @@
     ViewBag.Title = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
 }
-<link href="~/Areas/Admin/Public/css/Map/MuiTen.css" rel="stylesheet" />
+<link href="~/Areas/Admin/Public/css/Map/Css_MuiTen.css" rel="stylesheet" />
 
 <div class="home">
     <div class="body" id="body">
@@ -118,11 +118,18 @@
 
             </div>
         </div>
-        <div class="MuiTen_Map">
+        <div class="MuiTen_Map muiten_map">
             <button type="button" id="MuiTen" class="MuiTen move">
                 <img src="~/Areas/Admin/Public/img/muiten.jpg" />
             </button> <br />
             <i>Bản đồ</i>
+        </div>
+
+        <div class="MuiTen_Map_Top muiten_map">
+            <button type="button" id="MuiTen_Top" class="MuiTen move">
+                <img src="~/Areas/Admin/Public/img/muitenn.jpg" />
+            </button> <br />
+            <i>Khách sạn</i>
         </div>
     </div>
     <div id="map" class="map">

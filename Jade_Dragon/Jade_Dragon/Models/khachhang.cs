@@ -37,11 +37,13 @@ namespace Jade_Dragon.Models
         public Nullable<long> IDGroup { get; set; }
         public string Code { get; set; }
         public bool DaXacMinh { get; set; }
+        public Nullable<long> QLKhachSan { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DanhGiaK> DanhGiaKs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<hoadon> hoadons { get; set; }
+        public virtual khachsan khachsan { get; set; }
         public virtual UserGroup UserGroup { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<phanhoi> phanhois { get; set; }

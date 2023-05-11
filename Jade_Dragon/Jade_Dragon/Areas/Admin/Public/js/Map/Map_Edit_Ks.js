@@ -305,9 +305,30 @@ function initMap(hotels) {
 
 $('#MuiTen').click(function () {
     var map = document.getElementById("map");
-    var mapElement = document.getElementById("body");
-    mapElement.classList.remove("danhmucsp");
+    var body = document.getElementById("body");
+    var muiten1 = document.getElementById("MuiTen");
+    var muiten2 = document.getElementById("MuiTen_Top");
+    body.classList.remove("danhmucsp");
     map.classList.add("danhmucsp");
+    muiten1.style.display = "none";
+    muiten2.style.display = "block";
+
+    var danhmucsp = document.querySelector('.danhmucsp');
+    if (danhmucsp) {
+        danhmucsp.scrollIntoView({ behavior: 'smooth' });
+    }
+});
+
+$('#MuiTen_Top').click(function () {
+    var map = document.getElementById("map");
+    var body = document.getElementById("body");
+    var muiten1 = document.getElementById("MuiTen");
+    var muiten2 = document.getElementById("MuiTen_Top");
+    map.classList.remove("danhmucsp");
+    body.classList.add("danhmucsp");
+    muiten2.style.display = "none";
+    muiten1.style.display = "block";
+
     var danhmucsp = document.querySelector('.danhmucsp');
     if (danhmucsp) {
         danhmucsp.scrollIntoView({ behavior: 'smooth' });
