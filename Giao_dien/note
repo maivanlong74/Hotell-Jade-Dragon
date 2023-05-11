@@ -1,36 +1,508 @@
-using Jade_Dragon.Models;
-Đây là code file Global.asax:
-    using System; using System.Collections.Generic; using System.Linq;
-    using System.Web; using System.Web.Mvc; using System.Web.Routing;
-    using Xamarin.Essentials; using static System.Net.Mime.MediaTypeNames; using Jade_Dragon.common;
-    namespace Jade_Dragon {
-        public class MvcApplication : System.Web.HttpApplication {
-            protected void Application_Start() {
-                AreaRegistration.RegisterAllAreas();
-                RouteConfig.RegisterRoutes(RouteTable.Routes);
-                Application["NguoiTruyCap"] = 0;
-                Application["NguoiOnline"] = 0; }
-            protected void Session_Start() {
-                Application.Lock();
-                Application["NguoiTruyCap"] = (int)Application["NguoiTruyCap"] + 1;
-                Application["NguoiOnline"] = (int)Application["NguoiOnline"] + 1;
-                Application.UnLock(); }
-            protected void Session_End() {
-                Application.Lock();
-                Application["NguoiOnline"] = (int)Application["NguoiOnline"] - 1;
-                Application.UnLock(); } } }
-Đây là file cs:
-    using System; using System.Collections.Generic; using System.Data.Entity;
-    using System.Linq; using System.Web; using System.Web.Mvc; using Jade_Dragon.Models;
-    namespace Jade_Dragon.common {
-        public class LuongTruyCap {
-            public static void TangSoLuongTruyCap() {
-                using (var context = new Connect()) {
-                    var nguoiTruyCap = context.SoLuongNguoiTruyCaps.FirstOrDefault();
-                    if (nguoiTruyCap == null) {
-                        nguoiTruyCap = new SoLuongNguoiTruyCap { SoLuongNguoi = 1 };
-                        context.SoLuongNguoiTruyCaps.Add(nguoiTruyCap); } else {
-                        nguoiTruyCap.SoLuongNguoi += 1;
-                        context.Entry(nguoiTruyCap).State = EntityState.Modified; }
-                    context.SaveChanges(); } } } }
-Tôi nên gọi hàm TangSoLuongTruyCap() ở đâu trong file Global.asax, và gọi như nào: 
+USE [Jade_Dragon]
+GO
+/****** Object:  Table [dbo].[khachhang]    Script Date: 5/10/2023 8:56:29 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[khachhang](
+	[MaKh] [bigint] IDENTITY(1,1) NOT NULL,
+	[HoTen] [nvarchar](100) NULL,
+	[SoDienThoai] [bigint] NULL,
+	[CMND] [bigint] NULL,
+	[DiaChi] [nvarchar](50) NULL,
+	[Gmail] [nvarchar](50) NULL,
+	[Avt] [nvarchar](50) NULL,
+	[TenDn] [nvarchar](50) NULL,
+	[Mk] [nvarchar](50) NULL,
+	[IDGroup] [bigint] NULL,
+	[Code] [nchar](10) NULL,
+	[DaXacMinh] [bit] NOT NULL,
+ CONSTRAINT [PK_khachhang] PRIMARY KEY CLUSTERED 
+(
+	[MaKh] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[hoadon]    Script Date: 5/10/2023 8:56:29 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[hoadon](
+	[MaHoaDon] [bigint] IDENTITY(1,1) NOT NULL,
+	[MaKh] [bigint] NULL,
+	[MaKhachSan] [bigint] NULL,
+	[HoTen] [nvarchar](50) NULL,
+	[SoDienThoai] [bigint] NULL,
+	[CMND] [bigint] NULL,
+	[Gmail] [nvarchar](50) NULL,
+	[SoLuongPhong] [bigint] NULL,
+	[NgayDat] [datetime] NULL,
+	[TongTien] [bigint] NULL,
+	[DatCoc] [bigint] NULL,
+	[HinhThuc] [nvarchar](50) NULL,
+	[MaError] [varchar](10) NULL,
+ CONSTRAINT [PK_hoadon] PRIMARY KEY CLUSTERED 
+(
+	[MaHoaDon] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[khachsan]    Script Date: 5/10/2023 8:56:29 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[khachsan](
+	[MaKhachSan] [bigint] IDENTITY(1,1) NOT NULL,
+	[TenKhachSan] [nvarchar](50) NULL,
+	[SoDienThoai] [bigint] NULL,
+	[Gmail] [nvarchar](50) NULL,
+	[DiaChi] [nvarchar](max) NULL,
+	[KinhDo] [nvarchar](50) NULL,
+	[ViDo] [nvarchar](50) NULL,
+	[Gia] [bigint] NULL,
+	[AnhKs] [nvarchar](50) NULL,
+	[MaKhuVuc] [bigint] NULL,
+	[TrangThaiKs] [bit] NULL,
+ CONSTRAINT [PK_khachsan] PRIMARY KEY CLUSTERED 
+(
+	[MaKhachSan] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[khuvuc]    Script Date: 5/10/2023 8:56:29 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[khuvuc](
+	[MaKhuVuc] [bigint] IDENTITY(1,1) NOT NULL,
+	[TenKhuVuc] [nvarchar](50) NULL,
+	[KinhDo] [nvarchar](50) NULL,
+	[ViDo] [nvarchar](50) NULL,
+ CONSTRAINT [PK_khuvuc] PRIMARY KEY CLUSTERED 
+(
+	[MaKhuVuc] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  View [dbo].[lichsu]    Script Date: 5/10/2023 8:56:29 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE VIEW [dbo].[lichsu]
+AS
+SELECT        dbo.hoadon.MaHoaDon, dbo.hoadon.HoTen, dbo.khachsan.TenKhachSan, dbo.khuvuc.TenKhuVuc, dbo.hoadon.NgayDat
+FROM            dbo.hoadon INNER JOIN
+                         dbo.khachhang ON dbo.hoadon.MaKh = dbo.khachhang.MaKh INNER JOIN
+                         dbo.khachsan ON dbo.hoadon.MaKhachSan = dbo.khachsan.MaKhachSan INNER JOIN
+                         dbo.khuvuc ON dbo.khachsan.MaKhuVuc = dbo.khuvuc.MaKhuVuc
+GO
+/****** Object:  Table [dbo].[chitiethoadon]    Script Date: 5/10/2023 8:56:29 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[chitiethoadon](
+	[MaChiTietHoaDon] [bigint] IDENTITY(1,1) NOT NULL,
+	[NgayDen] [datetime] NULL,
+	[NgayDi] [datetime] NULL,
+	[Gia] [bigint] NULL,
+	[MaPhong] [bigint] NULL,
+	[MaHoaDon] [bigint] NULL,
+ CONSTRAINT [PK_machitiethoadon] PRIMARY KEY CLUSTERED 
+(
+	[MaChiTietHoaDon] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[DanhGiaKs]    Script Date: 5/10/2023 8:56:29 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[DanhGiaKs](
+	[MaDanhGia] [bigint] IDENTITY(1,1) NOT NULL,
+	[SoSao] [bigint] NULL,
+	[MaKh] [bigint] NULL,
+	[MaKs] [bigint] NULL,
+ CONSTRAINT [PK_DanhGiaKs] PRIMARY KEY CLUSTERED 
+(
+	[MaDanhGia] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[ErrorPay]    Script Date: 5/10/2023 8:56:29 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ErrorPay](
+	[MaError] [varchar](10) NOT NULL,
+	[TenError] [nvarchar](max) NULL,
+ CONSTRAINT [PK_Error] PRIMARY KEY CLUSTERED 
+(
+	[MaError] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Moc_Time]    Script Date: 5/10/2023 8:56:29 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Moc_Time](
+	[stt] [bigint] IDENTITY(1,1) NOT NULL,
+	[MaPhong] [bigint] NULL,
+	[NgayDen] [datetime] NULL,
+	[NgayDi] [datetime] NULL,
+ CONSTRAINT [PK_Moc_Time] PRIMARY KEY CLUSTERED 
+(
+	[stt] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[phanhoi]    Script Date: 5/10/2023 8:56:29 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[phanhoi](
+	[MaPhanHoi] [nvarchar](50) NOT NULL,
+	[MaKh] [bigint] NULL,
+	[NoiDung] [nvarchar](max) NULL,
+	[ThoiGian] [datetime] NULL,
+ CONSTRAINT [PK_phanhoi] PRIMARY KEY CLUSTERED 
+(
+	[MaPhanHoi] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[phong]    Script Date: 5/10/2023 8:56:29 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[phong](
+	[MaPhong] [bigint] IDENTITY(1,1) NOT NULL,
+	[TenPhong] [nvarchar](50) NULL,
+	[LoaiHinh] [nvarchar](50) NULL,
+	[Gia] [bigint] NULL,
+	[VIP] [bit] NOT NULL,
+	[MaKhachSan] [bigint] NULL,
+	[TrangThai] [bit] NULL,
+	[KhoaPhong] [bit] NULL,
+ CONSTRAINT [PK_phong] PRIMARY KEY CLUSTERED 
+(
+	[MaPhong] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[PhongChat]    Script Date: 5/10/2023 8:56:29 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[PhongChat](
+	[MaPhongChat] [bigint] IDENTITY(1,1) NOT NULL,
+	[TenPhongChat] [nvarchar](50) NULL,
+ CONSTRAINT [PK_PhongChat] PRIMARY KEY CLUSTERED 
+(
+	[MaPhongChat] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[SoLuongNguoiTruyCap]    Script Date: 5/10/2023 8:56:29 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[SoLuongNguoiTruyCap](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[SoLuongNguoi] [bigint] NULL,
+ CONSTRAINT [PK_SoLuongNguoiTruyCap] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tinnhan]    Script Date: 5/10/2023 8:56:29 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tinnhan](
+	[MaTinNhan] [nvarchar](50) NOT NULL,
+	[MaKh] [bigint] NULL,
+	[NoiDungTinNhanClient] [nvarchar](max) NULL,
+	[LinkAnh] [nvarchar](max) NULL,
+	[MaPhongChat] [bigint] NULL,
+	[NgayGui] [datetime] NULL,
+ CONSTRAINT [PK_tinnhan] PRIMARY KEY CLUSTERED 
+(
+	[MaTinNhan] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tinnhanAdmin]    Script Date: 5/10/2023 8:56:29 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tinnhanAdmin](
+	[MaChatAdmin] [nvarchar](50) NOT NULL,
+	[IdNguoiNhan] [bigint] NULL,
+	[IdNguoiGui] [bigint] NULL,
+	[NoiDungChat] [nvarchar](max) NULL,
+	[NgayGuiChat] [datetime] NULL,
+	[LinkAnhAdmin] [nvarchar](max) NULL,
+ CONSTRAINT [PK_tinnhanAdmin] PRIMARY KEY CLUSTERED 
+(
+	[MaChatAdmin] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[UserGroup]    Script Date: 5/10/2023 8:56:29 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[UserGroup](
+	[IDGroup] [bigint] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](50) NULL,
+ CONSTRAINT [PK_UserGroup] PRIMARY KEY CLUSTERED 
+(
+	[IDGroup] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[khachhang] ADD  CONSTRAINT [DF_khachhang_isActive]  DEFAULT ((0)) FOR [DaXacMinh]
+GO
+ALTER TABLE [dbo].[phong] ADD  CONSTRAINT [DF_phong_VIP]  DEFAULT ((0)) FOR [VIP]
+GO
+ALTER TABLE [dbo].[phong] ADD  CONSTRAINT [DF_phong_TrangThai]  DEFAULT ((0)) FOR [TrangThai]
+GO
+ALTER TABLE [dbo].[chitiethoadon]  WITH NOCHECK ADD  CONSTRAINT [FK_machitiethoadon_phong] FOREIGN KEY([MaPhong])
+REFERENCES [dbo].[phong] ([MaPhong])
+GO
+ALTER TABLE [dbo].[chitiethoadon] NOCHECK CONSTRAINT [FK_machitiethoadon_phong]
+GO
+ALTER TABLE [dbo].[DanhGiaKs]  WITH CHECK ADD  CONSTRAINT [FK_DanhGiaKs_khachhang] FOREIGN KEY([MaKh])
+REFERENCES [dbo].[khachhang] ([MaKh])
+GO
+ALTER TABLE [dbo].[DanhGiaKs] CHECK CONSTRAINT [FK_DanhGiaKs_khachhang]
+GO
+ALTER TABLE [dbo].[DanhGiaKs]  WITH CHECK ADD  CONSTRAINT [FK_DanhGiaKs_khachsan] FOREIGN KEY([MaKs])
+REFERENCES [dbo].[khachsan] ([MaKhachSan])
+GO
+ALTER TABLE [dbo].[DanhGiaKs] CHECK CONSTRAINT [FK_DanhGiaKs_khachsan]
+GO
+ALTER TABLE [dbo].[hoadon]  WITH CHECK ADD  CONSTRAINT [FK_hoadon_ErrorPay] FOREIGN KEY([MaError])
+REFERENCES [dbo].[ErrorPay] ([MaError])
+GO
+ALTER TABLE [dbo].[hoadon] CHECK CONSTRAINT [FK_hoadon_ErrorPay]
+GO
+ALTER TABLE [dbo].[hoadon]  WITH CHECK ADD  CONSTRAINT [FK_hoadon_khachhang] FOREIGN KEY([MaKh])
+REFERENCES [dbo].[khachhang] ([MaKh])
+GO
+ALTER TABLE [dbo].[hoadon] CHECK CONSTRAINT [FK_hoadon_khachhang]
+GO
+ALTER TABLE [dbo].[hoadon]  WITH CHECK ADD  CONSTRAINT [FK_hoadon_khachsan] FOREIGN KEY([MaKhachSan])
+REFERENCES [dbo].[khachsan] ([MaKhachSan])
+GO
+ALTER TABLE [dbo].[hoadon] CHECK CONSTRAINT [FK_hoadon_khachsan]
+GO
+ALTER TABLE [dbo].[khachhang]  WITH CHECK ADD  CONSTRAINT [FK_khachhang_UserGroup] FOREIGN KEY([IDGroup])
+REFERENCES [dbo].[UserGroup] ([IDGroup])
+GO
+ALTER TABLE [dbo].[khachhang] CHECK CONSTRAINT [FK_khachhang_UserGroup]
+GO
+ALTER TABLE [dbo].[khachsan]  WITH NOCHECK ADD  CONSTRAINT [FK_khachsan_khuvuc1] FOREIGN KEY([MaKhuVuc])
+REFERENCES [dbo].[khuvuc] ([MaKhuVuc])
+GO
+ALTER TABLE [dbo].[khachsan] NOCHECK CONSTRAINT [FK_khachsan_khuvuc1]
+GO
+ALTER TABLE [dbo].[Moc_Time]  WITH CHECK ADD  CONSTRAINT [FK_Moc_Time_phong] FOREIGN KEY([MaPhong])
+REFERENCES [dbo].[phong] ([MaPhong])
+GO
+ALTER TABLE [dbo].[Moc_Time] CHECK CONSTRAINT [FK_Moc_Time_phong]
+GO
+ALTER TABLE [dbo].[phanhoi]  WITH NOCHECK ADD  CONSTRAINT [FK_phanhoi_khachhang1] FOREIGN KEY([MaKh])
+REFERENCES [dbo].[khachhang] ([MaKh])
+NOT FOR REPLICATION 
+GO
+ALTER TABLE [dbo].[phanhoi] NOCHECK CONSTRAINT [FK_phanhoi_khachhang1]
+GO
+ALTER TABLE [dbo].[phong]  WITH NOCHECK ADD  CONSTRAINT [FK_phong_khachsan1] FOREIGN KEY([MaKhachSan])
+REFERENCES [dbo].[khachsan] ([MaKhachSan])
+GO
+ALTER TABLE [dbo].[phong] NOCHECK CONSTRAINT [FK_phong_khachsan1]
+GO
+ALTER TABLE [dbo].[tinnhan]  WITH NOCHECK ADD  CONSTRAINT [FK_tinnhan_khachhang1] FOREIGN KEY([MaKh])
+REFERENCES [dbo].[khachhang] ([MaKh])
+NOT FOR REPLICATION 
+GO
+ALTER TABLE [dbo].[tinnhan] NOCHECK CONSTRAINT [FK_tinnhan_khachhang1]
+GO
+ALTER TABLE [dbo].[tinnhan]  WITH CHECK ADD  CONSTRAINT [FK_tinnhan_PhongChat] FOREIGN KEY([MaPhongChat])
+REFERENCES [dbo].[PhongChat] ([MaPhongChat])
+GO
+ALTER TABLE [dbo].[tinnhan] CHECK CONSTRAINT [FK_tinnhan_PhongChat]
+GO
+ALTER TABLE [dbo].[tinnhanAdmin]  WITH CHECK ADD  CONSTRAINT [FK_tinnhanAdmin_khachhang] FOREIGN KEY([IdNguoiNhan])
+REFERENCES [dbo].[khachhang] ([MaKh])
+GO
+ALTER TABLE [dbo].[tinnhanAdmin] CHECK CONSTRAINT [FK_tinnhanAdmin_khachhang]
+GO
+ALTER TABLE [dbo].[tinnhanAdmin]  WITH CHECK ADD  CONSTRAINT [FK_tinnhanAdmin_khachhang1] FOREIGN KEY([IdNguoiGui])
+REFERENCES [dbo].[khachhang] ([MaKh])
+GO
+ALTER TABLE [dbo].[tinnhanAdmin] CHECK CONSTRAINT [FK_tinnhanAdmin_khachhang1]
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_DiagramPane1', @value=N'[0E232FF0-B466-11cf-A24F-00AA00A3EFFF, 1.00]
+Begin DesignProperties = 
+   Begin PaneConfigurations = 
+      Begin PaneConfiguration = 0
+         NumPanes = 4
+         Configuration = "(H (1[41] 4[31] 2[14] 3) )"
+      End
+      Begin PaneConfiguration = 1
+         NumPanes = 3
+         Configuration = "(H (1 [50] 4 [25] 3))"
+      End
+      Begin PaneConfiguration = 2
+         NumPanes = 3
+         Configuration = "(H (1 [50] 2 [25] 3))"
+      End
+      Begin PaneConfiguration = 3
+         NumPanes = 3
+         Configuration = "(H (4 [30] 2 [40] 3))"
+      End
+      Begin PaneConfiguration = 4
+         NumPanes = 2
+         Configuration = "(H (1 [56] 3))"
+      End
+      Begin PaneConfiguration = 5
+         NumPanes = 2
+         Configuration = "(H (2 [66] 3))"
+      End
+      Begin PaneConfiguration = 6
+         NumPanes = 2
+         Configuration = "(H (4 [50] 3))"
+      End
+      Begin PaneConfiguration = 7
+         NumPanes = 1
+         Configuration = "(V (3))"
+      End
+      Begin PaneConfiguration = 8
+         NumPanes = 3
+         Configuration = "(H (1[56] 4[18] 2) )"
+      End
+      Begin PaneConfiguration = 9
+         NumPanes = 2
+         Configuration = "(H (1 [75] 4))"
+      End
+      Begin PaneConfiguration = 10
+         NumPanes = 2
+         Configuration = "(H (1[66] 2) )"
+      End
+      Begin PaneConfiguration = 11
+         NumPanes = 2
+         Configuration = "(H (4 [60] 2))"
+      End
+      Begin PaneConfiguration = 12
+         NumPanes = 1
+         Configuration = "(H (1) )"
+      End
+      Begin PaneConfiguration = 13
+         NumPanes = 1
+         Configuration = "(V (4))"
+      End
+      Begin PaneConfiguration = 14
+         NumPanes = 1
+         Configuration = "(V (2))"
+      End
+      ActivePaneConfig = 0
+   End
+   Begin DiagramPane = 
+      Begin Origin = 
+         Top = 0
+         Left = 0
+      End
+      Begin Tables = 
+         Begin Table = "hoadon"
+            Begin Extent = 
+               Top = 6
+               Left = 38
+               Bottom = 202
+               Right = 208
+            End
+            DisplayFlags = 280
+            TopColumn = 5
+         End
+         Begin Table = "khachhang"
+            Begin Extent = 
+               Top = 6
+               Left = 246
+               Bottom = 136
+               Right = 416
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+         Begin Table = "khachsan"
+            Begin Extent = 
+               Top = 6
+               Left = 454
+               Bottom = 136
+               Right = 624
+            End
+            DisplayFlags = 280
+            TopColumn = 2
+         End
+         Begin Table = "khuvuc"
+            Begin Extent = 
+               Top = 6
+               Left = 662
+               Bottom = 102
+               Right = 832
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+      End
+   End
+   Begin SQLPane = 
+   End
+   Begin DataPane = 
+      Begin ParameterDefaults = ""
+      End
+   End
+   Begin CriteriaPane = 
+      Begin ColumnWidths = 11
+         Column = 1440
+         Alias = 900
+         Table = 1170
+         Output = 720
+         Append = 1400
+         NewValue = 1170
+         SortType = 1350
+         SortOrder = 1410
+         GroupBy = 1350
+         Filter = 1350
+         Or = 1350
+         Or = 1350
+         Or = 1350
+      End
+   End
+End
+' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'VIEW',@level1name=N'lichsu'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_DiagramPaneCount', @value=1 , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'VIEW',@level1name=N'lichsu'
+GO
+
+Từ thông tin này hãy tạo cho tôi một Biz Entity Class Diagram
