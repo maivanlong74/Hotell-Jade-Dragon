@@ -125,6 +125,7 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                 unv.Gmail = khachhang.Gmail;
                 unv.TenDn = khachhang.TenDn;
                 unv.IDGroup = khachhang.IDGroup;
+                unv.QLKhachSan = khachhang.QLKhachSan;
 
                 if (unv.Mk != khachhang.Mk)
                 {
@@ -156,6 +157,33 @@ namespace Jade_Dragon.Areas.Admin.Controllers
         // GET: Admin/QLKhachHang/Delete/5
         public ActionResult Delete(long id)
         {
+            List<tinnhan> tn = db.tinnhans.Where(m => m.MaKh == id).ToList();
+            List<tinnhanAdmin> tnAdmin = db.tinnhanAdmins.Where(n => n.IdNguoiGui == id || n.IdNguoiNhan == id).ToList();
+            List<hoadon> hd = db.hoadons.Where(c => c.MaKh == id).ToList();
+
+            if(tn != null)
+            {
+                foreach(var i in tn)
+                {
+                    db.tinnhans.Remove(i);
+                }
+            }
+            if(tnAdmin != null)
+            {
+                foreach(var o in tnAdmin)
+                {
+                    db.tinnhanAdmins.Remove(o);
+                }
+            }
+            if(hd != null)
+            {
+                foreach (var j in hd)
+                {
+                    j.MaKh = null;
+                }
+            }
+            db.SaveChanges();
+
             khachhang kh = db.khachhangs.FirstOrDefault(x => x.MaKh == id);
             db.khachhangs.Remove(kh);
             db.SaveChanges();

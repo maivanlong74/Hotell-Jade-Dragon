@@ -636,12 +636,14 @@
     <Content Include="Areas\Admin\Public\img\icon_MuiTenTop.jpg" />
     <Content Include="Areas\Admin\Public\img\muiten.jpg" />
     <Content Include="Areas\Admin\Public\img\muitenn.jpg" />
-    <Content Include="Areas\Admin\Public\js\Chat_Admin.js" />
+    <Content Include="Areas\Admin\Public\js\Chat\Chat_Admin.js" />
+    <Content Include="Areas\Admin\Public\js\Chat\Chat_Manage.js" />
     <Content Include="Areas\Admin\Public\js\ChucNang.js" />
     <Content Include="Areas\Admin\Public\js\dataTables_min.js" />
     <Content Include="Areas\Admin\Public\js\GiaTien.js" />
     <Content Include="Areas\Admin\Public\js\js_jquery.js" />
     <Content Include="Areas\Admin\Public\js\js.js" />
+    <Content Include="Areas\Admin\Public\js\Map\Map_CreateManage_Ks.js" />
     <Content Include="Areas\Admin\Public\js\Map\Map_Create_Ks.js" />
     <Content Include="Areas\Admin\Public\js\Map\Map_Edit_Ks.js" />
     <Content Include="Areas\Admin\Public\js\Map\Map_KhuVuc.js" />
@@ -703,7 +705,6 @@
     <Content Include="Global.asax" />
     <Content Include="LICENSE.txt" />
     <Content Include="Areas\Admin\Views\QuanLyPhong\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\QuanLyPhong\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\QuanLyPhong\Details.cshtml" />
     <Content Include="Areas\Admin\Views\QuanLyPhong\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\QuanLyPhong\Phong.cshtml" />
@@ -756,6 +757,11 @@
     <Content Include="Areas\Admin\Views\TinNhanAdmin\TinNhanAdmin.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\LayoutManage.cshtml" />
     <Content Include="Areas\Admin\Views\TrangChuAdmin\TrangChuManage.cshtml" />
+    <Content Include="Areas\Admin\Views\QLKhachHang\QuanLyKhManage.cshtml" />
+    <Content Include="Areas\Admin\Views\QLKhachSan\EditManage.cshtml" />
+    <Content Include="Areas\Admin\Views\LichSu\LichSuManage.cshtml" />
+    <Content Include="Areas\Admin\Views\PhanHoi\PhanHoiManage.cshtml" />
+    <Content Include="Areas\Admin\Views\TinNhanAdmin\TinNhanManage.cshtml" />
     <EntityDeploy Include="Models\Model.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model.Designer.cs</LastGenOutput>
@@ -763,7 +769,11 @@
     <Content Include="Models\Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
-    <Content Include="Areas\Admin\Views\QLKhachHang\QuanLyKhManage.cshtml" />
+    <Content Include="Areas\Admin\Views\QLKhachSan\CreateManage.cshtml" />
+    <Content Include="Areas\Admin\Views\PhongManage\CreateManage.cshtml" />
+    <Content Include="Areas\Admin\Views\PhongManage\DetailsManage.cshtml" />
+    <Content Include="Areas\Admin\Views\PhongManage\EditManage.cshtml" />
+    <Content Include="Areas\Admin\Views\PhongManage\PhongManage.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Controller\turf.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -854,6 +864,7 @@
     <Compile Include="Areas\Admin\Controllers\khuvucController.cs" />
     <Compile Include="Areas\Admin\Controllers\LichSuController.cs" />
     <Compile Include="Areas\Admin\Controllers\PhanHoiController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PhongManageController.cs" />
     <Compile Include="Areas\Admin\Controllers\QLKhachHangController.cs" />
     <Compile Include="Areas\Admin\Controllers\QLKhachSanController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuanLyPhongController.cs" />

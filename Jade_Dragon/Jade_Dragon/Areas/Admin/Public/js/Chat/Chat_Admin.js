@@ -147,13 +147,14 @@ function ChatUser(chat, MaNguoiNhan, TenNguoiNhan, MaNguoiGui) {
 
 function CreateGroup(chat) {
     var room_new = $('#txtCreate').val();
+    var maks = $('#maks').val();
 
     if (confirm("Bạn chắc chắn sẽ tạo phòng này?")) {
         if (room_new.length > 25) {
             alert("Tên phòng không được vượt quá 25 ký tự!");
             return;
         }
-        chat.server.taoMoi(room_new);
+        chat.server.taoMoi(room_new, maks);
         document.querySelector('.Create-new').classList.add('hidden');
         document.querySelector('.Show').classList.remove('hidden');
         $('#txtCreate').val('').focus();

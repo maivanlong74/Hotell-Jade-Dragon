@@ -4,6 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using DocumentFormat.OpenXml.Office2010.Excel;
+using DocumentFormat.OpenXml.Office2010.ExcelAc;
 using Jade_Dragon.Models;
 
 namespace Jade_Dragon.Areas.Admin.Controllers
@@ -17,11 +19,32 @@ namespace Jade_Dragon.Areas.Admin.Controllers
             var nguoiTruyCap = db.SoLuongNguoiTruyCaps.FirstOrDefault();
             ViewBag.NguoiTruyCap = nguoiTruyCap.SoLuongNguoi.ToString();
             ViewBag.NguoiOnline = HttpContext.Application["NguoiOnline"].ToString();
-            ViewBag.tongdoanhthu = doanhthu();
-            ViewBag.sldonhang = thongkedonhang();
             ViewBag.sluser = thongkenguoidung();
-            var ListLs = db.lichsus.ToList();
-            return View("LichSu", ListLs);
+            var ks = db.khachsans.ToList();
+
+            if(ks.Count > 0)
+            {
+                var hd = db.hoadons.ToList();
+                if(hd.Count > 0)
+                {
+                    ViewBag.tongdoanhthu = doanhthu();
+                    ViewBag.sldonhang = thongkedonhang();
+                }
+                else
+                {
+                    ViewBag.tongdoanhthu = null;
+                    ViewBag.sldonhang = null;
+                }
+
+                var ListLs = db.lichsus.ToList();
+                ViewBag.ksks = "abc";
+                return View("LichSu", ListLs);
+            }
+            else
+            {
+                ViewBag.ksks = null;
+                return View("LichSu");
+            }
         }
 
         public decimal doanhthu()
@@ -89,6 +112,39 @@ namespace Jade_Dragon.Areas.Admin.Controllers
             return tong;
         }
 
+        public ActionResult LichSuManage(long? id)
+        {
+            var nguoiTruyCap = db.SoLuongNguoiTruyCaps.FirstOrDefault();
+            ViewBag.NguoiTruyCap = nguoiTruyCap.SoLuongNguoi.ToString();
+            ViewBag.NguoiOnline = HttpContext.Application["NguoiOnline"].ToString();
+            ViewBag.sluser = db.khachhangs.Count();
+            khachsan ks = db.khachsans.Find(id);
+
+            if (ks != null)
+            {
+                hoadon hd = db.hoadons.FirstOrDefault(m => m.MaKhachSan == id);
+                if (hd != null)
+                {
+                    ViewBag.tongdoanhthuks = db.hoadons.Where(m => m.MaKhachSan == id).Sum(n => n.TongTien).Value;
+                    ViewBag.sldonhangks = db.hoadons.Where(m => m.MaKhachSan == id).Count();
+                }
+                else
+                {
+                    ViewBag.tongdoanhthu = null;
+                    ViewBag.sldonhang = null;
+                }
+
+                var ListLs = db.lichsus.Where(m => m.MaKhachSan == id).ToList();
+                ViewBag.ksks = "123";
+                return View("LichSuManage", ListLs);
+            }
+            else
+            {
+                ViewBag.ksks = null;
+                return View("LichSuManage");
+            }
+            
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

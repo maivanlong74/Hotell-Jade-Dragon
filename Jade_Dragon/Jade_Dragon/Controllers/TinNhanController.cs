@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace Jade_Dragon.Controllers
 {
-    public class TinNhanController : baseController
+    public class TinNhanController : Controller
     {
         private Connect db = new Connect();
         // GET: TinNhan

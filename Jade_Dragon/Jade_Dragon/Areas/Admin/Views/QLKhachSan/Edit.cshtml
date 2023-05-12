@@ -4,7 +4,11 @@
     Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
 }
 <link href="~/Areas/Admin/Public/css/Map/Css_MuiTen.css" rel="stylesheet" />
-
+<style>
+    .body #muiten_map2 {
+        display: none;
+    }
+</style>
 <div class="home">
     <div class="body" id="body">
         <h1 style="color: wheat; font-weight: 700; margin-left: 140px; padding-top: 40px;">
@@ -118,14 +122,14 @@
 
             </div>
         </div>
-        <div class="MuiTen_Map muiten_map">
+        <div class="muiten_map" id="muiten_map1">
             <button type="button" id="MuiTen" class="MuiTen move">
                 <img src="~/Areas/Admin/Public/img/muiten.jpg" />
             </button> <br />
             <i>Bản đồ</i>
         </div>
 
-        <div class="MuiTen_Map_Top muiten_map">
+        <div class="muiten_map" id="muiten_map2">
             <button type="button" id="MuiTen_Top" class="MuiTen move">
                 <img src="~/Areas/Admin/Public/img/muitenn.jpg" />
             </button> <br />

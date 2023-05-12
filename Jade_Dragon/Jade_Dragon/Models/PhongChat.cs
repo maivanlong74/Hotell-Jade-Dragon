@@ -22,7 +22,9 @@ namespace Jade_Dragon.Models
     
         public long MaPhongChat { get; set; }
         public string TenPhongChat { get; set; }
+        public Nullable<long> MaKhachSan { get; set; }
     
+        public virtual khachsan khachsan { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tinnhan> tinnhans { get; set; }
     }

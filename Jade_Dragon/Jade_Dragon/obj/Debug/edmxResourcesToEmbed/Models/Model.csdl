@@ -48,6 +48,7 @@
     <Property Name="DatCoc" Type="Int64" />
     <Property Name="HinhThuc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="MaError" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="SoLuongCTHD" Type="Int32" />
     <NavigationProperty Name="ErrorPay" Relationship="Self.FK_hoadon_ErrorPay" FromRole="hoadon" ToRole="ErrorPay" />
     <NavigationProperty Name="khachhang" Relationship="Self.FK_hoadon_khachhang" FromRole="hoadon" ToRole="khachhang" />
     <NavigationProperty Name="khachsan" Relationship="Self.FK_hoadon_khachsan" FromRole="hoadon" ToRole="khachsan" />
@@ -98,6 +99,7 @@
     <NavigationProperty Name="khachhangs" Relationship="Self.FK_khachhang_khachsan" FromRole="khachsan" ToRole="khachhang" />
     <NavigationProperty Name="khuvuc" Relationship="Self.FK_khachsan_khuvuc1" FromRole="khachsan" ToRole="khuvuc" />
     <NavigationProperty Name="phongs" Relationship="Self.FK_phong_khachsan1" FromRole="khachsan" ToRole="phong" />
+    <NavigationProperty Name="PhongChats" Relationship="Self.FK_PhongChat_khachsan" FromRole="khachsan" ToRole="PhongChat" />
   </EntityType>
   <EntityType Name="khuvuc">
     <Key>
@@ -151,6 +153,8 @@
     </Key>
     <Property Name="MaPhongChat" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="TenPhongChat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MaKhachSan" Type="Int64" />
+    <NavigationProperty Name="khachsan" Relationship="Self.FK_PhongChat_khachsan" FromRole="PhongChat" ToRole="khachsan" />
     <NavigationProperty Name="tinnhans" Relationship="Self.FK_tinnhan_PhongChat" FromRole="PhongChat" ToRole="tinnhan" />
   </EntityType>
   <EntityType Name="SoLuongNguoiTruyCap">
@@ -207,12 +211,15 @@
   <EntityType Name="lichsu">
     <Key>
       <PropertyRef Name="MaHoaDon" />
+      <PropertyRef Name="MaKhachSan" />
     </Key>
     <Property Name="MaHoaDon" Type="Int64" Nullable="false" />
     <Property Name="HoTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="TenKhachSan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="TenKhuVuc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SoLuongCTHD" Type="Int32" />
     <Property Name="NgayDat" Type="DateTime" Precision="3" />
+    <Property Name="TongTien" Type="Int64" />
+    <Property Name="MaKhachSan" Type="Int64" Nullable="false" />
   </EntityType>
   <Association Name="FK_machitiethoadon_phong">
     <End Role="phong" Type="Self.phong" Multiplicity="0..1" />
@@ -382,6 +389,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_PhongChat_khachsan">
+    <End Role="khachsan" Type="Self.khachsan" Multiplicity="0..1" />
+    <End Role="PhongChat" Type="Self.PhongChat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="khachsan">
+        <PropertyRef Name="MaKhachSan" />
+      </Principal>
+      <Dependent Role="PhongChat">
+        <PropertyRef Name="MaKhachSan" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Moc_Time_phong">
     <End Role="phong" Type="Self.phong" Multiplicity="0..1" />
     <End Role="Moc_Time" Type="Self.Moc_Time" Multiplicity="*" />
@@ -479,6 +498,10 @@
     <AssociationSet Name="FK_phong_khachsan1" Association="Self.FK_phong_khachsan1">
       <End Role="khachsan" EntitySet="khachsans" />
       <End Role="phong" EntitySet="phongs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PhongChat_khachsan" Association="Self.FK_PhongChat_khachsan">
+      <End Role="khachsan" EntitySet="khachsans" />
+      <End Role="PhongChat" EntitySet="PhongChats" />
     </AssociationSet>
     <AssociationSet Name="FK_Moc_Time_phong" Association="Self.FK_Moc_Time_phong">
       <End Role="phong" EntitySet="phongs" />

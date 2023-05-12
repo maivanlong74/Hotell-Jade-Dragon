@@ -298,3 +298,6 @@ body.dark .mode .sun-moon i.moon {
     width: calc(100% - 78px);
 }
 
+.dataTables_wrapper .dataTables_filter input {
+    color: white;
+}

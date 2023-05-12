@@ -16,14 +16,20 @@
     }
 
     .Content--a .a {
-        margin-left: 60px;
-        margin-top: 30px;
+        width: 90%;
+        margin-left: 12px;
+        margin-top: 40px;
+        word-wrap: break-word;
     }
 
-.lichsu {
-    width: 1057px;
-    background: rgba(0,0,0,0.7);
-}
+        .Content--a .a i{
+            font-size: 15px;
+        }
+
+        .lichsu {
+            width: 1057px;
+            background: rgba(0,0,0,0.7);
+        }
 
 .dataTables_wrapper {
     position: relative;

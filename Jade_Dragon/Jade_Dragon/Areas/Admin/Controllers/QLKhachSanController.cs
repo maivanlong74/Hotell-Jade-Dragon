@@ -192,18 +192,19 @@ namespace Jade_Dragon.Areas.Admin.Controllers
         // GET: Admin/khachsans/Delete/5
         public ActionResult Delete(long? id)
         {
-            khachsan ks = db.khachsans.FirstOrDefault(x => x.MaKhachSan == id);
-            List<hoadon> hoadon = db.hoadons.Where(x => x.MaKhachSan == id).ToList();
-            if (hoadon != null)
+            khachhang kh = db.khachhangs.FirstOrDefault(m => m.QLKhachSan == id);
+            if(kh != null)
             {
-                foreach (var hd in hoadon)
+                kh.QLKhachSan = null;
+            }
+
+            List<hoadon> hd = db.hoadons.Where(c => c.MaKhachSan == id).ToList();
+            if(hd != null)
+            {
+                foreach(hoadon h in hd)
                 {
-                    List<chitiethoadon> cthd = db.chitiethoadons.Where(x => x.MaHoaDon == hd.MaHoaDon).ToList();
-                    foreach(var ct in cthd)
-                    {
-                        db.chitiethoadons.Remove(ct);
-                    }
-                    db.hoadons.Remove(hd);
+                    h.MaKhachSan = null;
+                    db.SaveChanges();
                 }
             }
             List<phong> phong = db.phongs.Where(x => x.MaKhachSan == id).ToList();
@@ -222,7 +223,26 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                     db.phongs.Remove(dem);
                 }
             }
+            List<PhongChat> phongChat = db.PhongChats.Where(l => l.MaKhachSan == id).ToList();
+            if (phongChat != null)
+            {
+                foreach (var chat in phongChat)
+                {
+                    List<tinnhan> tn = db.tinnhans.Where(k => k.MaPhongChat == chat.MaPhongChat).ToList();
+                    if (tn != null)
+                    {
+                        foreach (var t in tn)
+                        {
+                            db.tinnhans.Remove(t);
+                        }
+                    }
+                    db.SaveChanges();
+                    db.PhongChats.Remove(chat);
+                }
+            }
             db.SaveChanges();
+
+            khachsan ks = db.khachsans.FirstOrDefault(x => x.MaKhachSan == id);
             db.khachsans.Remove(ks);
             db.SaveChanges();
             return RedirectToAction("QuanLyKs");
@@ -271,6 +291,227 @@ namespace Jade_Dragon.Areas.Admin.Controllers
             }
 
             return code;
+        }
+
+        /*------------------Manage------------------------*/
+
+        public ActionResult CreateManage()
+        {
+            var ks = db.khachsans.ToList();
+            return View("CreateManage", ks);
+        }
+
+        // POST: Admin/khachsans/Create
+        [HttpPost]
+        public ActionResult CreateManage(string TenKhachSan, long SoDienThoai, string Gmail, string DiaChi,
+            string GiaTien, string KinhDo, string ViDo, string TenKhuVuc, long khachhang_map, HttpPostedFileBase Avt)
+        {
+            khuvuc khuvuc = db.khuvucs.FirstOrDefault(m => m.TenKhuVuc == TenKhuVuc);
+            decimal Gia = decimal.Parse(GiaTien);
+            if (khuvuc == null)
+            {
+                var kv = new khuvuc();
+                {
+                    kv.TenKhuVuc = TenKhuVuc;
+                    kv.KinhDo = KinhDo.ToString();
+                    kv.ViDo = ViDo.ToString();
+                }
+                db.khuvucs.Add(kv);
+                db.SaveChanges();
+                khuvuc k_v = db.khuvucs.FirstOrDefault(m => m.TenKhuVuc == TenKhuVuc);
+
+                var ks = new khachsan();
+                {
+                    ks.TenKhachSan = TenKhachSan;
+                    ks.SoDienThoai = SoDienThoai;
+                    ks.Gmail = Gmail;
+                    ks.DiaChi = DiaChi;
+                    ks.KinhDo = KinhDo.ToString();
+                    ks.ViDo = ViDo.ToString();
+                    ks.Gia = (long?)Gia;
+                    ks.MaKhuVuc = k_v.MaKhuVuc;
+                    ks.TrangThaiKs = true;
+                }
+                db.khachsans.Add(ks);
+                db.SaveChanges();
+                Up_IMG(ks, Avt);
+            }
+            else
+            {
+                var ks = new khachsan();
+                {
+                    ks.TenKhachSan = TenKhachSan;
+                    ks.SoDienThoai = SoDienThoai;
+                    ks.Gmail = Gmail;
+                    ks.DiaChi = DiaChi;
+                    ks.KinhDo = KinhDo.ToString();
+                    ks.ViDo = ViDo.ToString();
+                    ks.Gia = (long?)Gia;
+                    ks.MaKhuVuc = khuvuc.MaKhuVuc;
+                    ks.TrangThaiKs = true;
+                }
+                db.khachsans.Add(ks);
+                db.SaveChanges();
+                Up_IMG(ks, Avt);
+            }
+            khachsan ksks = db.khachsans.FirstOrDefault(m => m.TenKhachSan == TenKhachSan);
+            khachhang khkh = db.khachhangs.Find(khachhang_map);
+            khkh.QLKhachSan = ksks.MaKhachSan;
+            db.SaveChanges();
+            return Redirect("~/Admin/QLKhachSan/EditManage/" + ksks.MaKhachSan);
+        }
+
+        // GET: Admin/khachsans/Edit/5
+        public ActionResult EditManage(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            khachsan khachsan = db.khachsans.Find(id);
+            if (khachsan == null)
+            {
+                return HttpNotFound();
+            }
+            Session["TenKhachSan"] = khachsan.TenKhachSan;
+            return View(khachsan);
+        }
+
+        // POST: Admin/khachsans/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditManage(long MaKhachSan, string TenKhachSan, long SoDienThoai, string Gmail, string DiaChi,
+            long Gia, string KinhDo, string ViDo, string TenKhuVuc, bool TrangThaiKs, HttpPostedFileBase uploadhinh)
+        {
+            khuvuc khuvuc = db.khuvucs.FirstOrDefault(m => m.TenKhuVuc == TenKhuVuc);
+            khachsan ks = db.khachsans.Find(MaKhachSan);
+            if (khuvuc == null)
+            {
+                if (KinhDo == null && ViDo == null)
+                {
+                    WebMsgBox.Show("Bạn vui lòng chọn địa điểm trên bản đồ", this);
+                    return View();
+                }
+                var kv = new khuvuc();
+                {
+                    kv.TenKhuVuc = TenKhuVuc;
+                    kv.KinhDo = KinhDo;
+                    kv.ViDo = ViDo;
+                }
+                db.khuvucs.Add(kv);
+                db.SaveChanges();
+                khuvuc k_v = db.khuvucs.FirstOrDefault(m => m.TenKhuVuc == TenKhuVuc);
+
+                ks.TenKhachSan = TenKhachSan;
+                ks.SoDienThoai = SoDienThoai;
+                ks.Gmail = Gmail;
+                ks.DiaChi = DiaChi;
+                ks.KinhDo = KinhDo;
+                ks.ViDo = ViDo;
+                ks.Gia = Gia;
+                ks.MaKhuVuc = k_v.MaKhuVuc;
+                ks.TrangThaiKs = TrangThaiKs;
+                db.SaveChanges();
+            }
+            else
+            {
+                ks.TenKhachSan = TenKhachSan;
+                ks.SoDienThoai = SoDienThoai;
+                ks.Gmail = Gmail;
+                ks.DiaChi = DiaChi;
+                ks.KinhDo = KinhDo;
+                ks.ViDo = ViDo;
+                ks.Gia = Gia;
+                ks.MaKhuVuc = khuvuc.MaKhuVuc;
+                ks.TrangThaiKs = TrangThaiKs;
+                db.SaveChanges();
+            }
+
+            if (uploadhinh != null && uploadhinh.ContentLength > 0)
+            {
+                if (uploadhinh.ContentLength > 1024000) // check if image size is greater than 1MB
+                {
+                    WebMsgBox.Show("Kích thước ảnh vượt quá giới hạn cho phép (1MB)", this);
+                    return Redirect("~/Admin/QLKhachSan/EditManage/" + ks.MaKhachSan);
+                }
+                else
+                {
+                    string _FileName = "";
+                    string code = RandomCode();
+                    int index = uploadhinh.FileName.IndexOf('.');
+                    _FileName = "nv" + code + "." + uploadhinh.FileName.Substring(index + 1);
+                    string _path = Path.Combine(Server.MapPath("~/UpLoad_Img/KhachSan"), _FileName);
+                    uploadhinh.SaveAs(_path);
+                    ks.AnhKs = _FileName;
+                }
+
+            }
+            db.SaveChanges();
+            return Redirect("~/Admin/QLKhachSan/EditManage/" + ks.MaKhachSan);
+        }
+
+        public ActionResult DeleteManage(long? id)
+        {
+            khachhang kh = db.khachhangs.FirstOrDefault(m => m.QLKhachSan == id);
+            kh.QLKhachSan = null;
+
+            List<hoadon> hd = db.hoadons.Where(c => c.MaKhachSan == id).ToList();
+            if (hd != null)
+            {
+                foreach (hoadon h in hd)
+                {
+                    h.MaKhachSan = null;
+                    db.SaveChanges();
+                }
+            }
+            List<phong> phong = db.phongs.Where(x => x.MaKhachSan == id).ToList();
+            if (phong != null)
+            {
+                foreach (var dem in phong)
+                {
+                    List<Moc_Time> moc_time = db.Moc_Time.Where(x => x.MaPhong == dem.MaPhong).ToList();
+                    if (moc_time != null)
+                    {
+                        foreach (var moc in moc_time)
+                        {
+                            db.Moc_Time.Remove(moc);
+                        }
+                    }
+                    db.phongs.Remove(dem);
+                }
+            }
+            List<PhongChat> phongChat = db.PhongChats.Where(l => l.MaKhachSan == id).ToList();
+            if(phongChat != null)
+            {
+                foreach (var chat in phongChat)
+                {
+                    List<tinnhan> tn = db.tinnhans.Where(k => k.MaPhongChat == chat.MaPhongChat).ToList();
+                    if (tn != null)
+                    {
+                        foreach(var t in tn)
+                        {
+                            db.tinnhans.Remove(t);
+                        }
+                    }
+                    db.SaveChanges();
+                    db.PhongChats.Remove(chat);
+                }
+            }
+            db.SaveChanges();
+
+            khachsan ks = db.khachsans.FirstOrDefault(x => x.MaKhachSan == id);
+            db.khachsans.Remove(ks);
+            db.SaveChanges();
+            return RedirectToAction("CreateManage");
+        }
+
+        public ActionResult XoaAnhManage(long? ks)
+        {
+            khachsan khachsan = db.khachsans.Find(ks);
+            khachsan.AnhKs = null;
+
+            db.SaveChanges();
+            return Redirect("~/Admin/QLKhachSan/EditManage/" + khachsan.MaKhachSan);
         }
 
         protected override void Dispose(bool disposing)

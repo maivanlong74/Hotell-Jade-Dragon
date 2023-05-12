@@ -47,6 +47,7 @@
           <ScalarProperty Name="DatCoc" ColumnName="DatCoc" />
           <ScalarProperty Name="HinhThuc" ColumnName="HinhThuc" />
           <ScalarProperty Name="MaError" ColumnName="MaError" />
+          <ScalarProperty Name="SoLuongCTHD" ColumnName="SoLuongCTHD" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -135,6 +136,7 @@
         <MappingFragment StoreEntitySet="PhongChat">
           <ScalarProperty Name="MaPhongChat" ColumnName="MaPhongChat" />
           <ScalarProperty Name="TenPhongChat" ColumnName="TenPhongChat" />
+          <ScalarProperty Name="MaKhachSan" ColumnName="MaKhachSan" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -195,8 +197,10 @@
           <ScalarProperty Name="MaHoaDon" ColumnName="MaHoaDon" />
           <ScalarProperty Name="HoTen" ColumnName="HoTen" />
           <ScalarProperty Name="TenKhachSan" ColumnName="TenKhachSan" />
-          <ScalarProperty Name="TenKhuVuc" ColumnName="TenKhuVuc" />
+          <ScalarProperty Name="SoLuongCTHD" ColumnName="SoLuongCTHD" />
           <ScalarProperty Name="NgayDat" ColumnName="NgayDat" />
+          <ScalarProperty Name="TongTien" ColumnName="TongTien" />
+          <ScalarProperty Name="MaKhachSan" ColumnName="MaKhachSan" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

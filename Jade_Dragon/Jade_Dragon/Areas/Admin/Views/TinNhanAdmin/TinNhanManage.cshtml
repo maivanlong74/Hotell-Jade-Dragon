@@ -1,15 +1,23 @@
 ﻿@model Jade_Dragon.Models.Chat_Admin
 
 @{
-    ViewBag.Title = "TinNhanAdmin";
-    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+    ViewBag.Title = "TinNhanManage";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutManage.cshtml";
 }
+
 <link href="~/Areas/Admin/Public/css/css_ChatAdmin.css" rel="stylesheet" />
 <style>
-    .list-chat .list-Group li select {
-        display: block;
-        margin-top: 40px;
-        margin-left: -210px;
+    .list-chat .list-User {
+        height: 20%;
+    }
+    .list-chat .list-User span {
+        height: 35%;
+    }
+    .list-chat .list-Group {
+        height: 75%;
+    }
+    .list-chat .list-Group span {
+        height: 10%;
     }
 </style>
 <div class="home">
@@ -18,29 +26,9 @@
             <div class="body-item-chat">
                 <div class="list-chat">
                     <div style="height: 5%;"></div>
-                    <div class="list-Group list-chat-a">
-                        <span>Nhóm chat</span>
-                        <ul id="Create_Room">
-                            <li class="Show">
-                                <button type="submit" id="Create">
-                                    <img src="~/Style/img/icon/icon-them.jpg" style="width: 20px;" />
-                                </button>
-                            </li>
-                            <li class="Create-new">
-                                <input type="text" placeholder="Tạo nhóm mới" class="input" id="txtCreate" />
-                                <button type="submit" class="button">Thêm</button> 
-                                <select id="maks">
-                                    <option value="">Không chọn</option>
-                                    @foreach (var o in Model.ks)
-                                    {
-                                        <option value="@o.MaKhachSan">@o.TenKhachSan</option>
-                                    }
-                                </select>
-                            </li>
-                        </ul>
-                    </div>
+
                     <div class="list-User list-chat-a">
-                        <span>Khách hàng</span>
+                        <span>Admin</span>
                         <ul>
                             @foreach (var dem in Model.kh)
                             {
@@ -52,6 +40,22 @@
                             }
                         </ul>
                     </div>
+                    <div class="list-Group list-chat-a">
+                        <span>Nhóm chat</span>
+                        <ul id="Create_Room">
+                            <li class="Show">
+                                <button type="submit" id="Create">
+                                    <img src="~/Style/img/icon/icon-them.jpg" style="width: 20px;" />
+                                </button>
+                                <input type="hidden" id="maks" value="@Session["MaKhachSan_ks"]"/>
+                            </li>
+                            <li class="Create-new">
+                                <input type="text" placeholder="Tạo nhóm mới" class="input" id="txtCreate" />
+                                <button type="submit" class="button">Thêm</button>
+                            </li>
+                        </ul>
+                    </div>
+
                 </div>
                 <div class="htchat">
                     <div id="tenphong">@Session["TenPhong"]</div>
@@ -80,5 +84,5 @@
 <script src="~/Scripts/jquery-1.10.2.js"></script>
 <script src="~/Scripts/jquery.signalR-2.4.3.min.js"></script>
 <script src="~/signalr/hubs"></script>
-<script src="~/Areas/Admin/Public/js/Chat/Chat_Admin.js"></script>
+<script src="~/Areas/Admin/Public/js/Chat/Chat_Manage.js"></script>
 

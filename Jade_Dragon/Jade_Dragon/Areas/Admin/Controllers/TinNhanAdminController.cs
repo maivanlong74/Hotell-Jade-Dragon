@@ -20,7 +20,8 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                 Session["TenPhong"] = phong.TenPhongChat; // lưu tên phòng vào session "TenPhong"
             }
             Chat_Admin chat = new Chat_Admin();
-            chat.kh = db.khachhangs.Where(n => n.IDGroup == 2).ToList();
+            chat.kh = db.khachhangs.Where(n => n.IDGroup == 2 || n.IDGroup == 3).ToList();
+            chat.ks = db.khachsans.ToList();
             return View(chat);
         }
 
@@ -44,5 +45,17 @@ namespace Jade_Dragon.Areas.Admin.Controllers
             return Redirect("TinNhanAdmin");
         }
 
+        public ActionResult TinNhanManage()
+        {
+            var phong = db.PhongChats.FirstOrDefault(); // lấy ra phòng đầu tiên trong danh sách
+            if (phong != null) // kiểm tra nếu danh sách phòng không rỗng
+            {
+                Session["MaPhong"] = phong.MaPhongChat; // lưu mã phòng vào session "MaPhong"
+                Session["TenPhong"] = phong.TenPhongChat; // lưu tên phòng vào session "TenPhong"
+            }
+            Chat_Admin chat = new Chat_Admin();
+            chat.kh = db.khachhangs.Where(n => n.IDGroup == 1).ToList();
+            return View(chat);
+        }
     }
 }

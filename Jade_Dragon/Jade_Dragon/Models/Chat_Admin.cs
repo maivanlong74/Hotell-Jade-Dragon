@@ -9,5 +9,6 @@ namespace Jade_Dragon.Models
     {
         public List<PhongChat> phchat { set; get; }
         public List<khachhang> kh { set; get; }
+        public List<khachsan> ks { set; get; }
     }
 }

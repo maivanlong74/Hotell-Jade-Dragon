@@ -44,6 +44,22 @@ namespace Jade_Dragon.Areas.Admin.Controllers
             return RedirectToAction("PhanHoi");
         }
 
+        public ActionResult PhanHoiManage()
+        {
+            var listkh = db.khachhangs.Select(kh => kh.MaKh).ToList();
+            var listph = db.phanhois.Include(k => k.khachhang).ToList();
+
+            foreach (var item in listph)
+            {
+                if (item.MaKh != null && !listkh.Contains(item.MaKh.Value))
+                {
+                    item.MaKh = null;
+                }
+            }
+            db.SaveChanges();
+
+            return View("PhanHoiManage", listph);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

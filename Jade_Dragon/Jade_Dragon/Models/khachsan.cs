@@ -21,6 +21,7 @@ namespace Jade_Dragon.Models
             this.hoadons = new HashSet<hoadon>();
             this.khachhangs = new HashSet<khachhang>();
             this.phongs = new HashSet<phong>();
+            this.PhongChats = new HashSet<PhongChat>();
         }
     
         public long MaKhachSan { get; set; }
@@ -44,5 +45,7 @@ namespace Jade_Dragon.Models
         public virtual khuvuc khuvuc { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<phong> phongs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PhongChat> PhongChats { get; set; }
     }
 }

@@ -27,6 +27,7 @@ namespace Jade_Dragon.Models
         public Nullable<long> DatCoc { get; set; }
         public string HinhThuc { get; set; }
         public string MaError { get; set; }
+        public Nullable<int> SoLuongCTHD { get; set; }
     
         public virtual ErrorPay ErrorPay { get; set; }
         public virtual khachhang khachhang { get; set; }

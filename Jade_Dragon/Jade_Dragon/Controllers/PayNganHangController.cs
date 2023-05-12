@@ -66,19 +66,26 @@ namespace Jade_Dragon.Controllers
                     }
                 }
 
+                
                 long orderId = Convert.ToInt64(pay.GetResponseData("vnp_TxnRef")); //mã hóa đơn
                 long vnpayTranId = Convert.ToInt64(pay.GetResponseData("vnp_TransactionNo")); //mã giao dịch tại hệ thống VNPAY
                 string vnp_ResponseCode = pay.GetResponseData("vnp_ResponseCode"); //response code: 00 - thành công, khác 00 - xem thêm https://sandbox.vnpayment.vn/apis/docs/bang-ma-loi/
                 string vnp_SecureHash = Request.QueryString["vnp_SecureHash"]; //hash của dữ liệu trả về
-
                 bool checkSignature = pay.ValidateSignature(vnp_SecureHash, hashSecret); //check chữ ký đúng hay không?
 
                 if (checkSignature)
                 {
                     if (vnp_ResponseCode == "00")
                     {
+                        long slct = 0;
+                        var cthdd = db.chitiethoadons.Where(m => m.MaHoaDon == orderId).ToList();
+                        foreach(var m in cthdd)
+                        {
+                            slct++;
+                        }
                         hoadon hd = db.hoadons.Find(orderId);
                         hd.MaError = vnp_ResponseCode;
+                        hd.SoLuongCTHD = (int)slct;
                         db.SaveChanges();
 
                         ViewBag.now = DateTime.Now;

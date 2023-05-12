@@ -17,7 +17,9 @@ namespace Jade_Dragon.Models
         public long MaHoaDon { get; set; }
         public string HoTen { get; set; }
         public string TenKhachSan { get; set; }
-        public string TenKhuVuc { get; set; }
+        public Nullable<int> SoLuongCTHD { get; set; }
         public Nullable<System.DateTime> NgayDat { get; set; }
+        public Nullable<long> TongTien { get; set; }
+        public long MaKhachSan { get; set; }
     }
 }

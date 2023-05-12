@@ -28,26 +28,16 @@
             @using (Html.BeginForm("TrangCaNhan", "User", FormMethod.Post,
                                 new { enctype = "multipart/form-data", @class = "home__container__slider" }))
             {
-                @*<div class="home__container__slider">*@
                     <div class="User--avt">
                         <div class="User--avt-a">
-                            @*@using (Html.BeginForm("TrangCaNhan", "User", FormMethod.Post,
-                                    new { enctype = "multipart/form-data", @class = "Content--user" }))
-                            {*@
                             <div class="Content--user">
                                 @Html.AntiForgeryToken()
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                 @Html.HiddenFor(model => model.MaKh)
 
-                                @*<input type="text" placeholder="Họ Và Tên" value="@Model.HoTen" class="name" name="HoTen" id="HoTen">*@ <br>
                                 @Html.EditorFor(model => model.HoTen, new { htmlAttributes = new { @class = "name", placeholder = "Họ Và Tên" } })
                                 @Html.ValidationMessageFor(model => model.HoTen, "", new { @class = "text-danger" })
 
-                                @*<div class="List-Content">
-                                <label for="">Avt: </label>
-                                <input type="file" id="uploadhinh" name="uploadhinh" accept="image/*"
-                                       style=" color: aliceblue;" />
-                            </div>*@
                                 <div class="List-Content" style="margin-top: 50px;">
                                     <label for="">Sđt: </label>
                                     @Html.EditorFor(model => model.SoDienThoai, new { htmlAttributes = new { placeholder = "Nhập số điện thoại" } })
@@ -67,17 +57,6 @@
                                     <label for="">Thẻ CMND: </label>
                                     @Html.EditorFor(model => model.CMND, new { htmlAttributes = new { placeholder = "Nhập CMND" } })
                                     @Html.ValidationMessageFor(model => model.CMND, "", new { @class = "text-danger" })
-                                </div>
-                                <div class="List-Content the">
-                                    <label for="">Thẻ ngân hàng: </label>
-                                    @Html.EditorFor(model => model.TheNganHang, new { htmlAttributes = new { placeholder = "Nhập thẻ ngân hàng" } })
-                                    @Html.ValidationMessageFor(model => model.TheNganHang, "", new { @class = "text-danger" })
-
-                                </div>
-                                <div class="List-Content the">
-                                    <label for="">Tên ngân hàng</label>
-                                    @Html.EditorFor(model => model.TenNganHang, new { htmlAttributes = new { placeholder = "Nhập tên ngân hàng" } })
-                                    @Html.ValidationMessageFor(model => model.TenNganHang, "", new { @class = "text-danger" })
                                 </div>
                                 <div class="Account">
                                     <div class="List-Content">

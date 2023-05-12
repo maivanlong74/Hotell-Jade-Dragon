@@ -134,7 +134,7 @@ namespace Jade_Dragon.Hubs
             }
         }
 
-        public void TaoMoi(string room_new)
+        public void TaoMoi(string room_new, long? maks)
         {
             int count = 1; // khởi tạo biến đếm là 1
 
@@ -154,12 +154,13 @@ namespace Jade_Dragon.Hubs
             var Room = new PhongChat();
             {
                 Room.TenPhongChat = room_new;
+                Room.MaKhachSan = maks;
             }
             db.PhongChats.Add(Room);
             db.SaveChanges();
 
             PhongChat phchat = db.PhongChats.FirstOrDefault(n => n.TenPhongChat == room_new);
-            Clients.All.TaoMoi(phchat.MaPhongChat, phchat.TenPhongChat);
+            Clients.All.TaoMoi(phchat.MaPhongChat, phchat.TenPhongChat, phchat.MaKhachSan);
         }
 
         public void GetTaoMoi()
@@ -167,7 +168,16 @@ namespace Jade_Dragon.Hubs
             var phongchat = db.PhongChats.ToList();
             foreach (var dem in phongchat)
             {
-                Clients.Caller.TaoMoi(dem.MaPhongChat, dem.TenPhongChat);
+                Clients.Caller.TaoMoi(dem.MaPhongChat, dem.TenPhongChat, null);
+            }
+        }
+
+        public void GetTaoMoiManage(long maks)
+        {
+            var phongchat = db.PhongChats.Where(m => m.MaKhachSan == maks || m.MaKhachSan == null).ToList();
+            foreach (var dem in phongchat)
+            {
+                Clients.Caller.TaoMoi(dem.MaPhongChat, dem.TenPhongChat, dem.MaKhachSan);
             }
         }
 
