@@ -61,8 +61,13 @@
         }
 
         //Lấy danh sách phòng
-        var maks = $('#maks').val();
-        chat.server.getTaoMoiManage(maks);
+        maks = $('#maks').val();
+        if (maks == null || maks.trim() == '') {
+            chat.server.getTaoMoiManage(null);
+        } else {
+            chat.server.getTaoMoiManage(maks);
+        }
+
 
         // Xóa tin nhắn
         $('#contentMsg').on("click", "button#deleteButton", (function () {
@@ -250,12 +255,17 @@ function loadGroup(chat) {
     var linkanh = "/Style/img/icon/icon-X.jpg";
     var title = "Xóa nhóm";
     chat.client.taoMoi = function (maphong, tenphong, maks) {
-        var href = "/Admin/TinNhanAdmin/DeletePhong?id=" + maphong;
-        if (maks == $('#maks').val()) {
-            var ht = "<li><button type='button' class='btnChatPhong' data-id='" + maphong + "'>" +
-                tenphong + "</button>" +
-                "<a href='" + href + "' class='btnDelete'>" +
-                "<img src='" + linkanh + "' class='btn-icon' id='btn-delete-" + maphong + "' title='" + title + "'/></a></li>"
+        var href = "/Admin/TinNhanAdmin/DeletePhongManage?id=" + maphong;
+        if (maks != null) {
+            if (maks == $('#maks').val()) {
+                var ht = "<li><button type='button' class='btnChatPhong' data-id='" + maphong + "'>" +
+                    tenphong + "</button>" +
+                    "<a href='" + href + "' class='btnDelete'>" +
+                    "<img src='" + linkanh + "' class='btn-icon' id='btn-delete-" + maphong + "' title='" + title + "'/></a></li>"
+            } else {
+                var ht = "<li><button type='button' class='btnChatPhong' data-id='" + maphong + "'>" +
+                    tenphong + "</button></li>"
+            }
         } else {
             var ht = "<li><button type='button' class='btnChatPhong' data-id='" + maphong + "'>" +
                 tenphong + "</button></li>"

@@ -172,14 +172,26 @@ namespace Jade_Dragon.Hubs
             }
         }
 
-        public void GetTaoMoiManage(long maks)
+        public void GetTaoMoiManage(long? maks)
         {
-            var phongchat = db.PhongChats.Where(m => m.MaKhachSan == maks || m.MaKhachSan == null).ToList();
-            foreach (var dem in phongchat)
+            if (maks != null)
             {
-                Clients.Caller.TaoMoi(dem.MaPhongChat, dem.TenPhongChat, dem.MaKhachSan);
+                var phongchat = db.PhongChats.Where(m => m.MaKhachSan == maks || m.MaKhachSan == null).ToList();
+                foreach (var dem in phongchat)
+                {
+                    Clients.Caller.TaoMoi(dem.MaPhongChat, dem.TenPhongChat, dem.MaKhachSan);
+                }
+            }
+            else
+            {
+                var phongchat = db.PhongChats.Where(m => m.MaKhachSan == null).ToList();
+                foreach (var dem in phongchat)
+                {
+                    Clients.Caller.TaoMoi(dem.MaPhongChat, dem.TenPhongChat, dem.MaKhachSan);
+                }
             }
         }
+
 
         public void DeletePhong(long? id)
         {

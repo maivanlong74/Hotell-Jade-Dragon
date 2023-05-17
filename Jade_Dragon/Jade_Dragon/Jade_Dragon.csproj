@@ -638,6 +638,7 @@
     <Content Include="Areas\Admin\Public\img\muitenn.jpg" />
     <Content Include="Areas\Admin\Public\js\Chat\Chat_Admin.js" />
     <Content Include="Areas\Admin\Public\js\Chat\Chat_Manage.js" />
+    <Content Include="Areas\Admin\Public\js\Chat\dddd.js" />
     <Content Include="Areas\Admin\Public\js\ChucNang.js" />
     <Content Include="Areas\Admin\Public\js\dataTables_min.js" />
     <Content Include="Areas\Admin\Public\js\GiaTien.js" />

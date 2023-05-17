@@ -49,6 +49,19 @@ namespace Jade_Dragon.Areas.Admin.Controllers
         public ActionResult DangKyKs(string TenKhachSan, long SoDienThoai, string Gmail, string DiaChi,
             string GiaTien, string KinhDo, string ViDo, string TenKhuVuc, HttpPostedFileBase Avt)
         {
+            int dem = 1;
+            var ten = db.khachsans.ToList();
+            if(ten.Count > 0)
+            {
+                foreach (var kss in ten)
+                {
+                    if (TenKhachSan == kss.TenKhachSan)
+                    {
+                        TenKhachSan = TenKhachSan + "(" + dem.ToString() + ")";
+                        dem++;
+                    }
+                }
+            }
             khuvuc khuvuc = db.khuvucs.FirstOrDefault(m => m.TenKhuVuc == TenKhuVuc);
             decimal Gia = decimal.Parse(GiaTien);
             if (khuvuc == null)
@@ -358,6 +371,7 @@ namespace Jade_Dragon.Areas.Admin.Controllers
             khachhang khkh = db.khachhangs.Find(khachhang_map);
             khkh.QLKhachSan = ksks.MaKhachSan;
             db.SaveChanges();
+            Session["MaKhachSan_ks"] = ksks.MaKhachSan;
             return Redirect("~/Admin/QLKhachSan/EditManage/" + ksks.MaKhachSan);
         }
 
@@ -502,6 +516,7 @@ namespace Jade_Dragon.Areas.Admin.Controllers
             khachsan ks = db.khachsans.FirstOrDefault(x => x.MaKhachSan == id);
             db.khachsans.Remove(ks);
             db.SaveChanges();
+            Session["MaKhachSan_ks"] = null;
             return RedirectToAction("CreateManage");
         }
 

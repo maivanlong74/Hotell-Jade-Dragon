@@ -57,5 +57,24 @@ namespace Jade_Dragon.Areas.Admin.Controllers
             chat.kh = db.khachhangs.Where(n => n.IDGroup == 1).ToList();
             return View(chat);
         }
+        public ActionResult DeletePhongManage(long? id)
+        {
+            PhongChat phong = db.PhongChats.Find(id);
+            if (phong != null)
+            {
+                var tn = db.tinnhans.Where(m => m.MaPhongChat == id).ToList();
+                if (tn.Count > 0)
+                {
+                    foreach (var n in tn)
+                    {
+                        db.tinnhans.Remove(n);
+                        db.SaveChanges();
+                    }
+                }
+                db.PhongChats.Remove(phong);
+            }
+            db.SaveChanges();
+            return Redirect("TinNhanManage");
+        }
     }
 }

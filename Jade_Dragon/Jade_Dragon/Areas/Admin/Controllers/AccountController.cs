@@ -68,7 +68,7 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                 Session["TenDn"] = Data.FirstOrDefault().TenDn;
                 Session["Mk"] = Data.FirstOrDefault().Mk;
                 Session["IDGroup"] = Data.FirstOrDefault().IDGroup;
-                Session["MaKhachSan_ks"] = Data.FirstOrDefault().QLKhachSan; 
+                Session["MaKhachSan_ks"] = Data.FirstOrDefault().QLKhachSan;
 
                 if (Data.FirstOrDefault().UserGroup.Name == "Admin") {
                     return Redirect("~/Admin/TrangChuAdmin/TrangChu");
@@ -80,7 +80,6 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                 if (Data.FirstOrDefault().UserGroup.Name == "Manage") {
                     return Redirect("~/Admin/TrangChuAdmin/TrangChuManage");
                 }
-
 
             }
             WebMsgBox.Show("Đăng nhập không thành công", this);

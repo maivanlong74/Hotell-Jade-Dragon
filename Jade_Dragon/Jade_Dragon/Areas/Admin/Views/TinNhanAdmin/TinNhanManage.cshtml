@@ -10,15 +10,18 @@
     .list-chat .list-User {
         height: 20%;
     }
-    .list-chat .list-User span {
-        height: 35%;
-    }
+
+        .list-chat .list-User span {
+            height: 35%;
+        }
+
     .list-chat .list-Group {
         height: 75%;
     }
-    .list-chat .list-Group span {
-        height: 10%;
-    }
+
+        .list-chat .list-Group span {
+            height: 10%;
+        }
 </style>
 <div class="home">
     <div class="body">
@@ -43,14 +46,16 @@
                     <div class="list-Group list-chat-a">
                         <span>Nhóm chat</span>
                         <ul id="Create_Room">
-                            <li class="Show">
-                                <button type="submit" id="Create">
-                                    <img src="~/Style/img/icon/icon-them.jpg" style="width: 20px;" />
-                                </button>
-                                <input type="hidden" id="maks" value="@Session["MaKhachSan_ks"]"/>
-                            </li>
+                            @if (Session["MaKhachSan_ks"] != null) { 
+                                <li class="Show">
+                                    <button type="submit" id="Create">
+                                        <img src="~/Style/img/icon/icon-them.jpg" style="width: 20px;" />
+                                    </button>
+                                </li>
+                            }
                             <li class="Create-new">
                                 <input type="text" placeholder="Tạo nhóm mới" class="input" id="txtCreate" />
+                                <input type="hidden" id="maks" value="@Session["MaKhachSan_ks"]" />
                                 <button type="submit" class="button">Thêm</button>
                             </li>
                         </ul>
@@ -85,4 +90,3 @@
 <script src="~/Scripts/jquery.signalR-2.4.3.min.js"></script>
 <script src="~/signalr/hubs"></script>
 <script src="~/Areas/Admin/Public/js/Chat/Chat_Manage.js"></script>
-
