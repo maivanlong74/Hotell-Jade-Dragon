@@ -7,6 +7,7 @@ using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Globalization;
 using System.Linq;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Text;
@@ -32,9 +33,20 @@ namespace Jade_Dragon.Controllers
         //Đặt phòng
         public ActionResult DatPhong(long? maks, long? sodem)
         {
-
+            /*, DateTime? ngayden = null, DateTime? ngaydi = null,
+                                    DateTime? batdau = null, DateTime? ketthuc = null*/
             var cart = Session[giohang];
             var list = new List<Cart>();
+            /*if (batdau == null && ketthuc == null)
+            {
+                Session["ngayden"] = ngayden;
+                Session["ngaydi"] = ngaydi;
+            }
+            else
+            {
+                Session["batdau"] = batdau;
+                Session["ketthuc"] = ketthuc;
+            }*/
 
             if (cart != null)
             {
@@ -110,7 +122,7 @@ namespace Jade_Dragon.Controllers
                 if (list.Exists(x => x.htphong.MaKhachSan != Phong.MaKhachSan))
                 {
                     WebMsgBox.Show("Bạn đang đặt phòng ở khách sạn " + Phong.khachsan.TenKhachSan, this);
-                    return RedirectToAction("khachsan", "khachsan", new {batdau = batdau, ketthuc = ketthuc});
+                    return RedirectToAction("khachsan", "khachsan", new { ma = Phong.MaKhachSan, batdau = batdau, ketthuc = ketthuc});
                 }
                 else
                 {
@@ -118,7 +130,7 @@ namespace Jade_Dragon.Controllers
                     if (list.Exists(x => x.htphong.MaPhong == maph))
                     {
                         WebMsgBox.Show("Bạn đăt trùng phòng, vui lòng đặt phòng khác", this);
-                        return RedirectToAction("khachsan", "khachsan", new { batdau = batdau, ketthuc = ketthuc });
+                        return RedirectToAction("khachsan", "khachsan", new {ma = Phong.MaKhachSan, batdau = batdau, ketthuc = ketthuc });
                     }
                     else
                     {

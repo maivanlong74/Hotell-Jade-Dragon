@@ -119,7 +119,7 @@
                                 <ul>
 
                                     <li class="top-menu">
-                                        <a class="menu-item item--a" href="/GioHang/DatPhong?maks=@Session["MaKhachSanPhong"]&sodem=@Session["sodem"]"
+                                        <a class="menu-item item--a" href="@Url.Action("DatPhong", "GioHang", new {maks= Session["MaKhachSanPhong"], sodem= Session["sodem"]})"
                                            style="border-right: 2px solid;">
                                             <img src="/Style/img/icon/icon-Cart.jpg" title="Giỏ Hàng"/>
                                             @if (Session["TongSoLuong"] == null)
@@ -140,7 +140,7 @@
                                     </li>
 
                                     <li>
-                                        <a href="@Url.Action("khachsan", "khachsan")" class="all">Tất cả</a>
+                                        <a href="@Url.Action("khachsan", "khachsan", new {batdau = Session["batdau"], ketthuc = Session["ketthuc"]})" class="all">Tất cả</a>
                                     </li>
                                     <li>
                                         <span>Khách sạn</span>
@@ -148,7 +148,11 @@
                                         <ul class="list list-ks">
                                             @foreach (var item in Model.ks)
                                             {
-                                                <li><a href="~/khachsan/khachsan?ma=@item.MaKhachSan">@item.TenKhachSan</a></li>
+                                                <li><a href="@Url.Action("khachsan", "khachsan", new {ma= item.MaKhachSan, batdau = Session["batdau"], ketthuc = Session["ketthuc"]})">
+                                                    @item.TenKhachSan
+                                                    </a>
+                                                </li>
+
                                             }
                                         </ul>
                                     </li>
@@ -158,7 +162,10 @@
                                         <ul class="list">
                                             @foreach (var loai in Model.ctphong.Select(p => p.LoaiHinh).Distinct())
                                             {
-                                                <li><a href="~/khachsan/khachsan?loai=@loai">@loai</a></li>
+                                                <li><a href="@Url.Action("khachsan", "khachsan", new { loai = loai, batdau = Session["batdau"], ketthuc = Session["ketthuc"] })">
+                                                    @loai
+                                                    </a>
+                                            </li>
                                             }
                                         </ul>
                                     </li>
@@ -168,7 +175,10 @@
                                         <ul class="list">
                                             @foreach (var gia in Model.ctphong.Select(p => p.Gia).Distinct())
                                             {
-                                                <li><a href="~/khachsan/khachsan?gia=@gia">@gia</a></li>
+                                                <li><a href="@Url.Action("khachsan", "khachsan", new { gia = gia, batdau = Session["batdau"], ketthuc = Session["ketthuc"] })">
+                                                    @gia
+                                                    </a>
+                                            </li>
                                             }
                                         </ul>
                                     </li>
@@ -176,16 +186,16 @@
                                         <span>VIP</span>
                                         <i class="header-search__select-icon fas fa-angle-down"></i>
                                         <ul class="list">
-                                            <li><a href="@Url.Action("khachsan", "khachsan", new {vip = "True"})">VIP</a></li>
-                                            <li><a href="@Url.Action("khachsan", "khachsan", new {vip = "False"})">Thường</a></li>
+                                            <li><a href="@Url.Action("khachsan", "khachsan", new {vip = "True", batdau = Session["batdau"], ketthuc = Session["ketthuc"]})">VIP</a></li>
+                                            <li><a href="@Url.Action("khachsan", "khachsan", new {vip = "False", batdau = Session["batdau"], ketthuc = Session["ketthuc"]})">Thường</a></li>
                                         </ul>
                                     </li>
                                     <li>
                                         <span>Trạng thái</span>
                                         <i class="header-search__select-icon fas fa-angle-down"></i>
                                         <ul class="list">
-                                            <li><a href="@Url.Action("khachsan", "khachsan", new {trangthai = "True"})">Còn trống</a></li>
-                                            <li><a href="@Url.Action("khachsan", "khachsan", new {trangthai = "False"})">Đã có khách</a></li>
+                                            <li><a href="@Url.Action("khachsan", "khachsan", new {trangthai = "True", batdau = Session["batdau"], ketthuc = Session["ketthuc"]})">Còn trống</a></li>
+                                            <li><a href="@Url.Action("khachsan", "khachsan", new {trangthai = "False", batdau = Session["batdau"], ketthuc = Session["ketthuc"]})">Đã có khách</a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -210,7 +220,7 @@
                                                             style="height: 30px;">
                                                             <a href="@Url.Action("khachsan", new { page = i, ma = Session["KhachSan"],
                                                                 loai = Session["LoaiPhong"], gia = Session["GiaTien"], vip = Session["Menu_VIP"],
-                                                                trangthai = Session["TrangThaiPhong"]})">@i</a>
+                                                                trangthai = Session["TrangThaiPhong"], batdau = Session["batdau"], ketthuc = Session["ketthuc"]})">@i</a>
                                                         </li>
                                                     }
                                                 }
