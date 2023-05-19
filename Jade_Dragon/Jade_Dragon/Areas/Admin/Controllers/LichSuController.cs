@@ -97,7 +97,7 @@ namespace Jade_Dragon.Areas.Admin.Controllers
             Session["tongtien"] = tongtien(ma);
             Session["mahoadon"] = ma;
             hoadon hd = db.hoadons.Find(ma);
-            Session["HoTen"] = hd.khachhang.HoTen;
+            Session["HoTen"] = hd.HoTen;
             return View("ChiTiet", List_ChiTiet);
         }
 

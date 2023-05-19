@@ -27,6 +27,7 @@ namespace Jade_Dragon.Controllers
                 }
             }
 
+            Session["DongTime"] = "mo";
             DateTime timenow = DateTime.Now;
             List<Moc_Time> Time = new List<Moc_Time>();
             Time = db.Moc_Time.ToList();

@@ -133,6 +133,18 @@ namespace Jade_Dragon.Areas.Admin.Controllers
         public ActionResult Delete(int? id, int? MaKS)
         {
             phong ph = db.phongs.FirstOrDefault(x => x.MaPhong == id);
+            var MocTime = db.Moc_Time.Where(m => m.MaPhong == id).ToList();
+            foreach(var m in MocTime)
+            {
+                db.Moc_Time.Remove(m);
+                db.SaveChanges();
+            }
+            var ct = db.chitiethoadons.Where(n => n.MaPhong == id).ToList();
+            foreach(var ch in ct)
+            {
+                db.chitiethoadons.Remove(ch);
+                db.SaveChanges();
+            }
             db.phongs.Remove(ph);
             db.SaveChanges();
             return Redirect("~/Admin/QuanLyPhong/Phong?MaKS=" + MaKS);

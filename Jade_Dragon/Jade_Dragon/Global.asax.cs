@@ -67,6 +67,7 @@ namespace Jade_Dragon
             Session["ListKv"] = "";
             Session["batdau"] = "";
             Session["ketthuc"] = "";
+            Session["DongTime"] = "";
         }
         protected void Session_Phong()
         {

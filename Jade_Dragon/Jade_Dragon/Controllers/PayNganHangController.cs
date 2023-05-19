@@ -112,6 +112,8 @@ namespace Jade_Dragon.Controllers
                         }
                         db.SaveChanges();
 
+                        Session["DongTime"] = "mo";
+
                         List<khachsan> listks = new List<khachsan>();
                         listks = db.khachsans.Where(m => m.MaKhuVuc == hd.khachsan.khuvuc.MaKhuVuc).ToList();
                         ViewBag.listks = listks;

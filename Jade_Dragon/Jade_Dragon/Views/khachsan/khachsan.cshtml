@@ -55,34 +55,54 @@
 
 
                                                 <input type="datetime-local" name="batdau" required
-                                                       min="@ViewBag.time_now" max="@ViewBag.time_max"/> <br />
+                                                       min="@ViewBag.time_now" max="@ViewBag.time_max" /> <br />
                                             }
                                             else
                                             {
-                                                <input placeholder="@Session["batdau"]" type="text" onfocus="(this.type='datetime-local')"
-                                                       onblur="(this.type='text')" name="batdau" required value="@Session["batdau"]"
-                                                       min="@ViewBag.time_now" max="@ViewBag.time_max" /> <br />
-                                            } 
+                                                if (Session["DongTime"] != null)
+                                                {
+                                                    <input placeholder="@Session["batdau"]" type="text" onfocus="(this.type='datetime-local')"
+                                                           onblur="(this.type='text')" name="batdau" required value="@Session["batdau"]"
+                                                           min="@ViewBag.time_now" max="@ViewBag.time_max" /> <br />
+                                                }
+                                                else
+                                                {
+                                                    <input placeholder="@Session["batdau"]" name="batdau"
+                                                           required value="@Session["batdau"]" readonly /> <br />
+                                                }
+                                                <input type="hidden" value="@Session["DongTime"]"/>
+
+                                            }
                                             <label>Ngày đến</label>
                                         </div>
                                         <div class="search-time">
                                             @if (Session["ketthuc"] == null)
                                             {
                                                 <input type="datetime-local" name="ketthuc" required
-                                                       min="@ViewBag.time_now" max="@ViewBag.time_max"/> <br />
+                                                       min="@ViewBag.time_now" max="@ViewBag.time_max" /> <br />
                                             }
                                             else
                                             {
-                                                <input placeholder="@Session["ketthuc"]" type="text" onfocus="(this.type='datetime-local')"
-                                                       onblur="(this.type='text')" name="ketthuc" required value="@Session["ketthuc"]"
-                                                       min="@ViewBag.time_now" max="@ViewBag.time_max" /> <br />
+                                                if (Session["DongTime"] != null)
+                                                {
+                                                    <input placeholder="@Session["ketthuc"]" type="text" onfocus="(this.type='datetime-local')"
+                                                           onblur="(this.type='text')" name="ketthuc" required value="@Session["ketthuc"]"
+                                                           min="@ViewBag.time_now" max="@ViewBag.time_max" /><br />
+                                                }
+                                                else
+                                                {
+                                                    <input placeholder="@Session["ketthuc"]" name="ketthuc"
+                                                           required value="@Session["ketthuc"]" readonly /> <br />
+                                                }
                                             }
                                             <label>Ngày trả</label>
                                         </div>
-                                        <div class="search-time">
-                                            <button type="submit">Cập nhật</button> <br />
-                                            <a href="@Url.Action("QuayVe", "khachsan")" class="button">Quay về ngày hôm nay</a>
-                                        </div>
+                                        @if (Session["DongTime"] != null) { 
+                                            <div class="search-time">
+                                                <button type="submit">Cập nhật</button> <br />
+                                                <a href="@Url.Action("QuayVe", "khachsan")" class="button">Quay về ngày hôm nay</a>
+                                            </div>
+                                        }
                                     </form>
                                 </div>
                                 <!--------------------->

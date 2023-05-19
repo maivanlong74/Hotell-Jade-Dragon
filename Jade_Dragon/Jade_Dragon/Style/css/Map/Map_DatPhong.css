@@ -118,7 +118,8 @@
         #map .DangKy_Map #info_ksks h2 {
             color: cornflowerblue;
             font-weight: 800;
-            margin: 15px;
+            margin: 10px;
+            font-size: 25px;
         }
 
         #map .DangKy_Map #info_ksks .anhavtks {

@@ -33,20 +33,8 @@ namespace Jade_Dragon.Controllers
         //Đặt phòng
         public ActionResult DatPhong(long? maks, long? sodem)
         {
-            /*, DateTime? ngayden = null, DateTime? ngaydi = null,
-                                    DateTime? batdau = null, DateTime? ketthuc = null*/
             var cart = Session[giohang];
             var list = new List<Cart>();
-            /*if (batdau == null && ketthuc == null)
-            {
-                Session["ngayden"] = ngayden;
-                Session["ngaydi"] = ngaydi;
-            }
-            else
-            {
-                Session["batdau"] = batdau;
-                Session["ketthuc"] = ketthuc;
-            }*/
 
             if (cart != null)
             {
@@ -156,7 +144,8 @@ namespace Jade_Dragon.Controllers
                 Session[giohang] = list;
 
             }
-            if(batdau == null && ketthuc == null)
+            Session["DongTime"] = null;
+            if (batdau == null && ketthuc == null)
             {
                 return RedirectToAction("Next", "GioHang", new { maksphong = Phong.MaKhachSan, ngayden = ngayden, ngaydi = ngaydi });
             }
@@ -170,6 +159,7 @@ namespace Jade_Dragon.Controllers
         {
             Session[giohang] = null;
             Session["TongSoLuong"] = 0;
+            Session["DongTime"] = "mo";
             return RedirectToAction("khachsan", "khachsan");
         }
 
@@ -178,6 +168,10 @@ namespace Jade_Dragon.Controllers
             var sessionCart = (List<Cart>)Session[giohang];
             sessionCart.RemoveAll(x => x.htphong.MaPhong == id);
             Session[giohang] = sessionCart;
+            if(sessionCart.Count == 0)
+            {
+                Session["DongTime"] = "mo";
+            }
             return Redirect("~/GioHang/DatPhong?sodem=" + sd);    
         }
 
