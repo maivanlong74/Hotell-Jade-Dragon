@@ -302,7 +302,7 @@ function initMap(hotels) {
         var marker = new ol.Feature({
             geometry: new ol.geom.Point(ol.proj.fromLonLat([lon, lat])),
             content:
-                `<div style="background-color: black; color: wheat; width: 400px; word-wrap: break-word; padding: 10px; border: 2px solid yellow; cursor: pointer;">` +
+                `<div style="background-color: black; color: wheat; width: 400px; word-wrap: break-word; padding: 10px; border: 2px solid yellow;">` +
                 `<input type="hidden" id="maks_map" value="` + maks_map + `"/>` +
                 '<div><strong> Khách Sạn: ' + name + '</strong>' +
                 `<input type="hidden" id="tenks_map" value="` + name + `"/></div>` +
@@ -368,8 +368,6 @@ function initMap(hotels) {
                 }
                 popup.setPosition(coordinates);
                 popup.getElement().style.display = 'block';
-                popup.getElement().style.cursor = 'pointer';
-
             } else {
                 $('#maks_map').val(null);
                 popup.getElement().style.display = 'none';
@@ -391,13 +389,11 @@ function initMap(hotels) {
             document.getElementById('popup').innerHTML = content;
         } else {
             popup.setPosition(undefined);
-            map.getViewport().style.cursor = '';
         }
     });
 
     map.on('pointerout', function () {
         popup.setPosition(undefined);
-        map.getViewport().style.cursor = '';
     });
 
     function SaveInfo(ChiDuong) {

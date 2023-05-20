@@ -210,10 +210,15 @@ function loadDelete(chat) {
 }
 
 function loadGroup(chat) {
-    var linkanh = "/Style/img/icon/icon-X.jpg";
-    chat.client.taoMoi = function (maphong, tenphong) {
-        var ht = "<li><button type='button' class='btnChatPhong' data-id='" + maphong + "'>" +
-            tenphong + "</button></li>"
+    chat.client.taoMoi = function (maphong, tenphong, tenks) {
+        if (tenks != null) {
+            var ten = "Khách sạn " + tenks;
+            var ht = "<li><button type='button' title='" + ten + "' class='btnChatPhong' data-id='" + maphong + "'>" +
+                tenphong + "</button></li>"
+        } else {
+            var ht = "<li><button type='button' class='btnChatPhong' data-id='" + maphong + "'>" +
+                tenphong + "</button></li>"
+        }
         $('#Create_Room').append(ht);
     }
 }

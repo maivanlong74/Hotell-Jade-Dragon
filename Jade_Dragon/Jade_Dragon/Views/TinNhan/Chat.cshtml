@@ -1,13 +1,47 @@
-﻿@model IEnumerable<Jade_Dragon.Models.PhongChat>
+﻿@model IEnumerable<Jade_Dragon.Models.khachhang>
 @{
     ViewBag.Title = "Chat";
     Layout = "~/Views/Shared/TongHop.cshtml";
 }
 <link href="~/Style/css/layout/ChatClient.css" rel="stylesheet" />
 <style>
-    .body-item-chat .htchat #contentMsg li img {
-        border: 1px solid black;
-        margin: 5px;
+    .list-chat .list-ks-item {
+        height: 30vh;
+        border: 2px solid #f1c40f;
+    }
+    .list-chat .list-user-item {
+        height: 38vh;
+        border: 2px solid #2980b9;
+    }
+    .list-chat span {
+        margin-left: 20px;
+        display: block;
+        color: aliceblue;
+        font-size: 20px;
+        padding-top: 3px;
+    }
+    .list-chat .list-ks {
+        list-style: none;
+        height: 88%;
+        overflow: auto;
+    }
+    .list-chat .list-ks .ks-item {
+        color: white;
+    }
+    .body-item-chat .list-chat {
+        height: 76vh;
+    }
+    .list-chat .list-ks li button {
+        width: 100%;
+        background: none;
+    }
+    .list-chat .list-ks li:hover {
+        cursor: pointer;
+        padding-left: 5px;
+        background: #130f40;
+    }
+    .list-chat .list-user{
+        height: 88%;
     }
 </style>
 
@@ -25,7 +59,24 @@
                                         Chat với Admin
                                     </button>
                                 </div>
-                                <ul class="list-user" id="Create_Room"></ul>
+                                <div class="list-ks-item">
+                                    <span>Khách sạn</span>
+                                    <ul class="list-ks">
+                                        @foreach (var j in Model)
+                                        {
+                                            <li class="ks-item">
+                                                <button type="submit" class="btnUser" data-id="@j.MaKh">
+                                                    @j.HoTen
+                                                </button>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                                <div class="list-user-item">
+                                    <span>Phòng chat</span>
+                                    <ul class="list-user" id="Create_Room"></ul>
+                                </div>
+
                             </div>
                             <div class="htchat">
                                 <div>

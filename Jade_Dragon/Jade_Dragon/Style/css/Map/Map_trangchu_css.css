@@ -154,6 +154,8 @@
             background-color: wheat;
             border-radius: 20px;
             color: black;
+            border-bottom: 2px solid;
+            border-right: 2px solid;
         }
 
             #map .DangKy_Map #info_ksks .oke:hover {

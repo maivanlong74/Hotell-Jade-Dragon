@@ -168,7 +168,14 @@ namespace Jade_Dragon.Hubs
             var phongchat = db.PhongChats.ToList();
             foreach (var dem in phongchat)
             {
-                Clients.Caller.TaoMoi(dem.MaPhongChat, dem.TenPhongChat, null);
+                if(dem.MaKhachSan == null)
+                {
+                    Clients.Caller.TaoMoi(dem.MaPhongChat, dem.TenPhongChat, null);
+                }
+                else
+                {
+                    Clients.Caller.TaoMoi(dem.MaPhongChat, dem.TenPhongChat, dem.khachsan.TenKhachSan);
+                }
             }
         }
 

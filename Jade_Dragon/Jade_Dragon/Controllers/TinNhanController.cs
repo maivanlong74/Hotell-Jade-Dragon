@@ -28,8 +28,8 @@ namespace Jade_Dragon.Controllers
             }
             khachhang kh = db.khachhangs.FirstOrDefault(n => n.IDGroup == 1);
             Session["MaPhongAdmin"] = kh.MaKh;
-            var listphong = db.PhongChats.ToList();
-            return View("Chat", listphong);
+            var khkh = db.khachhangs.Where(z => z.IDGroup == 3).ToList();
+            return View("Chat", khkh);
         }
 
 

@@ -256,12 +256,21 @@ function loadGroup(chat) {
     var btnChatPhong = "btnChatPhong";
     var linkanh = "/Style/img/icon/icon-X.jpg";
     var title = "Xóa nhóm";
-    chat.client.taoMoi = function (maphong, tenphong) {
+    chat.client.taoMoi = function (maphong, tenphong, tenks) {
         var href = "/Admin/TinNhanAdmin/DeletePhong?id=" + maphong;
-        var ht = "<li><button type='button' class='btnChatPhong' data-id='" + maphong + "'>" +
-            tenphong + "</button>" +
-            "<a href='" + href + "' class='btnDelete'>" +
-            "<img src='" + linkanh + "' class='btn-icon' id='btn-delete-" + maphong + "' title='" + title + "'/></a></li>"
+        if (tenks != null) {
+            var ten = "Khách sạn " + tenks;
+            var ht = "<li><button type='button' title='" + ten + "' class='btnChatPhong' data-id='" + maphong + "'>" +
+                tenphong + "</button>" +
+                "<a href='" + href + "' class='btnDelete'>" +
+                "<img src='" + linkanh + "' class='btn-icon' id='btn-delete-" + maphong + "' title='" + title + "'/></a></li>"
+        } else {
+            var ten = "Khách sạn " + tenks;
+            var ht = "<li><button type='button' class='btnChatPhong' data-id='" + maphong + "'>" +
+                tenphong + "</button>" +
+                "<a href='" + href + "' class='btnDelete'>" +
+                "<img src='" + linkanh + "' class='btn-icon' id='btn-delete-" + maphong + "' title='" + title + "'/></a></li>"
+        }
         $('#Create_Room').append(ht);
     }
 }

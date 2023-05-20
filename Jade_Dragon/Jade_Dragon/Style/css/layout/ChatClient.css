@@ -88,11 +88,52 @@
         .body-item-chat .list-chat .chat-admin:hover p {
             font-weight: 800;
         }
+/*----------------------------*/
+.list-chat .list-ks-item {
+    height: 30vh;
+    border: 2px solid #f1c40f;
+}
 
+.list-chat .list-user-item {
+    height: 38vh;
+    border: 2px solid #2980b9;
+}
+.list-chat span {
+    margin-left: 20px;
+    display: block;
+    color: aliceblue;
+    font-size: 20px;
+    padding-top: 3px;
+}
+    /*-------List Khách sạn---*/
+    .list-chat .list-ks {
+        list-style: none;
+        height: 88%;
+        overflow: auto;
+    }
+
+    .list-chat .list-ks .ks-item {
+        color: white;
+    }
+
+    .body-item-chat .list-chat {
+        height: 76vh;
+    }
+
+    .list-chat .list-ks li button {
+        width: 100%;
+        background: none;
+    }
+
+    .list-chat .list-ks li:hover {
+        cursor: pointer;
+        padding-left: 5px;
+        background: #130f40;
+    }
     /*-------List Phòng-------*/
     .list-chat .list-user {
         list-style: none;
-        height: 100%;
+        height: 88%;
         overflow: auto;
     }
 
