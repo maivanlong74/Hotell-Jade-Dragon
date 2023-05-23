@@ -36,6 +36,7 @@ namespace Jade_Dragon.Models
         public string MaError { get; set; }
         public Nullable<int> SoLuongCTHD { get; set; }
         public Nullable<bool> DaDat { get; set; }
+        public Nullable<bool> HuyDat { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<chitiethoadon> chitiethoadons { get; set; }

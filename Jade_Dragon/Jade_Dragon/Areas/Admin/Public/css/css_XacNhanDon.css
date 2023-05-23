@@ -5,16 +5,24 @@ body {
 }
 
 .home {
+    height: auto;
     background: none;
 }
+
 .home .body {
-    background: none; 
-    height: 100vh;
+    background: none;
+    height: auto;
     max-height: 100vh;
     margin-left: 10px;
     border: 3px solid white;
     overflow: auto;
     margin-top: 20px;
+}
+.no-hd {
+    text-align: center;
+    color: wheat;
+    font-weight: 800;
+    background: rgba(0,0,0,0.7);
 }
 table {
     background: rgba(0,0,0,0.5);
@@ -22,6 +30,7 @@ table {
     width: 99%;
     margin-left: 10px;
 }
+
 th {
     background: black;
     color: white;
@@ -30,24 +39,29 @@ th {
     text-align: left;
     border: 1px solid white;
 }
+
 td {
     padding: 10px;
     color: wheat;
 }
+
 .mhd {
     cursor: pointer;
 }
-.mhd:hover{
-    color: yellow;
-    font-weight: 700;
-    text-decoration: underline;
-}
+
+    .mhd:hover {
+        color: yellow;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
 .confirm-button {
     text-decoration: none;
     color: wheat;
     font-weight: bold;
     margin-right: 10px;
 }
+
 .delete-button img {
     vertical-align: middle;
 }

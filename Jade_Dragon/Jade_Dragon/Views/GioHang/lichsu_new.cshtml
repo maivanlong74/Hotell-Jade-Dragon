@@ -13,26 +13,7 @@
 </script>
 <link href="~/Style/css/html/lichsu.css" rel="stylesheet" />
 <link href="~/Style/css/html/lichsu2.css" rel="stylesheet" />
-
-<style>
-    .search .button_a {
-        background: rgba(0,0,0,0.5) !important;
-        color: white !important;
-        width: 100px !important;
-        height: 30px !important;
-    }
-
-        .search .button_a:hover {
-            background: rgba(0,0,0,0.8) !important;
-            color: yellow !important;
-        }
-
-    .search .button_tk {
-        padding: 0 !important;
-        display: block !important;
-        margin-top: -30px !important;
-    }
-</style>
+<link href="~/Areas/Admin/Public/css/css_XacNhanDon.css" rel="stylesheet" />
 
 <div class="home">
     <div class="home_body">
@@ -95,57 +76,99 @@
         }
         else
         {
-            <div class="info">
-                <table>
-                    <tr class="tieude-item">
-                        <td>Mã hóa đơn</td>
-                        <td>Tên khách sạn</td>
-                        <td>Tên người đặt phòng</td>
-                        <td>Số điện thoại</td>
-                        <td>Số lượng phòng</td>
-                        <td>Ngày đặt</td>
-                        <td>Tổng tiền</td>
-                        <td>Trạng thái</td>
+    <div class="info">
+
+        @if (Model.hd.Count() > 0)
+        {
+            <table id="example" class="display">
+                <thead>
+                    <tr>
+                        <th>Mã hóa đơn</th>
+                        <th>Tên khách sạn</th>
+                        <th>Tên khách hàng</th>
+                        <th>Số điện thoại</th>
+                        <th>Số lượng phòng</th>
+                        <th>Ngày đặt</th>
+                        <th>Tổng tiền</th>
+                        <th>Trạng thái</th>
                     </tr>
+                </thead>
+                <tbody>
                     @foreach (var item in Model.hd)
                     {
-                        <tr style="background-color: black;">
-                            <td>@item.MaHoaDon</td>
+                        <tr class="invoice-row" data-invoice-id="@item.MaHoaDon">
+                            <td class="mhd">@item.MaHoaDon</td>
                             <td>@item.khachsan.TenKhachSan</td>
                             <td>@item.HoTen</td>
                             <td>@item.SoDienThoai</td>
                             <td>@item.SoLuongPhong</td>
                             <td>@item.NgayDat</td>
                             <td>@item.TongTien</td>
-                            <td>@item.ErrorPay.TenError</td>
+                            <td>
+                                @item.ErrorPay.TenError
+                                <a href="@Url.Action("ThuHoiDonHang", "GioHang", new {mahd = item.MaHoaDon})">
+                                    <img src="~/Style/img/icon/icon-X.jpg" title="Thu hồi đơn" style="width: 20px;" />
+                                </a>
+                            </td>
                         </tr>
-                        <tr style="background: none;">
-                            <td style="border: none;"></td>
-                            <td style="border: none;"></td>
-                            <td>Mã chi tiết hóa đơn</td>
-                            <td>Ngày đến</td>
-                            <td>Ngày đi</td>
-                            <td>Giá</td>
-                            <td>Phòng</td>
+                        <tr class="details-row" data-invoice-id="@item.MaHoaDon">
+                            <td colspan="5">
+                                <div class="popup-content">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Mã chi tiết hóa đơn</th>
+                                                <th>Ngày đến</th>
+                                                <th>Ngày đi</th>
+                                                <th>Đơn giá</th>
+                                                <th>Tên Phòng</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var c in Model.cthd.Where(a => a.MaHoaDon == item.MaHoaDon))
+                                            {
+                                                <tr>
+                                                    <td>@c.MaChiTietHoaDon</td>
+                                                    <td>@c.NgayDen</td>
+                                                    <td>@c.NgayDi</td>
+                                                    <td>@c.Gia</td>
+                                                    <td>@c.TenPhong</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                    <button class="close-btn">Đóng</button>
+                                </div>
+                            </td>
                         </tr>
-                        foreach (var c in Model.cthd.Where(a => a.MaHoaDon == item.MaHoaDon))
-                        {
-                            <tr style="background: none;">
-                                <td style="border: none;"></td>
-                                <td style="border: none;"></td>
-                                <td>@c.MaChiTietHoaDon</td>
-                                <td>@c.NgayDen</td>
-                                <td>@c.NgayDi</td>
-                                <td>@c.Gia</td>
-                                <td>@c.TenPhong</td>
-                            </tr>
-                        }
                     }
-                </table>
-            </div>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Mã hóa đơn</th>
+                        <th>Tên khách sạn</th>
+                        <th>Tên khách hàng</th>
+                        <th>Số điện thoại</th>
+                        <th>Số lượng phòng</th>
+                        <th>Ngày đặt</th>
+                        <th>Tổng tiền</th>
+                        <th>Trạng thái</th>
+                    </tr>
+                </tfoot>
+            </table>
+        }
+        else
+        {
+            <h1 class="no-hd">Không tồn tại hóa đơn này</h1>
+        }
+
+        <div id="popup"></div>
+
+    </div>
         }
 
 
     </div>
 </div>
+<script src="~/Areas/Admin/Public/js/js_XacNhanDon.js"></script>
 

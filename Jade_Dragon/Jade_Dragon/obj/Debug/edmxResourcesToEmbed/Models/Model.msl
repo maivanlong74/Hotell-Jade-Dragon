@@ -52,6 +52,7 @@
           <ScalarProperty Name="MaError" ColumnName="MaError" />
           <ScalarProperty Name="SoLuongCTHD" ColumnName="SoLuongCTHD" />
           <ScalarProperty Name="DaDat" ColumnName="DaDat" />
+          <ScalarProperty Name="HuyDat" ColumnName="HuyDat" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

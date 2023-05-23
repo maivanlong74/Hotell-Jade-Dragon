@@ -192,6 +192,7 @@ namespace Jade_Dragon.Controllers
                 decimal total = list.Sum(item => item.TongTien()) * demsodem(ngayden, ngaydi);
                 decimal tongsoluong = list.Sum(a => a.TongSoLuong());
 
+                khachsan ksks = db.khachsans.Find(maks);
                 var order = new hoadon();
                 if (makh != null)
                 {
@@ -199,10 +200,13 @@ namespace Jade_Dragon.Controllers
                 }
                 order.NgayDat = DateTime.Now;
                 order.MaKhachSan = maks;
+                order.TenKhachSan = ksks.TenKhachSan;
                 order.HoTen = hoten;
                 order.SoDienThoai = sodienthoai;
                 order.CMND = cmnd;
                 order.SoLuongPhong = (long)tongsoluong;
+                order.DaDat = false;
+                order.HuyDat = false;
                 
                 if(htthanhtoan == "taiquay")
                 {
@@ -234,6 +238,7 @@ namespace Jade_Dragon.Controllers
                     cthoadon.NgayDen = ngayden;
                     cthoadon.NgayDi = ngaydi;
                     cthoadon.TenPhong = dem.htphong.TenPhong;
+                    cthoadon.DaDen = false;
                     db.chitiethoadons.Add(cthoadon);
                     db.SaveChanges();
                 }
@@ -421,6 +426,53 @@ namespace Jade_Dragon.Controllers
         {
             return RedirectToAction("khachsan", "khachsan", new {khuvuc = khuvuc, batdau = NgayDen, 
                     ketthuc = NgayDi, loai = loaihinh, vip = vip});
+        }
+
+        public ActionResult ThuHoiDon(long mahd)
+        {
+            hoadon hd = db.hoadons.Find(mahd);
+            DateTime time = DateTime.Now;
+            long dem = demsodem((DateTime)hd.NgayDat, time);
+
+            if(hd.HinhThuc == "taiquay" && dem <= 1)
+            {
+                hd.HuyDat = true;
+                hd.MaError = "01";
+            }
+            else if(hd.HinhThuc == "chuyenkhoan" && dem <= 5) 
+            {
+                hd.HuyDat = true;
+                hd.MaError = "01";
+            }
+            else
+            {
+                WebMsgBox.Show("Bạn đã quá hạn ngày được thu hồi, vui lòng liên hệ với khách sạn để giải quyết", this);
+            }
+            db.SaveChanges();
+            return RedirectToAction("LichSu", "GioHang", new { makh = hd.MaKh});
+        }
+        public ActionResult ThuHoiDonHang(long mahd)
+        {
+            hoadon hd = db.hoadons.Find(mahd);
+            DateTime time = DateTime.Now;
+            long dem = demsodem((DateTime)hd.NgayDat, time);
+
+            if (hd.HinhThuc == "taiquay" && dem <= 1)
+            {
+                hd.HuyDat = true;
+                hd.MaError = "01";
+            }
+            else if (hd.HinhThuc == "chuyenkhoan" && dem <= 3)
+            {
+                hd.HuyDat = true;
+                hd.MaError = "01";
+            }
+            else
+            {
+                WebMsgBox.Show("Bạn đã quá hạn ngày được thu hồi, vui lòng liên hệ với khách sạn để giải quyết", this);
+            }
+            db.SaveChanges();
+            return RedirectToAction("lichsu_new", "GioHang", new { mahd = mahd });
         }
         protected override void Dispose(bool disposing)
         {

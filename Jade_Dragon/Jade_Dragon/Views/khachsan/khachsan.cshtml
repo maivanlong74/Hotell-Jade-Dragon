@@ -284,19 +284,26 @@
                                                                         <i class="fa fa-star"></i>
                                                                         <i class="fa fa-star"></i>
                                                                     </div>
-                                                                    @if (item.TrangThai == true)
+                                                                    @if (item.KhoaPhong == true)
                                                                     {
-                                                                        <i>Còn phòng</i>
+                                                                         <i>Phòng đang bảo trì</i>
                                                                     }
                                                                     else
                                                                     {
-                                                                        <i>Đã có khách</i>
+                                                                        if (item.TrangThai == true)
+                                                                        {
+                                                                            <i>Còn phòng</i>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <i>Đã có khách</i>
+                                                                        }
                                                                     }
                                                                     <div class="tour__item--btn">
                                                                         <div class="tour__btn__bgc"></div>
                                                                         @if (item.TrangThai == true)
                                                                         {
-                                                                            <a href="@Url.Action("AddItem", "GioHang", new {maph = item.MaPhong, soluong = 1, 
+                                                                            <a href="@Url.Action("AddItem", "GioHang", new {maph = item.MaPhong, soluong = 1,
                                                                                     ngayden = Session["ngayden"], ngaydi = Session["ngaydi"],
                                                                                     batdau = Session["batdau"], ketthuc = Session["ketthuc"]})">
                                                                                 Đặt phòng

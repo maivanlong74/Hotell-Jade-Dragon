@@ -54,6 +54,7 @@
     <Property Name="MaError" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
     <Property Name="SoLuongCTHD" Type="Int32" />
     <Property Name="DaDat" Type="Boolean" />
+    <Property Name="HuyDat" Type="Boolean" />
     <NavigationProperty Name="chitiethoadons" Relationship="Self.FK_chitiethoadon_hoadon" FromRole="hoadon" ToRole="chitiethoadon" />
     <NavigationProperty Name="ErrorPay" Relationship="Self.FK_hoadon_ErrorPay" FromRole="hoadon" ToRole="ErrorPay" />
     <NavigationProperty Name="khachhang" Relationship="Self.FK_hoadon_khachhang" FromRole="hoadon" ToRole="khachhang" />

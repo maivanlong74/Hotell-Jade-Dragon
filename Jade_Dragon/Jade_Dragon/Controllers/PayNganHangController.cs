@@ -84,7 +84,7 @@ namespace Jade_Dragon.Controllers
                             slct++;
                         }
                         hoadon hd = db.hoadons.Find(orderId);
-                        hd.MaError = vnp_ResponseCode;
+                        hd.MaError = "01";
                         hd.SoLuongCTHD = (int)slct;
                         db.SaveChanges();
 
@@ -141,10 +141,15 @@ namespace Jade_Dragon.Controllers
                         ViewBag.ListKhuVuc = KhuVuc;
 
                         hoadon hd = db.hoadons.Find(orderId);
-                        hd.MaError = vnp_ResponseCode;
-                        ErrorPay Loi = db.ErrorPays.Find(hd.MaError);
+                        var ct = db.chitiethoadons.Where(n => n.MaHoaDon == orderId).ToList();
+                        foreach(var a in ct)
+                        {
+                            db.chitiethoadons.Remove(a);
+                            db.SaveChanges();
+                        }
+                        db.hoadons.Remove(hd);
                         db.SaveChanges();
-
+                        ErrorPay Loi = db.ErrorPays.Find(vnp_ResponseCode);
                         ViewBag.Error = "DaCoLoi";
                         ViewBag.Message = "Có lỗi xảy ra trong quá trình xử lý hóa đơn " + orderId + " | Mã giao dịch: " + vnpayTranId;
                         ViewBag.Message2 = "Lỗi: " + Loi.TenError;
@@ -158,11 +163,18 @@ namespace Jade_Dragon.Controllers
                     ViewBag.ListKhuVuc = KhuVuc;
 
                     hoadon hd = db.hoadons.Find(orderId);
-                    hd.MaError = vnp_ResponseCode;
+                    var ct = db.chitiethoadons.Where(n => n.MaHoaDon == orderId).ToList();
+                    foreach (var a in ct)
+                    {
+                        db.chitiethoadons.Remove(a);
+                        db.SaveChanges();
+                    }
+                    db.hoadons.Remove(hd);
                     db.SaveChanges();
-
+                    ErrorPay Loi = db.ErrorPays.Find(vnp_ResponseCode);
                     ViewBag.Error = "DaCoLoi";
-                    ViewBag.Message = "Có lỗi xảy ra trong quá trình xử lý";
+                    ViewBag.Message = "Có lỗi xảy ra trong quá trình xử lý hóa đơn " + orderId + " | Mã giao dịch: " + vnpayTranId;
+                    ViewBag.Message2 = "Lỗi: " + Loi.TenError;
                 }
             }
 

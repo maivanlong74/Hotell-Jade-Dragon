@@ -3,14 +3,13 @@
     ViewBag.Title = "HoaDon";
     Layout = "~/Views/Shared/DatPhong_HoaDon.cshtml";
 }
-<link href="~/Style/css/html/hoadon.css" rel="stylesheet" />
-
 <head>
     <link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css">
     <script src="https://openlayers.org/en/v4.6.5/build/ol.js" type="text/javascript"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <link href="~/Style/css/Map/BoSung.css" rel="stylesheet" />
     <link href="~/Style/css/Map/Map_DatPhong.css" rel="stylesheet" />
+    <link href="~/Style/css/html/hoadon.css" rel="stylesheet" />
 </head>
 
 <style>
@@ -130,7 +129,7 @@
                             <div class="map--a">
                                 <img src="~/Style/img/map.jpg" />
                                 <div class="diachi">
-                                    <button id="Open_Map">Xem địa chỉ</button>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -155,7 +154,9 @@
                     </div>
                     <div class="diachi">
                         <p>sdt: @Model.khachsan.SoDienThoai</p>
-                        <a href="">Khách sạn @Model.khachsan.TenKhachSan | Địa chỉ @Model.khachsan.DiaChi</a>
+                        <a style="text-decoration: none; color: wheat; font-weight: 700;">
+                            Khách sạn @Model.khachsan.TenKhachSan | Địa chỉ @Model.khachsan.DiaChi
+                        </a>
                     </div>
                     <div class="name">
                         <p>Hóa đơn thanh toán</p>

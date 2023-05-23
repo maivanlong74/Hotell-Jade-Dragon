@@ -1,102 +1,46 @@
-Tôi có code html table:
-    <table id="example" class="display">
-            <thead>
-                <tr>
-                    <th>Mã hóa đơn</th>
-                    <th>Tên khách sạn</th>
-                    <th>Tên khách hàng</th>
-                    <th>Ngày đặt</th>
-                    <th>Tổng tiền</th>
-                    <th></th>
+<table>
+                <tr class="tieude-item">
+                    <td>Mã hóa đơn</td>
+                    <td>Tên khách sạn</td>
+                    <td>Tên người đặt phòng</td>
+                    <td>Số điện thoại</td>
+                    <td>Số lượng phòng</td>
+                    <td>Ngày đặt</td>
+                    <td>Tổng tiền</td>
+                    <td>Trạng thái</td>
                 </tr>
-            </thead>
-            <tbody>
                 @foreach (var item in Model.hd)
                 {
-                    <tr>
+                    <tr style="background-color: black;">
                         <td>@item.MaHoaDon</td>
-                        @if (item.MaKhachSan != null)
-                        {
-                            <td>
-                                <a href="@Url.Action("Details", "QLKhachSan", new {id = item.MaKhachSan})" style="text-decoration: none; color: white;">
-                                    @item.TenKhachSan
-                                </a>
-                            </td>
-                        }
-                        else
-                        {
-                            <td>@item.TenKhachSan</td>
-                        }
-                        @if (item.MaKh != null)
-                        {
-                            <td>
-                                <a href="@Url.Action("Details", "QLKhachHang", new {id = item.MaKh})" style="text-decoration: none; color: white;">
-                                    @item.HoTen
-                                </a>
-                            </td>
-                        }
-                        else
-                        {
-                            <td>@item.HoTen</td>
-                        }
+                        <td>@item.khachsan.TenKhachSan</td>
+                        <td>@item.HoTen</td>
+                        <td>@item.SoDienThoai</td>
+                        <td>@item.SoLuongPhong</td>
                         <td>@item.NgayDat</td>
                         <td>@item.TongTien</td>
-                        <td style="display: flex;">
-                            <a href="" style="text-decoration: none; color: wheat; font-weight: 700;">
-                                Xác nhận
-                            </a>
-                            <a href="" style="margin-left: 10px;">
-                                <img src="~/Style/img/icon/X.jpg" title="Xóa hóa đơn này" />
-                            </a>
-                        </td>
+                        <td>@item.ErrorPay.TenError</td>
                     </tr>
-                    <tr>
-                        <td colspan="6">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Mã chi tiết hóa đơn</th>
-                                        <th>Ngày đến</th>
-                                        <th>Ngày đi</th>
-                                        <th>Đơn giá</th>
-                                        <th>Tên Phòng</th>
-                                        <th>Trạng thái</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var c in Model.cthd.Where(a => a.MaHoaDon == item.MaHoaDon))
-                                    {
-                                        <tr>
-                                            <td>@c.MaChiTietHoaDon</td>
-                                            <td>@c.NgayDen</td>
-                                            <td>@c.NgayDi</td>
-                                            <td>@c.Gia</td>
-                                            <td>@c.TenPhong</td>
-                                            @if (c.DaDen == false)
-                                            {
-                                                <td>Khách chưa đến</td>
-                                            }
-                                            else
-                                            {
-                                                <td>Khách đã đến</td>
-                                            }
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </td>
+                    <tr style="background: none;">
+                        <td style="border: none;"></td>
+                        <td style="border: none;"></td>
+                        <td>Mã chi tiết hóa đơn</td>
+                        <td>Ngày đến</td>
+                        <td>Ngày đi</td>
+                        <td>Giá</td>
+                        <td>Phòng</td>
                     </tr>
+                    foreach(var c in Model.cthd.Where(a => a.MaHoaDon == item.MaHoaDon))
+                    {
+                    <tr style="background: none;">
+                        <td style="border: none;"></td>
+                        <td style="border: none;"></td>
+                        <td>@c.MaChiTietHoaDon</td>
+                        <td>@c.NgayDen</td>
+                        <td>@c.NgayDi</td>
+                        <td>@c.Gia</td>
+                        <td>@c.TenPhong</td>
+                    </tr>
+                    }
                 }
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th>Mã hóa đơn</th>
-                    <th>Tên khách sạn</th>
-                    <th>Tên khách hàng</th>
-                    <th>Ngày đặt</th>
-                    <th>Tổng tiền</th>
-                    <th></th>
-                </tr>
-            </tfoot>
-        </table>
-Tôi muốn khi hover vào thông tin hóa đơn thì chi tiết hóa đơn của hóa đơn đó mới hiện ra
+            </table>

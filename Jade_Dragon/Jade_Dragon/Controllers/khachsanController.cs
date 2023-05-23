@@ -47,6 +47,7 @@ namespace Jade_Dragon.Controllers
             DateTime timenow = DateTime.Now;
             List<Moc_Time> Time = new List<Moc_Time>();
             Time = db.Moc_Time.ToList();
+            var hd = db.hoadons.ToList();
 
             foreach(var mm in listphong)
             {
@@ -56,53 +57,67 @@ namespace Jade_Dragon.Controllers
                 }
                 else
                 {
-                    if (batdau == null && ketthuc == null)
+                    if(hd.Count > 0)
                     {
-                        if (Time != null)
+                        foreach(var h in hd)
                         {
-                            foreach (var item in Time)
+                            if(h.DaDat == false)
                             {
-                                PhongKhachSan ph = db.PhongKhachSans.FirstOrDefault(m => m.MaPhong == item.MaPhong);
-                                if (item.NgayDen <= timenow && timenow <= item.NgayDi)
-                                {
-                                    ph.TrangThai = false;
-                                }
+                                mm.TrangThai = true;
+                                db.SaveChanges();
                             }
-                        }
-                        else
-                        {
-                            List<PhongKhachSan> ph_ong = db.PhongKhachSans.Where(m => m.TrangThai == false).ToList();
-                            foreach (var dem in ph_ong)
+                            else
                             {
-                                dem.TrangThai = true;
-                            }
-
-                        }
-                    }
-                    else
-                    {
-                        if (batdau > ketthuc)
-                        {
-                            DateTime tam = (DateTime)batdau;
-                            batdau = ketthuc;
-                            ketthuc = tam;
-
-                        }
-                        long sodem = demsodem((DateTime)batdau, (DateTime)ketthuc);
-                        if (Time != null)
-                        {
-                            for (long i = 0; i <= sodem; i++)
-                            {
-                                DateTime day = batdau.Value.AddDays(i);
-                                foreach (var item in Time)
+                                if (batdau == null && ketthuc == null)
                                 {
-                                    if (item.NgayDen != null && item.NgayDi != null)
+                                    if (Time != null)
                                     {
-                                        PhongKhachSan ph = db.PhongKhachSans.FirstOrDefault(m => m.MaPhong == item.MaPhong);
-                                        if (item.NgayDen <= day && day <= item.NgayDi)
+                                        foreach (var item in Time)
                                         {
-                                            ph.TrangThai = false;
-                                            i = sodem;
+                                            PhongKhachSan ph = db.PhongKhachSans.FirstOrDefault(m => m.MaPhong == item.MaPhong);
+                                            if (item.NgayDen <= timenow && timenow <= item.NgayDi)
+                                            {
+                                                ph.TrangThai = false;
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        List<PhongKhachSan> ph_ong = db.PhongKhachSans.Where(m => m.TrangThai == false).ToList();
+                                        foreach (var dem in ph_ong)
+                                        {
+                                            dem.TrangThai = true;
+                                        }
+
+                                    }
+                                }
+                                else
+                                {
+                                    if (batdau > ketthuc)
+                                    {
+                                        DateTime tam = (DateTime)batdau;
+                                        batdau = ketthuc;
+                                        ketthuc = tam;
+
+                                    }
+                                    long sodem = demsodem((DateTime)batdau, (DateTime)ketthuc);
+                                    if (Time != null)
+                                    {
+                                        for (long i = 0; i <= sodem; i++)
+                                        {
+                                            DateTime day = batdau.Value.AddDays(i);
+                                            foreach (var item in Time)
+                                            {
+                                                if (item.NgayDen != null && item.NgayDi != null)
+                                                {
+                                                    PhongKhachSan ph = db.PhongKhachSans.FirstOrDefault(m => m.MaPhong == item.MaPhong);
+                                                    if (item.NgayDen <= day && day <= item.NgayDi)
+                                                    {
+                                                        ph.TrangThai = false;
+                                                        i = sodem;
+                                                    }
+                                                }
+                                            }
                                         }
                                     }
                                 }

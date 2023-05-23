@@ -49,6 +49,7 @@
     <Property Name="MaError" Type="varchar" MaxLength="10" />
     <Property Name="SoLuongCTHD" Type="int" />
     <Property Name="DaDat" Type="bit" />
+    <Property Name="HuyDat" Type="bit" />
   </EntityType>
   <EntityType Name="khachhang">
     <Key>

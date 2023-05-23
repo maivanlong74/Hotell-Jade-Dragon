@@ -100,8 +100,16 @@
                             </a>
                         </li>
                     }
-
-                </ul>
+                    @if (Session["MaKhachSan_ks"] != null)
+                    {
+                        <li class="nav-link">
+                            <a href="@Url.Action("DanhSachDon", "XacNhanDonManage", new {maks = Session["MaKhachSan_ks"]})">
+                                <i class='bx bx-select-multiple icon'></i>
+                                <span class="text nav-text">Xác Nhận</span>
+                            </a>
+                        </li>
+                    }
+                    </ul>
             </div>
 
             <div class="bottom-content">
