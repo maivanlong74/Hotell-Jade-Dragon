@@ -619,11 +619,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Admin\Public\css\aaaaaa.css" />
     <Content Include="Areas\Admin\Public\css\admin.css" />
     <Content Include="Areas\Admin\Public\css\binhluan.css" />
     <Content Include="Areas\Admin\Public\css\css_ChatAdmin.css" />
     <Content Include="Areas\Admin\Public\css\css_chuc_nang.css" />
     <Content Include="Areas\Admin\Public\css\css_khach_hang.css" />
+    <Content Include="Areas\Admin\Public\css\css_QuanLyPhongg.css" />
     <Content Include="Areas\Admin\Public\css\khachsan.css" />
     <Content Include="Areas\Admin\Public\css\lichsu.css" />
     <Content Include="Areas\Admin\Public\css\Map\Create_Ks.css" />
@@ -705,10 +707,6 @@
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="Global.asax" />
     <Content Include="LICENSE.txt" />
-    <Content Include="Areas\Admin\Views\QuanLyPhong\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\QuanLyPhong\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\QuanLyPhong\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\QuanLyPhong\Phong.cshtml" />
     <Content Include="Areas\Admin\Views\khuvuc\khuvuc.cshtml" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
@@ -763,6 +761,10 @@
     <Content Include="Areas\Admin\Views\LichSu\LichSuManage.cshtml" />
     <Content Include="Areas\Admin\Views\PhanHoi\PhanHoiManage.cshtml" />
     <Content Include="Areas\Admin\Views\TinNhanAdmin\TinNhanManage.cshtml" />
+    <Content Include="Areas\Admin\Views\QLKhachSan\CreateManage.cshtml" />
+    <Content Include="Areas\Admin\Views\PhongAdmin\DanhSachPhong.cshtml" />
+    <Content Include="Areas\Admin\Views\PhongManage\DanhSachPhong.cshtml" />
+    <Content Include="Areas\Admin\Views\XacNhanDonAdmin\DanhSachDon.cshtml" />
     <EntityDeploy Include="Models\Model.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model.Designer.cs</LastGenOutput>
@@ -770,11 +772,6 @@
     <Content Include="Models\Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
-    <Content Include="Areas\Admin\Views\QLKhachSan\CreateManage.cshtml" />
-    <Content Include="Areas\Admin\Views\PhongManage\CreateManage.cshtml" />
-    <Content Include="Areas\Admin\Views\PhongManage\DetailsManage.cshtml" />
-    <Content Include="Areas\Admin\Views\PhongManage\EditManage.cshtml" />
-    <Content Include="Areas\Admin\Views\PhongManage\PhongManage.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Controller\turf.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -865,13 +862,15 @@
     <Compile Include="Areas\Admin\Controllers\khuvucController.cs" />
     <Compile Include="Areas\Admin\Controllers\LichSuController.cs" />
     <Compile Include="Areas\Admin\Controllers\PhanHoiController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PhongAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\PhongManageController.cs" />
     <Compile Include="Areas\Admin\Controllers\QLKhachHangController.cs" />
     <Compile Include="Areas\Admin\Controllers\QLKhachSanController.cs" />
-    <Compile Include="Areas\Admin\Controllers\QuanLyPhongController.cs" />
     <Compile Include="Areas\Admin\Controllers\TinNhanAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\TrangChuAdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\XacNhanDonAdminController.cs" />
     <Compile Include="check_In_Out.cs" />
+    <Compile Include="common\InfoPhong.cs" />
     <Compile Include="common\LuongTruyCap.cs" />
     <Compile Include="common\MailHelper.cs" />
     <Compile Include="common\MyAuthorizeAttribute.cs" />
@@ -905,6 +904,8 @@
     <Compile Include="Models\hoadon.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\HtLichSu.cs" />
+    <Compile Include="Models\HtPhong.cs" />
     <Compile Include="Models\khachhang.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -940,13 +941,19 @@
     <Compile Include="Models\phanhoi.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\phong.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\PhongChat.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PhongKhachSan.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SoLuongNguoiTruyCap.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SoPhongKhachSan.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SoTangKhachSan.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagram.cs">

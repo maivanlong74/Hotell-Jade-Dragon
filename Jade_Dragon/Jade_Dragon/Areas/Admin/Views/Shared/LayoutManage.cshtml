@@ -44,12 +44,6 @@
                 </li>
 
                 <ul class="menu-links">
-                    <li class="nav-link">
-                        <a href="@Url.Action("TrangChuManage", "TrangChuAdmin")">
-                            <i class='bx bx-home-alt icon'></i>
-                            <span class="text nav-text">Trang chủ</span>
-                        </a>
-                    </li>
 
                     <li class="nav-link">
                         <a href="@Url.Action("QuanLyKhManage", "QLKhachHang")">
@@ -96,6 +90,16 @@
                             <span class="text nav-text">Tin nhắn</span>
                         </a>
                     </li>
+
+                    @if (Session["MaKhachSan_ks"] != null)
+                    {
+                        <li class="nav-link">
+                            <a href="@Url.Action("DanhSachPhong", "PhongManage", new {MaKs = Session["MaKhachSan_ks"]})">
+                                <i class='bx bx-send icon'></i>
+                                <span class="text nav-text">Quản lý phòng</span>
+                            </a>
+                        </li>
+                    }
 
                 </ul>
             </div>

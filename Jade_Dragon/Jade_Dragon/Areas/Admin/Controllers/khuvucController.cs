@@ -91,10 +91,10 @@ namespace Jade_Dragon.Areas.Admin.Controllers
             if (ks != null)
             {
                 db.khachsans.Remove(ks);
-                phong ph = db.phongs.FirstOrDefault(x => x.MaKhachSan == ks.MaKhachSan);
+                PhongKhachSan ph = db.PhongKhachSans.FirstOrDefault(x => x.MaKhachSan == ks.MaKhachSan);
                 if(ph != null)
                 {
-                    db.phongs.Remove(ph);
+                    db.PhongKhachSans.Remove(ph);
                 }
             }
             db.SaveChanges();

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Jade_Dragon.Models.hoadon>
+﻿@model Jade_Dragon.Models.HtLichSu
 @{
     ViewBag.Title = "LichSu";
     Layout = "~/Views/Shared/DatPhong_HoaDon.cshtml";
@@ -115,9 +115,9 @@
                     <td>Tổng tiền</td>
                     <td>Trạng thái</td>
                 </tr>
-                @foreach (var item in Model)
+                @foreach (var item in Model.hd)
                 {
-                    <tr>
+                    <tr style="background-color: black;">
                         <td>@item.MaHoaDon</td>
                         <td>@item.khachsan.TenKhachSan</td>
                         <td>@item.HoTen</td>
@@ -125,8 +125,29 @@
                         <td>@item.SoLuongPhong</td>
                         <td>@item.NgayDat</td>
                         <td>@item.TongTien</td>
-                        <td>@item.MaError</td>
+                        <td>@item.ErrorPay.TenError</td>
                     </tr>
+                    <tr style="background: none;">
+                        <td style="border: none;"></td>
+                        <td style="border: none;"></td>
+                        <td>Mã chi tiết hóa đơn</td>
+                        <td>Ngày đến</td>
+                        <td>Ngày đi</td>
+                        <td>Giá</td>
+                        <td>Phòng</td>
+                    </tr>
+                    foreach(var c in Model.cthd.Where(a => a.MaHoaDon == item.MaHoaDon))
+                    {
+                    <tr style="background: none;">
+                        <td style="border: none;"></td>
+                        <td style="border: none;"></td>
+                        <td>@c.MaChiTietHoaDon</td>
+                        <td>@c.NgayDen</td>
+                        <td>@c.NgayDi</td>
+                        <td>@c.Gia</td>
+                        <td>@c.TenPhong</td>
+                    </tr>
+                    }
                 }
             </table>
         </div>

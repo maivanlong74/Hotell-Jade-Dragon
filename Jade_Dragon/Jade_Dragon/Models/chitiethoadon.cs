@@ -20,7 +20,10 @@ namespace Jade_Dragon.Models
         public Nullable<long> Gia { get; set; }
         public Nullable<long> MaPhong { get; set; }
         public Nullable<long> MaHoaDon { get; set; }
+        public string TenPhong { get; set; }
+        public Nullable<bool> DaDen { get; set; }
     
-        public virtual phong phong { get; set; }
+        public virtual hoadon hoadon { get; set; }
+        public virtual PhongKhachSan PhongKhachSan { get; set; }
     }
 }

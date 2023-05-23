@@ -1,31 +1,29 @@
-function Search_KD_VD(location) {
-    var lon = location.coordinates[0];
-    var lat = location.coordinates[1]; var maks_map = location.maks;
-    var name = location.name; var address = location.address;
-    var phone = location.phone; var marker = new ol.Feature({
-        geometry: new ol.geom.Point(ol.proj.fromLonLat([lon, lat])),
-        content: `<input type="hidden" id="maks_map" value="` + maks_map + `"/>` +
-            '<div><strong> Khách Sạn:' + name + '</strong></div>' +
-            '<div>Địa chỉ: ' + address + '</div>' + '<div>Số điện thoại: ' + phone + '</div>'});
-    marker.setStyle(new ol.style.Style({
-        image: new ol.style.Icon({
-            anchor: [0.5, 1], src: 'https://openlayers.org/en/latest/examples/data/icon.png' }) }));
-    var vectorLayer = new ol.layer.Vector({
-        source: new ol.source.Vector({
-            features: [marker] }) });
-    var selectInteraction = new ol.interaction.Select({
-        layers: [vectorLayer], });
-    map.addInteraction(selectInteraction);
-    var popup = new ol.Overlay({ element: document.createElement('div'),
-        autoPan: false, autoPanAnimation: { duration: 250 },
-        positioning: "bottom-center", stopEvent: false, offset: [0, -50], }); map.addOverlay(popup);
-    map.on('pointermove', function (evt) {
-        var feature = map.forEachFeatureAtPixel(evt.pixel,
-            function (feature, layer) {
-                return feature; }); if (feature) {
-            var coordinates = feature.getGeometry().getCoordinates();
-            popup.getElement().innerHTML = feature.get('content');
-            popup.setPosition(coordinates);
-            popup.getElement().style.display = 'block';
-        } else { popup.getElement().style.display = 'none'; } }); return vectorLayer; }
-    Có cách nào để khi tôi không hover icon khách sạn nữa thì: <input type="hidden" id="maks_map" value="` + maks_map + `"/> sẽ có value bằng null không
+Tôi có hàm LayDanhSachSoPhong:
+    public List<SoPhongKhachSan> LayDanhSachSoPhong(long MaKs, long MaTang)
+        {
+            var ph = db.PhongKhachSans.Where(m => m.MaKhachSan == MaKs && m.MaSoTang == MaTang).ToList();
+            // Tạo danh sách số tầng dựa trên số tầng của khách sạn
+            List<SoPhongKhachSan> danhSachSoPhong = new List<SoPhongKhachSan>();
+
+            foreach (var i in ph)
+            {
+                danhSachSoPhong.Add(new SoPhongKhachSan { MaSoPhong = (long)i.MaSoPhong, SoPhong = i.SoPhongKhachSan.SoPhong });
+            }
+
+            return danhSachSoPhong;
+        }
+Ở bên controller:
+    private Connect db = new Connect();
+        public ActionResult DanhSachPhong(long MaKs)
+        {
+            HtPhong ph = new HtPhong();
+            InfoPhong infophong = new InfoPhong();
+
+            ph.tangks = infophong.LayDanhSachSoTang(MaKs);
+            long MaTang = ph.tangks.FirstOrDefault()?.MaSoTang ?? 0;
+            ph.phongks = infophong.LayDanhSachSoPhong(MaKs, MaTang);
+            return View();
+        }
+ở dòng: ph.phongks = infophong.LayDanhSachSoPhong(MaKs, MaTang);
+Tôi bị lỗi: local variable) long MaTang
+CS0029: Cannot implicitly convert type 'System.Collections.Generic.List<Jade_Dragon.Models.SoPhongKhachSan>' to 'System.Collections.Generic.List<Jade_Dragon.Models.PhongKhachSan>*

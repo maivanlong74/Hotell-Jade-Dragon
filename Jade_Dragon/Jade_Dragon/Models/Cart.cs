@@ -7,7 +7,7 @@ namespace Jade_Dragon.Models
 {
     public class Cart
     {
-        public phong htphong { get; set; }
+        public PhongKhachSan htphong { get; set; }
         public int htsoluong { set; get; }
         public decimal TongTien()
         {

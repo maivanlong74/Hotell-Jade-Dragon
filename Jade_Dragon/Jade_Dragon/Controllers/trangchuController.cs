@@ -17,7 +17,7 @@ namespace Jade_Dragon.Controllers
         // GET: trangchu
         public ActionResult trangchu(long? ma, string searchTerm, string searchType)
         {
-            var ksks = db.phongs.ToList();
+            var ksks = db.PhongKhachSans.ToList();
             foreach (var k in ksks)
             {
                 if (k.TrangThai == false)
@@ -46,7 +46,7 @@ namespace Jade_Dragon.Controllers
                         {
                             foreach (var item in Time)
                             {
-                                phong ph = db.phongs.FirstOrDefault(m => m.MaPhong == item.MaPhong);
+                                PhongKhachSan ph = db.PhongKhachSans.FirstOrDefault(m => m.MaPhong == item.MaPhong);
                                 if (item.NgayDen <= timenow && timenow <= item.NgayDi)
                                 {
                                     ph.TrangThai = false;
@@ -55,7 +55,7 @@ namespace Jade_Dragon.Controllers
                         }
                         else
                         {
-                            List<phong> ph_ong = db.phongs.Where(m => m.TrangThai == false).ToList();
+                            List<PhongKhachSan> ph_ong = db.PhongKhachSans.Where(m => m.TrangThai == false).ToList();
                             foreach (var dem in ph_ong)
                             {
                                 dem.TrangThai = true;
@@ -71,7 +71,7 @@ namespace Jade_Dragon.Controllers
 
             foreach (var i in khachsans)
             {
-                var phong = db.phongs.Where(m => m.MaKhachSan == i.MaKhachSan).ToList();
+                var phong = db.PhongKhachSans.Where(m => m.MaKhachSan == i.MaKhachSan).ToList();
 
                 bool tatCaPhongFalse = true;
 

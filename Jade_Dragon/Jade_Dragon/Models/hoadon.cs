@@ -14,9 +14,16 @@ namespace Jade_Dragon.Models
     
     public partial class hoadon
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public hoadon()
+        {
+            this.chitiethoadons = new HashSet<chitiethoadon>();
+        }
+    
         public long MaHoaDon { get; set; }
         public Nullable<long> MaKh { get; set; }
         public Nullable<long> MaKhachSan { get; set; }
+        public string TenKhachSan { get; set; }
         public string HoTen { get; set; }
         public Nullable<long> SoDienThoai { get; set; }
         public Nullable<long> CMND { get; set; }
@@ -28,7 +35,10 @@ namespace Jade_Dragon.Models
         public string HinhThuc { get; set; }
         public string MaError { get; set; }
         public Nullable<int> SoLuongCTHD { get; set; }
+        public Nullable<bool> DaDat { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<chitiethoadon> chitiethoadons { get; set; }
         public virtual ErrorPay ErrorPay { get; set; }
         public virtual khachhang khachhang { get; set; }
         public virtual khachsan khachsan { get; set; }

@@ -85,6 +85,7 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                     ks.KinhDo = KinhDo.ToString();
                     ks.ViDo = ViDo.ToString();
                     ks.Gia = (long?)Gia;
+                    ks.SoTang = 1;
                     ks.MaKhuVuc = k_v.MaKhuVuc;
                     ks.TrangThaiKs = true;
                 }
@@ -103,6 +104,7 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                     ks.KinhDo = KinhDo.ToString();
                     ks.ViDo = ViDo.ToString();
                     ks.Gia = (long?)Gia;
+                    ks.SoTang = 1;
                     ks.MaKhuVuc = khuvuc.MaKhuVuc;
                     ks.TrangThaiKs = true;
                 }
@@ -110,6 +112,20 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                 db.SaveChanges();
                 Up_IMG(ks, Avt);
             }
+
+            khachsan khach__san = db.khachsans.FirstOrDefault(k => k.TenKhachSan == TenKhachSan);
+            PhongKhachSan phks = new PhongKhachSan();
+            phks.MaKhachSan = khach__san.MaKhachSan;
+            phks.MaSoTang = 1;
+            phks.MaSoPhong = 1;
+            phks.TenPhong = "B101";
+            phks.LoaiHinh = "Đơn";
+            phks.Gia = (long?)Gia;
+            phks.VIP = false;
+            phks.TrangThai = false;
+            phks.KhoaPhong = true;
+            db.PhongKhachSans.Add(phks);
+            db.SaveChanges();
             return Redirect("Create");
         }
 
@@ -220,7 +236,7 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                     db.SaveChanges();
                 }
             }
-            List<phong> phong = db.phongs.Where(x => x.MaKhachSan == id).ToList();
+            List<PhongKhachSan> phong = db.PhongKhachSans.Where(x => x.MaKhachSan == id).ToList();
             if (phong != null)
             {
                 foreach (var dem in phong)
@@ -233,7 +249,7 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                             db.Moc_Time.Remove(moc);
                         }
                     }
-                    db.phongs.Remove(dem);
+                    db.PhongKhachSans.Remove(dem);
                 }
             }
             List<PhongChat> phongChat = db.PhongChats.Where(l => l.MaKhachSan == id).ToList();
@@ -342,6 +358,7 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                     ks.KinhDo = KinhDo.ToString();
                     ks.ViDo = ViDo.ToString();
                     ks.Gia = (long?)Gia;
+                    ks.SoTang = 1;
                     ks.MaKhuVuc = k_v.MaKhuVuc;
                     ks.TrangThaiKs = true;
                 }
@@ -360,6 +377,7 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                     ks.KinhDo = KinhDo.ToString();
                     ks.ViDo = ViDo.ToString();
                     ks.Gia = (long?)Gia;
+                    ks.SoTang = 1;
                     ks.MaKhuVuc = khuvuc.MaKhuVuc;
                     ks.TrangThaiKs = true;
                 }
@@ -372,6 +390,19 @@ namespace Jade_Dragon.Areas.Admin.Controllers
             khkh.QLKhachSan = ksks.MaKhachSan;
             db.SaveChanges();
             Session["MaKhachSan_ks"] = ksks.MaKhachSan;
+
+            PhongKhachSan phks = new PhongKhachSan();
+            phks.MaKhachSan = ksks.MaKhachSan;
+            phks.MaSoTang = 1;
+            phks.MaSoPhong = 1;
+            phks.TenPhong = "B101";
+            phks.LoaiHinh = "Đơn";
+            phks.Gia = (long?)Gia;
+            phks.VIP = false;
+            phks.TrangThai = false;
+            phks.KhoaPhong = true;
+            db.PhongKhachSans.Add(phks);
+            db.SaveChanges();
             return Redirect("~/Admin/QLKhachSan/EditManage/" + ksks.MaKhachSan);
         }
 
@@ -478,7 +509,7 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                     db.SaveChanges();
                 }
             }
-            List<phong> phong = db.phongs.Where(x => x.MaKhachSan == id).ToList();
+            List<PhongKhachSan> phong = db.PhongKhachSans.Where(x => x.MaKhachSan == id).ToList();
             if (phong != null)
             {
                 foreach (var dem in phong)
@@ -491,7 +522,7 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                             db.Moc_Time.Remove(moc);
                         }
                     }
-                    db.phongs.Remove(dem);
+                    db.PhongKhachSans.Remove(dem);
                 }
             }
             List<PhongChat> phongChat = db.PhongChats.Where(l => l.MaKhachSan == id).ToList();

@@ -1,0 +1,31 @@
+Tôi có code html:
+<form action="" method="post">
+  <div class="info-phong-item">
+    <label for="">Loại hình Phòng:</label> <br>
+    <input type="text" placeholder="Nhập phòng đơn/đôi" class="input">
+  </div>
+  <div class="info-phong-item">
+    <label for="">Giá:</label> <br>
+    <input type="text" placeholder="Nhập giá phòng" class="input">
+  </div>
+  <div class="info-phong-item">
+    <label for="">Thuộc loại phòng:</label> <br>
+    <div class="vip">
+      <label for="">VIP</label>
+      <input type="checkbox" name="" id="">
+      <label for="">Thường</label>
+      <input type="checkbox" name="" id="">
+    </div>
+  </div>
+  <div class="button-dk">
+    <button type="submit">Save</button>
+  </div>
+</form>
+
+Làm thế nào để ở 2 checkbox này tôi chỉ được tích chọn 1 cái:
+  <div class="vip">
+    <label for="">VIP</label>
+    <input type="checkbox" name="" id="">
+    <label for="">Thường</label>
+    <input type="checkbox" name="" id="">
+  </div>

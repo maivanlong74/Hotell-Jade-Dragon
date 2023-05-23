@@ -34,7 +34,7 @@ namespace Jade_Dragon.Controllers
             List<khachsan> list = new List<khachsan>();
             list = db.khachsans.ToList();
 
-            List<phong> listphong = db.phongs.ToList();
+            List<PhongKhachSan> listphong = db.PhongKhachSans.ToList();
             foreach (var dem in listphong)
             {
                 if(dem.TrangThai == false)
@@ -62,7 +62,7 @@ namespace Jade_Dragon.Controllers
                         {
                             foreach (var item in Time)
                             {
-                                phong ph = db.phongs.FirstOrDefault(m => m.MaPhong == item.MaPhong);
+                                PhongKhachSan ph = db.PhongKhachSans.FirstOrDefault(m => m.MaPhong == item.MaPhong);
                                 if (item.NgayDen <= timenow && timenow <= item.NgayDi)
                                 {
                                     ph.TrangThai = false;
@@ -71,7 +71,7 @@ namespace Jade_Dragon.Controllers
                         }
                         else
                         {
-                            List<phong> ph_ong = db.phongs.Where(m => m.TrangThai == false).ToList();
+                            List<PhongKhachSan> ph_ong = db.PhongKhachSans.Where(m => m.TrangThai == false).ToList();
                             foreach (var dem in ph_ong)
                             {
                                 dem.TrangThai = true;
@@ -98,7 +98,7 @@ namespace Jade_Dragon.Controllers
                                 {
                                     if (item.NgayDen != null && item.NgayDi != null)
                                     {
-                                        phong ph = db.phongs.FirstOrDefault(m => m.MaPhong == item.MaPhong);
+                                        PhongKhachSan ph = db.PhongKhachSans.FirstOrDefault(m => m.MaPhong == item.MaPhong);
                                         if (item.NgayDen <= day && day <= item.NgayDi)
                                         {
                                             ph.TrangThai = false;
@@ -113,12 +113,12 @@ namespace Jade_Dragon.Controllers
             }
             db.SaveChanges();
 
-            List<phong> list2 = new List<phong>();
-            list2 = db.phongs.ToList();
+            List<PhongKhachSan> list2 = new List<PhongKhachSan>();
+            list2 = db.PhongKhachSans.ToList();
 
             int pageSize = 6; // số lượng phần tử hiển thị trong mỗi trang
             int pageNumber = (page ?? 1); // trang hiện tại, mặc định là trang đầu tiên
-            var Phong = db.phongs.Include(k => k.khachsan);
+            var Phong = db.PhongKhachSans.Include(k => k.khachsan);
 
             if(khuvuc != null && loai != null && vip != null && batdau != null && ketthuc != null)
             {
@@ -142,7 +142,7 @@ namespace Jade_Dragon.Controllers
                         {
                             if (item.NgayDen != null && item.NgayDi != null)
                             {
-                                phong ph = db.phongs.FirstOrDefault(m => m.MaPhong == item.MaPhong);
+                                PhongKhachSan ph = db.PhongKhachSans.FirstOrDefault(m => m.MaPhong == item.MaPhong);
                                 if (item.NgayDen <= day && day <= item.NgayDi)
                                 {
                                     ph.TrangThai = false;
@@ -222,9 +222,9 @@ namespace Jade_Dragon.Controllers
             return View("khachsan", m);
         }
 
-        public List<phong> TimKiem(string searchTerm, string searchType)
+        public List<PhongKhachSan> TimKiem(string searchTerm, string searchType)
         {
-            IQueryable<phong> query = db.phongs;
+            IQueryable<PhongKhachSan> query = db.PhongKhachSans;
             switch (searchType.ToLower())
             {
                 case "khachsan":

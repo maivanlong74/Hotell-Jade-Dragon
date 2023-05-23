@@ -12,21 +12,23 @@ namespace Jade_Dragon.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class phong
+    public partial class PhongKhachSan
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public phong()
+        public PhongKhachSan()
         {
             this.chitiethoadons = new HashSet<chitiethoadon>();
             this.Moc_Time = new HashSet<Moc_Time>();
         }
     
         public long MaPhong { get; set; }
+        public Nullable<long> MaKhachSan { get; set; }
+        public Nullable<long> MaSoTang { get; set; }
+        public Nullable<long> MaSoPhong { get; set; }
         public string TenPhong { get; set; }
         public string LoaiHinh { get; set; }
         public Nullable<long> Gia { get; set; }
-        public bool VIP { get; set; }
-        public Nullable<long> MaKhachSan { get; set; }
+        public Nullable<bool> VIP { get; set; }
         public Nullable<bool> TrangThai { get; set; }
         public Nullable<bool> KhoaPhong { get; set; }
     
@@ -35,5 +37,7 @@ namespace Jade_Dragon.Models
         public virtual khachsan khachsan { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Moc_Time> Moc_Time { get; set; }
+        public virtual SoPhongKhachSan SoPhongKhachSan { get; set; }
+        public virtual SoTangKhachSan SoTangKhachSan { get; set; }
     }
 }

@@ -78,7 +78,7 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                 }
                 else
                 if (Data.FirstOrDefault().UserGroup.Name == "Manage") {
-                    return Redirect("~/Admin/TrangChuAdmin/TrangChuManage");
+                    return Redirect("~/Admin/QLKhachHang/QuanLyKhManage");
                 }
 
             }

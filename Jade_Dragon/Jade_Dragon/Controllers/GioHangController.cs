@@ -102,7 +102,7 @@ namespace Jade_Dragon.Controllers
                                     DateTime? batdau = null, DateTime? ketthuc = null)
         {
 
-            var Phong = db.phongs.FirstOrDefault(c => c.MaPhong == maph);
+            var Phong = db.PhongKhachSans.FirstOrDefault(c => c.MaPhong == maph);
             var cart = Session[giohang];
             if (cart != null)
             {
@@ -233,6 +233,7 @@ namespace Jade_Dragon.Controllers
                     cthoadon.Gia = dem.htphong.Gia;
                     cthoadon.NgayDen = ngayden;
                     cthoadon.NgayDi = ngaydi;
+                    cthoadon.TenPhong = dem.htphong.TenPhong;
                     db.chitiethoadons.Add(cthoadon);
                     db.SaveChanges();
                 }
@@ -351,15 +352,19 @@ namespace Jade_Dragon.Controllers
             List<khuvuc> KhuVuc = new List<khuvuc>();
             KhuVuc = db.khuvucs.ToList();
             ViewBag.ListKhuVuc = KhuVuc;
+            HtLichSu ls = new HtLichSu();
 
-            var list_ls = db.hoadons.Where(m => m.MaKh == makh).OrderByDescending(m => m.NgayDat).ToList();
-            return View(list_ls);
+            ls.hd = db.hoadons.Where(m => m.MaKh == makh).OrderByDescending(m => m.NgayDat).ToList();
+            ls.cthd = db.chitiethoadons.ToList();
+            return View("LichSu", ls);
         }
 
         public ActionResult lichsu_new(long? mahd)
         {
-            var list = db.hoadons.Where(m => m.MaHoaDon == mahd).ToList();
-            return View(list);
+            HtLichSu ls = new HtLichSu();
+            ls.hd = db.hoadons.Where(m => m.MaHoaDon == mahd).ToList();
+            ls.cthd = db.chitiethoadons.ToList();
+            return View(ls);
         }
 
         [HttpPost]

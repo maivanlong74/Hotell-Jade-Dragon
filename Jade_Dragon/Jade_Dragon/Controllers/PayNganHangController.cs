@@ -88,6 +88,17 @@ namespace Jade_Dragon.Controllers
                         hd.SoLuongCTHD = (int)slct;
                         db.SaveChanges();
 
+                        khachsan ksks = db.khachsans.Find(hd.MaKhachSan);
+                        Session["MaKhachSanPhong"] = ksks.MaKhachSan;
+                        Session["TenKhachSan"] = ksks.TenKhachSan;
+                        Session["DiaChi"] = ksks.DiaChi;
+                        Session["SoDienThoai_ks"] = ksks.SoDienThoai;
+                        Session["GmailKhachSan"] = ksks.Gmail;
+                        Session["Gia"] = ksks.Gia;
+                        Session["AnhKs"] = ksks.AnhKs;
+                        Session["KinhDo"] = ksks.KinhDo;
+                        Session["ViDo"] = ksks.ViDo;
+
                         ViewBag.now = DateTime.Now;
                         List<khuvuc> KhuVuc = new List<khuvuc>();
                         KhuVuc = db.khuvucs.ToList();

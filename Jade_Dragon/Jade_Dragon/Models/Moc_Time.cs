@@ -19,6 +19,6 @@ namespace Jade_Dragon.Models
         public Nullable<System.DateTime> NgayDen { get; set; }
         public Nullable<System.DateTime> NgayDi { get; set; }
     
-        public virtual phong phong { get; set; }
+        public virtual PhongKhachSan PhongKhachSan { get; set; }
     }
 }

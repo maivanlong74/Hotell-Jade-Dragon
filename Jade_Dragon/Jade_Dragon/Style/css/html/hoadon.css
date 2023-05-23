@@ -1,4 +1,8 @@
 ﻿
+.home {
+    height: 180vh;
+}
+
 .home_body .info {
     height: 505px;
 }
@@ -106,18 +110,19 @@
                 font-weight: 600;
             }
 
-        .body .list--ks .khachsan .datmua button {
-            color: white;
-            border: 2px solid;
-            background: black;
-            padding: 6px;
-            width: 205px;
-        }
+            .body .list--ks .khachsan .datmua a {
+                text-decoration: none;
+                color: white;
+                border: 2px solid;
+                background: black;
+                padding: 6px;
+                width: 205px;
+            }
 
-        .body .list--ks .khachsan .datmua button:hover {
-            background: #c7ecee;
-            color: black;
-        }
+                .body .list--ks .khachsan .datmua a:hover {
+                    background: #c7ecee;
+                    color: black;
+                }
 
 .home_body .Error {
     width: 955px;
@@ -133,3 +138,12 @@
         font-size: 20px;
         margin-left: 20px;
     }
+
+#map {
+    border: 2px solid white;
+    width: 100%;
+    height: 500px;
+    position: relative;
+     z-index: 999; 
+    margin-top: 15px;
+}

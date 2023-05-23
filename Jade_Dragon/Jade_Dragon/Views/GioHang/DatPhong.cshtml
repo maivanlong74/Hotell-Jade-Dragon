@@ -125,7 +125,7 @@
                             <div class="map--a">
                                 <img src="~/Style/img/map.jpg" />
                                 <div class="diachi">
-                                    <button id="Open_Map" href="">Xem địa chỉ</button>
+                                    <button id="Open_Map">Xem địa chỉ</button>
                                 </div>
                             </div>
                         </div>
@@ -333,15 +333,19 @@
                                     </div>
                                 }
 
-                                <div class="khachhang">
-                                    <i style="color: yellow;">
-                                        Nếu bạn chọn thanh toán
-                                        <i style="color: wheat; font-weight: 800;">tại quầy</i>
-                                        thì số tiền bạn đặt cọc là
-                                        <i style="color: wheat; font-weight: 800;">@Session["TienDatCoc"] vnd</i>
-                                        <i>(đặt cọc 20% tổng tiền)</i>
-                                    </i>
-                                </div>
+                                @if (@Session["MaKh"] != null)
+                                {
+                                    <div class="khachhang">
+                                        <i style="color: yellow;">
+                                            Nếu bạn chọn thanh toán
+                                            <i style="color: wheat; font-weight: 800;">tại quầy</i>
+                                            thì số tiền bạn đặt cọc là
+                                            <i style="color: wheat; font-weight: 800;">@Session["TienDatCoc"] vnd</i>
+                                            <i>(đặt cọc 20% tổng tiền)</i>
+                                        </i>
+                                    </div>
+                                }
+                                
                             </div>
                         </div>
                         <div class="info-ks">
@@ -361,10 +365,19 @@
                                         {
                                             <p>Thành tiền: @Session["moeny"] VND</p>
                                         }
-                                        <select name="htthanhtoan" id="">
-                                            <option value="taiquay">Thanh toán tại quầy</option>
-                                            <option value="chuyenkhoan">Chuyển khoản</option>
-                                        </select>
+                                        @if (@Session["MaKh"] != null)
+                                        {
+
+
+                                            <select name="htthanhtoan" id="">
+                                                <option value="taiquay">Thanh toán tại quầy</option>
+                                                <option value="chuyenkhoan">Chuyển khoản</option>
+                                            </select>
+                                        }
+                                        else
+                                        {
+                                            <input value="chuyenkhoan" name="htthanhtoan" type="hidden"/>
+                                        }
                                     </div>
                                     <div class="table-phong">
                                         <table>
