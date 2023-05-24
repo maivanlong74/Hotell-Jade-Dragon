@@ -12,6 +12,7 @@
     <Property Name="MaHoaDon" Type="Int64" />
     <Property Name="TenPhong" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="DaDen" Type="Boolean" />
+    <Property Name="HoanThanh" Type="Boolean" />
     <NavigationProperty Name="hoadon" Relationship="Self.FK_chitiethoadon_hoadon" FromRole="chitiethoadon" ToRole="hoadon" />
     <NavigationProperty Name="PhongKhachSan" Relationship="Self.FK_machitiethoadon_phong" FromRole="chitiethoadon" ToRole="PhongKhachSan" />
   </EntityType>

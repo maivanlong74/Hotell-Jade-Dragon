@@ -72,6 +72,7 @@ namespace Jade_Dragon.Areas.Admin.Controllers
         {
             chitiethoadon ct = db.chitiethoadons.Find(mact);
             long mahoadon = (long)ct.MaHoaDon;
+            hoadon hd = db.hoadons.Find(mahoadon);
             if (ct == null)
             {
                 return Redirect("DanhSachDon");
@@ -82,13 +83,14 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                                                           n.NgayDen == ct.NgayDen &&
                                                           n.NgayDi == ct.NgayDi);
                 db.Moc_Time.Remove(time);
-                db.chitiethoadons.Remove(ct); 
+                db.chitiethoadons.Remove(ct);
+                hd.SoLuongCTHD = hd.SoLuongCTHD - 1;
+                hd.SoLuongPhong = hd.SoLuongPhong - 1;
                 db.SaveChanges();
             }
             var cthd = db.chitiethoadons.Where(c => c.MaHoaDon == mahoadon).ToList();
             if(cthd.Count() == 0)
             {
-                hoadon hd = db.hoadons.Find(mahoadon);
                 db.hoadons.Remove(hd);
                 db.SaveChanges();
             }

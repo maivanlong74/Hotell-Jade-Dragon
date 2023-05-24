@@ -17,6 +17,7 @@
           <Property Name="MaHoaDon" Type="bigint" />
           <Property Name="TenPhong" Type="nvarchar" MaxLength="50" />
           <Property Name="DaDen" Type="bit" />
+          <Property Name="HoanThanh" Type="bit" />
         </EntityType>
         <EntityType Name="DanhGiaKs">
           <Key>
@@ -584,6 +585,7 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
           <Property Name="MaHoaDon" Type="Int64" />
           <Property Name="TenPhong" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DaDen" Type="Boolean" />
+          <Property Name="HoanThanh" Type="Boolean" />
           <NavigationProperty Name="hoadon" Relationship="Self.FK_chitiethoadon_hoadon" FromRole="chitiethoadon" ToRole="hoadon" />
           <NavigationProperty Name="PhongKhachSan" Relationship="Self.FK_machitiethoadon_phong" FromRole="chitiethoadon" ToRole="PhongKhachSan" />
         </EntityType>
@@ -1179,6 +1181,7 @@ warning 6002: The table/view 'Jade_Dragon.dbo.lichsu' does not have a primary ke
                 <ScalarProperty Name="MaHoaDon" ColumnName="MaHoaDon" />
                 <ScalarProperty Name="TenPhong" ColumnName="TenPhong" />
                 <ScalarProperty Name="DaDen" ColumnName="DaDen" />
+                <ScalarProperty Name="HoanThanh" ColumnName="HoanThanh" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

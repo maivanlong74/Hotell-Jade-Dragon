@@ -112,15 +112,6 @@ namespace Jade_Dragon.Controllers
                         ViewBag.ngayden = chitiet.NgayDen;
                         ViewBag.ngaydi = chitiet.NgayDi;
                         ViewBag.sodem = demsodem((DateTime)chitiet.NgayDen, (DateTime)chitiet.NgayDi);
-
-                        foreach(var ph in cthd)
-                        {
-                            Moc_Time Time = new Moc_Time();
-                            Time.MaPhong = ph.MaPhong;
-                            Time.NgayDen = ph.NgayDen;
-                            Time.NgayDi = ph.NgayDi;
-                            db.Moc_Time.Add(Time);
-                        }
                         db.SaveChanges();
 
                         Session["DongTime"] = "mo";

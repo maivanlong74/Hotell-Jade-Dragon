@@ -12,6 +12,7 @@
     <Property Name="MaHoaDon" Type="bigint" />
     <Property Name="TenPhong" Type="nvarchar" MaxLength="50" />
     <Property Name="DaDen" Type="bit" />
+    <Property Name="HoanThanh" Type="bit" />
   </EntityType>
   <EntityType Name="DanhGiaKs">
     <Key>

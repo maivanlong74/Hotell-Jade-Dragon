@@ -29,38 +29,32 @@ namespace Jade_Dragon.Controllers
 
             Session["DongTime"] = "mo";
             DateTime timenow = DateTime.Now;
-            List<Moc_Time> Time = new List<Moc_Time>();
-            Time = db.Moc_Time.ToList();
-            if(ksks != null)
+            if (ksks != null)
             {
-                foreach(var i in ksks)
+                foreach (var mm in ksks)
                 {
-                    if(i.KhoaPhong == true)
+                    if (mm.KhoaPhong == true)
                     {
-                        i.TrangThai = false;
-                        db.SaveChanges();
+                        mm.TrangThai = false; db.SaveChanges();
                     }
                     else
                     {
-                        if (Time != null)
+                        var cthd = db.chitiethoadons.Where(m => m.MaPhong == mm.MaPhong).ToList();
+                        if (cthd.Count() > 0)
                         {
-                            foreach (var item in Time)
+                            foreach (var ct in cthd)
                             {
-                                PhongKhachSan ph = db.PhongKhachSans.FirstOrDefault(m => m.MaPhong == item.MaPhong);
-                                if (item.NgayDen <= timenow && timenow <= item.NgayDi)
+                                if(ct.HoanThanh == false)
                                 {
-                                    ph.TrangThai = false;
+                                    if (ct.hoadon.DaDat == true)
+                                    {
+                                        if (ct.NgayDen <= timenow && timenow <= ct.NgayDi)
+                                        {
+                                            mm.TrangThai = false;
+                                        }
+                                    }
                                 }
                             }
-                        }
-                        else
-                        {
-                            List<PhongKhachSan> ph_ong = db.PhongKhachSans.Where(m => m.TrangThai == false).ToList();
-                            foreach (var dem in ph_ong)
-                            {
-                                dem.TrangThai = true;
-                            }
-
                         }
                     }
                 }

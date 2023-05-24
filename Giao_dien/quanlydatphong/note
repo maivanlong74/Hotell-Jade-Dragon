@@ -1,31 +1,48 @@
 Tôi có code html:
-<form action="" method="post">
-  <div class="info-phong-item">
-    <label for="">Loại hình Phòng:</label> <br>
-    <input type="text" placeholder="Nhập phòng đơn/đôi" class="input">
-  </div>
-  <div class="info-phong-item">
-    <label for="">Giá:</label> <br>
-    <input type="text" placeholder="Nhập giá phòng" class="input">
-  </div>
-  <div class="info-phong-item">
-    <label for="">Thuộc loại phòng:</label> <br>
-    <div class="vip">
-      <label for="">VIP</label>
-      <input type="checkbox" name="" id="">
-      <label for="">Thường</label>
-      <input type="checkbox" name="" id="">
+  <li class="list-phong-item phongdat">
+    <div class="info-phong">
+      <h1>B102</h1>
+      <i>Có khách đặt</i>
+      <div class="form"> 
+        <div class="hoadon">
+          <div class="hd-khachhang">
+            <div class="Check-InOut">
+              <a href="" class="Check-Check">Check In</a>
+            </div>
+            <p>Khách hàng: Mai Văn Long</p>
+            <p>Ngày đến: 22/2/2023</p>
+            <p>Ngày đi: 25/2/2023</p>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="button-dk">
-    <button type="submit">Save</button>
-  </div>
-</form>
-
-Làm thế nào để ở 2 checkbox này tôi chỉ được tích chọn 1 cái:
-  <div class="vip">
-    <label for="">VIP</label>
-    <input type="checkbox" name="" id="">
-    <label for="">Thường</label>
-    <input type="checkbox" name="" id="">
-  </div>
+    <div class="khoaphong">
+      <a href="">Khóa phòng</a>
+    </div>
+  </li>
+Tôi có code css:
+  .home .tangks .list-phong .list-phong-item .info-phong{
+    border-bottom: 1px solid wheat;
+    border-radius: 20px;
+    height: 80%;
+    cursor: pointer;
+  }
+  .home .tangks .list-phong .list-phong-item .info-phong:hover{
+    background: black;
+  }
+  .hoadon .hd-khachhang{
+    border: 1px solid;
+    position: relative;
+    z-index: 999;
+  }
+  .hoadon .hd-khachhang .Check-InOut{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 997;
+    display: none;
+  }
+  .hoadon .hd-khachhang:hover .Check-InOut{
+    background: rgba(0,0,0,0.6);
+  }
+Tôi muốn hover vào phần tử có class hd-khachhang sẽ xuất hiện phần tử 

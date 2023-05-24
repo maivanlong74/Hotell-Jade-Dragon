@@ -767,6 +767,7 @@
     <Content Include="Areas\Admin\Views\PhongAdmin\DanhSachPhong.cshtml" />
     <Content Include="Areas\Admin\Views\PhongManage\DanhSachPhong.cshtml" />
     <Content Include="Areas\Admin\Views\XacNhanDonAdmin\DanhSachDon.cshtml" />
+    <Content Include="Areas\Admin\Views\XacNhanDonManage\DanhSachDon.cshtml" />
     <EntityDeploy Include="Models\Model.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model.Designer.cs</LastGenOutput>
@@ -774,7 +775,6 @@
     <Content Include="Models\Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
-    <Content Include="Areas\Admin\Views\XacNhanDonManage\DanhSachDon.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Controller\turf.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

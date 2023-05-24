@@ -224,7 +224,39 @@ form .button-dk {
 
 .hoadon .hd-khachhang {
     border: 1px solid;
+    position: relative;
+    z-index: 999;
 }
+
+    /* -------Check In - Out --------- */
+    .hoadon .hd-khachhang .Check-InOut {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 997;
+        display: none;
+    }
+
+        .hoadon .hd-khachhang .Check-InOut .Check-Check {
+            color: wheat;
+            text-decoration: none;
+            position: absolute;
+            margin-left: -40px;
+            margin-top: 20px;
+            background: black;
+            padding: 5px;
+            border-radius: 10px;
+        }
+
+    .hoadon .hd-khachhang:hover .Check-InOut {
+        display: block;
+        background: rgba(0,0,0,0.6);
+    }
+
+        .hoadon .hd-khachhang:hover .Check-InOut .Check-Check:hover {
+            background: rgba(0, 0, 0, 0.8);
+            font-weight: 700;
+        }
 /* -------------------------- */
 
 

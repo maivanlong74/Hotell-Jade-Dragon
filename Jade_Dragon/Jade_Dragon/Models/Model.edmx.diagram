@@ -4,8 +4,8 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1e0ec9abb8024ed397b99dbceb56065e" Name="Diagram1">
-        <EntityTypeShape EntityType="Jade_DragonModel.chitiethoadon" Width="1.5" PointX="10.5" PointY="12.625" IsExpanded="true" />
+      <Diagram DiagramId="d845dca56e77484e9cb2e94e99623107" Name="Diagram1">
+        <EntityTypeShape EntityType="Jade_DragonModel.chitiethoadon" Width="1.5" PointX="10.5" PointY="12.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Jade_DragonModel.DanhGiaK" Width="1.5" PointX="5.25" PointY="13.375" IsExpanded="true" />
         <EntityTypeShape EntityType="Jade_DragonModel.ErrorPay" Width="1.5" PointX="6" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="Jade_DragonModel.hoadon" Width="1.5" PointX="8.25" PointY="11.875" IsExpanded="true" />

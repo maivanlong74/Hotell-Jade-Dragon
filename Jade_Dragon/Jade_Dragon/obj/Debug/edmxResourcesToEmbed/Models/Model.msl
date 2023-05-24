@@ -12,6 +12,7 @@
           <ScalarProperty Name="MaHoaDon" ColumnName="MaHoaDon" />
           <ScalarProperty Name="TenPhong" ColumnName="TenPhong" />
           <ScalarProperty Name="DaDen" ColumnName="DaDen" />
+          <ScalarProperty Name="HoanThanh" ColumnName="HoanThanh" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

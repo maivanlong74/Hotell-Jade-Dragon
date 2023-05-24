@@ -234,11 +234,12 @@ namespace Jade_Dragon.Controllers
                     var cthoadon = new chitiethoadon();
                     cthoadon.MaPhong = dem.htphong.MaPhong;
                     cthoadon.MaHoaDon = id;
-                    cthoadon.Gia = dem.htphong.Gia;
+                    cthoadon.Gia = dem.htphong.Gia * demsodem(ngayden, ngaydi);
                     cthoadon.NgayDen = ngayden;
                     cthoadon.NgayDi = ngaydi;
                     cthoadon.TenPhong = dem.htphong.TenPhong;
                     cthoadon.DaDen = false;
+                    cthoadon.HoanThanh = false;
                     db.chitiethoadons.Add(cthoadon);
                     db.SaveChanges();
                 }

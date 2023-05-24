@@ -84,13 +84,14 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                                                           n.NgayDi == ct.NgayDi);
                 db.Moc_Time.Remove(time);
                 db.chitiethoadons.Remove(ct);
+                hoadonn.SoLuongCTHD = hoadonn.SoLuongCTHD - 1;
+                hoadonn.SoLuongPhong = hoadonn.SoLuongPhong - 1;
                 db.SaveChanges();
             }
             var cthd = db.chitiethoadons.Where(c => c.MaHoaDon == mahoadon).ToList();
             if (cthd.Count() == 0)
             {
-                hoadon hd = db.hoadons.Find(mahoadon);
-                db.hoadons.Remove(hd);
+                db.hoadons.Remove(hoadonn);
                 db.SaveChanges();
             }
             return RedirectToAction("DanhSachDon", "XacNhanDonManage", new { maks = hoadonn.MaHoaDon });
