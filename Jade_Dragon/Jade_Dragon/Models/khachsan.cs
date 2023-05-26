@@ -22,6 +22,8 @@ namespace Jade_Dragon.Models
             this.khachhangs = new HashSet<khachhang>();
             this.PhongKhachSans = new HashSet<PhongKhachSan>();
             this.PhongChats = new HashSet<PhongChat>();
+            this.SoSaoDanhGias = new HashSet<SoSaoDanhGia>();
+            this.ThongKeDanhGias = new HashSet<ThongKeDanhGia>();
         }
     
         public long MaKhachSan { get; set; }
@@ -32,6 +34,7 @@ namespace Jade_Dragon.Models
         public string KinhDo { get; set; }
         public string ViDo { get; set; }
         public Nullable<long> Gia { get; set; }
+        public Nullable<long> ThangDiem { get; set; }
         public string AnhKs { get; set; }
         public Nullable<long> SoTang { get; set; }
         public Nullable<long> MaKhuVuc { get; set; }
@@ -48,5 +51,9 @@ namespace Jade_Dragon.Models
         public virtual ICollection<PhongKhachSan> PhongKhachSans { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhongChat> PhongChats { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SoSaoDanhGia> SoSaoDanhGias { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ThongKeDanhGia> ThongKeDanhGias { get; set; }
     }
 }

@@ -18,7 +18,6 @@ namespace Jade_Dragon.Models
         public PhongKhachSan()
         {
             this.chitiethoadons = new HashSet<chitiethoadon>();
-            this.Moc_Time = new HashSet<Moc_Time>();
         }
     
         public long MaPhong { get; set; }
@@ -35,8 +34,6 @@ namespace Jade_Dragon.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<chitiethoadon> chitiethoadons { get; set; }
         public virtual khachsan khachsan { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Moc_Time> Moc_Time { get; set; }
         public virtual SoPhongKhachSan SoPhongKhachSan { get; set; }
         public virtual SoTangKhachSan SoTangKhachSan { get; set; }
     }

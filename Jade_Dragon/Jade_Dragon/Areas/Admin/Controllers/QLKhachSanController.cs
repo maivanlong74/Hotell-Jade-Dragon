@@ -18,6 +18,17 @@ namespace Jade_Dragon.Areas.Admin.Controllers
         // GET: Admin/khachsans
         public ActionResult QuanLyKs()
         {
+            var ks = db.khachsans.ToList();
+            if(ks.Count() > 0)
+            {
+                foreach(var k in ks)
+                {
+                    ThongKeDanhGia tk = db.ThongKeDanhGias.FirstOrDefault(a => a.MaKhachSan == k.MaKhachSan);
+                    k.ThangDiem = ((tk.MotSao * 1) + (tk.HaiSao * 2) + (tk.BaSao * 3) + (tk.BonSao * 4) + (tk.NamSao * 5)) / 5;
+                    db.SaveChanges();
+                }
+            }
+            
             var khachsans = db.khachsans.Include(k => k.khuvuc);
             return View(khachsans.ToList());
         }
@@ -125,6 +136,17 @@ namespace Jade_Dragon.Areas.Admin.Controllers
             phks.TrangThai = false;
             phks.KhoaPhong = true;
             db.PhongKhachSans.Add(phks);
+            db.SaveChanges();
+
+            ThongKeDanhGia moi = new ThongKeDanhGia();
+            moi.MotSao = 0;
+            moi.HaiSao = 0;
+            moi.BaSao = 0;
+            moi.BonSao = 0;
+            moi.NamSao = 0;
+            moi.TongSao = 0;
+            moi.MaKhachSan = khach__san.MaKhachSan;
+            db.ThongKeDanhGias.Add(moi);
             db.SaveChanges();
             return Redirect("Create");
         }
@@ -236,19 +258,27 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                     db.SaveChanges();
                 }
             }
+            List<SoSaoDanhGia> so = db.SoSaoDanhGias.Where(a => a.MaKhachSan == id).ToList();
+            if (so != null)
+            {
+                foreach (var l in so)
+                {
+                    db.SoSaoDanhGias.Remove(l);
+                }
+            }
+            List<ThongKeDanhGia> tk = db.ThongKeDanhGias.Where(a => a.MaKhachSan == id).ToList();
+            if (tk != null)
+            {
+                foreach (var q in tk)
+                {
+                    db.ThongKeDanhGias.Remove(q);
+                }
+            }
             List<PhongKhachSan> phong = db.PhongKhachSans.Where(x => x.MaKhachSan == id).ToList();
             if (phong != null)
             {
                 foreach (var dem in phong)
                 {
-                    List<Moc_Time> moc_time = db.Moc_Time.Where(x => x.MaPhong == dem.MaPhong).ToList();
-                    if (moc_time != null)
-                    {
-                        foreach (var moc in moc_time)
-                        {
-                            db.Moc_Time.Remove(moc);
-                        }
-                    }
                     db.PhongKhachSans.Remove(dem);
                 }
             }
@@ -514,14 +544,6 @@ namespace Jade_Dragon.Areas.Admin.Controllers
             {
                 foreach (var dem in phong)
                 {
-                    List<Moc_Time> moc_time = db.Moc_Time.Where(x => x.MaPhong == dem.MaPhong).ToList();
-                    if (moc_time != null)
-                    {
-                        foreach (var moc in moc_time)
-                        {
-                            db.Moc_Time.Remove(moc);
-                        }
-                    }
                     db.PhongKhachSans.Remove(dem);
                 }
             }

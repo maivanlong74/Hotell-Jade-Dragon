@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Jade_Dragon.common;
 using Jade_Dragon.Models;
 
 namespace Jade_Dragon.Controllers
@@ -15,7 +16,7 @@ namespace Jade_Dragon.Controllers
         private Connect db = new Connect();
 
         // GET: trangchu
-        public ActionResult trangchu(long? ma, string searchTerm, string searchType)
+        public ActionResult trangchu(long? ma, long? makhh, string searchTerm, string searchType)
         {
             var ksks = db.PhongKhachSans.ToList();
             foreach (var k in ksks)
@@ -107,6 +108,8 @@ namespace Jade_Dragon.Controllers
             }
 
             m.kv = db.khuvucs.ToList();
+            m.dg = db.SoSaoDanhGias.Where(a => a.MaKh == makhh).ToList();
+            m.ThongKe = db.ThongKeDanhGias.ToList(); 
 
             return View("trangchu", m);
         }
@@ -144,6 +147,58 @@ namespace Jade_Dragon.Controllers
                     break;
             }
             return query.ToList();
+        }
+
+        [HttpPost]
+        public ActionResult DanhGia(long? SoSao, long makh, long maks) 
+        {
+            if(SoSao != null)
+            {
+                SoSaoDanhGia so = new SoSaoDanhGia();
+                so.MaKhachSan = maks;
+                so.MaKh = makh;
+                so.SoSao = SoSao;
+                db.SoSaoDanhGias.Add(so);
+                db.SaveChanges();
+                ThongKeDanhGia thongke = db.ThongKeDanhGias.FirstOrDefault(a => a.MaKhachSan == maks);
+                
+                if(SoSao == 1)
+                {
+                    thongke.MotSao = thongke.MotSao + 1;
+                    thongke.TongSao = thongke.TongSao + 1;  
+                    db.SaveChanges();
+                } else if (SoSao == 2)
+                {
+                    thongke.HaiSao = thongke.HaiSao + 1;
+                    thongke.TongSao = thongke.TongSao + 1;
+                    db.SaveChanges();
+                } else if (SoSao == 3)
+                {
+                    thongke.BaSao = thongke.BaSao + 1;
+                    thongke.TongSao = thongke.TongSao + 1;
+                    db.SaveChanges();
+                } else if (SoSao == 4)
+                {
+                    thongke.BonSao = thongke.BonSao + 1;
+                    thongke.TongSao = thongke.TongSao + 1;
+                    db.SaveChanges();
+                } else if (SoSao == 5)
+                {
+                    thongke.NamSao = thongke.NamSao + 1;
+                    thongke.TongSao = thongke.TongSao + 1;
+                    db.SaveChanges();
+                }
+            }
+            else
+            {
+               WebMsgBox.Show("Bạn chưa đánh giá", this);
+            }
+            return RedirectToAction("trangchu", "trangchu", new {makhh = makh});
+        }
+
+        public ActionResult kk()
+        {
+            return View();
         }
 
         protected override void Dispose(bool disposing)

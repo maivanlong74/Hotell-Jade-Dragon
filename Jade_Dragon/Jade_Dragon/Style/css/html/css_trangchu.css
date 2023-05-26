@@ -1079,11 +1079,8 @@ body::-webkit-scrollbar-track {
         margin-top: 40px;
     }
 
-.slider-item-one .info .noidung .datphong i {
-    display: block;
-    margin-top: 30px;
-    background-color: black;
-    border-radius: 30px;
+.slider-item-one .info .noidung .datphong {
+    margin-top: -50px;
 }
 
 .slider-item-one .info .noidung .datphong i {
@@ -1093,33 +1090,10 @@ body::-webkit-scrollbar-track {
     border-radius: 30px;
 }
 
-.rating {
-    font-size: 30px;
-    display: inline-block;
-    position: relative;
+.slider-item-one .info .noidung .datphong i {
+    display: block;
+    margin-top: 30px;
+    background-color: black;
+    border-radius: 30px;
 }
 
-.star {
-    font-size: 30px;
-    cursor: pointer;
-    color: #ccc;
-    transition: color .25s ease-out;
-    background: none;
-    border: none;
-}
-
-.rated {
-    color: orange;
-}
-
-.rating:hover .star {
-    color: orange;
-}
-
-    .rating:hover .star:hover ~ .star {
-        color: #ccc;
-    }
-
-    .rating:hover .star:hover {
-        color: orange;
-    }

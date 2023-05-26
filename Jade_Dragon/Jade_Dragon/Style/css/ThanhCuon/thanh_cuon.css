@@ -74,9 +74,12 @@
     word-wrap: break-word;
 }
 
-.slider-item-one .info .noidung .datphong {
+.slider-item-one .info .noidung .datphong-item {
     margin-left: 70px;
     margin-top: 40px;
+}
+
+.slider-item-one .info .noidung .datphong {
     background: #03020e;
     border-radius: 50px;
     display: block;

@@ -809,10 +809,14 @@
     <Content Include="Style\css\Map\BoSung.css" />
     <Content Include="Style\css\Map\Map_DatPhong.css" />
     <Content Include="Style\css\Map\Map_trangchu_css.css" />
-    <Content Include="Style\css\ThanhCuon\Cuon.js" />
+    <Content Include="Style\css\ThanhCuon\Css_ThongKe_Sao.css" />
+    <Content Include="Style\css\ThanhCuon\Js_Cuon.js" />
+    <Content Include="Style\css\ThanhCuon\Js_DanhGia.js" />
+    <Content Include="Style\css\ThanhCuon\Js_ThongKe_Sao.js" />
     <Content Include="Style\css\ThanhCuon\owl.carousel.min.css" />
     <Content Include="Style\css\ThanhCuon\owl.carousel.min.js" />
     <Content Include="Style\css\ThanhCuon\owl.theme.default.min.css" />
+    <Content Include="Style\css\ThanhCuon\teeee.js" />
     <Content Include="Style\css\ThanhCuon\thanh_cuon.css" />
     <Content Include="Style\img\avt\1.jpg" />
     <Content Include="Style\img\avt\logo.jpg" />
@@ -846,11 +850,8 @@
     <Content Include="Style\img\travel.jpg" />
     <Content Include="Style\js\app.js" />
     <Content Include="Style\js\ChatClient.js" />
-    <Content Include="Style\js\DanhGia.js" />
     <Content Include="Style\js\DongHo.js" />
     <Content Include="Style\js\KeoTruot.js" />
-    <Content Include="Style\js\main.js" />
-    <Content Include="Style\js\main_2.js" />
     <Content Include="Style\js\Map\Map_DatPhong.js" />
     <Content Include="Style\js\Map\Map_trangchu.js" />
     <Content Include="Style\js\SignUp-min.js" />
@@ -924,9 +925,6 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Map_KhachSan.cs" />
-    <Compile Include="Models\Moc_Time.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -957,10 +955,16 @@
     <Compile Include="Models\SoPhongKhachSan.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SoSaoDanhGia.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SoTangKhachSan.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ThongKeDanhGia.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tinnhan.cs">
@@ -1028,6 +1032,7 @@
     <Content Include="Views\Shared\Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\trangchu\kk.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

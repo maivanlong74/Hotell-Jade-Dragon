@@ -12,13 +12,17 @@ namespace Jade_Dragon.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Moc_Time
+    public partial class ThongKeDanhGia
     {
-        public long stt { get; set; }
-        public Nullable<long> MaPhong { get; set; }
-        public Nullable<System.DateTime> NgayDen { get; set; }
-        public Nullable<System.DateTime> NgayDi { get; set; }
+        public long MaThongKe { get; set; }
+        public Nullable<long> MotSao { get; set; }
+        public Nullable<long> HaiSao { get; set; }
+        public Nullable<long> BaSao { get; set; }
+        public Nullable<long> BonSao { get; set; }
+        public Nullable<long> NamSao { get; set; }
+        public Nullable<long> MaKhachSan { get; set; }
+        public Nullable<long> TongSao { get; set; }
     
-        public virtual PhongKhachSan PhongKhachSan { get; set; }
+        public virtual khachsan khachsan { get; set; }
     }
 }

@@ -87,6 +87,7 @@
           <ScalarProperty Name="KinhDo" ColumnName="KinhDo" />
           <ScalarProperty Name="ViDo" ColumnName="ViDo" />
           <ScalarProperty Name="Gia" ColumnName="Gia" />
+          <ScalarProperty Name="ThangDiem" ColumnName="ThangDiem" />
           <ScalarProperty Name="AnhKs" ColumnName="AnhKs" />
           <ScalarProperty Name="SoTang" ColumnName="SoTang" />
           <ScalarProperty Name="MaKhuVuc" ColumnName="MaKhuVuc" />
@@ -101,16 +102,6 @@
           <ScalarProperty Name="TenKhuVuc" ColumnName="TenKhuVuc" />
           <ScalarProperty Name="KinhDo" ColumnName="KinhDo" />
           <ScalarProperty Name="ViDo" ColumnName="ViDo" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Moc_Time">
-      <EntityTypeMapping TypeName="Jade_DragonModel.Moc_Time">
-        <MappingFragment StoreEntitySet="Moc_Time">
-          <ScalarProperty Name="stt" ColumnName="stt" />
-          <ScalarProperty Name="MaPhong" ColumnName="MaPhong" />
-          <ScalarProperty Name="NgayDen" ColumnName="NgayDen" />
-          <ScalarProperty Name="NgayDi" ColumnName="NgayDi" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -165,6 +156,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="SoSaoDanhGias">
+      <EntityTypeMapping TypeName="Jade_DragonModel.SoSaoDanhGia">
+        <MappingFragment StoreEntitySet="SoSaoDanhGia">
+          <ScalarProperty Name="MaSoSao" ColumnName="MaSoSao" />
+          <ScalarProperty Name="MaKhachSan" ColumnName="MaKhachSan" />
+          <ScalarProperty Name="MaKh" ColumnName="MaKh" />
+          <ScalarProperty Name="SoSao" ColumnName="SoSao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="SoTangKhachSans">
       <EntityTypeMapping TypeName="Jade_DragonModel.SoTangKhachSan">
         <MappingFragment StoreEntitySet="SoTangKhachSan">
@@ -181,6 +182,20 @@
           <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
           <ScalarProperty Name="version" ColumnName="version" />
           <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ThongKeDanhGias">
+      <EntityTypeMapping TypeName="Jade_DragonModel.ThongKeDanhGia">
+        <MappingFragment StoreEntitySet="ThongKeDanhGia">
+          <ScalarProperty Name="MaThongKe" ColumnName="MaThongKe" />
+          <ScalarProperty Name="MotSao" ColumnName="MotSao" />
+          <ScalarProperty Name="HaiSao" ColumnName="HaiSao" />
+          <ScalarProperty Name="BaSao" ColumnName="BaSao" />
+          <ScalarProperty Name="BonSao" ColumnName="BonSao" />
+          <ScalarProperty Name="NamSao" ColumnName="NamSao" />
+          <ScalarProperty Name="MaKhachSan" ColumnName="MaKhachSan" />
+          <ScalarProperty Name="TongSao" ColumnName="TongSao" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

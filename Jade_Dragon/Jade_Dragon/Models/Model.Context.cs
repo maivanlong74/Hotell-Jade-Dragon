@@ -32,14 +32,15 @@ namespace Jade_Dragon.Models
         public virtual DbSet<khachhang> khachhangs { get; set; }
         public virtual DbSet<khachsan> khachsans { get; set; }
         public virtual DbSet<khuvuc> khuvucs { get; set; }
-        public virtual DbSet<Moc_Time> Moc_Time { get; set; }
         public virtual DbSet<phanhoi> phanhois { get; set; }
         public virtual DbSet<PhongChat> PhongChats { get; set; }
         public virtual DbSet<PhongKhachSan> PhongKhachSans { get; set; }
         public virtual DbSet<SoLuongNguoiTruyCap> SoLuongNguoiTruyCaps { get; set; }
         public virtual DbSet<SoPhongKhachSan> SoPhongKhachSans { get; set; }
+        public virtual DbSet<SoSaoDanhGia> SoSaoDanhGias { get; set; }
         public virtual DbSet<SoTangKhachSan> SoTangKhachSans { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<ThongKeDanhGia> ThongKeDanhGias { get; set; }
         public virtual DbSet<tinnhan> tinnhans { get; set; }
         public virtual DbSet<tinnhanAdmin> tinnhanAdmins { get; set; }
         public virtual DbSet<UserGroup> UserGroups { get; set; }

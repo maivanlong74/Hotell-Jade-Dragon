@@ -50,14 +50,6 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                 {
                     foreach(var m in ct)
                     {
-                        var Time = db.Moc_Time.Where(n => n.MaPhong == m.MaPhong &&
-                                                          n.NgayDen == m.NgayDen &&
-                                                          n.NgayDi == m.NgayDi).ToList();
-                        foreach(var m2 in Time)
-                        {
-                            db.Moc_Time.Remove(m2);
-                            db.SaveChanges();
-                        }
                         db.chitiethoadons.Remove(m);
                     }
                     db.SaveChanges();
@@ -79,10 +71,6 @@ namespace Jade_Dragon.Areas.Admin.Controllers
             }
             else
             {
-                Moc_Time time = db.Moc_Time.FirstOrDefault(n => n.MaPhong == ct.MaPhong &&
-                                                          n.NgayDen == ct.NgayDen &&
-                                                          n.NgayDi == ct.NgayDi);
-                db.Moc_Time.Remove(time);
                 db.chitiethoadons.Remove(ct);
                 hd.SoLuongCTHD = hd.SoLuongCTHD - 1;
                 hd.SoLuongPhong = hd.SoLuongPhong - 1;

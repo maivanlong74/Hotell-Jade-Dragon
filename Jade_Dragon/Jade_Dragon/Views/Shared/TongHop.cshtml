@@ -93,7 +93,7 @@
             <div class="header__menu__overlay"></div>
             <div class="header__menu__body--content">
                 <ul>
-                    <li><a href="@Url.Action("trangchu", "trangchu")">Trang chủ</a></li>
+                    <li><a href="@Url.Action("trangchu", "trangchu", new {makhh = Session["MaKh"]})">Trang chủ</a></li>
                     <li>
                         <a href="@Url.Action("khachsan", "khachsan", new {ma = Session["MaKhachSanPhong"],
                                 batdau = Session["batdau"], ketthuc = Session["ketthuc"]})">

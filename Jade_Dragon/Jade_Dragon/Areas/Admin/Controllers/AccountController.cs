@@ -58,6 +58,7 @@ namespace Jade_Dragon.Areas.Admin.Controllers
 
                 //List thông tin User
                 var Data = db.khachhangs.Where(x => x.TenDn == username && x.Mk == f_password).ToList();
+                long makhh = Data.FirstOrDefault().MaKh;
                 Session["MaKh"] = Data.FirstOrDefault().MaKh;
                 Session["HoTen"] = Data.FirstOrDefault().HoTen;
                 Session["SoDienThoai"] = Data.FirstOrDefault().SoDienThoai;
@@ -74,7 +75,7 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                     return Redirect("~/Admin/TrangChuAdmin/TrangChu");
                 } else
                 if (Data.FirstOrDefault().UserGroup.Name == "Client") {
-                    return Redirect("~/trangchu/trangchu");
+                    return Redirect("~/trangchu/trangchu?makhh=" + makhh);
                 }
                 else
                 if (Data.FirstOrDefault().UserGroup.Name == "Manage") {

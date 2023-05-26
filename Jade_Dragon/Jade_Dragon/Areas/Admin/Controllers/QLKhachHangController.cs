@@ -160,6 +160,7 @@ namespace Jade_Dragon.Areas.Admin.Controllers
             List<tinnhan> tn = db.tinnhans.Where(m => m.MaKh == id).ToList();
             List<tinnhanAdmin> tnAdmin = db.tinnhanAdmins.Where(n => n.IdNguoiGui == id || n.IdNguoiNhan == id).ToList();
             List<hoadon> hd = db.hoadons.Where(c => c.MaKh == id).ToList();
+            List<SoSaoDanhGia> so = db.SoSaoDanhGias.Where(b => b.MaKh == id).ToList();
 
             if(tn != null)
             {
@@ -180,6 +181,13 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                 foreach (var j in hd)
                 {
                     j.MaKh = null;
+                }
+            }
+            if (so != null)
+            {
+                foreach (var p in so)
+                {
+                    db.SoSaoDanhGias.Remove(p);
                 }
             }
             db.SaveChanges();

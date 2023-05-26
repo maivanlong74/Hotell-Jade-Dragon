@@ -20,6 +20,7 @@ namespace Jade_Dragon.Models
             this.DanhGiaKs = new HashSet<DanhGiaK>();
             this.hoadons = new HashSet<hoadon>();
             this.phanhois = new HashSet<phanhoi>();
+            this.SoSaoDanhGias = new HashSet<SoSaoDanhGia>();
             this.tinnhans = new HashSet<tinnhan>();
             this.tinnhanAdmins = new HashSet<tinnhanAdmin>();
             this.tinnhanAdmins1 = new HashSet<tinnhanAdmin>();
@@ -47,6 +48,8 @@ namespace Jade_Dragon.Models
         public virtual UserGroup UserGroup { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<phanhoi> phanhois { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SoSaoDanhGia> SoSaoDanhGias { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tinnhan> tinnhans { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

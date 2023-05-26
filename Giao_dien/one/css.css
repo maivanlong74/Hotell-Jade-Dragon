@@ -1,0 +1,129 @@
+
+/*========= Đánh giá ===========*/
+.button-danhgia {
+    color: black;
+    font-size: 15px;
+    padding: 0px 15px 0px 15px;
+    margin-left: 30px;
+    margin-top: 7px;
+    height: 30px;
+    border-radius: 20px;
+}
+
+    .button-danhgia:hover {
+        background: #2d3436;
+        color: wheat;
+        font-weight: 800;
+    }
+
+.rating {
+    font-size: 30px;
+    display: flex;
+    position: relative;
+}
+
+.star {
+    font-size: 30px;
+    cursor: pointer;
+    color: #ccc;
+    transition: color .25s ease-out;
+    background: none;
+    border: none;
+}
+
+.rated {
+    color: orange;
+}
+
+.danhgia-sao:hover .star {
+    color: orange;
+}
+
+    .danhgia-sao:hover .star:hover ~ .star {
+        color: #ccc;
+    }
+
+    .danhgia-sao:hover .star:hover {
+        color: orange;
+    }
+
+/*========== Thống kê ==============*/
+
+
+
+.thongke-sao {
+    border: 2px solid yellow;
+    background: rgba(0,0,0,0.6);
+    width: 380px;
+    color: wheat;
+    height: 230px;
+    margin-top: 55px;
+    text-align: center;
+}
+
+.thongke-sao .tongsao {
+    margin-top: 15px;
+    color: wheat;
+    font-weight: 800;
+}
+
+.thongke-sao .starss {
+    width: 50vh;
+    margin-top: 15px;
+    margin-left: 22px;
+    border: 1px solid wheat;
+    padding-top: 10px;
+}
+
+.thongke-sao .sosao {
+    display: flex;
+    margin-left: 10px;
+}
+
+.thongke-sao .sosao span {
+    padding-right: 10px;
+    color: white;
+    font-size: 15px;
+    font-weight: 900;
+}
+
+.thongke-sao .thuoc-sao {
+    width: 70%;
+}
+
+.thongke-sao .thuoc-sao .starr {
+    height: 20px;
+    margin-bottom: 10px;
+    border: 1px solid white;
+}
+
+.star-a {
+    background-color: blueviolet;
+}
+
+.star-b {
+    background-color: yellow;
+}
+
+.star-c {
+    background-color: burlywood;
+}
+
+.star-d {
+    background-color: cadetblue;
+}
+.star-e {
+    background-color: wheat;
+}
+.statistics {
+    display: flex;
+    align-items: center;
+}
+
+.rating-count {
+    margin-right: 10px;
+}
+
+.dem {
+    margin-left: 5px;
+}

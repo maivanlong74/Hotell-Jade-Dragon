@@ -83,6 +83,7 @@
     <NavigationProperty Name="khachsan" Relationship="Self.FK_khachhang_khachsan" FromRole="khachhang" ToRole="khachsan" />
     <NavigationProperty Name="UserGroup" Relationship="Self.FK_khachhang_UserGroup" FromRole="khachhang" ToRole="UserGroup" />
     <NavigationProperty Name="phanhois" Relationship="Self.FK_phanhoi_khachhang1" FromRole="khachhang" ToRole="phanhoi" />
+    <NavigationProperty Name="SoSaoDanhGias" Relationship="Self.FK_SoSaoDanhGia_khachhang" FromRole="khachhang" ToRole="SoSaoDanhGia" />
     <NavigationProperty Name="tinnhans" Relationship="Self.FK_tinnhan_khachhang1" FromRole="khachhang" ToRole="tinnhan" />
     <NavigationProperty Name="tinnhanAdmins" Relationship="Self.FK_tinnhanAdmin_khachhang" FromRole="khachhang" ToRole="tinnhanAdmin" />
     <NavigationProperty Name="tinnhanAdmins1" Relationship="Self.FK_tinnhanAdmin_khachhang1" FromRole="khachhang" ToRole="tinnhanAdmin" />
@@ -99,6 +100,7 @@
     <Property Name="KinhDo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="ViDo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Gia" Type="Int64" />
+    <Property Name="ThangDiem" Type="Int64" />
     <Property Name="AnhKs" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="SoTang" Type="Int64" />
     <Property Name="MaKhuVuc" Type="Int64" />
@@ -109,6 +111,8 @@
     <NavigationProperty Name="khuvuc" Relationship="Self.FK_khachsan_khuvuc1" FromRole="khachsan" ToRole="khuvuc" />
     <NavigationProperty Name="PhongKhachSans" Relationship="Self.FK_phong_khachsan1" FromRole="khachsan" ToRole="PhongKhachSan" />
     <NavigationProperty Name="PhongChats" Relationship="Self.FK_PhongChat_khachsan" FromRole="khachsan" ToRole="PhongChat" />
+    <NavigationProperty Name="SoSaoDanhGias" Relationship="Self.FK_SoSaoDanhGia_khachsan" FromRole="khachsan" ToRole="SoSaoDanhGia" />
+    <NavigationProperty Name="ThongKeDanhGias" Relationship="Self.FK_ThongKeDanhGia_khachsan" FromRole="khachsan" ToRole="ThongKeDanhGia" />
   </EntityType>
   <EntityType Name="khuvuc">
     <Key>
@@ -119,16 +123,6 @@
     <Property Name="KinhDo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="ViDo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="khachsans" Relationship="Self.FK_khachsan_khuvuc1" FromRole="khuvuc" ToRole="khachsan" />
-  </EntityType>
-  <EntityType Name="Moc_Time">
-    <Key>
-      <PropertyRef Name="stt" />
-    </Key>
-    <Property Name="stt" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="MaPhong" Type="Int64" />
-    <Property Name="NgayDen" Type="DateTime" Precision="3" />
-    <Property Name="NgayDi" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="PhongKhachSan" Relationship="Self.FK_Moc_Time_phong" FromRole="Moc_Time" ToRole="PhongKhachSan" />
   </EntityType>
   <EntityType Name="phanhoi">
     <Key>
@@ -166,7 +160,6 @@
     <Property Name="KhoaPhong" Type="Boolean" />
     <NavigationProperty Name="chitiethoadons" Relationship="Self.FK_machitiethoadon_phong" FromRole="PhongKhachSan" ToRole="chitiethoadon" />
     <NavigationProperty Name="khachsan" Relationship="Self.FK_phong_khachsan1" FromRole="PhongKhachSan" ToRole="khachsan" />
-    <NavigationProperty Name="Moc_Time" Relationship="Self.FK_Moc_Time_phong" FromRole="PhongKhachSan" ToRole="Moc_Time" />
     <NavigationProperty Name="SoPhongKhachSan" Relationship="Self.FK_PhongKhachSan_SoPhongKhachSan" FromRole="PhongKhachSan" ToRole="SoPhongKhachSan" />
     <NavigationProperty Name="SoTangKhachSan" Relationship="Self.FK_PhongKhachSan_SoTangKhachSan" FromRole="PhongKhachSan" ToRole="SoTangKhachSan" />
   </EntityType>
@@ -185,6 +178,17 @@
     <Property Name="SoPhong" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
     <NavigationProperty Name="PhongKhachSans" Relationship="Self.FK_PhongKhachSan_SoPhongKhachSan" FromRole="SoPhongKhachSan" ToRole="PhongKhachSan" />
   </EntityType>
+  <EntityType Name="SoSaoDanhGia">
+    <Key>
+      <PropertyRef Name="MaSoSao" />
+    </Key>
+    <Property Name="MaSoSao" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MaKhachSan" Type="Int64" />
+    <Property Name="MaKh" Type="Int64" />
+    <Property Name="SoSao" Type="Int64" />
+    <NavigationProperty Name="khachhang" Relationship="Self.FK_SoSaoDanhGia_khachhang" FromRole="SoSaoDanhGia" ToRole="khachhang" />
+    <NavigationProperty Name="khachsan" Relationship="Self.FK_SoSaoDanhGia_khachsan" FromRole="SoSaoDanhGia" ToRole="khachsan" />
+  </EntityType>
   <EntityType Name="SoTangKhachSan">
     <Key>
       <PropertyRef Name="MaSoTang" />
@@ -202,6 +206,20 @@
     <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="version" Type="Int32" />
     <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="ThongKeDanhGia">
+    <Key>
+      <PropertyRef Name="MaThongKe" />
+    </Key>
+    <Property Name="MaThongKe" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MotSao" Type="Int64" />
+    <Property Name="HaiSao" Type="Int64" />
+    <Property Name="BaSao" Type="Int64" />
+    <Property Name="BonSao" Type="Int64" />
+    <Property Name="NamSao" Type="Int64" />
+    <Property Name="MaKhachSan" Type="Int64" />
+    <Property Name="TongSao" Type="Int64" />
+    <NavigationProperty Name="khachsan" Relationship="Self.FK_ThongKeDanhGia_khachsan" FromRole="ThongKeDanhGia" ToRole="khachsan" />
   </EntityType>
   <EntityType Name="tinnhan">
     <Key>
@@ -370,6 +388,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_SoSaoDanhGia_khachhang">
+    <End Role="khachhang" Type="Self.khachhang" Multiplicity="0..1" />
+    <End Role="SoSaoDanhGia" Type="Self.SoSaoDanhGia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="khachhang">
+        <PropertyRef Name="MaKh" />
+      </Principal>
+      <Dependent Role="SoSaoDanhGia">
+        <PropertyRef Name="MaKh" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_tinnhan_khachhang1">
     <End Role="khachhang" Type="Self.khachhang" Multiplicity="0..1" />
     <End Role="tinnhan" Type="Self.tinnhan" Multiplicity="*" />
@@ -442,15 +472,27 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Moc_Time_phong">
-    <End Role="PhongKhachSan" Type="Self.PhongKhachSan" Multiplicity="0..1" />
-    <End Role="Moc_Time" Type="Self.Moc_Time" Multiplicity="*" />
+  <Association Name="FK_SoSaoDanhGia_khachsan">
+    <End Role="khachsan" Type="Self.khachsan" Multiplicity="0..1" />
+    <End Role="SoSaoDanhGia" Type="Self.SoSaoDanhGia" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="PhongKhachSan">
-        <PropertyRef Name="MaPhong" />
+      <Principal Role="khachsan">
+        <PropertyRef Name="MaKhachSan" />
       </Principal>
-      <Dependent Role="Moc_Time">
-        <PropertyRef Name="MaPhong" />
+      <Dependent Role="SoSaoDanhGia">
+        <PropertyRef Name="MaKhachSan" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ThongKeDanhGia_khachsan">
+    <End Role="khachsan" Type="Self.khachsan" Multiplicity="0..1" />
+    <End Role="ThongKeDanhGia" Type="Self.ThongKeDanhGia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="khachsan">
+        <PropertyRef Name="MaKhachSan" />
+      </Principal>
+      <Dependent Role="ThongKeDanhGia">
+        <PropertyRef Name="MaKhachSan" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -498,14 +540,15 @@
     <EntitySet Name="khachhangs" EntityType="Self.khachhang" />
     <EntitySet Name="khachsans" EntityType="Self.khachsan" />
     <EntitySet Name="khuvucs" EntityType="Self.khuvuc" />
-    <EntitySet Name="Moc_Time" EntityType="Self.Moc_Time" />
     <EntitySet Name="phanhois" EntityType="Self.phanhoi" />
     <EntitySet Name="PhongChats" EntityType="Self.PhongChat" />
     <EntitySet Name="PhongKhachSans" EntityType="Self.PhongKhachSan" />
     <EntitySet Name="SoLuongNguoiTruyCaps" EntityType="Self.SoLuongNguoiTruyCap" />
     <EntitySet Name="SoPhongKhachSans" EntityType="Self.SoPhongKhachSan" />
+    <EntitySet Name="SoSaoDanhGias" EntityType="Self.SoSaoDanhGia" />
     <EntitySet Name="SoTangKhachSans" EntityType="Self.SoTangKhachSan" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="ThongKeDanhGias" EntityType="Self.ThongKeDanhGia" />
     <EntitySet Name="tinnhans" EntityType="Self.tinnhan" />
     <EntitySet Name="tinnhanAdmins" EntityType="Self.tinnhanAdmin" />
     <EntitySet Name="UserGroups" EntityType="Self.UserGroup" />
@@ -550,6 +593,10 @@
       <End Role="khachhang" EntitySet="khachhangs" />
       <End Role="phanhoi" EntitySet="phanhois" />
     </AssociationSet>
+    <AssociationSet Name="FK_SoSaoDanhGia_khachhang" Association="Self.FK_SoSaoDanhGia_khachhang">
+      <End Role="khachhang" EntitySet="khachhangs" />
+      <End Role="SoSaoDanhGia" EntitySet="SoSaoDanhGias" />
+    </AssociationSet>
     <AssociationSet Name="FK_tinnhan_khachhang1" Association="Self.FK_tinnhan_khachhang1">
       <End Role="khachhang" EntitySet="khachhangs" />
       <End Role="tinnhan" EntitySet="tinnhans" />
@@ -574,9 +621,13 @@
       <End Role="khachsan" EntitySet="khachsans" />
       <End Role="PhongChat" EntitySet="PhongChats" />
     </AssociationSet>
-    <AssociationSet Name="FK_Moc_Time_phong" Association="Self.FK_Moc_Time_phong">
-      <End Role="PhongKhachSan" EntitySet="PhongKhachSans" />
-      <End Role="Moc_Time" EntitySet="Moc_Time" />
+    <AssociationSet Name="FK_SoSaoDanhGia_khachsan" Association="Self.FK_SoSaoDanhGia_khachsan">
+      <End Role="khachsan" EntitySet="khachsans" />
+      <End Role="SoSaoDanhGia" EntitySet="SoSaoDanhGias" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ThongKeDanhGia_khachsan" Association="Self.FK_ThongKeDanhGia_khachsan">
+      <End Role="khachsan" EntitySet="khachsans" />
+      <End Role="ThongKeDanhGia" EntitySet="ThongKeDanhGias" />
     </AssociationSet>
     <AssociationSet Name="FK_tinnhan_PhongChat" Association="Self.FK_tinnhan_PhongChat">
       <End Role="PhongChat" EntitySet="PhongChats" />
