@@ -32,7 +32,7 @@ namespace Jade_Dragon.Controllers
 
             hienthiphong m = new hienthiphong();
             List<khachsan> list = new List<khachsan>();
-            list = db.khachsans.ToList();
+            list = db.khachsans.OrderBy(khachsan => khachsan.ThangDiem).ToList();
 
             List<PhongKhachSan> listphong = db.PhongKhachSans.ToList();
             foreach (var dem in listphong)
@@ -61,38 +61,46 @@ namespace Jade_Dragon.Controllers
                         {
                             if(ct.HoanThanh == false)
                             {
-                                if (ct.hoadon.DaDat == true)
+                                if(ct.DaDen == true)
                                 {
-                                    if (batdau == null && ketthuc == null)
+                                    mm.TrangThai = false;
+                                    db.SaveChanges();
+                                }
+                                else
+                                {
+                                    if (ct.hoadon.DaDat == true)
                                     {
+                                        if (batdau == null && ketthuc == null)
+                                        {
 
-                                        if (ct.NgayDen <= timenow && timenow <= ct.NgayDi)
-                                        {
-                                            mm.TrangThai = false;
-                                        }
-
-                                    }
-                                    else
-                                    {
-                                        if (batdau > ketthuc)
-                                        {
-                                            DateTime tam = (DateTime)batdau;
-                                            batdau = ketthuc;
-                                            ketthuc = tam;
-                                        }
-                                        long sodem = demsodem((DateTime)batdau, (DateTime)ketthuc);
-                                        for (long i = 0; i <= sodem; i++)
-                                        {
-                                            DateTime day = batdau.Value.AddDays(i);
-                                            if (ct.NgayDen <= day && day <= ct.NgayDi)
+                                            if (ct.NgayDen <= timenow && timenow <= ct.NgayDi)
                                             {
                                                 mm.TrangThai = false;
-                                                i = sodem + 1;
                                             }
-                                            else if (day > ct.NgayDi)
+
+                                        }
+                                        else
+                                        {
+                                            if (batdau > ketthuc)
                                             {
-                                                mm.TrangThai = true;
-                                                i = sodem + 1;
+                                                DateTime tam = (DateTime)batdau;
+                                                batdau = ketthuc;
+                                                ketthuc = tam;
+                                            }
+                                            long sodem = demsodem((DateTime)batdau, (DateTime)ketthuc);
+                                            for (long i = 0; i <= sodem; i++)
+                                            {
+                                                DateTime day = batdau.Value.AddDays(i);
+                                                if (ct.NgayDen <= day && day <= ct.NgayDi)
+                                                {
+                                                    mm.TrangThai = false;
+                                                    i = sodem + 1;
+                                                }
+                                                else if (day > ct.NgayDi)
+                                                {
+                                                    mm.TrangThai = true;
+                                                    i = sodem + 1;
+                                                }
                                             }
                                         }
                                     }
@@ -150,6 +158,7 @@ namespace Jade_Dragon.Controllers
                 if (ma != null)
                 {
                     Session["KhachSan"] = ma;
+                    ViewBag.ma = ma;
                     khachsan ksks = db.khachsans.Find(ma);
                     ViewBag.ksks = ksks.TenKhachSan;
                     Phong = Phong.Where(a => a.MaKhachSan == ma);
@@ -278,11 +287,18 @@ namespace Jade_Dragon.Controllers
             return xuly;
         }
 
-        public ActionResult QuayVe()
+        public ActionResult QuayVe(long? ma)
         {
             Session["batdau"] = null;
             Session["ketthuc"] = null;
-            return Redirect("khachsan");
+            if(ma == null)
+            {
+                return Redirect("khachsan");
+            }
+            else
+            {
+                return RedirectToAction("khachsan", "khachsan", new {ma = ma});
+            }
         }
 
         protected override void Dispose(bool disposing)

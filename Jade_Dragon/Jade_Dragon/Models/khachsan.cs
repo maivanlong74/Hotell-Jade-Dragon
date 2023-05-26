@@ -34,7 +34,7 @@ namespace Jade_Dragon.Models
         public string KinhDo { get; set; }
         public string ViDo { get; set; }
         public Nullable<long> Gia { get; set; }
-        public Nullable<long> ThangDiem { get; set; }
+        public Nullable<double> ThangDiem { get; set; }
         public string AnhKs { get; set; }
         public Nullable<long> SoTang { get; set; }
         public Nullable<long> MaKhuVuc { get; set; }

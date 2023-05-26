@@ -24,13 +24,13 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                 foreach(var k in ks)
                 {
                     ThongKeDanhGia tk = db.ThongKeDanhGias.FirstOrDefault(a => a.MaKhachSan == k.MaKhachSan);
-                    k.ThangDiem = ((tk.MotSao * 1) + (tk.HaiSao * 2) + (tk.BaSao * 3) + (tk.BonSao * 4) + (tk.NamSao * 5)) / 5;
+                    k.ThangDiem = (double)(((tk.MotSao * 1) + (tk.HaiSao * 2) + (tk.BaSao * 3) + (tk.BonSao * 4) + (tk.NamSao * 5)) / 5);
                     db.SaveChanges();
                 }
             }
-            
-            var khachsans = db.khachsans.Include(k => k.khuvuc);
-            return View(khachsans.ToList());
+
+            var khachsans = db.khachsans.ToList();
+            return View("QuanLyKs", khachsans);
         }
 
         // GET: Admin/khachsans/Details/5

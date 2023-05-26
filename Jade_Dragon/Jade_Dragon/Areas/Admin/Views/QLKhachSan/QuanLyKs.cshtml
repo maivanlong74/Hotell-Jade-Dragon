@@ -6,7 +6,17 @@
 
 <script src="~/Areas/Admin/Public/js/dataTables_min.js"></script>
 <link href="~/Areas/Admin/Public/css/Table.css" rel="stylesheet" />
-
+<style>
+    table.dataTable thead th, table.dataTable thead td {
+        text-align: center;
+    }
+    table.dataTable tbody th, table.dataTable tbody td {
+        text-align: center;
+    }
+    table.dataTable tfoot th, table.dataTable tfoot td {
+        text-align: center;
+    }
+</style>
 <div class="home">
     <div class="body">
         <i class="htkhuvuc-i"><a href="@Url.Action("khuvuc", "khuvuc")" class="htkhuvuc-a">
@@ -20,6 +30,7 @@
                     <th>Số điện thoại</th>
                     <th>gmail</th>
                     <th>Địa chỉ</th>
+                    <th>Thang điểm</th>
                     <th>
                         <a href="@Url.Action("Create", "QLKhachSan")">
                             <img src="~/Style/img/icon/icon-them.jpg" style="width: 25px;" />
@@ -36,6 +47,7 @@
                         <td>@item.SoDienThoai</td>
                         <td>@item.Gmail</td>
                         <td>@item.DiaChi</td>
+                        <td>@item.ThangDiem</td>
                         <td>
                             <a href="@Url.Action("Edit", "QLKhachSan", new { id = item.MaKhachSan })">
                                 <img src="~/Style/img/icon/icon-sua.jpg" />
@@ -55,6 +67,7 @@
                     <th>Số điện thoại</th>
                     <th>gmail</th>
                     <th>Địa chỉ</th>
+                    <th>Thang điểm</th>
                     <th></th>
                     <th></th>
                 </tr>

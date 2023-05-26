@@ -69,12 +69,6 @@ function sendMessage(chat) {
     if (fileInput.files.length > 0) {
         for (var i = 0; i < fileInput.files.length; i++) {
             var file = fileInput.files[i];
-            if (file.size > (10 * 1024)) {
-                /*var fileSizeMB = (file.size / (1024*1024)).toFixed(2);*/
-                alert('Dung lượng ảnh cho phép tải lên chỉ tối đa 10.000KB \n' +
-                    'Ảnh Bạn đang tải là: ' + file.size + 'KB');
-                return;
-            }
             var reader = new FileReader();
             reader.onload = function (e) {
                 if (msg == null || msg.trim() == '') {

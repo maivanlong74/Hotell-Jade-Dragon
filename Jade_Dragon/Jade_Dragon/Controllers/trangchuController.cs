@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using DocumentFormat.OpenXml.Office2010.ExcelAc;
 using Jade_Dragon.common;
 using Jade_Dragon.Models;
 
@@ -100,11 +101,11 @@ namespace Jade_Dragon.Controllers
             }
             else if (ma != null)
             {
-                m.ks = khachsans.Where(n => n.MaKhuVuc == ma).ToList();
+                m.ks = khachsans.Where(n => n.MaKhuVuc == ma).OrderBy(khachsan => khachsan.ThangDiem).ToList();
             }
             else
             {
-                m.ks = khachsans.ToList();
+                m.ks = khachsans.OrderBy(khachsan => khachsan.ThangDiem).ToList();
             }
 
             m.kv = db.khuvucs.ToList();
@@ -135,13 +136,25 @@ namespace Jade_Dragon.Controllers
                 case "khuvuc":
                     query = query.Where(c => c.khuvuc.TenKhuVuc.Contains(searchTerm));
                     break;
+                case "gia":
+                    long moeny;
+                    if (long.TryParse(searchTerm, out moeny))
+                    {
+                        query = query.Where(c => c.Gia <= moeny);
+                    }
+                    break;
                 case "all":
+                    long searchTermAsLong;
+                    bool isSearchTermValid = long.TryParse(searchTerm, out searchTermAsLong);
+
                     query = query.Where(c =>
                         c.TenKhachSan.Contains(searchTerm) ||
                         c.DiaChi.Contains(searchTerm) ||
                         c.SoDienThoai.ToString().Contains(searchTerm) ||
-                        c.khuvuc.TenKhuVuc.Contains(searchTerm)
+                        c.khuvuc.TenKhuVuc.Contains(searchTerm) ||
+                        (isSearchTermValid && c.Gia <= searchTermAsLong)
                     );
+
                     break;
                 default:
                     break;
@@ -154,39 +167,59 @@ namespace Jade_Dragon.Controllers
         {
             if(SoSao != null)
             {
-                SoSaoDanhGia so = new SoSaoDanhGia();
-                so.MaKhachSan = maks;
-                so.MaKh = makh;
-                so.SoSao = SoSao;
-                db.SoSaoDanhGias.Add(so);
-                db.SaveChanges();
-                ThongKeDanhGia thongke = db.ThongKeDanhGias.FirstOrDefault(a => a.MaKhachSan == maks);
-                
-                if(SoSao == 1)
+                hoadon hd = db.hoadons.FirstOrDefault(s => s.MaKh == makh && s.MaKhachSan == maks);
+                if (hd != null)
                 {
-                    thongke.MotSao = thongke.MotSao + 1;
-                    thongke.TongSao = thongke.TongSao + 1;  
-                    db.SaveChanges();
-                } else if (SoSao == 2)
+                    chitiethoadon chitiet = db.chitiethoadons.FirstOrDefault(a => a.MaHoaDon == a.MaHoaDon && a.HoanThanh == true);
+                    if (chitiet != null)
+                    {
+                        SoSaoDanhGia so = new SoSaoDanhGia();
+                        so.MaKhachSan = maks;
+                        so.MaKh = makh;
+                        so.SoSao = SoSao;
+                        db.SoSaoDanhGias.Add(so);
+                        db.SaveChanges();
+                        ThongKeDanhGia thongke = db.ThongKeDanhGias.FirstOrDefault(a => a.MaKhachSan == maks);
+
+                        if (SoSao == 1)
+                        {
+                            thongke.MotSao = thongke.MotSao + 1;
+                            thongke.TongSao = thongke.TongSao + 1;
+                            db.SaveChanges();
+                        }
+                        else if (SoSao == 2)
+                        {
+                            thongke.HaiSao = thongke.HaiSao + 1;
+                            thongke.TongSao = thongke.TongSao + 1;
+                            db.SaveChanges();
+                        }
+                        else if (SoSao == 3)
+                        {
+                            thongke.BaSao = thongke.BaSao + 1;
+                            thongke.TongSao = thongke.TongSao + 1;
+                            db.SaveChanges();
+                        }
+                        else if (SoSao == 4)
+                        {
+                            thongke.BonSao = thongke.BonSao + 1;
+                            thongke.TongSao = thongke.TongSao + 1;
+                            db.SaveChanges();
+                        }
+                        else if (SoSao == 5)
+                        {
+                            thongke.NamSao = thongke.NamSao + 1;
+                            thongke.TongSao = thongke.TongSao + 1;
+                            db.SaveChanges();
+                        }
+                    }
+                    else
+                    {
+                        WebMsgBox.Show("Bạn hãy trải nghiệm phòng và cho chúng tôi đánh giá", this);
+                    }
+                }
+                else
                 {
-                    thongke.HaiSao = thongke.HaiSao + 1;
-                    thongke.TongSao = thongke.TongSao + 1;
-                    db.SaveChanges();
-                } else if (SoSao == 3)
-                {
-                    thongke.BaSao = thongke.BaSao + 1;
-                    thongke.TongSao = thongke.TongSao + 1;
-                    db.SaveChanges();
-                } else if (SoSao == 4)
-                {
-                    thongke.BonSao = thongke.BonSao + 1;
-                    thongke.TongSao = thongke.TongSao + 1;
-                    db.SaveChanges();
-                } else if (SoSao == 5)
-                {
-                    thongke.NamSao = thongke.NamSao + 1;
-                    thongke.TongSao = thongke.TongSao + 1;
-                    db.SaveChanges();
+                    WebMsgBox.Show("Bạn hãy trải nghiệm phòng và cho chúng tôi đánh giá", this);
                 }
             }
             else
@@ -194,11 +227,6 @@ namespace Jade_Dragon.Controllers
                WebMsgBox.Show("Bạn chưa đánh giá", this);
             }
             return RedirectToAction("trangchu", "trangchu", new {makhh = makh});
-        }
-
-        public ActionResult kk()
-        {
-            return View();
         }
 
         protected override void Dispose(bool disposing)

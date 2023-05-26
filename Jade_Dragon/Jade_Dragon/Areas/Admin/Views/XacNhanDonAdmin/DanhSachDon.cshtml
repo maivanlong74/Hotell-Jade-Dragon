@@ -25,6 +25,7 @@
                         <th>Tên khách hàng</th>
                         <th>Ngày đặt</th>
                         <th>Tổng tiền</th>
+                        <th>Hình thức thanh toán</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -61,6 +62,14 @@
                                 }
                                 <td>@item.NgayDat</td>
                                 <td>@item.TongTien</td>
+                                @if (item.HinhThuc == "taiquay")
+                                {
+                                    <td>Tại quầy</td>
+                                }
+                                else if (item.HinhThuc == "chuyenkhoan")
+                                {
+                                    <td>Chuyển khoản</td>
+                                }
                                 <td style="display: flex;">
                                     @if (item.DaDat == false)
                                     {
@@ -108,6 +117,14 @@
                                 }
                                 <td>@item.NgayDat</td>
                                 <td>@item.TongTien</td>
+                                @if (item.HinhThuc == "taiquay")
+                                {
+                                    <td>Tại quầy</td>
+                                }
+                                else if (item.HinhThuc == "chuyenkhoan")
+                                {
+                                    <td>Chuyển khoản</td>
+                                }
                                 <td style="display: flex;">
                                     @if (item.DaDat == false)
                                     {
@@ -137,6 +154,7 @@
                                                 <th>Đơn giá</th>
                                                 <th>Tên Phòng</th>
                                                 <th>Trạng thái</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -152,20 +170,19 @@
                                                     {
                                                         <td>
                                                             Khách chưa đến
-                                                            <a href="@Url.Action("XoaChiTietDon", "XacNhanDonAdmin", new {mact = c.MaChiTietHoaDon})" style="margin-left: 10px;">
-                                                                <img src="~/Style/img/icon/X.jpg" title="Xóa đơn phòng này" />
-                                                            </a>
                                                         </td>
                                                     }
                                                     else
                                                     {
                                                         <td>
                                                             Khách đã đến
-                                                            <a href="@Url.Action("XoaChiTietDon", "XacNhanDonAdmin", new {mact = c.MaChiTietHoaDon})" style="margin-left: 10px;">
-                                                                <img src="~/Style/img/icon/X.jpg" title="Xóa đơn phòng này" />
-                                                            </a>
                                                         </td>
                                                     }
+                                                    <td>
+                                                        <a href="@Url.Action("XoaChiTietDon", "XacNhanDonAdmin", new {mact = c.MaChiTietHoaDon})" style="margin-left: 10px;">
+                                                            <img src="~/Style/img/icon/X.jpg" title="Xóa đơn phòng này" />
+                                                        </a>
+                                                    </td>
                                                 </tr>
                                             }
                                         </tbody>
@@ -183,6 +200,7 @@
                         <th>Tên khách hàng</th>
                         <th>Ngày đặt</th>
                         <th>Tổng tiền</th>
+                        <th>Hình thức thanh toán</th>
                         <th></th>
                     </tr>
                 </tfoot>

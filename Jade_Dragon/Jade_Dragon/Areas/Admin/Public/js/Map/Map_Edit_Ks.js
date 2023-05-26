@@ -29,7 +29,7 @@ function initMap(hotels) {
             marker.getGeometry().setCoordinates(clickedCoordinate);
             handlePosition(lonlat);
         } else {
-            window.location.href = "https://localhost:44336/khachsan/khachsan?ma=" + maks;
+            window.location.href = "~/khachsan/khachsan?ma=" + maks;
         }
 
     });

@@ -52,10 +52,9 @@
                                         <div class="search-time">
                                             @if (Session["batdau"] == null)
                                             {
-
-
                                                 <input type="datetime-local" name="batdau" required
                                                        min="@ViewBag.time_now" max="@ViewBag.time_max" /> <br />
+                                                <input type="hidden" name="ma" value="@ViewBag.ma" />
                                             }
                                             else
                                             {
@@ -64,13 +63,15 @@
                                                     <input placeholder="@Session["batdau"]" type="text" onfocus="(this.type='datetime-local')"
                                                            onblur="(this.type='text')" name="batdau" required value="@Session["batdau"]"
                                                            min="@ViewBag.time_now" max="@ViewBag.time_max" /> <br />
+                                                    <input type="hidden" name="ma" value="@ViewBag.ma" />
                                                 }
                                                 else
                                                 {
                                                     <input placeholder="@Session["batdau"]" name="batdau"
                                                            required value="@Session["batdau"]" readonly /> <br />
+                                                    <input type="hidden" name="ma" value="@ViewBag.ma" />
                                                 }
-                                                <input type="hidden" value="@Session["DongTime"]"/>
+                                                <input type="hidden" value="@Session["DongTime"]" />
 
                                             }
                                             <label>Ngày đến</label>
@@ -80,6 +81,7 @@
                                             {
                                                 <input type="datetime-local" name="ketthuc" required
                                                        min="@ViewBag.time_now" max="@ViewBag.time_max" /> <br />
+                                                <input type="hidden" name="ma" value="@ViewBag.ma" />
                                             }
                                             else
                                             {
@@ -88,11 +90,13 @@
                                                     <input placeholder="@Session["ketthuc"]" type="text" onfocus="(this.type='datetime-local')"
                                                            onblur="(this.type='text')" name="ketthuc" required value="@Session["ketthuc"]"
                                                            min="@ViewBag.time_now" max="@ViewBag.time_max" /><br />
+                                                    <input type="hidden" name="ma" value="@ViewBag.ma" />
                                                 }
                                                 else
                                                 {
                                                     <input placeholder="@Session["ketthuc"]" name="ketthuc"
                                                            required value="@Session["ketthuc"]" readonly /> <br />
+                                                    <input type="hidden" name="ma" value="@ViewBag.ma" />
                                                 }
                                             }
                                             <label>Ngày trả</label>
@@ -100,7 +104,7 @@
                                         @if (Session["DongTime"] != null) { 
                                             <div class="search-time">
                                                 <button type="submit">Cập nhật</button> <br />
-                                                <a href="@Url.Action("QuayVe", "khachsan")" class="button">Quay về ngày hôm nay</a>
+                                                <a href="@Url.Action("QuayVe", "khachsan", new {ma = ViewBag.ma})" class="button">Quay về ngày hôm nay</a>
                                             </div>
                                         }
                                     </form>

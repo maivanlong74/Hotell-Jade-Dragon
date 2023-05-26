@@ -60,12 +60,12 @@
                                     </button>
                                 </div>
                                 <div class="list-ks-item">
-                                    <span>Khách sạn</span>
+                                    <span>Nhân viên khách sạn</span>
                                     <ul class="list-ks">
                                         @foreach (var j in Model)
                                         {
                                             <li class="ks-item">
-                                                <button type="submit" class="btnUser" data-id="@j.MaKh">
+                                                <button type="submit" class="btnUser" data-id="@j.MaKh" title="Khách sạn @j.khachsan.TenKhachSan">
                                                     @j.HoTen
                                                 </button>
                                             </li>

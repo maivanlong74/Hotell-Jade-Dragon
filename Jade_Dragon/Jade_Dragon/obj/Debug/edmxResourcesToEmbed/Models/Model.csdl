@@ -100,7 +100,7 @@
     <Property Name="KinhDo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="ViDo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Gia" Type="Int64" />
-    <Property Name="ThangDiem" Type="Int64" />
+    <Property Name="ThangDiem" Type="Double" />
     <Property Name="AnhKs" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="SoTang" Type="Int64" />
     <Property Name="MaKhuVuc" Type="Int64" />

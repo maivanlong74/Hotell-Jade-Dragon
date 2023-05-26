@@ -40,6 +40,7 @@ namespace Jade_Dragon.Areas.Admin.Controllers
 
             ViewBag.ma = ks.MaKhachSan;
             ViewBag.ten = ks.TenKhachSan;
+            ViewBag.time = DateTime.Now;
 
             return View("DanhSachPhong", ph);
         }
@@ -197,6 +198,78 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                 db.SaveChanges();
             }
             return RedirectToAction("DanhSachPhong", "PhongManage", new { MaKs = maks });
+        }
+
+        public ActionResult Check_In(long mact, long maks)
+        {
+            chitiethoadon ct = db.chitiethoadons.Find(mact);
+            if (ct != null)
+            {
+                ct.DaDen = true;
+                db.SaveChanges();
+            }
+            return RedirectToAction("DanhSachPhong", "PhongManage", new { MaKs = maks });
+        }
+
+        public ActionResult Check_Out(long mact, long maks)
+        {
+            chitiethoadon ct = db.chitiethoadons.Find(mact);
+            hoadon hd = db.hoadons.Find(ct.MaHoaDon);
+            DateTime now = DateTime.Now;
+            if (now < ct.NgayDi)
+            {
+                long sodem_truoc = demsodem((DateTime)ct.NgayDen, (DateTime)ct.NgayDi);
+                ct.NgayDi = now;
+                ct.HoanThanh = true;
+                db.SaveChanges();
+                long sodem_sau = demsodem((DateTime)ct.NgayDen, (DateTime)ct.NgayDi);
+                long gia_thua = (long)(ct.PhongKhachSan.Gia * (sodem_truoc - sodem_sau));
+                ct.Gia = gia_thua;
+                hd.TongTien = hd.TongTien - gia_thua;
+                db.SaveChanges();
+            }
+            else if (now > ct.NgayDi)
+            {
+                long sodem_truoc = demsodem((DateTime)ct.NgayDen, (DateTime)ct.NgayDi);
+                ct.NgayDi = now;
+                ct.HoanThanh = true;
+                db.SaveChanges();
+                long sodem_sau = demsodem((DateTime)ct.NgayDen, (DateTime)ct.NgayDi);
+                long gia_thieu = (long)(ct.PhongKhachSan.Gia * (sodem_sau - sodem_truoc));
+                ct.Gia = gia_thieu;
+                hd.TongTien = hd.TongTien + gia_thieu;
+                db.SaveChanges();
+            }
+
+            var chitiet = db.chitiethoadons.Where(a => a.MaHoaDon == hd.MaHoaDon).ToList();
+            if (chitiet.Count > 0)
+            {
+                bool allHoanThanh = chitiet.All(i => i.HoanThanh == true);
+                if (allHoanThanh)
+                {
+                    hd.MaError = "02";
+                    db.SaveChanges();
+                }
+            }
+
+            return RedirectToAction("DanhSachPhong", "PhongManage", new { MaKs = maks });
+        }
+
+        public long demsodem(DateTime ngayden, DateTime ngaydi)
+        {
+            TimeSpan den = ngayden.TimeOfDay;
+            int gioden = (int)den.TotalSeconds / 3600;
+            int phutden = (int)den.TotalSeconds / 60 % 60;
+
+            TimeSpan di = ngaydi.TimeOfDay;
+            int giodi = (int)di.TotalSeconds / 3600;
+            int phutdi = (int)di.TotalSeconds / 60 % 60;
+
+            DateTime checkInDate = new DateTime(ngayden.Year, ngayden.Month, ngayden.Day, gioden, phutden, 0);
+            DateTime checkOutDate = new DateTime(ngaydi.Year, ngaydi.Month, ngaydi.Day, giodi, phutdi, 0);
+            int sodem = check_In_Out.check(checkInDate, checkOutDate);
+
+            return sodem;
         }
 
         protected override void Dispose(bool disposing)

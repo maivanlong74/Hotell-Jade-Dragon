@@ -26,6 +26,7 @@
                         <th>Tên khách hàng</th>
                         <th>Ngày đặt</th>
                         <th>Tổng tiền</th>
+                        <th>Hình thức thanh toán</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -36,36 +37,22 @@
                         {
                             <tr class="invoice-row" data-invoice-id="@item.MaHoaDon" style="background-color: #d35400;" title="Khách hàng yêu cầu hủy">
                                 <td class="mhd">@item.MaHoaDon</td>
-                                @if (item.MaKhachSan != null)
-                                {
-                                    <td>
-                                        <a href="@Url.Action("Details", "QLKhachSan", new {id = item.MaKhachSan})" style="text-decoration: none; color: white;">
-                                            @item.TenKhachSan
-                                        </a>
-                                    </td>
-                                }
-                                else
-                                {
-                                    <td>@item.TenKhachSan</td>
-                                }
-                                @if (item.MaKh != null)
-                                {
-                                    <td>
-                                        <a href="@Url.Action("Details", "QLKhachHang", new {id = item.MaKh})" style="text-decoration: none; color: white;">
-                                            @item.HoTen
-                                        </a>
-                                    </td>
-                                }
-                                else
-                                {
-                                    <td>@item.HoTen</td>
-                                }
+                                <td>@item.TenKhachSan</td>
+                                <td>@item.HoTen</td>
                                 <td>@item.NgayDat</td>
                                 <td>@item.TongTien</td>
+                                @if (item.HinhThuc == "taiquay")
+                                {
+                                    <td>Tại quầy</td>
+                                }
+                                else if (item.HinhThuc == "chuyenkhoan")
+                                {
+                                    <td>Chuyển khoản</td>
+                                }
                                 <td style="display: flex;">
                                     @if (item.DaDat == false)
                                     {
-                                        <a href="@Url.Action("XacNhanDon", "XacNhanDonAdmin", new {mahd = item.MaHoaDon})" style="text-decoration: none; color: wheat; font-weight: 700;">
+                                        <a href="@Url.Action("XacNhanDon", "XacNhanDonManage", new {mahd = item.MaHoaDon})" style="text-decoration: none; color: wheat; font-weight: 700;">
                                             Xác nhận
                                         </a>
                                     }
@@ -73,7 +60,7 @@
                                     {
                                         <a style="color: wheat; font-weight: 700;">Đã xác nhận</a>
                                     }
-                                    <a href="@Url.Action("XoaDon", "XacNhanDonAdmin", new {mahd = item.MaHoaDon})" style="margin-left: 10px;">
+                                    <a href="@Url.Action("XoaDon", "XacNhanDonManage", new {mahd = item.MaHoaDon})" style="margin-left: 10px;">
                                         <img src="~/Style/img/icon/X.jpg" title="Xóa hóa đơn này" />
                                     </a>
                                 </td>
@@ -83,36 +70,22 @@
                         {
                             <tr class="invoice-row" data-invoice-id="@item.MaHoaDon">
                                 <td class="mhd">@item.MaHoaDon</td>
-                                @if (item.MaKhachSan != null)
-                                {
-                                    <td>
-                                        <a href="@Url.Action("Details", "QLKhachSan", new {id = item.MaKhachSan})" style="text-decoration: none; color: white;">
-                                            @item.TenKhachSan
-                                        </a>
-                                    </td>
-                                }
-                                else
-                                {
-                                    <td>@item.TenKhachSan</td>
-                                }
-                                @if (item.MaKh != null)
-                                {
-                                    <td>
-                                        <a href="@Url.Action("Details", "QLKhachHang", new {id = item.MaKh})" style="text-decoration: none; color: white;">
-                                            @item.HoTen
-                                        </a>
-                                    </td>
-                                }
-                                else
-                                {
-                                    <td>@item.HoTen</td>
-                                }
+                                <td>@item.TenKhachSan</td>
+                                <td>@item.HoTen</td>
                                 <td>@item.NgayDat</td>
                                 <td>@item.TongTien</td>
+                                @if (item.HinhThuc == "taiquay")
+                                {
+                                    <td>Tại quầy</td>
+                                }
+                                else if (item.HinhThuc == "chuyenkhoan")
+                                {
+                                    <td>Chuyển khoản</td>
+                                }
                                 <td style="display: flex;">
                                     @if (item.DaDat == false)
                                     {
-                                        <a href="@Url.Action("XacNhanDon", "XacNhanDonAdmin", new {mahd = item.MaHoaDon})" style="text-decoration: none; color: wheat; font-weight: 700;">
+                                        <a href="@Url.Action("XacNhanDon", "XacNhanDonManage", new {mahd = item.MaHoaDon})" style="text-decoration: none; color: wheat; font-weight: 700;">
                                             Xác nhận
                                         </a>
                                     }
@@ -120,7 +93,7 @@
                                     {
                                         <a style="color: wheat; font-weight: 700;">Đã xác nhận</a>
                                     }
-                                    <a href="@Url.Action("XoaDon", "XacNhanDonAdmin", new {mahd = item.MaHoaDon})" style="margin-left: 10px;">
+                                    <a href="@Url.Action("XoaDon", "XacNhanDonManage", new {mahd = item.MaHoaDon})" style="margin-left: 10px;">
                                         <img src="~/Style/img/icon/X.jpg" title="Xóa hóa đơn này" />
                                     </a>
                                 </td>
@@ -138,6 +111,7 @@
                                                 <th>Đơn giá</th>
                                                 <th>Tên Phòng</th>
                                                 <th>Trạng thái</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -151,22 +125,17 @@
                                                     <td>@c.TenPhong</td>
                                                     @if (c.DaDen == false)
                                                     {
-                                                        <td>
-                                                            Khách chưa đến
-                                                            <a href="@Url.Action("XoaChiTietDon", "XacNhanDonAdmin", new {mact = c.MaChiTietHoaDon})" style="margin-left: 10px;">
-                                                                <img src="~/Style/img/icon/X.jpg" title="Xóa đơn phòng này" />
-                                                            </a>
-                                                        </td>
+                                                        <td>Khách chưa đến</td>
                                                     }
                                                     else
                                                     {
-                                                        <td>
-                                                            Khách đã đến
-                                                            <a href="@Url.Action("XoaChiTietDon", "XacNhanDonAdmin", new {mact = c.MaChiTietHoaDon})" style="margin-left: 10px;">
-                                                                <img src="~/Style/img/icon/X.jpg" title="Xóa đơn phòng này" />
-                                                            </a>
-                                                        </td>
+                                                        <td>Khách đã đến</td>
                                                     }
+                                                    <td>
+                                                        <a href="@Url.Action("XoaChiTietDon", "XacNhanDonManage", new {mact = c.MaChiTietHoaDon})" style="margin-left: 10px;">
+                                                            <img src="~/Style/img/icon/X.jpg" title="Xóa đơn phòng này" />
+                                                        </a>
+                                                    </td>
                                                 </tr>
                                             }
                                         </tbody>
@@ -184,6 +153,7 @@
                         <th>Tên khách hàng</th>
                         <th>Ngày đặt</th>
                         <th>Tổng tiền</th>
+                        <th>Hình thức thanh toán</th>
                         <th></th>
                     </tr>
                 </tfoot>

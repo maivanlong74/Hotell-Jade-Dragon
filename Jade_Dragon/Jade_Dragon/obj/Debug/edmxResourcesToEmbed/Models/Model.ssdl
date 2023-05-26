@@ -82,7 +82,7 @@
     <Property Name="KinhDo" Type="nvarchar" MaxLength="50" />
     <Property Name="ViDo" Type="nvarchar" MaxLength="50" />
     <Property Name="Gia" Type="bigint" />
-    <Property Name="ThangDiem" Type="bigint" />
+    <Property Name="ThangDiem" Type="float" />
     <Property Name="AnhKs" Type="nvarchar" MaxLength="50" />
     <Property Name="SoTang" Type="bigint" />
     <Property Name="MaKhuVuc" Type="bigint" />

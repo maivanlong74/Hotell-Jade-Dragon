@@ -135,11 +135,26 @@
                                         <div class="hoadon">
                                             @foreach (var k in Model.cthd.Where(n => n.MaPhong == j.MaPhong))
                                             {
-                                                <div class="hd-khachhang">
-                                                    <p>Khách hàng: @k.hoadon.HoTen</p>
-                                                    <p>Ngày đến: @k.NgayDen</p>
-                                                    <p>Ngày đi: @k.NgayDi</p>
-                                                </div>
+                                                if (k.HoanThanh == false)
+                                                {
+                                                    <div class="hd-khachhang">
+                                                        @if (k.DaDen == false && k.NgayDen <= ViewBag.time)
+                                                        {
+                                                            <div class="Check-InOut">
+                                                                <a href="@Url.Action("Check_In", "PhongManage", new {mact = k.MaChiTietHoaDon, maks = ViewBag.ma})" class="Check-Check">Check In</a>
+                                                            </div>
+                                                        }
+                                                        else if (k.DaDen == true)
+                                                        {
+                                                            <div class="Check-InOut">
+                                                                <a href="@Url.Action("Check_Out", "PhongManage", new {mact = k.MaChiTietHoaDon, maks = ViewBag.ma})" class="Check-Check">Check Out</a>
+                                                            </div>
+                                                        }
+                                                        <p>Khách hàng: @k.hoadon.HoTen</p>
+                                                        <p>Ngày đến: @k.NgayDen</p>
+                                                        <p>Ngày đi: @k.NgayDi</p>
+                                                    </div>
+                                                }
                                             }
                                         </div>
                                     </div>

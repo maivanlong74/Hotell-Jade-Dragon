@@ -30,9 +30,18 @@
                 {
                     <tr>
                         <td>
-                            <a href="@Url.Action("Details","QLKhachHang", new { id = item.MaKh })" style="text-decoration: none; color: aqua;">
-                                @item.HoTen
-                            </a>
+                            @if (item.QLKhachSan == null)
+                            {
+                                <a href="@Url.Action("Details","QLKhachHang", new { id = item.MaKh })" style="text-decoration: none; color: aqua;">
+                                    @item.HoTen
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("Details","QLKhachHang", new { id = item.MaKh })" style="text-decoration: none; color: #d63031;" title="Chủ khách sạn @item.khachsan.TenKhachSan">
+                                    @item.HoTen
+                                </a>
+                            }
                         </td>
                         <td>@item.SoDienThoai</td>
                         <td>@item.CMND</td>

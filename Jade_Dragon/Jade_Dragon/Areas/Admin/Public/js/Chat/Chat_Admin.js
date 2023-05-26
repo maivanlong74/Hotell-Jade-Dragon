@@ -253,7 +253,6 @@ function loadDelete(chat) {
 }
 
 function loadGroup(chat) {
-    var btnChatPhong = "btnChatPhong";
     var linkanh = "/Style/img/icon/icon-X.jpg";
     var title = "Xóa nhóm";
     chat.client.taoMoi = function (maphong, tenphong, tenks) {

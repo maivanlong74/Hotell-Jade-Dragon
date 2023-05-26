@@ -45,9 +45,18 @@
                             @foreach (var dem in Model.kh)
                             {
                                 <li>
-                                    <button type="submit" class="btnUser" data-id="@dem.MaKh">
-                                        @dem.HoTen
-                                    </button>
+                                    @if (dem.QLKhachSan == null)
+                                    {
+                                        <button type="submit" class="btnUser" data-id="@dem.MaKh">
+                                            @dem.HoTen
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <button type="submit" class="btnUser" data-id="@dem.MaKh" title="Chủ khách sạn @dem.khachsan.TenKhachSan" style="background: darkblue;">
+                                            @dem.HoTen
+                                        </button>
+                                    }
                                 </li>
                             }
                         </ul>

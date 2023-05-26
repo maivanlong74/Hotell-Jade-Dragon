@@ -17,7 +17,14 @@
     <link href="~/Style/css/Map/BoSung.css" rel="stylesheet" />
     <link href="~/Style/css/Map/Map_trangchu_css.css" rel="stylesheet" />
 </head>
-
+<style>
+    #map .DangKy_Map {
+        width: 400px;
+    }
+    #map #DangKy_Map #info_ksks #thoat_form {
+        margin-left: 175px;
+    }
+</style>
 <body>
     <div class="home">
         <div class="home__background"></div>
@@ -61,6 +68,7 @@
                             <option value="address">Địa chỉ</option>
                             <option value="phone">Số điện thoại</option>
                             <option value="khuvuc">Khu vực</option>
+                            <option value="gia">Giá Tiền</option>
                         </select>
                     </div>
                     <div class="Search Search-button">
@@ -182,7 +190,7 @@
                                         else
                                         {
                                             var thongke = Model.ThongKe.FirstOrDefault(m => m.MaKhachSan == item.MaKhachSan);
-                                            if (thongke == null)
+                                            if (thongke.TongSao == 0)
                                             {
                                                 <div class="thongke-sao">
                                                     <div class="tongsao"><span>Tổng <span class="rating-count">0</span>lượt đánh giá</span></div>
@@ -217,36 +225,36 @@
                                             }
                                             else
                                             {
-                                                <div class="thongke-sao">
-                                                    <div class="tongsao"><span>Tổng <span class="rating-count">@thongke.TongSao</span>lượt đánh giá</span></div>
-                                                    <div class="starss">
-                                                        <div class="sosao">
-                                                            <span>1 sao</span>
-                                                            <div class="thuoc-sao"><div class="starr star-a" style="width: @((decimal)(thongke.MotSao * (100 / thongke.TongSao)))%;"></div></div>
-                                                            <span class="dem">@thongke.MotSao</span>
-                                                        </div>
-                                                        <div class="sosao">
-                                                            <span>2 sao</span>
-                                                            <div class="thuoc-sao"><div class="starr star-b" style="width: @((decimal)(thongke.HaiSao * (100 / thongke.TongSao)))%;"></div></div>
-                                                            <span class="dem">@thongke.HaiSao</span>
-                                                        </div>
-                                                        <div class="sosao">
-                                                            <span>3 sao</span>
-                                                            <div class="thuoc-sao"><div class="starr star-c" style="width: @((decimal)(thongke.BaSao * (100 / thongke.TongSao)))%;"></div></div>
-                                                            <span class="dem">@thongke.BaSao</span>
-                                                        </div>
-                                                        <div class="sosao">
-                                                            <span>4 sao</span>
-                                                            <div class="thuoc-sao"><div class="starr star-d" style="width: @((decimal)(thongke.BonSao * (100 / thongke.TongSao)))%;"></div></div>
-                                                            <span class="dem">@thongke.BonSao</span>
-                                                        </div>
-                                                        <div class="sosao">
-                                                            <span>5 sao</span>
-                                                            <div class="thuoc-sao"><div class="starr star-e" style="width: @((decimal)(thongke.NamSao * (100 / thongke.TongSao)))%;"></div></div>
-                                                            <span class="dem">@thongke.NamSao</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                    <div class="thongke-sao">
+                                        <div class="tongsao"><span>Tổng <span class="rating-count">@thongke.TongSao</span>lượt đánh giá</span></div>
+                                        <div class="starss">
+                                            <div class="sosao">
+                                                <span>1 sao</span>
+                                                <div class="thuoc-sao"><div class="starr star-a" style="width: @(thongke.MotSao * (100M / thongke.TongSao))@("%;")"></div></div>
+                                                <span class="dem">@thongke.MotSao</span>
+                                            </div>
+                                            <div class="sosao">
+                                                <span>2 sao</span>
+                                                <div class="thuoc-sao"><div class="starr star-b" style="width: @((decimal)(thongke.HaiSao * (100M / thongke.TongSao)))@("%;")"></div></div>
+                                                <span class="dem">@thongke.HaiSao</span>
+                                            </div>
+                                            <div class="sosao">
+                                                <span>3 sao</span>
+                                                <div class="thuoc-sao"><div class="starr star-c" style="width: @((decimal)(thongke.BaSao * (100M / thongke.TongSao)))@("%;")"></div></div>
+                                                <span class="dem">@thongke.BaSao</span>
+                                            </div>
+                                            <div class="sosao">
+                                                <span>4 sao</span>
+                                                <div class="thuoc-sao"><div class="starr star-d" style="width: @((decimal)(thongke.BonSao * (100M / thongke.TongSao)))@("%;")"></div></div>
+                                                <span class="dem">@thongke.BonSao</span>
+                                            </div>
+                                            <div class="sosao">
+                                                <span>5 sao</span>
+                                                <div class="thuoc-sao"><div class="starr star-e" style="width: @((decimal)(thongke.NamSao * (100M / thongke.TongSao)))@("%;")"></div></div>
+                                                <span class="dem">@thongke.NamSao</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                             }
                                         }
 
@@ -355,7 +363,7 @@
                                         else
                                         {
                                             var thongke = Model.ThongKe.FirstOrDefault(m => m.MaKhachSan == item.MaKhachSan);
-                                            if (thongke == null)
+                                            if (thongke.TongSao == 0)
                                             {
                                                 <div class="thongke-sao">
                                                     <div class="tongsao"><span>Tổng <span class="rating-count">0</span>lượt đánh giá</span></div>
@@ -395,27 +403,27 @@
                                         <div class="starss">
                                             <div class="sosao">
                                                 <span>1 sao</span>
-                                                <div class="thuoc-sao"><div class="starr star-a" style="width: @((decimal)(thongke.MotSao * (100 / thongke.TongSao)))%;"></div></div>
+                                                <div class="thuoc-sao"><div class="starr star-a" style="width: @(thongke.MotSao * (100M / thongke.TongSao))@("%;")"></div></div>
                                                 <span class="dem">@thongke.MotSao</span>
                                             </div>
                                             <div class="sosao">
                                                 <span>2 sao</span>
-                                                <div class="thuoc-sao"><div class="starr star-b" style="width: @((decimal)(thongke.HaiSao * (100 / thongke.TongSao)))%;"></div></div>
+                                                <div class="thuoc-sao"><div class="starr star-b" style="width: @((decimal)(thongke.HaiSao * (100M / thongke.TongSao)))@("%;")"></div></div>
                                                 <span class="dem">@thongke.HaiSao</span>
                                             </div>
                                             <div class="sosao">
                                                 <span>3 sao</span>
-                                                <div class="thuoc-sao"><div class="starr star-c" style="width: @((decimal)(thongke.BaSao * (100 / thongke.TongSao)))%;"></div></div>
+                                                <div class="thuoc-sao"><div class="starr star-c" style="width: @((decimal)(thongke.BaSao * (100M / thongke.TongSao)))@("%;")"></div></div>
                                                 <span class="dem">@thongke.BaSao</span>
                                             </div>
                                             <div class="sosao">
                                                 <span>4 sao</span>
-                                                <div class="thuoc-sao"><div class="starr star-d" style="width: @((decimal)(thongke.BonSao * (100 / thongke.TongSao)))%;"></div></div>
+                                                <div class="thuoc-sao"><div class="starr star-d" style="width: @((decimal)(thongke.BonSao * (100M / thongke.TongSao)))@("%;")"></div></div>
                                                 <span class="dem">@thongke.BonSao</span>
                                             </div>
                                             <div class="sosao">
                                                 <span>5 sao</span>
-                                                <div class="thuoc-sao"><div class="starr star-e" style="width: @((decimal)(thongke.NamSao * (100 / thongke.TongSao)))%;"></div></div>
+                                                <div class="thuoc-sao"><div class="starr star-e" style="width: @((decimal)(thongke.NamSao * (100M / thongke.TongSao)))@("%;")"></div></div>
                                                 <span class="dem">@thongke.NamSao</span>
                                             </div>
                                         </div>
