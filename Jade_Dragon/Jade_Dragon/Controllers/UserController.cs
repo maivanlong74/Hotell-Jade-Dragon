@@ -72,8 +72,9 @@ namespace Jade_Dragon.Controllers
                     uploadhinh.SaveAs(_path);
                     unv.Avt = _FileName;
                 }
-
                 db.SaveChanges();
+
+                Session["Avt"] = unv.Avt;
                 return Redirect("~/User/TrangCaNhan/" + khachhang.MaKh);
             }
             ViewBag.IDGroup = new SelectList(db.UserGroups, "IDGroup", "Name", khachhang.IDGroup);

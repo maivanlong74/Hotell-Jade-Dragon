@@ -530,6 +530,8 @@ namespace Jade_Dragon.Areas.Admin.Controllers
             khachhang kh = db.khachhangs.FirstOrDefault(m => m.QLKhachSan == id);
             kh.QLKhachSan = null;
 
+            ThongKeDanhGia dg = db.ThongKeDanhGias.FirstOrDefault(a => a.MaKhachSan == id);
+            db.ThongKeDanhGias.Remove(dg);
             List<hoadon> hd = db.hoadons.Where(c => c.MaKhachSan == id).ToList();
             if (hd != null)
             {
