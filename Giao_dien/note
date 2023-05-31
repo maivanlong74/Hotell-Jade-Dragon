@@ -1,35 +1,18 @@
-foreach (var item in Model.ks)
-    {
-    var thongke = Model.ThongKe.FirstOrDefault(m => m.MaKhachSan == item.MaKhachSan);
-    <div class="thongke-sao">
-        <div class="tongsao"><span>Tổng <span class="rating-count">@thongke.TongSao</span>lượt đánh giá</span></div>
-        <div class="starss">
-            <div class="sosao">
-                <span>1 sao</span>
-                <div class="thuoc-sao"><div class="starr star-a" style="width: @((decimal)(thongke.MotSao * (100 / thongke.TongSao)))%;"></div></div>
-                <span class="dem">@thongke.MotSao</span>
-            </div>
-            <div class="sosao">
-                <span>2 sao</span>
-                <div class="thuoc-sao"><div class="starr star-b" style="width: @((decimal)(thongke.HaiSao * (100 / thongke.TongSao)))%;"></div></div>
-                <span class="dem">@thongke.HaiSao</span>
-            </div>
-            <div class="sosao">
-                <span>3 sao</span>
-                <div class="thuoc-sao"><div class="starr star-c" style="width: @((decimal)(thongke.BaSao * (100 / thongke.TongSao)))%;"></div></div>
-                <span class="dem">@thongke.BaSao</span>
-            </div>
-            <div class="sosao">
-                <span>4 sao</span>
-                <div class="thuoc-sao"><div class="starr star-d" style="width: @((decimal)(thongke.BonSao * (100 / thongke.TongSao)))%;"></div></div>
-                <span class="dem">@thongke.BonSao</span>
-            </div>
-            <div class="sosao">
-                <span>5 sao</span>
-                <div class="thuoc-sao"><div class="starr star-e" style="width: @((decimal)(thongke.NamSao * (100 / thongke.TongSao)))%;"></div></div>
-                <span class="dem">@thongke.NamSao</span>
-            </div>
-        </div>
-    </div>
-}
-Nhưng ở trong code cshtml tôi phải làm như này mới được để khi nó chạy vòng for Model.ks tôi sẽ lấy được item.MaKhachSan 
+Ở trong MySQL server
+Tôi có một bảng TaiKhoan:
+    SELECT TOP (1000) [MaTaiKhoan]
+    ,[TenDangNhap]
+    ,[MatKhau]
+    ,[MaPhanQuyen]
+    ,[Code]
+    ,[DaXacMinh]
+    FROM [SQL_JadeDragon].[dbo].[TaiKhoan]
+Tôi có 1 bảng TinNhanNhom:
+    SELECT TOP (1000) [MaTinNhan]
+    ,[MaKhachHang]
+    ,[NoiDungTinNhanClient]
+    ,[LinkAnh]
+    ,[MaPhongChat]
+    ,[NgayGui]
+    FROM [SQL_JadeDragon].[dbo].[TinNhanNhom]
+Tôi nên đổi thế nào để có thể lưu trữ số lượng tài khoản cho phép ở trong nhóm đó
