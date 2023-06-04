@@ -37,7 +37,7 @@
                     </div>
                     <div class="home__container__slider--btn">
                         <div class="btn__bgc"></div>
-                        <a href="@Url.Action("khachsan", "khachsan")">
+                        <a href="@Url.Action("TrangKhachSan", "TrangKhachSan")">
                             Đặt ngay bây giờ
                             <span></span>
                             <span></span>
@@ -89,7 +89,7 @@
             {
                 foreach (var item in Model.ks)
                 {
-                    var anhks = Model.anhks.FirstOrDefault(j => j.MaKhachSan == item.MaKhachSan);
+                    var anhks = Model.AnhKs.FirstOrDefault(j => j.MaKhachSan == item.MaKhachSan);
                     if (anhks == null)
                     {
                         <div class="slider-item slider-item-one"
@@ -105,7 +105,7 @@
                                             <i class="one">Địa chỉ: @item.DiaChi</i>
                                             <p class="one">Giá: @item.Gia VND</p>
                                         </div>
-                                        @if (Session["MaNguoiDung"] != null)
+                    @if (Session["MaNguoiDung"] != null)
                     {
                         var listsao = Model.dg.FirstOrDefault(s => s.MaKhachSan == item.MaKhachSan);
                         if (listsao == null)
@@ -150,7 +150,7 @@
                                                 <i>Còn phòng</i>
                                             }
                                             else
-            {
+                                            {
                                                 <i>Hết phòng</i>
                                             }
                                         </div>
@@ -225,7 +225,7 @@
                                                 </div>
                                             }
                                             else
-            {
+                                            {
                                                 <div class="thongke-sao">
                                                     <div class="tongsao"><span>Tổng <span class="rating-count">@thongke.TongSao</span>lượt đánh giá</span></div>
                                                     <div class="starss">
@@ -297,7 +297,7 @@
                                                 </form>
                                             }
                                             else
-            {
+                                            {
                                                 <form action="" class="rating" method="post">
                                                     <div class="danhgia-sao">
                                                         <span class="star" data-rating="1">&#9733;</span>
@@ -314,7 +314,7 @@
                                     </div>
                                     <div class="datphong-item" style="margin-left: 40px;">
                                         <div class="datphong">
-                                            <a href="~/khachsan/khachsan?ma=@item.MaKhachSan">Đặt phòng</a>
+                                            <a href="~/TrangKhachSan/TrangKhachSan?maks=@item.MaKhachSan">Đặt phòng</a>
                                             @if (item.TrangThaiKs == true)
                                             {
 
@@ -322,7 +322,7 @@
                                                 <i>Còn phòng</i>
                                             }
                                             else
-            {
+                                            {
                                                 <i>Hết phòng</i>
                                             }
                                         </div>
@@ -494,7 +494,7 @@
                         </div>
                         <div class="item--btn">
                             <div class="btn__bgc"></div>
-                            <a href="@Url.Action("khachsan", "khachsan")">
+                            <a href="@Url.Action("TrangKhachSan", "TrangKhachSan")">
                                 Đặt ngay bây giờ
                                 <span></span>
                                 <span></span>
@@ -567,7 +567,7 @@
     <script>
         var hotels = [
           @foreach (var i in Model.ks) {
-              var anh = Model.anhks.FirstOrDefault(s => s.MaKhachSan == i.MaKhachSan);
+              var anh = Model.AnhKs.FirstOrDefault(s => s.MaKhachSan == i.MaKhachSan);
               var link = "null";
               if(anh != null)
                 {

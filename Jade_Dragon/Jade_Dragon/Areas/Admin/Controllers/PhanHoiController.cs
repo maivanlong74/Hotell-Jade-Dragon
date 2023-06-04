@@ -1,4 +1,4 @@
-﻿/*using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -17,14 +17,14 @@ namespace Jade_Dragon.Areas.Admin.Controllers
         // GET: Admin/PhanHoi
         public ActionResult PhanHoi()
         {
-            var listkh = db.khachhangs.Select(kh => kh.MaKh).ToList();
-            var listph = db.phanhois.Include(k => k.khachhang).ToList();
+            var listkh = db.NguoiDungs.Select(kh => kh.MaNguoiDung).ToList();
+            var listph = db.BinhLuans.Include(k => k.NguoiDung).ToList();
 
             foreach (var item in listph)
             {
-                if (item.MaKh != null && !listkh.Contains(item.MaKh.Value))
+                if (item.MaNguoiDung != null && !listkh.Contains(item.MaNguoiDung.Value))
                 {
-                    item.MaKh = null;
+                    item.MaNguoiDung = null;
                 }
             }
             db.SaveChanges();
@@ -32,28 +32,27 @@ namespace Jade_Dragon.Areas.Admin.Controllers
             return View("PhanHoi", listph);
         }
         // GET: Admin/PhanHoi/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(long? id)
         {
-            phanhoi ph = db.phanhois.FirstOrDefault(x => x.MaPhanHoi == id);
-            db.phanhois.Remove(ph);
+            BinhLuan ph = db.BinhLuans.FirstOrDefault(x => x.MaBinhLuan == id);
             if (ph != null)
             {
-                db.phanhois.Remove(ph);
+                db.BinhLuans.Remove(ph);
             }
             db.SaveChanges();
             return RedirectToAction("PhanHoi");
         }
 
-        public ActionResult PhanHoiManage()
+        public ActionResult PhanHoiManage(long? maks)
         {
-            var listkh = db.khachhangs.Select(kh => kh.MaKh).ToList();
-            var listph = db.phanhois.Include(k => k.khachhang).ToList();
+            var listkh = db.NguoiDungs.Select(kh => kh.MaNguoiDung).ToList();
+            var listph = db.BinhLuans.Where(l => l.MaKhachSan == maks).ToList();
 
             foreach (var item in listph)
             {
-                if (item.MaKh != null && !listkh.Contains(item.MaKh.Value))
+                if (item.MaNguoiDung != null && !listkh.Contains(item.MaNguoiDung.Value))
                 {
-                    item.MaKh = null;
+                    item.MaNguoiDung = null;
                 }
             }
             db.SaveChanges();
@@ -70,4 +69,3 @@ namespace Jade_Dragon.Areas.Admin.Controllers
         }
     }
 }
-*/

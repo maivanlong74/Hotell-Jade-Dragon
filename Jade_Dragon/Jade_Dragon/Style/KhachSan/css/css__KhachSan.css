@@ -192,8 +192,7 @@
             }
 
             .menu .list-menu ul li ul.list-ks {
-                height: 400px;
-                margin-top: 160%;
+                height: auto;
             }
 
             .menu .list-menu ul li ul.list::-webkit-scrollbar {

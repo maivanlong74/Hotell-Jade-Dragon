@@ -9,6 +9,7 @@ namespace Jade_Dragon.Models
     public class hienthiphong
     {
         /*=====Khách sạn=========*/
+        public KhachSan htks { get; set; }
         public List<KhachSan> ks { get; set; }
         public List<AnhKhachSan> AnhKs { get; set; }
 
@@ -33,10 +34,6 @@ namespace Jade_Dragon.Models
         /*=========Đánh giá==================*/
         public List<ThongKeDanhGia> tkdg { get; set; }
         public List<DanhGiaKhachSan> dg { get; set; }
-
-        /*======Ảnh======================*/
-        public List<AnhKhachSan> anhks { get; set; }
-        public List<AnhPhongKhachSan> anhph { get; set; }
     }
 
 

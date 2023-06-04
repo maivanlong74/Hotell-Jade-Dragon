@@ -111,7 +111,7 @@ namespace Jade_Dragon.Controllers
             m.khu_vuc = db.KhuVucs.ToList();
             m.dg = db.DanhGiaKhachSans.Where(a => a.MaNguoiDung == makhh).ToList();
             m.tkdg = db.ThongKeDanhGias.ToList();
-            m.anhks = db.AnhKhachSans.ToList();
+            m.AnhKs = db.AnhKhachSans.ToList();
             return View("trangchu", m);
         }
 

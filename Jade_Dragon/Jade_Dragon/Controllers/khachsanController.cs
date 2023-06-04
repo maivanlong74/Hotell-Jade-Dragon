@@ -219,6 +219,7 @@ namespace Jade_Dragon.Controllers
             ViewBag.time_max = loadtime(time_max);
             Session["batdau"] = batdau;
             Session["ketthuc"] = ketthuc;
+            m.AnhKs = db.AnhKhachSans.ToList();
 
             return View("khachsan", m);
         }
