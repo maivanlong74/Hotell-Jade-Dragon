@@ -50,28 +50,27 @@ namespace Jade_Dragon.Controllers
 
             if (maks == null)
             {
-                List<khuvuc> KhuVuc = new List<khuvuc>();
-                KhuVuc = db.khuvucs.ToList();
+                List<KhuVuc> KhuVuc = new List<KhuVuc>();
+                KhuVuc = db.KhuVucs.ToList();
                 ViewBag.ListKhuVuc = KhuVuc;
                 return View(list);
             }
             else
             {
-                var ks = db.khachsans.FirstOrDefault(v => v.MaKhachSan == maks);
+                var ks = db.KhachSans.FirstOrDefault(v => v.MaKhachSan == maks);
                 Session["MaKhachSanPhong"] = ks.MaKhachSan;
                 Session["TenKhachSan"] = ks.TenKhachSan;
                 Session["DiaChi"] = ks.DiaChi;
                 Session["SoDienThoai_ks"] = ks.SoDienThoai;
                 Session["GmailKhachSan"] = ks.Gmail;
                 Session["Gia"] = ks.Gia;
-                Session["AnhKs"] = ks.AnhKs;
                 Session["KinhDo"] = ks.KinhDo;
                 Session["ViDo"] = ks.ViDo;
-                ViewBag.tenkv = ks.khuvuc.TenKhuVuc;
+                ViewBag.tenkv = ks.KhuVuc.TenKhuVuc;
                 ViewBag.makv = ks.MaKhuVuc;
             }
-            List<khuvuc> kv = new List<khuvuc>();
-            kv = db.khuvucs.ToList();
+            List<KhuVuc> kv = new List<KhuVuc>();
+            kv = db.KhuVucs.ToList();
             ViewBag.ListKhuVuc = kv;
 
             DateTime time_now = DateTime.Now.AddDays(-1);
@@ -109,8 +108,8 @@ namespace Jade_Dragon.Controllers
                 var list = (List<Cart>)cart;
                 if (list.Exists(x => x.htphong.MaKhachSan != Phong.MaKhachSan))
                 {
-                    WebMsgBox.Show("Bạn đang đặt phòng ở khách sạn " + Phong.khachsan.TenKhachSan, this);
-                    return RedirectToAction("khachsan", "khachsan", new { ma = Phong.MaKhachSan, batdau = batdau, ketthuc = ketthuc});
+                    WebMsgBox.Show("Bạn đang đặt phòng ở khách sạn " + Phong.KhachSan.TenKhachSan, this);
+                    return RedirectToAction("khachsan", "khachsan", new { ma = Phong.MaKhachSan, batdau = batdau, ketthuc = ketthuc });
                 }
                 else
                 {
@@ -118,7 +117,7 @@ namespace Jade_Dragon.Controllers
                     if (list.Exists(x => x.htphong.MaPhong == maph))
                     {
                         WebMsgBox.Show("Bạn đăt trùng phòng, vui lòng đặt phòng khác", this);
-                        return RedirectToAction("khachsan", "khachsan", new {ma = Phong.MaKhachSan, batdau = batdau, ketthuc = ketthuc });
+                        return RedirectToAction("khachsan", "khachsan", new { ma = Phong.MaKhachSan, batdau = batdau, ketthuc = ketthuc });
                     }
                     else
                     {
@@ -151,7 +150,7 @@ namespace Jade_Dragon.Controllers
             }
             else
             {
-                return RedirectToAction("Next", "GioHang", new { maksphong = Phong.MaKhachSan, ngayden = batdau, ngaydi = ketthuc  });
+                return RedirectToAction("Next", "GioHang", new { maksphong = Phong.MaKhachSan, ngayden = batdau, ngaydi = ketthuc });
             }
         }
 
@@ -168,15 +167,15 @@ namespace Jade_Dragon.Controllers
             var sessionCart = (List<Cart>)Session[giohang];
             sessionCart.RemoveAll(x => x.htphong.MaPhong == id);
             Session[giohang] = sessionCart;
-            if(sessionCart.Count == 0)
+            if (sessionCart.Count == 0)
             {
                 Session["DongTime"] = "mo";
             }
-            return Redirect("~/GioHang/DatPhong?sodem=" + sd);    
+            return Redirect("~/GioHang/DatPhong?sodem=" + sd);
         }
 
         [HttpPost]
-        public ActionResult TiepTheo(long? makh, string hoten, long? sodienthoai, long? cmnd, 
+        public ActionResult TiepTheo(long? makh, string hoten, long? sodienthoai, long? cmnd,
             string gmail, DateTime ngayden, DateTime ngaydi, long? maks, string htthanhtoan)
         {
             DateTime now = DateTime.Now;
@@ -192,11 +191,11 @@ namespace Jade_Dragon.Controllers
                 decimal total = list.Sum(item => item.TongTien()) * demsodem(ngayden, ngaydi);
                 decimal tongsoluong = list.Sum(a => a.TongSoLuong());
 
-                khachsan ksks = db.khachsans.Find(maks);
-                var order = new hoadon();
+                KhachSan ksks = db.KhachSans.Find(maks);
+                var order = new HoaDon();
                 if (makh != null)
                 {
-                    order.MaKh = makh;
+                    order.MaNguoiDung = makh;
                 }
                 order.NgayDat = DateTime.Now;
                 order.MaKhachSan = maks;
@@ -207,13 +206,14 @@ namespace Jade_Dragon.Controllers
                 order.SoLuongPhong = (long)tongsoluong;
                 order.DaDat = false;
                 order.HuyDat = false;
-                
-                if(htthanhtoan == "taiquay")
+
+                if (htthanhtoan == "taiquay")
                 {
                     double tiencoc = (double)total * 0.2;
                     order.TongTien = (long)total - (long)tiencoc;
                     order.DatCoc = (long)tiencoc;
-                } else if(htthanhtoan == "chuyenkhoan")
+                }
+                else if (htthanhtoan == "chuyenkhoan")
                 {
                     order.DatCoc = 0;
                     order.TongTien = (long)total;
@@ -224,14 +224,14 @@ namespace Jade_Dragon.Controllers
 
 
                 //Thêm Order               
-                db.hoadons.Add(order);
+                db.HoaDons.Add(order);
                 db.SaveChanges();
                 var id = order.MaHoaDon;
                 long mahoadon = order.MaHoaDon;
 
                 foreach (var dem in cart)
                 {
-                    var cthoadon = new chitiethoadon();
+                    var cthoadon = new ChiTietHoaDon();
                     cthoadon.MaPhong = dem.htphong.MaPhong;
                     cthoadon.MaHoaDon = id;
                     cthoadon.Gia = dem.htphong.Gia * demsodem(ngayden, ngaydi);
@@ -240,14 +240,14 @@ namespace Jade_Dragon.Controllers
                     cthoadon.TenPhong = dem.htphong.TenPhong;
                     cthoadon.DaDen = false;
                     cthoadon.HoanThanh = false;
-                    db.chitiethoadons.Add(cthoadon);
+                    db.ChiTietHoaDons.Add(cthoadon);
                     db.SaveChanges();
                 }
 
                 //Xóa hết giỏ hàng
                 Session[giohang] = null;
                 Session["TongSoLuong"] = 0;
-                return RedirectToAction("Payment", "PayNganHang", new {id = mahoadon});
+                return RedirectToAction("Payment", "PayNganHang", new { id = mahoadon });
 
             }
             else
@@ -258,7 +258,7 @@ namespace Jade_Dragon.Controllers
                 ngaydi = DateTime.Now.AddDays(1);
                 Session["ngayden"] = ngayden;
                 Session["ngaydi"] = ngaydi;
-                return RedirectToAction("DatPhong", "GioHang", new {maks = maks, sodem = demsodem(ngayden, ngaydi) });
+                return RedirectToAction("DatPhong", "GioHang", new { maks = maks, sodem = demsodem(ngayden, ngaydi) });
             }
         }
 
@@ -295,7 +295,7 @@ namespace Jade_Dragon.Controllers
 
 
         public ActionResult CapNhat(long? makh, string hoten, long? sodienthoai, long? cmnd,
-                                    string gmail, long? maks, long? maksphong, 
+                                    string gmail, long? maks, long? maksphong,
                                     DateTime ngayden, DateTime ngaydi)
         {
             Session["makhachhang"] = makh;
@@ -355,33 +355,33 @@ namespace Jade_Dragon.Controllers
             {
                 return RedirectToAction("lichsu_new");
             }
-            List<khuvuc> KhuVuc = new List<khuvuc>();
-            KhuVuc = db.khuvucs.ToList();
+            List<KhuVuc> KhuVuc = new List<KhuVuc>();
+            KhuVuc = db.KhuVucs.ToList();
             ViewBag.ListKhuVuc = KhuVuc;
-            HtLichSu ls = new HtLichSu();
+            hienthiphong ls = new hienthiphong();
 
-            ls.hd = db.hoadons.Where(m => m.MaKh == makh).OrderByDescending(m => m.NgayDat).ToList();
-            ls.cthd = db.chitiethoadons.ToList();
+            ls.hd = db.HoaDons.Where(m => m.MaNguoiDung == makh).OrderByDescending(m => m.NgayDat).ToList();
+            ls.cthd = db.ChiTietHoaDons.ToList();
             return View("LichSu", ls);
         }
 
         public ActionResult lichsu_new(long? mahd)
         {
-            HtLichSu ls = new HtLichSu();
-            ls.hd = db.hoadons.Where(m => m.MaHoaDon == mahd).ToList();
-            ls.cthd = db.chitiethoadons.ToList();
+            hienthiphong ls = new hienthiphong();
+            ls.hd = db.HoaDons.Where(m => m.MaHoaDon == mahd).ToList();
+            ls.cthd = db.ChiTietHoaDons.ToList();
             return View(ls);
         }
 
         [HttpPost]
         public ActionResult TimKiemHd(long? mahd, string hoten, long? cmnd, long? sdt)
         {
-            hoadon hd = db.hoadons.FirstOrDefault(m => m.MaHoaDon == mahd && m.HoTen == hoten
+            HoaDon hd = db.HoaDons.FirstOrDefault(m => m.MaHoaDon == mahd && m.HoTen == hoten
                                                   && m.CMND == cmnd && m.SoDienThoai == sdt);
-            if(hd != null)
+            if (hd != null)
             {
                 Session["MaHoaDon_a"] = hd.MaHoaDon;
-                Session["TenKhachSan_a"] = hd.khachsan.TenKhachSan;
+                Session["TenKhachSan_a"] = hd.KhachSan.TenKhachSan;
                 Session["HoTen_a"] = hd.HoTen;
                 Session["Sdt_a"] = hd.SoDienThoai;
                 Session["Cmnd_a"] = hd.CMND;
@@ -397,8 +397,8 @@ namespace Jade_Dragon.Controllers
         }
 
 
-        public bool GmailHoaDon(string hoten, long sodienthoai, string gmail, 
-                                decimal tongtien, long tongsoluong, long mahd,DateTime ngaydat)
+        public bool GmailHoaDon(string hoten, long sodienthoai, string gmail,
+                                decimal tongtien, long tongsoluong, long mahd, DateTime ngaydat)
         {
             try
             {
@@ -425,48 +425,54 @@ namespace Jade_Dragon.Controllers
 
         public ActionResult Search_GioHang(long khuvuc, DateTime NgayDen, DateTime NgayDi, string loaihinh, string vip)
         {
-            return RedirectToAction("khachsan", "khachsan", new {khuvuc = khuvuc, batdau = NgayDen, 
-                    ketthuc = NgayDi, loai = loaihinh, vip = vip});
+            return RedirectToAction("khachsan", "khachsan", new
+            {
+                khuvuc = khuvuc,
+                batdau = NgayDen,
+                ketthuc = NgayDi,
+                loai = loaihinh,
+                vip = vip
+            });
         }
 
         public ActionResult ThuHoiDon(long mahd)
         {
-            hoadon hd = db.hoadons.Find(mahd);
-            DateTime time = DateTime.Now;
-            long dem = demsodem((DateTime)hd.NgayDat, time);
-
-            if(hd.HinhThuc == "taiquay" && dem <= 1)
-            {
-                hd.HuyDat = true;
-                hd.MaError = "01";
-            }
-            else if(hd.HinhThuc == "chuyenkhoan" && dem <= 5) 
-            {
-                hd.HuyDat = true;
-                hd.MaError = "01";
-            }
-            else
-            {
-                WebMsgBox.Show("Bạn đã quá hạn ngày được thu hồi, vui lòng liên hệ với khách sạn để giải quyết", this);
-            }
-            db.SaveChanges();
-            return RedirectToAction("LichSu", "GioHang", new { makh = hd.MaKh});
-        }
-        public ActionResult ThuHoiDonHang(long mahd)
-        {
-            hoadon hd = db.hoadons.Find(mahd);
+            HoaDon hd = db.HoaDons.Find(mahd);
             DateTime time = DateTime.Now;
             long dem = demsodem((DateTime)hd.NgayDat, time);
 
             if (hd.HinhThuc == "taiquay" && dem <= 1)
             {
                 hd.HuyDat = true;
-                hd.MaError = "01";
+                hd.TrangThaiDon = "Đang chờ xử lý";
+            }
+            else if (hd.HinhThuc == "chuyenkhoan" && dem <= 5)
+            {
+                hd.HuyDat = true;
+                hd.TrangThaiDon = "Đang chờ xử lý";
+            }
+            else
+            {
+                WebMsgBox.Show("Bạn đã quá hạn ngày được thu hồi, vui lòng liên hệ với khách sạn để giải quyết", this);
+            }
+            db.SaveChanges();
+            return RedirectToAction("LichSu", "GioHang", new { makh = hd.MaNguoiDung });
+        }
+        public ActionResult ThuHoiDonHang(long mahd)
+        {
+            HoaDon hd = db.HoaDons.Find(mahd);
+            DateTime time = DateTime.Now;
+            long dem = demsodem((DateTime)hd.NgayDat, time);
+
+            if (hd.HinhThuc == "taiquay" && dem <= 1)
+            {
+                hd.HuyDat = true;
+                hd.TrangThaiDon = "Đang chờ xử lý";
             }
             else if (hd.HinhThuc == "chuyenkhoan" && dem <= 3)
             {
                 hd.HuyDat = true;
-                hd.MaError = "01";
+                hd.TrangThaiDon = "Đang chờ xử lý";
             }
             else
             {

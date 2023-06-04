@@ -38,8 +38,9 @@ namespace Jade_Dragon
 
         protected void Session_KhachHang()
         {
-            Session["MaKh"] = "";
+            Session["MaNguoiDung"] = "";
             Session["HoTen"] = "";
+            Session["HoTen2"] = "";
             Session["SoDienThoai"] = "";
             Session["CMND"] = "";
             Session["DiaChi"] = "";
@@ -113,14 +114,18 @@ namespace Jade_Dragon
         }
         protected void Sesson_menu()
         {
-            Session["KhachSan"] = "";
+            Session["ma_khachsan"] = "";
+            Session["ten_khachsan"] = "";
+            Session["diachi_khachsan"] = "";
+            Session["sdt_khachsan"] = "";
+            Session["gmail_khachsan"] = "";
+
             Session["LoaiPhong"] = "";
             Session["GiaTien"] = "";
             Session["Menu_VIP"] = "";
             Session["TrangThaiPhong"] = "";
             Session["PhongAdmin"] = "";
             Session["MaPhongAdmin"] = "";
-
             Session["MaPhong"] = "";
             Session["TenPhong"] = "";
         }

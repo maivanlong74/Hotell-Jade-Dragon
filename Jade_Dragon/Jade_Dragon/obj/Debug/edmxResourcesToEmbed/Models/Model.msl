@@ -1,9 +1,39 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="Jade_DragonModelStoreContainer" CdmEntityContainer="Connect">
-    <EntitySetMapping Name="chitiethoadons">
-      <EntityTypeMapping TypeName="Jade_DragonModel.chitiethoadon">
-        <MappingFragment StoreEntitySet="chitiethoadon">
+  <EntityContainerMapping StorageEntityContainer="SQL_JadeDragonModelStoreContainer" CdmEntityContainer="Connect">
+    <EntitySetMapping Name="AnhKhachSans">
+      <EntityTypeMapping TypeName="SQL_JadeDragonModel.AnhKhachSan">
+        <MappingFragment StoreEntitySet="AnhKhachSan">
+          <ScalarProperty Name="MaAnhKhachSan" ColumnName="MaAnhKhachSan" />
+          <ScalarProperty Name="LinkAnhKhachSan" ColumnName="LinkAnhKhachSan" />
+          <ScalarProperty Name="MaKhachSan" ColumnName="MaKhachSan" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AnhPhongKhachSans">
+      <EntityTypeMapping TypeName="SQL_JadeDragonModel.AnhPhongKhachSan">
+        <MappingFragment StoreEntitySet="AnhPhongKhachSan">
+          <ScalarProperty Name="MaAnhPhong" ColumnName="MaAnhPhong" />
+          <ScalarProperty Name="LinkAnhPhong" ColumnName="LinkAnhPhong" />
+          <ScalarProperty Name="MaPhong" ColumnName="MaPhong" />
+          <ScalarProperty Name="MaKhachSan" ColumnName="MaKhachSan" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BinhLuans">
+      <EntityTypeMapping TypeName="SQL_JadeDragonModel.BinhLuan">
+        <MappingFragment StoreEntitySet="BinhLuan">
+          <ScalarProperty Name="MaBinhLuan" ColumnName="MaBinhLuan" />
+          <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+          <ScalarProperty Name="MaKhachSan" ColumnName="MaKhachSan" />
+          <ScalarProperty Name="MaNguoiDung" ColumnName="MaNguoiDung" />
+          <ScalarProperty Name="ThoiGian" ColumnName="ThoiGian" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChiTietHoaDons">
+      <EntityTypeMapping TypeName="SQL_JadeDragonModel.ChiTietHoaDon">
+        <MappingFragment StoreEntitySet="ChiTietHoaDon">
           <ScalarProperty Name="MaChiTietHoaDon" ColumnName="MaChiTietHoaDon" />
           <ScalarProperty Name="NgayDen" ColumnName="NgayDen" />
           <ScalarProperty Name="NgayDi" ColumnName="NgayDi" />
@@ -16,29 +46,21 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="DanhGiaKs">
-      <EntityTypeMapping TypeName="Jade_DragonModel.DanhGiaK">
-        <MappingFragment StoreEntitySet="DanhGiaKs">
+    <EntitySetMapping Name="DanhGiaKhachSans">
+      <EntityTypeMapping TypeName="SQL_JadeDragonModel.DanhGiaKhachSan">
+        <MappingFragment StoreEntitySet="DanhGiaKhachSan">
           <ScalarProperty Name="MaDanhGia" ColumnName="MaDanhGia" />
           <ScalarProperty Name="SoSao" ColumnName="SoSao" />
-          <ScalarProperty Name="MaKh" ColumnName="MaKh" />
-          <ScalarProperty Name="MaKs" ColumnName="MaKs" />
+          <ScalarProperty Name="MaNguoiDung" ColumnName="MaNguoiDung" />
+          <ScalarProperty Name="MaKhachSan" ColumnName="MaKhachSan" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="ErrorPays">
-      <EntityTypeMapping TypeName="Jade_DragonModel.ErrorPay">
-        <MappingFragment StoreEntitySet="ErrorPay">
-          <ScalarProperty Name="MaError" ColumnName="MaError" />
-          <ScalarProperty Name="TenError" ColumnName="TenError" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="hoadons">
-      <EntityTypeMapping TypeName="Jade_DragonModel.hoadon">
-        <MappingFragment StoreEntitySet="hoadon">
+    <EntitySetMapping Name="HoaDons">
+      <EntityTypeMapping TypeName="SQL_JadeDragonModel.HoaDon">
+        <MappingFragment StoreEntitySet="HoaDon">
           <ScalarProperty Name="MaHoaDon" ColumnName="MaHoaDon" />
-          <ScalarProperty Name="MaKh" ColumnName="MaKh" />
+          <ScalarProperty Name="MaNguoiDung" ColumnName="MaNguoiDung" />
           <ScalarProperty Name="MaKhachSan" ColumnName="MaKhachSan" />
           <ScalarProperty Name="TenKhachSan" ColumnName="TenKhachSan" />
           <ScalarProperty Name="HoTen" ColumnName="HoTen" />
@@ -50,35 +72,15 @@
           <ScalarProperty Name="TongTien" ColumnName="TongTien" />
           <ScalarProperty Name="DatCoc" ColumnName="DatCoc" />
           <ScalarProperty Name="HinhThuc" ColumnName="HinhThuc" />
-          <ScalarProperty Name="MaError" ColumnName="MaError" />
-          <ScalarProperty Name="SoLuongCTHD" ColumnName="SoLuongCTHD" />
           <ScalarProperty Name="DaDat" ColumnName="DaDat" />
           <ScalarProperty Name="HuyDat" ColumnName="HuyDat" />
+          <ScalarProperty Name="TrangThaiDon" ColumnName="TrangThaiDon" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="khachhangs">
-      <EntityTypeMapping TypeName="Jade_DragonModel.khachhang">
-        <MappingFragment StoreEntitySet="khachhang">
-          <ScalarProperty Name="MaKh" ColumnName="MaKh" />
-          <ScalarProperty Name="HoTen" ColumnName="HoTen" />
-          <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
-          <ScalarProperty Name="CMND" ColumnName="CMND" />
-          <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
-          <ScalarProperty Name="Gmail" ColumnName="Gmail" />
-          <ScalarProperty Name="Avt" ColumnName="Avt" />
-          <ScalarProperty Name="TenDn" ColumnName="TenDn" />
-          <ScalarProperty Name="Mk" ColumnName="Mk" />
-          <ScalarProperty Name="IDGroup" ColumnName="IDGroup" />
-          <ScalarProperty Name="Code" ColumnName="Code" />
-          <ScalarProperty Name="DaXacMinh" ColumnName="DaXacMinh" />
-          <ScalarProperty Name="QLKhachSan" ColumnName="QLKhachSan" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="khachsans">
-      <EntityTypeMapping TypeName="Jade_DragonModel.khachsan">
-        <MappingFragment StoreEntitySet="khachsan">
+    <EntitySetMapping Name="KhachSans">
+      <EntityTypeMapping TypeName="SQL_JadeDragonModel.KhachSan">
+        <MappingFragment StoreEntitySet="KhachSan">
           <ScalarProperty Name="MaKhachSan" ColumnName="MaKhachSan" />
           <ScalarProperty Name="TenKhachSan" ColumnName="TenKhachSan" />
           <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
@@ -88,16 +90,15 @@
           <ScalarProperty Name="ViDo" ColumnName="ViDo" />
           <ScalarProperty Name="Gia" ColumnName="Gia" />
           <ScalarProperty Name="ThangDiem" ColumnName="ThangDiem" />
-          <ScalarProperty Name="AnhKs" ColumnName="AnhKs" />
           <ScalarProperty Name="SoTang" ColumnName="SoTang" />
           <ScalarProperty Name="MaKhuVuc" ColumnName="MaKhuVuc" />
           <ScalarProperty Name="TrangThaiKs" ColumnName="TrangThaiKs" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="khuvucs">
-      <EntityTypeMapping TypeName="Jade_DragonModel.khuvuc">
-        <MappingFragment StoreEntitySet="khuvuc">
+    <EntitySetMapping Name="KhuVucs">
+      <EntityTypeMapping TypeName="SQL_JadeDragonModel.KhuVuc">
+        <MappingFragment StoreEntitySet="KhuVuc">
           <ScalarProperty Name="MaKhuVuc" ColumnName="MaKhuVuc" />
           <ScalarProperty Name="TenKhuVuc" ColumnName="TenKhuVuc" />
           <ScalarProperty Name="KinhDo" ColumnName="KinhDo" />
@@ -105,18 +106,35 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="phanhois">
-      <EntityTypeMapping TypeName="Jade_DragonModel.phanhoi">
-        <MappingFragment StoreEntitySet="phanhoi">
-          <ScalarProperty Name="MaPhanHoi" ColumnName="MaPhanHoi" />
-          <ScalarProperty Name="MaKh" ColumnName="MaKh" />
-          <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
-          <ScalarProperty Name="ThoiGian" ColumnName="ThoiGian" />
+    <EntitySetMapping Name="NguoiDungs">
+      <EntityTypeMapping TypeName="SQL_JadeDragonModel.NguoiDung">
+        <MappingFragment StoreEntitySet="NguoiDung">
+          <ScalarProperty Name="MaNguoiDung" ColumnName="MaNguoiDung" />
+          <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+          <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
+          <ScalarProperty Name="CMND" ColumnName="CMND" />
+          <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+          <ScalarProperty Name="Gmail" ColumnName="Gmail" />
+          <ScalarProperty Name="Avt" ColumnName="Avt" />
+          <ScalarProperty Name="TenDangNhap" ColumnName="TenDangNhap" />
+          <ScalarProperty Name="MatKhau" ColumnName="MatKhau" />
+          <ScalarProperty Name="MaKhachSan" ColumnName="MaKhachSan" />
+          <ScalarProperty Name="MaPhanQuyen" ColumnName="MaPhanQuyen" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="DaXacMinh" ColumnName="DaXacMinh" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PhanQuyens">
+      <EntityTypeMapping TypeName="SQL_JadeDragonModel.PhanQuyen">
+        <MappingFragment StoreEntitySet="PhanQuyen">
+          <ScalarProperty Name="MaPhanQuyen" ColumnName="MaPhanQuyen" />
+          <ScalarProperty Name="TenQuyen" ColumnName="TenQuyen" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="PhongChats">
-      <EntityTypeMapping TypeName="Jade_DragonModel.PhongChat">
+      <EntityTypeMapping TypeName="SQL_JadeDragonModel.PhongChat">
         <MappingFragment StoreEntitySet="PhongChat">
           <ScalarProperty Name="MaPhongChat" ColumnName="MaPhongChat" />
           <ScalarProperty Name="TenPhongChat" ColumnName="TenPhongChat" />
@@ -125,7 +143,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="PhongKhachSans">
-      <EntityTypeMapping TypeName="Jade_DragonModel.PhongKhachSan">
+      <EntityTypeMapping TypeName="SQL_JadeDragonModel.PhongKhachSan">
         <MappingFragment StoreEntitySet="PhongKhachSan">
           <ScalarProperty Name="MaPhong" ColumnName="MaPhong" />
           <ScalarProperty Name="MaKhachSan" ColumnName="MaKhachSan" />
@@ -140,34 +158,24 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="SoLuongNguoiTruyCaps">
-      <EntityTypeMapping TypeName="Jade_DragonModel.SoLuongNguoiTruyCap">
-        <MappingFragment StoreEntitySet="SoLuongNguoiTruyCap">
-          <ScalarProperty Name="id" ColumnName="id" />
+    <EntitySetMapping Name="SoNguoiTruyCaps">
+      <EntityTypeMapping TypeName="SQL_JadeDragonModel.SoNguoiTruyCap">
+        <MappingFragment StoreEntitySet="SoNguoiTruyCap">
+          <ScalarProperty Name="MaTruyCap" ColumnName="MaTruyCap" />
           <ScalarProperty Name="SoLuongNguoi" ColumnName="SoLuongNguoi" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="SoPhongKhachSans">
-      <EntityTypeMapping TypeName="Jade_DragonModel.SoPhongKhachSan">
+      <EntityTypeMapping TypeName="SQL_JadeDragonModel.SoPhongKhachSan">
         <MappingFragment StoreEntitySet="SoPhongKhachSan">
           <ScalarProperty Name="MaSoPhong" ColumnName="MaSoPhong" />
           <ScalarProperty Name="SoPhong" ColumnName="SoPhong" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="SoSaoDanhGias">
-      <EntityTypeMapping TypeName="Jade_DragonModel.SoSaoDanhGia">
-        <MappingFragment StoreEntitySet="SoSaoDanhGia">
-          <ScalarProperty Name="MaSoSao" ColumnName="MaSoSao" />
-          <ScalarProperty Name="MaKhachSan" ColumnName="MaKhachSan" />
-          <ScalarProperty Name="MaKh" ColumnName="MaKh" />
-          <ScalarProperty Name="SoSao" ColumnName="SoSao" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="SoTangKhachSans">
-      <EntityTypeMapping TypeName="Jade_DragonModel.SoTangKhachSan">
+      <EntityTypeMapping TypeName="SQL_JadeDragonModel.SoTangKhachSan">
         <MappingFragment StoreEntitySet="SoTangKhachSan">
           <ScalarProperty Name="MaSoTang" ColumnName="MaSoTang" />
           <ScalarProperty Name="SoTang" ColumnName="SoTang" />
@@ -175,7 +183,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="sysdiagrams">
-      <EntityTypeMapping TypeName="Jade_DragonModel.sysdiagram">
+      <EntityTypeMapping TypeName="SQL_JadeDragonModel.sysdiagram">
         <MappingFragment StoreEntitySet="sysdiagrams">
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -186,9 +194,9 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="ThongKeDanhGias">
-      <EntityTypeMapping TypeName="Jade_DragonModel.ThongKeDanhGia">
+      <EntityTypeMapping TypeName="SQL_JadeDragonModel.ThongKeDanhGia">
         <MappingFragment StoreEntitySet="ThongKeDanhGia">
-          <ScalarProperty Name="MaThongKe" ColumnName="MaThongKe" />
+          <ScalarProperty Name="MaThongKeDanhGia" ColumnName="MaThongKeDanhGia" />
           <ScalarProperty Name="MotSao" ColumnName="MotSao" />
           <ScalarProperty Name="HaiSao" ColumnName="HaiSao" />
           <ScalarProperty Name="BaSao" ColumnName="BaSao" />
@@ -199,48 +207,27 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tinnhans">
-      <EntityTypeMapping TypeName="Jade_DragonModel.tinnhan">
-        <MappingFragment StoreEntitySet="tinnhan">
-          <ScalarProperty Name="MaTinNhan" ColumnName="MaTinNhan" />
-          <ScalarProperty Name="MaKh" ColumnName="MaKh" />
-          <ScalarProperty Name="NoiDungTinNhanClient" ColumnName="NoiDungTinNhanClient" />
-          <ScalarProperty Name="LinkAnh" ColumnName="LinkAnh" />
-          <ScalarProperty Name="MaPhongChat" ColumnName="MaPhongChat" />
-          <ScalarProperty Name="NgayGui" ColumnName="NgayGui" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="tinnhanAdmins">
-      <EntityTypeMapping TypeName="Jade_DragonModel.tinnhanAdmin">
-        <MappingFragment StoreEntitySet="tinnhanAdmin">
-          <ScalarProperty Name="MaChatAdmin" ColumnName="MaChatAdmin" />
+    <EntitySetMapping Name="TinNhanNguoiDungs">
+      <EntityTypeMapping TypeName="SQL_JadeDragonModel.TinNhanNguoiDung">
+        <MappingFragment StoreEntitySet="TinNhanNguoiDung">
+          <ScalarProperty Name="MaChatNguoiDung" ColumnName="MaChatNguoiDung" />
           <ScalarProperty Name="IdNguoiNhan" ColumnName="IdNguoiNhan" />
           <ScalarProperty Name="IdNguoiGui" ColumnName="IdNguoiGui" />
           <ScalarProperty Name="NoiDungChat" ColumnName="NoiDungChat" />
           <ScalarProperty Name="NgayGuiChat" ColumnName="NgayGuiChat" />
-          <ScalarProperty Name="LinkAnhAdmin" ColumnName="LinkAnhAdmin" />
+          <ScalarProperty Name="LinkAnh" ColumnName="LinkAnh" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="UserGroups">
-      <EntityTypeMapping TypeName="Jade_DragonModel.UserGroup">
-        <MappingFragment StoreEntitySet="UserGroup">
-          <ScalarProperty Name="IDGroup" ColumnName="IDGroup" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="lichsus">
-      <EntityTypeMapping TypeName="Jade_DragonModel.lichsu">
-        <MappingFragment StoreEntitySet="lichsu">
-          <ScalarProperty Name="MaHoaDon" ColumnName="MaHoaDon" />
-          <ScalarProperty Name="HoTen" ColumnName="HoTen" />
-          <ScalarProperty Name="TenKhachSan" ColumnName="TenKhachSan" />
-          <ScalarProperty Name="SoLuongCTHD" ColumnName="SoLuongCTHD" />
-          <ScalarProperty Name="NgayDat" ColumnName="NgayDat" />
-          <ScalarProperty Name="TongTien" ColumnName="TongTien" />
-          <ScalarProperty Name="MaKhachSan" ColumnName="MaKhachSan" />
+    <EntitySetMapping Name="TinNhanNhoms">
+      <EntityTypeMapping TypeName="SQL_JadeDragonModel.TinNhanNhom">
+        <MappingFragment StoreEntitySet="TinNhanNhom">
+          <ScalarProperty Name="MaTinNhan" ColumnName="MaTinNhan" />
+          <ScalarProperty Name="MaNguoiDung" ColumnName="MaNguoiDung" />
+          <ScalarProperty Name="NoiDungChat" ColumnName="NoiDungChat" />
+          <ScalarProperty Name="LinkAnh" ColumnName="LinkAnh" />
+          <ScalarProperty Name="MaPhongChat" ColumnName="MaPhongChat" />
+          <ScalarProperty Name="NgayGui" ColumnName="NgayGui" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

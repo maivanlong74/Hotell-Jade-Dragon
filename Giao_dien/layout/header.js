@@ -1,37 +1,5 @@
 let header =  document.querySelector('.header');
 header.innerHTML = `
-<div class="header__topbar">
-<div class="grid wide">
-  <div class="header__topbar__container">
-    <div class="row">
-      <div class="l-6 m-8 c-8">
-        <div class="header__topbar__container--contacts">
-          <span>+84 857 20 7716</span>
-          <a href="#"><i class="fab fa-pinterest"></i></a>
-          <a href="#"><i class="fab fa-facebook-f"></i></a>
-          <a href="#"><i class="fab fa-twitter"></i></a>
-          <a href="#"><i class="fab fa-dribbble"></i></a>
-          <a href="#"><i class="fab fa-behance"></i></a>
-          <a href="#"><i class="fab fa-linkedin-in"></i></a>
-        </div>
-      </div>
-      <div class="l-6 m-4 c-4">
-        <ul class="header__topbar__container--register">
-          <a href="dangnhap.html">
-            <li>Đăng nhập</li>
-          </a>
-          <a href="#">
-            <li>|</li>
-          </a>
-          <a href="dangky.html">
-            <li>Đăng ký</li>
-          </a>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
 <nav class="header__nav">
 <div class="header__nav__container">
   <div class="grid wide">
@@ -48,9 +16,7 @@ header.innerHTML = `
           <li><a href="trangchu.html">Trang chủ</a></li>
           <li><a href="khachsan.html">Khách sạn</a></li>
           <li><a href="nhanxet.html">Nhận xét</a></li>
-          <li><a href=""
-          class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal"
-          >Liên hệ</a></li>
+          <li><a href="">Liên hệ</a></li>
       </ul>
       </div>              
       <div class="l-3 m-6 c-4">
@@ -73,9 +39,7 @@ header.innerHTML = `
     <li><a href="trangchu.html">Trang chủ</a></li>
     <li><a href="khachsan.html">Khách sạn</a></li>
     <li><a href="nhanxet.html">Nhận xét</a></li>
-    <li><a href=""
-      class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal"
-      >Liên hệ</a></li>
+    <li><a href="">Liên hệ</a></li>
   </ul>
   <i class="fas fa-times" id="menu_close"></i>
 </div>

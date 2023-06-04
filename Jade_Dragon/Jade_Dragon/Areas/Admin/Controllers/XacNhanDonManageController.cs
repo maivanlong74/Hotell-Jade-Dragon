@@ -12,15 +12,15 @@ namespace Jade_Dragon.Areas.Admin.Controllers
         private Connect db = new Connect();
         public ActionResult DanhSachDon(long maks)
         {
-            HtLichSu ls = new HtLichSu();
-            ls.hd = db.hoadons.Where(m => m.MaKhachSan == maks).ToList();
-            ls.cthd = db.chitiethoadons.ToList();
+            hienthiphong ls = new hienthiphong();
+            ls.hd = db.HoaDons.Where(m => m.MaKhachSan == maks).ToList();
+            ls.cthd = db.ChiTietHoaDons.ToList();
             return View("DanhSachDon", ls);
         }
 
         public ActionResult XacNhanDon(long mahd)
         {
-            hoadon hd = db.hoadons.Find(mahd);
+            HoaDon hd = db.HoaDons.Find(mahd);
             long ma = (long)hd.MaKhachSan;
             if (hd == null)
             {
@@ -29,15 +29,15 @@ namespace Jade_Dragon.Areas.Admin.Controllers
             else
             {
                 hd.DaDat = true;
-                hd.MaError = "00";
+                hd.TrangThaiDon = "Giao dịch thành công";
                 db.SaveChanges();
             }
-            return RedirectToAction("DanhSachDon", "XacNhanDonManage", new {maks = ma});
+            return RedirectToAction("DanhSachDon", "XacNhanDonManage", new { maks = ma });
         }
 
         public ActionResult XoaDon(long mahd)
         {
-            hoadon hd = db.hoadons.Find(mahd);
+            HoaDon hd = db.HoaDons.Find(mahd);
             long ma = (long)hd.MaHoaDon;
             if (hd == null)
             {
@@ -45,16 +45,16 @@ namespace Jade_Dragon.Areas.Admin.Controllers
             }
             else
             {
-                var ct = db.chitiethoadons.Where(m => m.MaHoaDon == mahd).ToList();
+                var ct = db.ChiTietHoaDons.Where(m => m.MaHoaDon == mahd).ToList();
                 if (ct.Any())
                 {
                     foreach (var m in ct)
                     {
-                        db.chitiethoadons.Remove(m);
+                        db.ChiTietHoaDons.Remove(m);
                     }
                     db.SaveChanges();
                 }
-                db.hoadons.Remove(hd);
+                db.HoaDons.Remove(hd);
             }
             db.SaveChanges();
             return RedirectToAction("DanhSachDon", "XacNhanDonManage", new { maks = ma });
@@ -62,24 +62,23 @@ namespace Jade_Dragon.Areas.Admin.Controllers
 
         public ActionResult XoaChiTietDon(long? mact)
         {
-            chitiethoadon ct = db.chitiethoadons.Find(mact);
+            ChiTietHoaDon ct = db.ChiTietHoaDons.Find(mact);
             long mahoadon = (long)ct.MaHoaDon;
-            hoadon hoadonn = db.hoadons.Find(mahoadon);
+            HoaDon hoadonn = db.HoaDons.Find(mahoadon);
             if (ct == null)
             {
                 return Redirect("DanhSachDon");
             }
             else
             {
-                db.chitiethoadons.Remove(ct);
-                hoadonn.SoLuongCTHD = hoadonn.SoLuongCTHD - 1;
+                db.ChiTietHoaDons.Remove(ct);
                 hoadonn.SoLuongPhong = hoadonn.SoLuongPhong - 1;
                 db.SaveChanges();
             }
-            var cthd = db.chitiethoadons.Where(c => c.MaHoaDon == mahoadon).ToList();
+            var cthd = db.ChiTietHoaDons.Where(c => c.MaHoaDon == mahoadon).ToList();
             if (cthd.Count() == 0)
             {
-                db.hoadons.Remove(hoadonn);
+                db.HoaDons.Remove(hoadonn);
                 db.SaveChanges();
             }
             return RedirectToAction("DanhSachDon", "XacNhanDonManage", new { maks = hoadonn.MaHoaDon });

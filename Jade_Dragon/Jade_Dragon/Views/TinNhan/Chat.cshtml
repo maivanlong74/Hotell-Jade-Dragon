@@ -1,49 +1,9 @@
-﻿@model IEnumerable<Jade_Dragon.Models.khachhang>
+﻿@model IEnumerable<Jade_Dragon.Models.NguoiDung>
 @{
     ViewBag.Title = "Chat";
     Layout = "~/Views/Shared/TongHop.cshtml";
 }
 <link href="~/Style/css/layout/ChatClient.css" rel="stylesheet" />
-<style>
-    .list-chat .list-ks-item {
-        height: 30vh;
-        border: 2px solid #f1c40f;
-    }
-    .list-chat .list-user-item {
-        height: 38vh;
-        border: 2px solid #2980b9;
-    }
-    .list-chat span {
-        margin-left: 20px;
-        display: block;
-        color: aliceblue;
-        font-size: 20px;
-        padding-top: 3px;
-    }
-    .list-chat .list-ks {
-        list-style: none;
-        height: 88%;
-        overflow: auto;
-    }
-    .list-chat .list-ks .ks-item {
-        color: white;
-    }
-    .body-item-chat .list-chat {
-        height: 76vh;
-    }
-    .list-chat .list-ks li button {
-        width: 100%;
-        background: none;
-    }
-    .list-chat .list-ks li:hover {
-        cursor: pointer;
-        padding-left: 5px;
-        background: #130f40;
-    }
-    .list-chat .list-user{
-        height: 88%;
-    }
-</style>
 
 <div class="home">
     <div class="home__background"></div>
@@ -65,7 +25,7 @@
                                         @foreach (var j in Model)
                                         {
                                             <li class="ks-item">
-                                                <button type="submit" class="btnUser" data-id="@j.MaKh" title="Khách sạn @j.khachsan.TenKhachSan">
+                                                <button type="submit" class="btnUser" data-id="@j.MaNguoiDung" title="Khách sạn @j.KhachSan.TenKhachSan">
                                                     @j.HoTen
                                                 </button>
                                             </li>
@@ -88,7 +48,7 @@
                             </div>
                         </div>
                         <div class="body-send-chat">
-                            <input type="hidden" id="makh" value="@Session["MaKh"]" />
+                            <input type="hidden" id="makh" value="@Session["MaNguoiDung"]" />
 
                             <input type="text" id="txtMessage" placeholder="Nhập chat" class="txtchat" />
                             <label for="fileInput" class="fileInputWrapper">

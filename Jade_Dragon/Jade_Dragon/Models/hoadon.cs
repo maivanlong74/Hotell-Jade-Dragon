@@ -12,16 +12,16 @@ namespace Jade_Dragon.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class hoadon
+    public partial class HoaDon
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public hoadon()
+        public HoaDon()
         {
-            this.chitiethoadons = new HashSet<chitiethoadon>();
+            this.ChiTietHoaDons = new HashSet<ChiTietHoaDon>();
         }
     
         public long MaHoaDon { get; set; }
-        public Nullable<long> MaKh { get; set; }
+        public Nullable<long> MaNguoiDung { get; set; }
         public Nullable<long> MaKhachSan { get; set; }
         public string TenKhachSan { get; set; }
         public string HoTen { get; set; }
@@ -33,15 +33,13 @@ namespace Jade_Dragon.Models
         public Nullable<long> TongTien { get; set; }
         public Nullable<long> DatCoc { get; set; }
         public string HinhThuc { get; set; }
-        public string MaError { get; set; }
-        public Nullable<int> SoLuongCTHD { get; set; }
         public Nullable<bool> DaDat { get; set; }
         public Nullable<bool> HuyDat { get; set; }
+        public string TrangThaiDon { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<chitiethoadon> chitiethoadons { get; set; }
-        public virtual ErrorPay ErrorPay { get; set; }
-        public virtual khachhang khachhang { get; set; }
-        public virtual khachsan khachsan { get; set; }
+        public virtual ICollection<ChiTietHoaDon> ChiTietHoaDons { get; set; }
+        public virtual NguoiDung NguoiDung { get; set; }
+        public virtual KhachSan KhachSan { get; set; }
     }
 }

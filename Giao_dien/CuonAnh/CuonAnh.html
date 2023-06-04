@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/owl/owl.carousel.min.css">
+    <link rel="stylesheet" href="/owl/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/css/css.css">
+</head>
+<body>
+    <div class="ks-thanhcuon">
+        <section class="slider owl-carousel owl-theme">
+            <div class="slider-item slider-item-one"></div>
+            <div class="slider-item slider-item-two"></div>
+            <div class="slider-item slider-item-three"></div>
+        </section>  
+        <div class="info-kss">
+            <div class="name-ks">
+                <h1>Khách sạn Abc</h1>
+            </div>
+            <div class="info-ks-item">
+                <p>Dịa chỉ 79 Duy Tân</p>
+                <p>Số điện thoại: 01673213087</p>
+                <p>Gmail longmai143@gmail.com</p>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="/owl/owl.carousel.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".owl-carousel").owlCarousel();
+          });
+        $('.owl-carousel').owlCarousel({
+            loop: true,
+            margin: 10,
+            nav: true,
+            autoplay: true,
+            autoplayTimeout: 5000,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 1
+                },
+                1000: {
+                    items: 1
+                }
+            }
+        })
+    </script>
+</body>
+</html>

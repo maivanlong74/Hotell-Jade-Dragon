@@ -17,7 +17,8 @@ namespace Jade_Dragon.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PhongKhachSan()
         {
-            this.chitiethoadons = new HashSet<chitiethoadon>();
+            this.AnhPhongKhachSans = new HashSet<AnhPhongKhachSan>();
+            this.ChiTietHoaDons = new HashSet<ChiTietHoaDon>();
         }
     
         public long MaPhong { get; set; }
@@ -32,8 +33,10 @@ namespace Jade_Dragon.Models
         public Nullable<bool> KhoaPhong { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<chitiethoadon> chitiethoadons { get; set; }
-        public virtual khachsan khachsan { get; set; }
+        public virtual ICollection<AnhPhongKhachSan> AnhPhongKhachSans { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChiTietHoaDon> ChiTietHoaDons { get; set; }
+        public virtual KhachSan KhachSan { get; set; }
         public virtual SoPhongKhachSan SoPhongKhachSan { get; set; }
         public virtual SoTangKhachSan SoTangKhachSan { get; set; }
     }

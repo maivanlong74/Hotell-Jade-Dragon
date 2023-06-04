@@ -1,4 +1,4 @@
-﻿@model Jade_Dragon.Models.HtLichSu
+﻿@model Jade_Dragon.Models.hienthiphong
 @{
     ViewBag.Title = "DanhSachDon";
     Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
@@ -48,10 +48,10 @@
                                 {
                                     <td>@item.TenKhachSan</td>
                                 }
-                                @if (item.MaKh != null)
+                                @if (item.MaNguoiDung != null)
                                 {
                                     <td>
-                                        <a href="@Url.Action("Details", "QLKhachHang", new {id = item.MaKh})" style="text-decoration: none; color: white;">
+                                        <a href="@Url.Action("Details", "QLKhachHang", new {id = item.MaNguoiDung})" style="text-decoration: none; color: white;">
                                             @item.HoTen
                                         </a>
                                     </td>
@@ -103,10 +103,10 @@
                                 {
                                     <td>@item.TenKhachSan</td>
                                 }
-                                @if (item.MaKh != null)
+                                @if (item.MaNguoiDung != null)
                                 {
                                     <td>
-                                        <a href="@Url.Action("Details", "QLKhachHang", new {id = item.MaKh})" style="text-decoration: none; color: white;">
+                                        <a href="@Url.Action("Details", "QLKhachHang", new {id = item.MaNguoiDung})" style="text-decoration: none; color: white;">
                                             @item.HoTen
                                         </a>
                                     </td>

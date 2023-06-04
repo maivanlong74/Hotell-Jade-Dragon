@@ -1,5 +1,4 @@
-﻿
-@model Jade_Dragon.Models.KhachSanTrinhChieu
+﻿@model Jade_Dragon.Models.hienthiphong
 @{
     ViewBag.Title = "trangchu";
     Layout = "~/Views/Shared/TongHop.cshtml";
@@ -21,6 +20,7 @@
     #map .DangKy_Map {
         width: 400px;
     }
+
     #map #DangKy_Map #info_ksks #thoat_form {
         margin-left: 175px;
     }
@@ -89,7 +89,8 @@
             {
                 foreach (var item in Model.ks)
                 {
-                    if (item.AnhKs == null)
+                    var anhks = Model.anhks.FirstOrDefault(j => j.MaKhachSan == item.MaKhachSan);
+                    if (anhks == null)
                     {
                         <div class="slider-item slider-item-one"
                              style="background: black;">
@@ -104,11 +105,11 @@
                                             <i class="one">Địa chỉ: @item.DiaChi</i>
                                             <p class="one">Giá: @item.Gia VND</p>
                                         </div>
-                                        @if (Session["MaKh"] != null)
-                                        {
-                                            var listsao = Model.dg.FirstOrDefault(s => s.MaKhachSan == item.MaKhachSan);
-                                            if (listsao == null)
-                                            {
+                                        @if (Session["MaNguoiDung"] != null)
+                    {
+                        var listsao = Model.dg.FirstOrDefault(s => s.MaKhachSan == item.MaKhachSan);
+                        if (listsao == null)
+                        {
                                                 <form action="~/trangchu/DanhGia" class="rating" method="post">
                                                     <div class="danhgia-sao">
                                                         <span class="star" data-rating="1">&#9733;</span>
@@ -119,7 +120,7 @@
                                                     </div>
                                                     <input type="hidden" name="SoSao" class="rating-value" value="">
                                                     <input type="hidden" id="maks" class="maks" name="maks" value="@item.MaKhachSan" />
-                                                    <input type="hidden" id="makh" class="makh" name="makh" value="@Session["MaKh"]" />
+                                                    <input type="hidden" id="makh" class="makh" name="makh" value="@Session["MaNguoiDung"]" />
                                                     <button type="submit" class="button-danhgia">Đánh giá</button>
                                                 </form>
                                             }
@@ -149,12 +150,12 @@
                                                 <i>Còn phòng</i>
                                             }
                                             else
-                                            {
+            {
                                                 <i>Hết phòng</i>
                                             }
                                         </div>
 
-                                        @if (Model.ThongKe.Count() == 0)
+                                        @if (Model.tkdg.Count() == 0)
                                         {
                                             <div class="thongke-sao">
                                                 <div class="tongsao"><span>Tổng <span class="rating-count">0</span>lượt đánh giá</span></div>
@@ -189,7 +190,7 @@
                                         }
                                         else
                                         {
-                                            var thongke = Model.ThongKe.FirstOrDefault(m => m.MaKhachSan == item.MaKhachSan);
+                                            var thongke = Model.tkdg.FirstOrDefault(m => m.MaKhachSan == item.MaKhachSan);
                                             if (thongke.TongSao == 0)
                                             {
                                                 <div class="thongke-sao">
@@ -224,37 +225,37 @@
                                                 </div>
                                             }
                                             else
-                                            {
-                                    <div class="thongke-sao">
-                                        <div class="tongsao"><span>Tổng <span class="rating-count">@thongke.TongSao</span>lượt đánh giá</span></div>
-                                        <div class="starss">
-                                            <div class="sosao">
-                                                <span>1 sao</span>
-                                                <div class="thuoc-sao"><div class="starr star-a" style="width: @(thongke.MotSao * (100M / thongke.TongSao))@("%;")"></div></div>
-                                                <span class="dem">@thongke.MotSao</span>
-                                            </div>
-                                            <div class="sosao">
-                                                <span>2 sao</span>
-                                                <div class="thuoc-sao"><div class="starr star-b" style="width: @((decimal)(thongke.HaiSao * (100M / thongke.TongSao)))@("%;")"></div></div>
-                                                <span class="dem">@thongke.HaiSao</span>
-                                            </div>
-                                            <div class="sosao">
-                                                <span>3 sao</span>
-                                                <div class="thuoc-sao"><div class="starr star-c" style="width: @((decimal)(thongke.BaSao * (100M / thongke.TongSao)))@("%;")"></div></div>
-                                                <span class="dem">@thongke.BaSao</span>
-                                            </div>
-                                            <div class="sosao">
-                                                <span>4 sao</span>
-                                                <div class="thuoc-sao"><div class="starr star-d" style="width: @((decimal)(thongke.BonSao * (100M / thongke.TongSao)))@("%;")"></div></div>
-                                                <span class="dem">@thongke.BonSao</span>
-                                            </div>
-                                            <div class="sosao">
-                                                <span>5 sao</span>
-                                                <div class="thuoc-sao"><div class="starr star-e" style="width: @((decimal)(thongke.NamSao * (100M / thongke.TongSao)))@("%;")"></div></div>
-                                                <span class="dem">@thongke.NamSao</span>
-                                            </div>
-                                        </div>
-                                    </div>
+            {
+                                                <div class="thongke-sao">
+                                                    <div class="tongsao"><span>Tổng <span class="rating-count">@thongke.TongSao</span>lượt đánh giá</span></div>
+                                                    <div class="starss">
+                                                        <div class="sosao">
+                                                            <span>1 sao</span>
+                                                            <div class="thuoc-sao"><div class="starr star-a" style="width: @(thongke.MotSao * (100M / thongke.TongSao))@("%;")"></div></div>
+                                                            <span class="dem">@thongke.MotSao</span>
+                                                        </div>
+                                                        <div class="sosao">
+                                                            <span>2 sao</span>
+                                                            <div class="thuoc-sao"><div class="starr star-b" style="width: @((decimal)(thongke.HaiSao * (100M / thongke.TongSao)))@("%;")"></div></div>
+                                                            <span class="dem">@thongke.HaiSao</span>
+                                                        </div>
+                                                        <div class="sosao">
+                                                            <span>3 sao</span>
+                                                            <div class="thuoc-sao"><div class="starr star-c" style="width: @((decimal)(thongke.BaSao * (100M / thongke.TongSao)))@("%;")"></div></div>
+                                                            <span class="dem">@thongke.BaSao</span>
+                                                        </div>
+                                                        <div class="sosao">
+                                                            <span>4 sao</span>
+                                                            <div class="thuoc-sao"><div class="starr star-d" style="width: @((decimal)(thongke.BonSao * (100M / thongke.TongSao)))@("%;")"></div></div>
+                                                            <span class="dem">@thongke.BonSao</span>
+                                                        </div>
+                                                        <div class="sosao">
+                                                            <span>5 sao</span>
+                                                            <div class="thuoc-sao"><div class="starr star-e" style="width: @((decimal)(thongke.NamSao * (100M / thongke.TongSao)))@("%;")"></div></div>
+                                                            <span class="dem">@thongke.NamSao</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             }
                                         }
 
@@ -262,11 +263,10 @@
                                 </div>
                             </div>
                         </div>
-                    }
-                    else
-                    {
+                        }
+                        else {
                         <div class="slider-item slider-item-one"
-                             style="background-image: url('../../UpLoad_Img/KhachSan/@item.AnhKs');">
+                             style="background-image: url('../../UpLoad_Img/KhachSan/@anhks.LinkAnhKhachSan');">
                             <div class="info">
                                 <div class="tieude">
                                     <h1>Khách sạn @item.TenKhachSan</h1>
@@ -277,7 +277,7 @@
                                             <i class="one">Địa chỉ: @item.DiaChi</i>
                                             <p class="one">Giá: @item.Gia VND</p>
                                         </div>
-                                        @if (Session["MaKh"] != null)
+                                        @if (Session["MaNguoiDung"] != null)
                                         {
                                             var listsao = Model.dg.FirstOrDefault(s => s.MaKhachSan == item.MaKhachSan);
                                             if (listsao == null)
@@ -292,12 +292,12 @@
                                                     </div>
                                                     <input type="hidden" name="SoSao" class="rating-value" value="">
                                                     <input type="hidden" id="maks" class="maks" name="maks" value="@item.MaKhachSan" />
-                                                    <input type="hidden" id="makh" class="makh" name="makh" value="@Session["MaKh"]" />
+                                                    <input type="hidden" id="makh" class="makh" name="makh" value="@Session["MaNguoiDung"]" />
                                                     <button type="submit" class="button-danhgia">Đánh giá</button>
                                                 </form>
                                             }
                                             else
-                                            {
+            {
                                                 <form action="" class="rating" method="post">
                                                     <div class="danhgia-sao">
                                                         <span class="star" data-rating="1">&#9733;</span>
@@ -322,12 +322,12 @@
                                                 <i>Còn phòng</i>
                                             }
                                             else
-                                            {
+            {
                                                 <i>Hết phòng</i>
                                             }
                                         </div>
 
-                                        @if (Model.ThongKe.Count() == 0)
+                                        @if (Model.tkdg.Count() == 0)
                                         {
                                             <div class="thongke-sao">
                                                 <div class="tongsao"><span>Tổng <span class="rating-count">0</span>lượt đánh giá</span></div>
@@ -359,10 +359,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        }
-                                        else
-                                        {
-                                            var thongke = Model.ThongKe.FirstOrDefault(m => m.MaKhachSan == item.MaKhachSan);
+                                        } else {
+                                            var thongke = Model.tkdg.FirstOrDefault(m => m.MaKhachSan == item.MaKhachSan);
                                             if (thongke.TongSao == 0)
                                             {
                                                 <div class="thongke-sao">
@@ -397,37 +395,37 @@
                                                 </div>
                                             }
                                             else
-                                            {
-                                    <div class="thongke-sao">
-                                        <div class="tongsao"><span>Tổng <span class="rating-count">@thongke.TongSao</span>lượt đánh giá</span></div>
-                                        <div class="starss">
-                                            <div class="sosao">
-                                                <span>1 sao</span>
-                                                <div class="thuoc-sao"><div class="starr star-a" style="width: @(thongke.MotSao * (100M / thongke.TongSao))@("%;")"></div></div>
-                                                <span class="dem">@thongke.MotSao</span>
-                                            </div>
-                                            <div class="sosao">
-                                                <span>2 sao</span>
-                                                <div class="thuoc-sao"><div class="starr star-b" style="width: @((decimal)(thongke.HaiSao * (100M / thongke.TongSao)))@("%;")"></div></div>
-                                                <span class="dem">@thongke.HaiSao</span>
-                                            </div>
-                                            <div class="sosao">
-                                                <span>3 sao</span>
-                                                <div class="thuoc-sao"><div class="starr star-c" style="width: @((decimal)(thongke.BaSao * (100M / thongke.TongSao)))@("%;")"></div></div>
-                                                <span class="dem">@thongke.BaSao</span>
-                                            </div>
-                                            <div class="sosao">
-                                                <span>4 sao</span>
-                                                <div class="thuoc-sao"><div class="starr star-d" style="width: @((decimal)(thongke.BonSao * (100M / thongke.TongSao)))@("%;")"></div></div>
-                                                <span class="dem">@thongke.BonSao</span>
-                                            </div>
-                                            <div class="sosao">
-                                                <span>5 sao</span>
-                                                <div class="thuoc-sao"><div class="starr star-e" style="width: @((decimal)(thongke.NamSao * (100M / thongke.TongSao)))@("%;")"></div></div>
-                                                <span class="dem">@thongke.NamSao</span>
-                                            </div>
-                                        </div>
-                                    </div>
+            {
+                                                <div class="thongke-sao">
+                                                    <div class="tongsao"><span>Tổng <span class="rating-count">@thongke.TongSao</span>lượt đánh giá</span></div>
+                                                    <div class="starss">
+                                                        <div class="sosao">
+                                                            <span>1 sao</span>
+                                                            <div class="thuoc-sao"><div class="starr star-a" style="width: @(thongke.MotSao * (100M / thongke.TongSao))@("%;")"></div></div>
+                                                            <span class="dem">@thongke.MotSao</span>
+                                                        </div>
+                                                        <div class="sosao">
+                                                            <span>2 sao</span>
+                                                            <div class="thuoc-sao"><div class="starr star-b" style="width: @((decimal)(thongke.HaiSao * (100M / thongke.TongSao)))@("%;")"></div></div>
+                                                            <span class="dem">@thongke.HaiSao</span>
+                                                        </div>
+                                                        <div class="sosao">
+                                                            <span>3 sao</span>
+                                                            <div class="thuoc-sao"><div class="starr star-c" style="width: @((decimal)(thongke.BaSao * (100M / thongke.TongSao)))@("%;")"></div></div>
+                                                            <span class="dem">@thongke.BaSao</span>
+                                                        </div>
+                                                        <div class="sosao">
+                                                            <span>4 sao</span>
+                                                            <div class="thuoc-sao"><div class="starr star-d" style="width: @((decimal)(thongke.BonSao * (100M / thongke.TongSao)))@("%;")"></div></div>
+                                                            <span class="dem">@thongke.BonSao</span>
+                                                        </div>
+                                                        <div class="sosao">
+                                                            <span>5 sao</span>
+                                                            <div class="thuoc-sao"><div class="starr star-e" style="width: @((decimal)(thongke.NamSao * (100M / thongke.TongSao)))@("%;")"></div></div>
+                                                            <span class="dem">@thongke.NamSao</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             }
                                         }
 
@@ -460,7 +458,7 @@
             <div class="list-map">
                 <ul>
                     <li><a href="~/trangchu/trangchu">TẤT CẢ</a></li>
-                    @foreach (var item in Model.kv)
+                    @foreach (var item in Model.khu_vuc)
                     {
                         <li><a href="~/trangchu/trangchu?ma=@item.MaKhuVuc">@item.TenKhuVuc</a></li>
                     }
@@ -569,6 +567,12 @@
     <script>
         var hotels = [
           @foreach (var i in Model.ks) {
+              var anh = Model.anhks.FirstOrDefault(s => s.MaKhachSan == i.MaKhachSan);
+              var link = "null";
+              if(anh != null)
+                {
+                  link = anh.LinkAnhKhachSan;
+                }
               <text>{
                 maks: '@i.MaKhachSan',
                 name: '@i.TenKhachSan',
@@ -576,7 +580,7 @@
                 phone: '@i.SoDienThoai',
                 gmail: '@i.Gmail',
                 moeny: '@i.Gia',
-                avt: '@i.AnhKs',
+                avt: '@link',
                 coordinates: [@i.KinhDo, @i.ViDo]
             },</text>
           }

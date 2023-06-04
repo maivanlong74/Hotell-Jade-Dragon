@@ -14,7 +14,7 @@ namespace Jade_Dragon.Models
     
     public partial class ThongKeDanhGia
     {
-        public long MaThongKe { get; set; }
+        public long MaThongKeDanhGia { get; set; }
         public Nullable<long> MotSao { get; set; }
         public Nullable<long> HaiSao { get; set; }
         public Nullable<long> BaSao { get; set; }
@@ -23,6 +23,6 @@ namespace Jade_Dragon.Models
         public Nullable<long> MaKhachSan { get; set; }
         public Nullable<long> TongSao { get; set; }
     
-        public virtual khachsan khachsan { get; set; }
+        public virtual KhachSan KhachSan { get; set; }
     }
 }

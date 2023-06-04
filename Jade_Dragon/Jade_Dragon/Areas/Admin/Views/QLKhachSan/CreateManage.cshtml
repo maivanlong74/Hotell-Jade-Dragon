@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Jade_Dragon.Models.khachsan>
+﻿@model IEnumerable<Jade_Dragon.Models.KhachSan>
 
 @{
     ViewBag.Title = "CreateManage";
@@ -15,9 +15,8 @@
                 <button id="search-button">Tìm kiếm</button>
             </div>
             <div class="DangKy_Map" id="DangKy_Map">
-                <input type="hidden" value="@Session["MaKh"]" name="makh_map" id="makh_map"/>
+                <input type="hidden" value="@Session["MaNguoiDung"]" name="makh_map" id="makh_map" />
                 <form id="register-form" action="/Admin/QLKhachSan/CreateManage" method="post" enctype="multipart/form-data">
-                    
                 </form>
             </div>
             <div id="popup" class="popup"></div>

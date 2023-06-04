@@ -231,14 +231,14 @@
     background-color: #03020e;
 }
 
-.list-map ul li a{
+.list-map ul li a {
     color: white;
     text-decoration: none;
     margin-left: 30px;
     display: block;
     padding-top: 16px;
     font-weight: 600;
-    font-size: 20px;
+    font-size: 15px;
 }
 
 .list-map ul li:hover{

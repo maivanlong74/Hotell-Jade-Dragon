@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Jade_Dragon.Models.khachsan>
+﻿@model IEnumerable<Jade_Dragon.Models.KhachSan>
 @{
     ViewBag.Title = "QuanLyKs";
     Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
@@ -10,17 +10,20 @@
     table.dataTable thead th, table.dataTable thead td {
         text-align: center;
     }
+
     table.dataTable tbody th, table.dataTable tbody td {
         text-align: center;
     }
+
     table.dataTable tfoot th, table.dataTable tfoot td {
         text-align: center;
     }
 </style>
 <div class="home">
     <div class="body">
-        <i class="htkhuvuc-i"><a href="@Url.Action("khuvuc", "khuvuc")" class="htkhuvuc-a">
-            KHU VỰC
+        <i class="htkhuvuc-i">
+            <a href="@Url.Action("khuvuc", "khuvuc")" class="htkhuvuc-a">
+                KHU VỰC
             </a>
         </i>
         <table id="example" class="display">

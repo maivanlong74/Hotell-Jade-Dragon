@@ -31,13 +31,13 @@ namespace Jade_Dragon.Controllers
             Session["TrangThaiPhong"] = null;
 
             hienthiphong m = new hienthiphong();
-            List<khachsan> list = new List<khachsan>();
-            list = db.khachsans.OrderBy(khachsan => khachsan.ThangDiem).ToList();
+            List<KhachSan> list = new List<KhachSan>();
+            list = db.KhachSans.OrderBy(khachsan => khachsan.ThangDiem).ToList();
 
             List<PhongKhachSan> listphong = db.PhongKhachSans.ToList();
             foreach (var dem in listphong)
             {
-                if(dem.TrangThai == false)
+                if (dem.TrangThai == false)
                 {
                     dem.TrangThai = true;
                     db.SaveChanges();
@@ -46,29 +46,29 @@ namespace Jade_Dragon.Controllers
 
             DateTime timenow = DateTime.Now;
 
-            foreach(var mm in listphong)
+            foreach (var mm in listphong)
             {
-                if(mm.KhoaPhong == true)
+                if (mm.KhoaPhong == true)
                 {
                     mm.TrangThai = false; db.SaveChanges();
                 }
                 else
                 {
-                    var cthd = db.chitiethoadons.Where(m => m.MaPhong == mm.MaPhong).ToList();
-                    if(cthd.Count() > 0)
+                    var cthd = db.ChiTietHoaDons.Where(m => m.MaPhong == mm.MaPhong).ToList();
+                    if (cthd.Count() > 0)
                     {
-                        foreach(var ct in cthd)
+                        foreach (var ct in cthd)
                         {
-                            if(ct.HoanThanh == false)
+                            if (ct.HoanThanh == false)
                             {
-                                if(ct.DaDen == true)
+                                if (ct.DaDen == true)
                                 {
                                     mm.TrangThai = false;
                                     db.SaveChanges();
                                 }
                                 else
                                 {
-                                    if (ct.hoadon.DaDat == true)
+                                    if (ct.HoaDon.DaDat == true)
                                     {
                                         if (batdau == null && ketthuc == null)
                                         {
@@ -117,12 +117,12 @@ namespace Jade_Dragon.Controllers
 
             int pageSize = 6; // số lượng phần tử hiển thị trong mỗi trang
             int pageNumber = (page ?? 1); // trang hiện tại, mặc định là trang đầu tiên
-            var Phong = db.PhongKhachSans.Include(k => k.khachsan);
+            var Phong = db.PhongKhachSans.Include(k => k.KhachSan);
 
-            if(khuvuc != null && loai != null && vip != null && batdau != null && ketthuc != null)
+            if (khuvuc != null && loai != null && vip != null && batdau != null && ketthuc != null)
             {
                 bool isVip = vip.ToLower() == "true";
-                Phong = Phong.Where(a => a.khachsan.MaKhuVuc == khuvuc && a.LoaiHinh == loai
+                Phong = Phong.Where(a => a.KhachSan.MaKhuVuc == khuvuc && a.LoaiHinh == loai
                             && a.VIP == isVip);
                 if (batdau > ketthuc)
                 {
@@ -131,7 +131,7 @@ namespace Jade_Dragon.Controllers
                     ketthuc = tam;
                 }
 
-                var chitiet = db.chitiethoadons.ToList();
+                var chitiet = db.ChiTietHoaDons.ToList();
                 long sodem = demsodem((DateTime)batdau, (DateTime)ketthuc);
                 if (chitiet != null)
                 {
@@ -159,7 +159,7 @@ namespace Jade_Dragon.Controllers
                 {
                     Session["KhachSan"] = ma;
                     ViewBag.ma = ma;
-                    khachsan ksks = db.khachsans.Find(ma);
+                    KhachSan ksks = db.KhachSans.Find(ma);
                     ViewBag.ksks = ksks.TenKhachSan;
                     Phong = Phong.Where(a => a.MaKhachSan == ma);
                 }
@@ -229,7 +229,7 @@ namespace Jade_Dragon.Controllers
             switch (searchType.ToLower())
             {
                 case "khachsan":
-                    query = query.Where(c => c.khachsan.TenKhachSan.Contains(searchTerm));
+                    query = query.Where(c => c.KhachSan.TenKhachSan.Contains(searchTerm));
                     break;
                 case "name":
                     query = query.Where(c => c.TenPhong.Contains(searchTerm));
@@ -243,7 +243,7 @@ namespace Jade_Dragon.Controllers
                     break;
                 case "all":
                     query = query.Where(c =>
-                        c.khachsan.TenKhachSan.Contains(searchTerm) ||
+                        c.KhachSan.TenKhachSan.Contains(searchTerm) ||
                         c.TenPhong.Contains(searchTerm) ||
                         c.Gia.ToString().Contains(searchTerm)
                     );
@@ -291,13 +291,13 @@ namespace Jade_Dragon.Controllers
         {
             Session["batdau"] = null;
             Session["ketthuc"] = null;
-            if(ma == null)
+            if (ma == null)
             {
                 return Redirect("khachsan");
             }
             else
             {
-                return RedirectToAction("khachsan", "khachsan", new {ma = ma});
+                return RedirectToAction("khachsan", "khachsan", new { ma = ma });
             }
         }
 

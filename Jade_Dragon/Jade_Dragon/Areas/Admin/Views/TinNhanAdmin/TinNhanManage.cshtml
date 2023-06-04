@@ -6,23 +6,7 @@
 }
 
 <link href="~/Areas/Admin/Public/css/css_ChatAdmin.css" rel="stylesheet" />
-<style>
-    .list-chat .list-User {
-        height: 20%;
-    }
 
-        .list-chat .list-User span {
-            height: 35%;
-        }
-
-    .list-chat .list-Group {
-        height: 75%;
-    }
-
-        .list-chat .list-Group span {
-            height: 10%;
-        }
-</style>
 <div class="home">
     <div class="body">
         <div class="body-chat">
@@ -36,7 +20,7 @@
                             @foreach (var dem in Model.kh)
                             {
                                 <li>
-                                    <button type="submit" class="btnUser" data-id="@dem.MaKh">
+                                    <button type="submit" class="btnUser" data-id="@dem.MaNguoiDung">
                                         @dem.HoTen
                                     </button>
                                 </li>
@@ -46,7 +30,8 @@
                     <div class="list-Group list-chat-a">
                         <span>Nhóm chat</span>
                         <ul id="Create_Room">
-                            @if (Session["MaKhachSan_ks"] != null) { 
+                            @if (Session["MaKhachSan_ks"] != null)
+                            {
                                 <li class="Show">
                                     <button type="submit" id="Create">
                                         <img src="~/Style/img/icon/icon-them.jpg" style="width: 20px;" />
@@ -71,7 +56,7 @@
                 </div>
             </div>
             <div class="body-send-chat">
-                <input type="hidden" id="makh" value="@Session["MaKh"]" />
+                <input type="hidden" id="makh" value="@Session["MaNguoiDung"]" />
 
                 <input type="text" id="txtMessage" placeholder="Nhập chat" class="txtchat" />
                 <button type="submit" id="btnSend" class="txtchat">

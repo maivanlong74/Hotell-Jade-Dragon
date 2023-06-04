@@ -14,11 +14,11 @@ namespace Jade_Dragon.common
         {
             using (var context = new Connect())
             {
-                var nguoiTruyCap = context.SoLuongNguoiTruyCaps.FirstOrDefault();
+                var nguoiTruyCap = context.SoNguoiTruyCaps.FirstOrDefault();
                 if (nguoiTruyCap == null)
                 {
-                    nguoiTruyCap = new SoLuongNguoiTruyCap { SoLuongNguoi = 1 };
-                    context.SoLuongNguoiTruyCaps.Add(nguoiTruyCap);
+                    nguoiTruyCap = new SoNguoiTruyCap { SoLuongNguoi = 1 };
+                    context.SoNguoiTruyCaps.Add(nguoiTruyCap);
                 }
                 else
                 {

@@ -25,25 +25,24 @@ namespace Jade_Dragon.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<chitiethoadon> chitiethoadons { get; set; }
-        public virtual DbSet<DanhGiaK> DanhGiaKs { get; set; }
-        public virtual DbSet<ErrorPay> ErrorPays { get; set; }
-        public virtual DbSet<hoadon> hoadons { get; set; }
-        public virtual DbSet<khachhang> khachhangs { get; set; }
-        public virtual DbSet<khachsan> khachsans { get; set; }
-        public virtual DbSet<khuvuc> khuvucs { get; set; }
-        public virtual DbSet<phanhoi> phanhois { get; set; }
+        public virtual DbSet<AnhKhachSan> AnhKhachSans { get; set; }
+        public virtual DbSet<AnhPhongKhachSan> AnhPhongKhachSans { get; set; }
+        public virtual DbSet<BinhLuan> BinhLuans { get; set; }
+        public virtual DbSet<ChiTietHoaDon> ChiTietHoaDons { get; set; }
+        public virtual DbSet<DanhGiaKhachSan> DanhGiaKhachSans { get; set; }
+        public virtual DbSet<HoaDon> HoaDons { get; set; }
+        public virtual DbSet<KhachSan> KhachSans { get; set; }
+        public virtual DbSet<KhuVuc> KhuVucs { get; set; }
+        public virtual DbSet<NguoiDung> NguoiDungs { get; set; }
+        public virtual DbSet<PhanQuyen> PhanQuyens { get; set; }
         public virtual DbSet<PhongChat> PhongChats { get; set; }
         public virtual DbSet<PhongKhachSan> PhongKhachSans { get; set; }
-        public virtual DbSet<SoLuongNguoiTruyCap> SoLuongNguoiTruyCaps { get; set; }
+        public virtual DbSet<SoNguoiTruyCap> SoNguoiTruyCaps { get; set; }
         public virtual DbSet<SoPhongKhachSan> SoPhongKhachSans { get; set; }
-        public virtual DbSet<SoSaoDanhGia> SoSaoDanhGias { get; set; }
         public virtual DbSet<SoTangKhachSan> SoTangKhachSans { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<ThongKeDanhGia> ThongKeDanhGias { get; set; }
-        public virtual DbSet<tinnhan> tinnhans { get; set; }
-        public virtual DbSet<tinnhanAdmin> tinnhanAdmins { get; set; }
-        public virtual DbSet<UserGroup> UserGroups { get; set; }
-        public virtual DbSet<lichsu> lichsus { get; set; }
+        public virtual DbSet<TinNhanNguoiDung> TinNhanNguoiDungs { get; set; }
+        public virtual DbSet<TinNhanNhom> TinNhanNhoms { get; set; }
     }
 }

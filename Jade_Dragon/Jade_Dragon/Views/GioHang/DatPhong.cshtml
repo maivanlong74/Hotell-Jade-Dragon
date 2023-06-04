@@ -23,7 +23,7 @@
 </head>
 <style>
     .home_body .info .background {
-        margin-top: 0px; 
+        margin-top: 0px;
     }
 </style>
 <body>
@@ -209,21 +209,21 @@
                         </div>
                     }
 
-                <div id="map">
-                    <button id="thoat_map" class="thoat_map">
-                        <img src="~/Style/img/icon/icon-X.jpg" style="width: 22px;" title="Tắt Map" />
-                    </button>
-                    <div class="Search-Search">
-                        <input type="text" id="search-input" placeholder="Tìm kiếm địa điểm">
-                        <button id="search-button">Tìm kiếm</button>
+                    <div id="map">
+                        <button id="thoat_map" class="thoat_map">
+                            <img src="~/Style/img/icon/icon-X.jpg" style="width: 22px;" title="Tắt Map" />
+                        </button>
+                        <div class="Search-Search">
+                            <input type="text" id="search-input" placeholder="Tìm kiếm địa điểm">
+                            <button id="search-button">Tìm kiếm</button>
+                        </div>
+                        <div class="DangKy_Map" id="DangKy_Map">
+                            <div id="info_ksks"></div>
+                        </div>
+                        <div id="popup" class="popup"></div>
+                        <input type="hidden" id="Dv_KinhDo" value="" />
+                        <input type="hidden" id="Dv_ViDo" value="" />
                     </div>
-                    <div class="DangKy_Map" id="DangKy_Map">
-                        <div id="info_ksks"></div>
-                    </div>
-                    <div id="popup" class="popup"></div>
-                    <input type="hidden" id="Dv_KinhDo" value="" />
-                    <input type="hidden" id="Dv_ViDo" value="" />
-                </div>
 
                     <form action="~/GioHang/TiepTheo" method="post" class="check" id="form1">
                         <div class="info-kh">
@@ -232,7 +232,7 @@
 
                                 <div class="khachhang">
                                     <label for="">Họ và Tên</label>
-                                    <input type="hidden" name="makh" value="@Session["MaKh"]" />
+                                    <input type="hidden" name="makh" value="@Session["MaNguoiDung"]" />
                                     <input type="hidden" name="maks" value="@Session["MaKhachSanPhong"]" />
                                     @if (Session["tenkhachhang"] == null)
                                     {
@@ -337,7 +337,7 @@
                                     </div>
                                 }
 
-                                @if (@Session["MaKh"] != null)
+                                @if (@Session["MaNguoiDung"] != null)
                                 {
                                     <div class="khachhang">
                                         <i style="color: yellow;">
@@ -349,7 +349,7 @@
                                         </i>
                                     </div>
                                 }
-                                
+
                             </div>
                         </div>
                         <div class="info-ks">
@@ -369,7 +369,7 @@
                                         {
                                             <p>Thành tiền: @Session["moeny"] VND</p>
                                         }
-                                        @if (@Session["MaKh"] != null)
+                                        @if (@Session["MaNguoiDung"] != null)
                                         {
 
 
@@ -380,7 +380,7 @@
                                         }
                                         else
                                         {
-                                            <input value="chuyenkhoan" name="htthanhtoan" type="hidden"/>
+                                            <input value="chuyenkhoan" name="htthanhtoan" type="hidden" />
                                         }
                                     </div>
                                     <div class="table-phong">

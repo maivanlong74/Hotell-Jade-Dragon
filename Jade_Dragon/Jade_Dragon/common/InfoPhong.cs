@@ -11,7 +11,7 @@ namespace Jade_Dragon.common
         private Connect db = new Connect();
         public List<SoTangKhachSan> LayDanhSachSoTang(long MaKs)
         {
-            khachsan ks = db.khachsans.Find(MaKs);
+            KhachSan ks = db.KhachSans.Find(MaKs);
             if (ks == null)
             {
                 return new List<SoTangKhachSan>();

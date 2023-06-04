@@ -1,15 +1,20 @@
-﻿@model Jade_Dragon.Models.HtPhong
+﻿@model Jade_Dragon.Models.hienthiphong
 @{
     ViewBag.Title = "DanhSachPhong";
     Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
 }
 <link href="~/Areas/Admin/Public/css/css_QuanLyPhongg.css" rel="stylesheet" />
-
+<style>
+    .info-phong h1 .chuyen-avt{
+        text-decoration: none;
+        color: white;
+    }
+</style>
 <ul class="home">
     <span class="name-ks">
         Khách sạn @ViewBag.ten
     </span>
-    @foreach (var i in Model.tangks)
+    @foreach (var i in Model.sotang)
     {
         <li class="tangks">
             <ul class="list-phong">
@@ -20,7 +25,7 @@
                         <a href="@Url.Action("Xoatang", "PhongAdmin", new {maks = ViewBag.ma, matang = i.MaSoTang})" class="delete-tang">Xóa tầng</a>
                     }
                 </li>
-                @foreach (var j in Model.phongks.Where(n => n.MaSoTang == i.MaSoTang))
+                @foreach (var j in Model.ph.Where(n => n.MaSoTang == i.MaSoTang))
                 {
                     if (j.KhoaPhong == true)
                     {
@@ -37,7 +42,11 @@
                         {
                             <li class="list-phong-item">
                                 <div class="info-phong">
-                                    <h1>@j.SoPhongKhachSan.SoPhong</h1>
+                                    <h1>
+                                        <a href="@Url.Action("ThemAnh", "PhongAdmin", new {maks = j.MaKhachSan, maph = j.MaPhong})" class="chuyen-avt">
+                                            @j.SoPhongKhachSan.SoPhong
+                                        </a>
+                                    </h1>
                                     <div class="form">
                                         <form action="/Admin/PhongAdmin/Edit" method="post">
                                             <input type="hidden" name="maph" value="@j.MaPhong" />
@@ -52,22 +61,22 @@
                                             </div>
                                             <div class="info-phong-item">
                                                 <label for="">Thuộc loại phòng:</label> <br>
-                                            <div class="vip">
-                                                @if (j.VIP == true)
-                                                {
-                                                    <label for="">VIP</label>
-                                                    <input type="radio" name="vip" id="vip-radio" value="true" checked>
-                                                    <label for="">Thường</label>
-                                                    <input type="radio" name="vip" id="thuong-radio" value="false">
-                                                }
-                                                else
-                                                {
-                                                    <label for="">VIP</label>
-                                                    <input type="radio" name="vip" id="vip-radio" value="true">
-                                                    <label for="">Thường</label>
-                                                    <input type="radio" name="vip" id="thuong-radio" value="false" checked>
-                                                }
-                                            </div>
+                                                <div class="vip">
+                                                    @if (j.VIP == true)
+                                                    {
+                                                        <label for="">VIP</label>
+                                                        <input type="radio" name="vip" id="vip-radio" value="true" checked>
+                                                        <label for="">Thường</label>
+                                                        <input type="radio" name="vip" id="thuong-radio" value="false">
+                                                    }
+                                                    else
+                                                    {
+                                                        <label for="">VIP</label>
+                                                        <input type="radio" name="vip" id="vip-radio" value="true">
+                                                        <label for="">Thường</label>
+                                                        <input type="radio" name="vip" id="thuong-radio" value="false" checked>
+                                                    }
+                                                </div>
                                             </div>
                                             <div class="button-dk">
                                                 <button type="submit">Save</button>
@@ -84,7 +93,11 @@
                         {
                             <li class="list-phong-item phongdat">
                                 <div class="info-phong">
-                                    <h1>@j.SoPhongKhachSan.SoPhong</h1>
+                                    <h1>
+                                        <a href="@Url.Action("ThemAnh", "PhongAdmin", new {maks = j.MaKhachSan, maph = j.MaPhong})" class="chuyen-avt">
+                                            @j.SoPhongKhachSan.SoPhong
+                                        </a>
+                                    </h1>
                                     <i>Có khách đặt</i>
                                     <div class="form">
                                         <form action="" method="post">
@@ -137,7 +150,7 @@
                                                                 <a href="@Url.Action("Check_Out", "PhongAdmin", new {mact = k.MaChiTietHoaDon, maks = ViewBag.ma})" class="Check-Check">Check Out</a>
                                                             </div>
                                                         }
-                                                        <p>Khách hàng: @k.hoadon.HoTen</p>
+                                                        <p>Khách hàng: @k.HoaDon.HoTen</p>
                                                         <p>Ngày đến: @k.NgayDen</p>
                                                         <p>Ngày đi: @k.NgayDi</p>
                                                     </div>
@@ -159,6 +172,6 @@
     <li class="tangks" style="height: 15vh;">
         <a href="@Url.Action("themtang", "PhongAdmin", new {maks = ViewBag.ma})" class="Create-tang">+</a>
     </li>
-    
+
 </ul>
 

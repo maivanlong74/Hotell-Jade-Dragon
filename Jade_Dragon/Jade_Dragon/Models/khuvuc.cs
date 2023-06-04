@@ -12,12 +12,12 @@ namespace Jade_Dragon.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class khuvuc
+    public partial class KhuVuc
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public khuvuc()
+        public KhuVuc()
         {
-            this.khachsans = new HashSet<khachsan>();
+            this.KhachSans = new HashSet<KhachSan>();
         }
     
         public long MaKhuVuc { get; set; }
@@ -26,6 +26,6 @@ namespace Jade_Dragon.Models
         public string ViDo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<khachsan> khachsans { get; set; }
+        public virtual ICollection<KhachSan> KhachSans { get; set; }
     }
 }

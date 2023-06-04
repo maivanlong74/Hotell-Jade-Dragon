@@ -23,13 +23,13 @@ namespace Jade_Dragon.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            khachhang khachhang = db.khachhangs.Find(id);
-            if (khachhang == null)
+            NguoiDung nguoidung = db.NguoiDungs.Find(id);
+            if (nguoidung == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.IDGroup = new SelectList(db.UserGroups, "IDGroup", "Name", khachhang.IDGroup);
-            return View(khachhang);
+            ViewBag.IDGroup = new SelectList(db.PhanQuyens, "MaPhanQuyen", "TenQuyen", nguoidung.MaPhanQuyen);
+            return View(nguoidung);
         }
 
         // POST: Admin/Test/Edit/5
@@ -37,33 +37,32 @@ namespace Jade_Dragon.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult TrangCaNhan([Bind(Include = "MaKh,HoTen,SoDienThoai,CMND,DiaChi,Gmail,TheNganHang," +
-            "TenNganHang,Avt,TenDn,Mk,IDGroup,Code,DaXacMinh")] khachhang khachhang, HttpPostedFileBase uploadhinh)
+        public ActionResult TrangCaNhan([Bind(Include = "MaNguoiDung,HoTen,SoDienThoai,CMND,DiaChi,Gmail,Avt,TenDangNhap,MatKhau,MaKhachSan,MaPhanQuyen,Code,DaXacMinh")] NguoiDung nguoiDung, HttpPostedFileBase uploadhinh)
         {
             if (ModelState.IsValid)
             {
                 /*db.Entry(khachhang).State = EntityState.Modified;*/
 
-                khachhang unv = db.khachhangs.FirstOrDefault(x => x.MaKh == khachhang.MaKh);
+                NguoiDung unv = db.NguoiDungs.FirstOrDefault(x => x.MaNguoiDung == nguoiDung.MaNguoiDung);
 
-                unv.HoTen = khachhang.HoTen;
-                unv.SoDienThoai = khachhang.SoDienThoai;
-                unv.CMND = khachhang.CMND;
-                unv.DiaChi = khachhang.DiaChi;
-                unv.Gmail = khachhang.Gmail;
-                unv.TenDn = khachhang.TenDn;
-                unv.IDGroup = khachhang.IDGroup;
+                unv.HoTen = nguoiDung.HoTen;
+                unv.SoDienThoai = nguoiDung.SoDienThoai;
+                unv.CMND = nguoiDung.CMND;
+                unv.DiaChi = nguoiDung.DiaChi;
+                unv.Gmail = nguoiDung.Gmail;
+                unv.TenDangNhap = nguoiDung.TenDangNhap;
+                unv.MaPhanQuyen = nguoiDung.MaPhanQuyen;
 
-                if (unv.Mk != khachhang.Mk)
+                if (unv.MatKhau != nguoiDung.MatKhau)
                 {
-                    unv.Mk = GetMD5(khachhang.Mk);
+                    unv.MatKhau = GetMD5(nguoiDung.MatKhau);
                 }
 
-                unv.DaXacMinh = khachhang.DaXacMinh;
+                unv.DaXacMinh = nguoiDung.DaXacMinh;
 
                 if (uploadhinh != null && uploadhinh.ContentLength > 0)
                 {
-                    long id = khachhang.MaKh;
+                    long id = nguoiDung.MaNguoiDung;
                     string _FileName = "";
                     string code_name = GenerateVerificationCode();
                     int index = uploadhinh.FileName.IndexOf('.');
@@ -75,18 +74,18 @@ namespace Jade_Dragon.Controllers
                 db.SaveChanges();
 
                 Session["Avt"] = unv.Avt;
-                return Redirect("~/User/TrangCaNhan/" + khachhang.MaKh);
+                return Redirect("~/User/TrangCaNhan/" + nguoiDung.MaNguoiDung);
             }
-            ViewBag.IDGroup = new SelectList(db.UserGroups, "IDGroup", "Name", khachhang.IDGroup);
-            return View(khachhang);
+            ViewBag.IDGroup = new SelectList(db.PhanQuyens, "MaPhanQuyen", "TenQuyen", nguoiDung.MaPhanQuyen);
+            return View(nguoiDung);
         }
 
         public ActionResult QuenMatKhau(long? id)
         {
-            khachhang kh = db.khachhangs.Find(id);
+            NguoiDung kh = db.NguoiDungs.Find(id);
             kh.Code = GenerateVerificationCode();
             db.SaveChanges();
-            Session["MaKh"] = kh.MaKh;
+            Session["MaNguoiDung"] = kh.MaNguoiDung;
             XacNhanGmail(kh.HoTen, "", kh.Gmail, "", "", kh.Code);
             return View();
         }
@@ -101,12 +100,12 @@ namespace Jade_Dragon.Controllers
                 MaKH = long.Parse(Request.Cookies["MaKH"].Value);
                 Mk = Request.Cookies["Mk"].Value;
             }
-            khachhang KhachHang = db.khachhangs.Find(MaKH);
-            if (db.khachhangs.Where(m => m.Code == Code).Count() > 0)
+            NguoiDung KhachHang = db.NguoiDungs.Find(MaKH);
+            if (db.NguoiDungs.Where(m => m.Code == Code).Count() > 0)
             {
-                if(KhachHang.Mk == GetMD5(Mk))
+                if (KhachHang.MatKhau == GetMD5(Mk))
                 {
-                    KhachHang.Mk = GetMD5(NhapLai);
+                    KhachHang.MatKhau = GetMD5(NhapLai);
                     db.SaveChanges();
                     return Redirect("~/Admin/Account/Login");
                 }
@@ -136,11 +135,11 @@ namespace Jade_Dragon.Controllers
         }
 
         [HttpPost]
-        public ActionResult Up_IMG(khachhang kh, HttpPostedFileBase uploadhinh)
+        public ActionResult Up_IMG(NguoiDung kh, HttpPostedFileBase uploadhinh)
         {
             if (uploadhinh != null && uploadhinh.ContentLength > 0)
             {
-                int id = int.Parse(db.khachhangs.ToList().Last().MaKh.ToString());
+                int id = int.Parse(db.NguoiDungs.ToList().Last().MaNguoiDung.ToString());
 
                 string _FileName = "";
                 string code_name = GenerateVerificationCode();
@@ -149,7 +148,7 @@ namespace Jade_Dragon.Controllers
                 string _path = Path.Combine(Server.MapPath("~/UpLoad_Img/KhachHang"), _FileName);
                 uploadhinh.SaveAs(_path);
 
-                khachhang unv = db.khachhangs.FirstOrDefault(x => x.MaKh == id);
+                NguoiDung unv = db.NguoiDungs.FirstOrDefault(x => x.MaNguoiDung == id);
                 unv.Avt = _FileName;
                 db.SaveChanges();
             }
@@ -158,10 +157,10 @@ namespace Jade_Dragon.Controllers
 
         public ActionResult XoaAnh(long? kh)
         {
-            khachhang khachhang = db.khachhangs.Find(kh);
+            NguoiDung khachhang = db.NguoiDungs.Find(kh);
             khachhang.Avt = null;
             db.SaveChanges();
-            return Redirect("~/Admin/QLKhachHang/Details/" + khachhang.MaKh);
+            return Redirect("~/Admin/QLKhachHang/Details/" + khachhang.MaNguoiDung);
         }
 
         public bool XacNhanGmail(string HoTen, string sdt, string Gmail, string DiaChi, string CMND, string Ma)

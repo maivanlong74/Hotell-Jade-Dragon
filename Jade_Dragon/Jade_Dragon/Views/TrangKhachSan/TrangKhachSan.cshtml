@@ -1,0 +1,414 @@
+﻿@model Jade_Dragon.Models.hienthiphong
+
+@{
+    ViewBag.Title = "TrangKhachSan";
+    Layout = "~/Views/Shared/TongHop.cshtml";
+}
+<head>
+    <link href="~/Style/css/ThanhCuon/owl.carousel.min.css" rel="stylesheet" />
+    <link href="~/Style/css/ThanhCuon/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="~/Style/KhachSan/css/css_ThanhCuon_Ks.css" rel="stylesheet" />
+    <link href="~/Style/KhachSan/css/css_DanhGia_Ks.css" rel="stylesheet" />
+    <link href="~/Style/KhachSan/css/Search.css" rel="stylesheet" />
+    <link href="~/Style/KhachSan/css/HtAnhPhong.css" rel="stylesheet" />
+    <link href="~/Style/KhachSan/css/css__KhachSan.css" rel="stylesheet" />
+</head>
+
+<div class="home">
+    <div class="home__background">
+        <div class="grid wide">
+            <div class="row">
+                <div class="home__container__slider">
+                    <div class="search">
+                        <div class="grid wide">
+                            <div class="search__container">
+                                <div class="row">
+
+                                    <!-- ------------------ -->
+                                    <h1>
+                                        Jade Dragon sẽ mang đến cho bạn một trải nghiệm tuyệt
+                                        vời
+                                    </h1>
+                                    <!-- Tìm kiếm -->
+                                    <div class="timkiem">
+                                        <form method="get" action="@Url.Action("khachsan", "khachsan")" class="header-search hide-on-mb">
+                                            <div class="header-search__input-wrap">
+                                                <input type="text" class="header-search__input"
+                                                       placeholder="Search..." name="searchTerm">
+                                            </div>
+
+                                            <div class="Search Search-phong">
+                                                <select name="searchType" class="select-list">
+                                                    <option value="all">Tất cả</option>
+                                                    <option value="khachsan">Tên khách sạn</option>
+                                                    <option value="name">Tên phòng</option>
+                                                    <option value="gia">Giá</option>
+                                                </select>
+                                            </div>
+                                            <div class="header-search__btn">
+                                                <button type="submit">
+                                                    <i class="header-search__btn-icon fas fa-search"></i>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <!-- DateTime -->
+                                    <form action="" method="post" class="DateTime">
+                                        <div class="search-time">
+                                            <input type="datetime-local" name="batdau" required
+                                                   min="@ViewBag.time_now" max="@ViewBag.time_max" />
+                                            <br />
+                                            <input type="hidden" name="ma" value="@ViewBag.ma" />
+                                            <label>Ngày đến</label>
+                                        </div>
+                                        <div class="search-time">
+                                            <input type="datetime-local" name="ketthuc" required
+                                                   min="" max="" />
+                                            <br />
+                                            <input type="hidden" name="ma" value="" />
+                                            <label>Ngày trả</label>
+                                        </div>
+                                        <div class="search-time">
+                                            <button type="submit">Cập nhật</button> <br />
+                                            <a href="" class="button">Quay về ngày hôm nay</a>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!--------------------->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Content" id="danhmucsp">
+                        <div class="menu">
+                            <div class="menu-top">
+
+                                <div class="menu-top-a">
+                                    <div class="avt-img">
+                                        <img src="/Style/img/avt/logo.jpg" />
+                                    </div>
+                                    <i style=" font-size: 20px; display: block; padding-top: 6px;">
+                                        <a href="">Đăng nhập</a>
+                                        <a>/</a>
+                                        <a href="">Đăng ký tài khoản</a>
+                                    </i>
+                                </div>
+                            </div>
+                            <div class="list-menu">
+                                <ul>
+
+                                    <li class="top-menu">
+                                        <a class="menu-item item--a"
+                                           style="border-right: 2px solid;">
+                                            <img src="/Style/img/icon/icon-Cart.jpg"
+                                                 title="Giỏ Hàng" /> <i style="color: white;">(0)</i>
+                                        </a>
+                                        <a class="menu-item item--b" href="">
+                                            <img src="/Style/img/icon/icon-ls.jpg" title="Lịch sử" />
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="" class="all">Tất cả</a>
+                                    </li>
+                                    <li>
+                                        <span>Khách sạn</span>
+                                        <i class="header-search__select-icon fas fa-angle-down"></i>
+                                        <ul class="list list-ks">
+                                            <li><a href="">Khách sạn Abc</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <span>Loại hình</span>
+                                        <i class="header-search__select-icon fas fa-angle-down"></i>
+                                        <ul class="list">
+                                            <li><a href="">Loai A</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <span>Giá</span>
+                                        <i class="header-search__select-icon fas fa-angle-down"></i>
+                                        <ul class="list">
+                                            <li><a href="">300000</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <span>VIP</span>
+                                        <i class="header-search__select-icon fas fa-angle-down"></i>
+                                        <ul class="list">
+                                            <li><a href="">VIP</a></li>
+                                            <li><a href="">Thường</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <span>Trạng thái</span>
+                                        <i class="header-search__select-icon fas fa-angle-down"></i>
+                                        <ul class="list">
+                                            <li><a href="">Còn trống</a></li>
+                                            <li><a href="">Đã có khách</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                        <div class="Content-body">
+                            <div class="info_khachsan">
+                                <div class="ks-thanhcuon">
+                                    <section class="slider owl-carousel owl-theme">
+                                        @if (Model.AnhKs.Count() > 0)
+                                        {
+                                            foreach (var anh in Model.AnhKs)
+                                            {
+                                                <div class="slider-item slider-item-one"
+                                                     style="background-image: url('../../UpLoad_Img/KhachSan/@anh.LinkAnhKhachSan');">
+                                                </div>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <div class="slider-item slider-item-one" style="background: black;"></div>
+                                        }
+                                    </section>
+                                    <div class="info-kss">
+                                        <div class="name-ks">
+                                            <h1>Khách sạn @Session["ten_khachsan"]</h1>
+                                        </div>
+                                        <div style="display: flex; margin-top: 30px;">
+                                            <div class="info-ks-item">
+                                                <p>Dịa chỉ @Session["diachi_khachsan"]</p>
+                                                <p>Số điện thoại: @Session["sdt_khachsan"]</p>
+                                                <p>Gmail @Session["gmail_khachsan"]</p>
+
+                                                @if (Session["MaNguoiDung"] != null)
+                                                {
+                                                    if (ViewBag.danhgia != null)
+                                                    {
+                                                        <form action="" method="post" id="form-danhgia">
+                                                            <div class="rating">
+                                                                <span class="star" data-rating="1">&#9733;</span>
+                                                                <span class="star" data-rating="2">&#9733;</span>
+                                                                <span class="star" data-rating="3">&#9733;</span>
+                                                                <span class="star" data-rating="4">&#9733;</span>
+                                                                <span class="star" data-rating="5">&#9733;</span>
+                                                                <input type="hidden" name="rating" class="rating-value" value="@ViewBag.danhgia">
+                                                            </div>
+                                                        </form>
+                                                    }
+                                                    else
+                                                    {
+                                                        <form action="" method="post" id="form-danhgia">
+                                                            <div class="rating">
+                                                                <span class="star" data-rating="1">&#9733;</span>
+                                                                <span class="star" data-rating="2">&#9733;</span>
+                                                                <span class="star" data-rating="3">&#9733;</span>
+                                                                <span class="star" data-rating="4">&#9733;</span>
+                                                                <span class="star" data-rating="5">&#9733;</span>
+                                                                <input type="hidden" name="rating" class="rating-value" value="">
+                                                            </div>
+                                                            <button type="submit" class="button-danhgia">Đánh giá</button>
+                                                        </form>
+                                                    }
+                                                }
+
+                                            </div>
+
+                                            @if (Model.tkdg.Count() > 0)
+                                            {
+                                                var thongke = Model.tkdg.FirstOrDefault(m => m.MaKhachSan == ViewBag.ma_khachsan);
+                                                if (thongke.TongSao == 0)
+                                                {
+                                                    <div class="thongke-sao">
+                                                        <div class="tongsao"><span>Tổng <span class="rating-count">0</span>lượt đánh giá</span></div>
+                                                        <div class="starss">
+                                                            <div class="sosao">
+                                                                <span>1 sao</span>
+                                                                <div class="thuoc-sao"><div class="starr star-a" style="width: 0%;"></div></div>
+                                                                <span class="dem"></span>
+                                                            </div>
+                                                            <div class="sosao">
+                                                                <span>2 sao</span>
+                                                                <div class="thuoc-sao"><div class="starr star-b" style="width: 0%;"></div></div>
+                                                                <span class="dem"></span>
+                                                            </div>
+                                                            <div class="sosao">
+                                                                <span>3 sao</span>
+                                                                <div class="thuoc-sao"><div class="starr star-c" style="width: 0%;"></div></div>
+                                                                <span class="dem"></span>
+                                                            </div>
+                                                            <div class="sosao">
+                                                                <span>4 sao</span>
+                                                                <div class="thuoc-sao"><div class="starr star-d" style="width: 0%;"></div></div>
+                                                                <span class="dem"></span>
+                                                            </div>
+                                                            <div class="sosao">
+                                                                <span>5 sao</span>
+                                                                <div class="thuoc-sao"><div class="starr star-e" style="width: 0%;"></div></div>
+                                                                <span class="dem"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="thongke-sao">
+                                                        <div class="tongsao"><span>Tổng <span class="rating-count">@thongke.TongSao</span>lượt đánh giá</span></div>
+                                                        <div class="starss">
+                                                            <div class="sosao">
+                                                                <span>1 sao</span>
+                                                                <div class="thuoc-sao"><div class="starr star-a" style="width: @(thongke.MotSao * (100M / thongke.TongSao))@("%;")"></div></div>
+                                                                <span class="dem">@thongke.MotSao</span>
+                                                            </div>
+                                                            <div class="sosao">
+                                                                <span>2 sao</span>
+                                                                <div class="thuoc-sao"><div class="starr star-b" style="width: @((decimal)(thongke.HaiSao * (100M / thongke.TongSao)))@("%;")"></div></div>
+                                                                <span class="dem">@thongke.HaiSao</span>
+                                                            </div>
+                                                            <div class="sosao">
+                                                                <span>3 sao</span>
+                                                                <div class="thuoc-sao"><div class="starr star-c" style="width: @((decimal)(thongke.BaSao * (100M / thongke.TongSao)))@("%;")"></div></div>
+                                                                <span class="dem">@thongke.BaSao</span>
+                                                            </div>
+                                                            <div class="sosao">
+                                                                <span>4 sao</span>
+                                                                <div class="thuoc-sao"><div class="starr star-d" style="width: @((decimal)(thongke.BonSao * (100M / thongke.TongSao)))@("%;")"></div></div>
+                                                                <span class="dem">@thongke.BonSao</span>
+                                                            </div>
+                                                            <div class="sosao">
+                                                                <span>5 sao</span>
+                                                                <div class="thuoc-sao"><div class="starr star-e" style="width: @((decimal)(thongke.NamSao * (100M / thongke.TongSao)))@("%;")"></div></div>
+                                                                <span class="dem">@thongke.NamSao</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="info_phong">
+                                <div class="name-phong">
+                                    <h1>Thông tin phòng</h1>
+                                </div>
+                                <div class="tour" style="margin-top: 0px;">
+                                    <div class="grid wide" style="margin-top: -80px;">
+                                        <div class="tour__container">
+                                            <div class="tour__container__items">
+                                                <div class="pagination">
+                                                    <button onclick="previousPage()" class="phong-lui">Previous</button>
+                                                    <span id="currentPage" style="margin-left: 10px; color: white;"></span>
+                                                    <span>/</span>
+                                                    <span id="totalPages" style="color: white;"></span>
+                                                    <button onclick="nextPage()" class="phong-tien">Next</button>
+                                                </div>
+                                                <div class="row" id="listPhong">
+
+                                                    @foreach (var i in Model.ph)
+                                                    {
+                                                        <div class="col l-4 m-12 c-12">
+                                                            <div class="tour__container__item">
+                                                                <div class="item__overlay"></div>
+                                                                <div class="item__background"></div>
+                                                                <div class="item__content">
+                                                                    <span class="item_date">Khách sạn @i.KhachSan.TenKhachSan</span>
+                                                                    <div class="item_center">
+                                                                        <p style="font-size: 55px;">@i.TenPhong</p>
+                                                                        <div class="item_price">Giá: @i.Gia</div>
+                                                                        @if (i.TrangThai == true)
+                                                                        {
+
+                                                                            <i>Còn phòng</i>
+                                                                            <div class="tour__item--btn">
+                                                                                <div class="tour__btn__bgc"></div>
+                                                                                <a href="">
+                                                                                    Đặt phòng
+                                                                                    <span></span>
+                                                                                    <span></span>
+                                                                                    <span></span>
+                                                                                </a>
+                                                                            </div>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <i>Hết phòng</i>
+                                                                        }
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }
+
+                                                    <div class="anhphongks">
+                                                        <div class="close-anh"><button>Tắt</button></div>
+                                                        <div class="list_anhphong">
+                                                            <div class="anhphong-item"><img src="~/Style/img/travel.jpg" alt=""></div>
+                                                            <div class="anhphong-item"><img src="~/Style/img/nen.jpg" alt=""></div>
+                                                            <div class="anhphong-item"><img src="~/Style/img/travel.jpg" alt=""></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="danhgia_ks">
+                                <div class="binhluan">
+                                    <form action="~/nhanxet/Create" method="post" class="cmt">
+                                        <input type="text" placeholder="Mời bạn nhận xét" name="NoiDung" class="noidung-cmt">
+                                        <input type="hidden" value="" name="MaKh" id="MaKh" />
+                                        <button type="submit" class="button-cmt">Gửi</button>
+                                    </form>
+                                </div>
+                                @if (Model.cmt.Count() > 0)
+                                {
+                                    <div class="list-binhluan">
+                                        <div class="phantrang-cmt">
+                                            <button onclick="LuiTrang()" class="cmt-lui">Previous</button>
+                                            <span id="TrangSau" style="margin-left: 10px; color: white;"></span>
+                                            <span>/</span>
+                                            <span id="TrangTruoc" style="color: white;"></span>
+                                            <button onclick="TienTrang()" class="cmt-tien">Next</button>
+                                        </div>
+
+                                        <div class="ht-cmt">
+
+                                            @foreach (var o in Model.cmt)
+                                            {
+                                                <div class="ht-cmt-item">
+                                                    <i>@o.NguoiDung.HoTen</i>
+                                                    <span>@o.NoiDung</span>
+                                                </div>
+                                            }
+
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="list-binhluan" style="text-align: center;">
+                                        <h1 style="color: white;">Chưa có bình luận</h1>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="/Style/css/ThanhCuon/owl.carousel.min.js"></script>
+<script src="/Style/css/ThanhCuon/Js_Cuon.js"></script>
+<script src="~/Style/KhachSan/js/DanhGia_Ks.js"></script>
+<script src="~/Style/KhachSan/js/PhanTrang_NhanXet.js"></script>
+<script src="~/Style/KhachSan/js/PhanTrang_Phong.js"></script>

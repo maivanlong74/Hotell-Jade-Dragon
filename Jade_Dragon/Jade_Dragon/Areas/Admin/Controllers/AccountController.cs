@@ -38,14 +38,14 @@ namespace Jade_Dragon.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult kiemtradangnhap(string username, string password)
         {
-            
+
             if (Request.Cookies["username"] != null && Request.Cookies["username"] != null)
             {
                 username = Request.Cookies["username"].Value;
                 password = Request.Cookies["password"].Value;
             }
             var f_password = GetMD5(password);
-            var data = db.khachhangs.Where(s => s.TenDn.Equals(username) && s.Mk.Equals(f_password)).ToList();
+            var data = db.NguoiDungs.Where(s => s.TenDangNhap.Equals(username) && s.MatKhau.Equals(f_password)).ToList();
             if (checkpassword(username, f_password))
             {
                 var userSession = new UserLogin();
@@ -57,28 +57,32 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                 Session.Add("USER_SESSION", userSession);
 
                 //List thông tin User
-                var Data = db.khachhangs.Where(x => x.TenDn == username && x.Mk == f_password).ToList();
-                long makhh = Data.FirstOrDefault().MaKh;
-                Session["MaKh"] = Data.FirstOrDefault().MaKh;
+                var Data = db.NguoiDungs.Where(x => x.TenDangNhap == username && x.MatKhau == f_password).ToList();
+                long makhh = Data.FirstOrDefault().MaNguoiDung;
+                Session["MaNguoiDung"] = Data.FirstOrDefault().MaNguoiDung;
                 Session["HoTen"] = Data.FirstOrDefault().HoTen;
                 Session["SoDienThoai"] = Data.FirstOrDefault().SoDienThoai;
                 Session["CMND"] = Data.FirstOrDefault().CMND;
                 Session["DiaChi"] = Data.FirstOrDefault().DiaChi;
                 Session["Gmail"] = Data.FirstOrDefault().Gmail;
                 Session["Avt"] = Data.FirstOrDefault().Avt;
-                Session["TenDn"] = Data.FirstOrDefault().TenDn;
-                Session["Mk"] = Data.FirstOrDefault().Mk;
-                Session["IDGroup"] = Data.FirstOrDefault().IDGroup;
-                Session["MaKhachSan_ks"] = Data.FirstOrDefault().QLKhachSan;
+                Session["TenDn"] = Data.FirstOrDefault().TenDangNhap;
+                Session["Mk"] = Data.FirstOrDefault().MatKhau;
+                Session["IDGroup"] = Data.FirstOrDefault().MaPhanQuyen;
+                Session["MaKhachSan_ks"] = Data.FirstOrDefault().MaKhachSan;
 
-                if (Data.FirstOrDefault().UserGroup.Name == "Admin") {
+                if (Data.FirstOrDefault().PhanQuyen.MaPhanQuyen == 1)
+                {
                     return Redirect("~/Admin/TrangChuAdmin/TrangChu");
-                } else
-                if (Data.FirstOrDefault().UserGroup.Name == "Client") {
+                }
+                else
+                if (Data.FirstOrDefault().PhanQuyen.MaPhanQuyen == 2)
+                {
                     return Redirect("~/trangchu/trangchu?makhh=" + makhh);
                 }
                 else
-                if (Data.FirstOrDefault().UserGroup.Name == "Manage") {
+                if (Data.FirstOrDefault().PhanQuyen.MaPhanQuyen == 3)
+                {
                     return Redirect("~/Admin/QLKhachHang/QuanLyKhManage");
                 }
 
@@ -90,14 +94,14 @@ namespace Jade_Dragon.Areas.Admin.Controllers
         {
             // var user = db.User.Single(x => x.UserName == userName);
 
-            var data = (from a in db.UserGroups
-                        join b in db.khachhangs on a.IDGroup equals b.IDGroup
-                        where b.TenDn == userName
+            var data = (from a in db.PhanQuyens
+                        join b in db.NguoiDungs on a.MaPhanQuyen equals b.MaPhanQuyen
+                        where b.TenDangNhap == userName
 
                         select new
                         {
-                            UserGroupID = b.IDGroup,
-                            UserGroupName = a.Name
+                            UserGroupID = b.MaPhanQuyen,
+                            UserGroupName = a.TenQuyen
                         });
 
             return data.Select(x => x.UserGroupName).ToList();
@@ -105,7 +109,7 @@ namespace Jade_Dragon.Areas.Admin.Controllers
         }
         public bool checkpassword(string username, string password)
         {
-            if (db.khachhangs.Where(x => x.TenDn == username && x.Mk == password).Count() > 0)
+            if (db.NguoiDungs.Where(x => x.TenDangNhap == username && x.MatKhau == password).Count() > 0)
 
                 return true;
             else
@@ -131,30 +135,30 @@ namespace Jade_Dragon.Areas.Admin.Controllers
 
         public ActionResult SignUpp()
         {
-           
+
             return View();
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult _SignUp(khachhang kh, string NhapLai)
+        public ActionResult _SignUp(NguoiDung kh, string NhapLai)
         {
             if (ModelState.IsValid)
             {
-                var check = db.khachhangs.FirstOrDefault(s => s.TenDn == kh.TenDn);
+                var check = db.NguoiDungs.FirstOrDefault(s => s.TenDangNhap == kh.TenDangNhap);
                 if (check == null)
                 {
-                    kh.Mk = GetMD5(kh.Mk);
-                    if (kh.Mk == GetMD5(NhapLai))
+                    kh.MatKhau = GetMD5(kh.MatKhau);
+                    if (kh.MatKhau == GetMD5(NhapLai))
                     {
 
                         kh.Code = GenerateVerificationCode();
                         db.Configuration.ValidateOnSaveEnabled = false;
-                        db.khachhangs.Add(kh).IDGroup = 2;
+                        db.NguoiDungs.Add(kh).MaPhanQuyen = 2;
                         db.SaveChanges();
                         if (XacNhanGmail("", "", kh.Gmail, "", "", kh.Code) == true)
                         {
-                            Session["MaKh"] = kh.MaKh;
+                            Session["MaNguoiDung"] = kh.MaNguoiDung;
                             return Redirect("~/Admin/Account/SignUpp#XnGmail");
                         }
                         else
@@ -174,7 +178,7 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                     WebMsgBox.Show("Tên đăng nhập này đã tồn tại", this);
                     return Redirect("~/Admin/Account/SignUpp");
                 }
-                
+
             }
             return Redirect("~/Admin/Account/SignUpp");
         }
@@ -183,20 +187,20 @@ namespace Jade_Dragon.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult XacNhan(string Code, long MaKH)
         {
-          if (Request.Cookies["Code"] != null)
+            if (Request.Cookies["Code"] != null)
             {
                 Code = Request.Cookies["Code"].Value;
                 MaKH = long.Parse(Request.Cookies["MaKH"].Value);
             }
-            khachhang KhachHang = db.khachhangs.Find(MaKH);
-            if (db.khachhangs.Where(m => m.Code == Code).Count() > 0)
+            NguoiDung KhachHang = db.NguoiDungs.Find(MaKH);
+            if (db.NguoiDungs.Where(m => m.Code == Code).Count() > 0)
             {
                 KhachHang.DaXacMinh = true;
                 db.SaveChanges();
                 return Redirect("~/trangchu/trangchu");
             }
-            else 
-            return Redirect("~/Admin/Account/SignUpp#XnGmail");
+            else
+                return Redirect("~/Admin/Account/SignUpp#XnGmail");
         }
 
         public ActionResult QuenPassword()
@@ -208,14 +212,15 @@ namespace Jade_Dragon.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult QuenPasswordd(string hoten, string tendn, string gmail)
         {
-            if(string.IsNullOrEmpty(hoten) || string.IsNullOrEmpty(tendn) || string.IsNullOrEmpty(gmail)) {
+            if (string.IsNullOrEmpty(hoten) || string.IsNullOrEmpty(tendn) || string.IsNullOrEmpty(gmail))
+            {
                 return Redirect("QuenPassword");
             }
             else
             {
                 string code = GenerateVerificationCode();
-                khachhang kh = db.khachhangs.FirstOrDefault(a => a.TenDn == tendn);
-                if(db.khachhangs.Where(m => m.HoTen ==  hoten && m.TenDn == tendn && m.Gmail == gmail ).Count() > 0)
+                NguoiDung kh = db.NguoiDungs.FirstOrDefault(a => a.TenDangNhap == tendn);
+                if (db.NguoiDungs.Where(m => m.HoTen == hoten && m.TenDangNhap == tendn && m.Gmail == gmail).Count() > 0)
                 {
                     kh.Code = code;
                     XacNhanGmail(hoten, "", gmail, "", "", code);
@@ -245,10 +250,10 @@ namespace Jade_Dragon.Areas.Admin.Controllers
             }
             else
             {
-                khachhang kh = db.khachhangs.FirstOrDefault(m => m.Code == ma);
+                NguoiDung kh = db.NguoiDungs.FirstOrDefault(m => m.Code == ma);
                 if (NewPass == NewPass2)
                 {
-                    kh.Mk = GetMD5(NewPass);
+                    kh.MatKhau = GetMD5(NewPass);
                     db.SaveChanges();
                     return Redirect("Login");
                 }
@@ -280,8 +285,6 @@ namespace Jade_Dragon.Areas.Admin.Controllers
         {
 
             Session.Clear();
-
-
 
             if (Request.Cookies["TenKh"] != null && Request.Cookies["Mk"] != null)
             {

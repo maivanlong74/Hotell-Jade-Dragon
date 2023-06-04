@@ -1,4 +1,4 @@
-﻿@model Jade_Dragon.Models.khachsan
+﻿@model Jade_Dragon.Models.Ht_KhachSan
 
 @{
     ViewBag.Title = "EditManage";
@@ -14,7 +14,7 @@
 <div class="home">
     <div class="body" id="body">
         <h1 style="color: wheat; font-weight: 700; margin-left: 140px; padding-top: 40px;">
-            Khách sạn @Session["TenKhachSan"]
+            Khách sạn @Model.ks.TenKhachSan
         </h1>
         <div class="Content" style="margin-top: 80px;">
 
@@ -25,7 +25,7 @@
             {
                 @Html.AntiForgeryToken()
 
-                if (Model.AnhKs == null)
+                if (Model.anhks.Count() == 0)
                 {
                     <div class="Avt" style="margin-top: 0px;">
                         <div class="khuvuc">
@@ -33,18 +33,26 @@
                         </div>
                     </div>
                 }
-                else if (Model.AnhKs != null)
+                else
                 {
-                    <div style="display: grid;" class="xoa">
-                        <img class="Avt" src="~/UpLoad_Img/KhachSan/@Model.AnhKs" style="margin-top: 0px;" />
-                        <a href="@Url.Action("XoaAnhManage", "QLKhachSan", new {ks = Model.MaKhachSan})" class="button-xoa">Xóa ảnh</a>
+                    <div class="Avt Zoom" style="margin-top: 0px;">
+                        <div class="List-anh">
+                            @foreach (var anh in Model.anhks)
+                            {
+                                <div class="anh-item">
+                                    <div class="Close-anh" title="Xóa ảnh">
+                                        <a href="@Url.Action("XoaAnhManage", "QLKhachSan", new {maks = Model.ks.MaKhachSan, maanh = anh.MaAnhKhachSan})"><img src="~/Style/img/icon/icon-X.jpg" /></a>
+                                    </div>
+                                    <img src="~/UpLoad_Img/KhachSan/@anh.LinkAnhKhachSan" />
+                                </div>
+                            }
+                        </div>
                     </div>
                 }
 
         <div class="Info">
             <div class="one">
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                @Html.HiddenFor(model => model.MaKhachSan)
+                <input type="hidden" name="MaKhachSan" value="@Model.ks.MaKhachSan" />
             </div>
             <div class="tenkh one">
                 <label for="">Avt: </label>
@@ -56,22 +64,22 @@
                     <div class="label">
                         <label for="">Tên Khách sạn: </label>
                     </div>
-                    @Html.EditorFor(model => model.TenKhachSan, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.TenKhachSan, "", new { @class = "text-danger" })
+                    <input type="text" name="TenKhachSan" value="@Model.ks.TenKhachSan" />
                 </div>
                 <div class="one">
                     <div class="label">
                         <label for="">Số điện thoại: </label>
                     </div>
-                    @Html.EditorFor(model => model.SoDienThoai, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.SoDienThoai, "", new { @class = "text-danger" })
+                    <input type="text" name="SoDienThoai" value="@Model.ks.SoDienThoai" />
                 </div>
                 <div class="one">
                     <div class="label">
                         <label>Trạng thái khách sạn</label>
                     </div>
-                    @Html.EditorFor(model => model.TrangThaiKs)
-                    @Html.ValidationMessageFor(model => model.TrangThaiKs, "", new { @class = "text-danger" })
+                    <select name="TrangThaiKs">
+                        <option value="true">Còn phòng</option>
+                        <option value="false">Hết phòng</option>
+                    </select>
                 </div>
             </div>
             <div style="display:flex;">
@@ -79,15 +87,13 @@
                     <div class="label">
                         <label for="">Gmail: </label>
                     </div>
-                    @Html.EditorFor(model => model.Gmail, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Gmail, "", new { @class = "text-danger" })
+                    <input type="text" name="Gmail" value="@Model.ks.Gmail" />
                 </div>
                 <div class="one">
                     <div class="label">
                         <label for="">Địa chỉ: </label>
                     </div>
-                    @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control", @id = "DiaChi" } })
-                    @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
+                    <input type="text" name="DiaChi" value="@Model.ks.DiaChi" id="DiaChi" />
                 </div>
             </div>
             <div style="display:flex;">
@@ -95,30 +101,29 @@
                     <div class="label">
                         <label for="">Giá: </label>
                     </div>
-                    @Html.EditorFor(model => model.Gia, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Gia, "", new { @class = "text-danger" })
+                    <input type="text" name="Gia" value="@Model.ks.Gia" />
                 </div>
                 <div class="one">
                     <div class="label">
                         <label for="">Khu vực: </label>
                     </div>
-                    <input type="text" id="KhuVuc" value="@Model.khuvuc.TenKhuVuc" name="TenKhuVuc" readonly required>`;
+                    <input type="text" id="KhuVuc" value="@Model.ks.KhuVuc.TenKhuVuc" name="TenKhuVuc" readonly required>`;
                 </div>
             </div>
             <div class="one">
                 <input type="submit" class="save two" value="Save">
             </div>
-            <a href="@Url.Action("PhongManage", "PhongManage", new { MaKS = HttpUtility.UrlEncode(Model.MaKhachSan.ToString()), TenKS = HttpUtility.UrlEncode(Model.TenKhachSan) })" class="two three">
+            <a href="@Url.Action("DanhSachPhong", "PhongManage", new { MaKS = Model.ks.MaKhachSan})" class="two three">
                 Chi tiết phòng
             </a>
             <div class="one" id="result">
-                <input type="hidden" value="@Model.KinhDo" name="KinhDo" readonly required>
-                <input type="hidden" value="@Model.ViDo" name="ViDo" readonly required>
+                <input type="hidden" value="@Model.ks.KinhDo" name="KinhDo" readonly required>
+                <input type="hidden" value="@Model.ks.ViDo" name="ViDo" readonly required>
             </div>
         </div>
             }
             <div>
-                <a href="@Url.Action("DeleteManage", "QLKhachSan",  new { id = Model.MaKhachSan })" class="out two" style=" margin-left: 385px; margin-top: -20px; ">
+                <a href="@Url.Action("DeleteManage", "QLKhachSan",  new { id = Model.ks.MaKhachSan })" class="out two" style=" margin-left: 385px; margin-top: -20px; ">
                     Xóa khách sạn
                 </a>
 
@@ -149,13 +154,13 @@
 <script>
     var hotels = [
         {
-            maks: '@Model.MaKhachSan',
-            name: "@Model.TenKhachSan",
-            address: "@Model.DiaChi",
-            phone: '@Model.SoDienThoai',
-            gmail: '@Model.Gmail',
-            moeny: '@Model.Gia',
-            coordinates: [@Model.KinhDo, @Model.ViDo]
+            maks: '@Model.ks.MaKhachSan',
+            name: "@Model.ks.TenKhachSan",
+            address: "@Model.ks.DiaChi",
+            phone: '@Model.ks.SoDienThoai',
+            gmail: '@Model.ks.Gmail',
+            moeny: '@Model.ks.Gia',
+            coordinates: [@Model.ks.KinhDo, @Model.ks.ViDo]
         }
     ];
 </script>

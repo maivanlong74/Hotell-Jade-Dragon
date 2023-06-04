@@ -1,4 +1,4 @@
-﻿@model Jade_Dragon.Models.khachhang
+﻿@model Jade_Dragon.Models.NguoiDung
 
 @{
     ViewBag.Title = "Details";
@@ -7,7 +7,7 @@
 
 <div class="home">
     <div class="body">
-        
+
         <div class="Content">
             <h1 style=" color: aliceblue; padding-bottom: 63px; margin-left: -110px; margin-top: -30px;">
                 Thông tin khách hàng @Html.DisplayFor(model => model.HoTen)
@@ -33,10 +33,10 @@
                     </div>
                 }
 
-                <div class="Info">
+                <div class="Info" style="margin-left: 60vh;">
                     <div class="makh one">
                         <label for="">Mã Khách Hàng: </label>
-                        <span>@Html.DisplayFor(model => model.MaKh)</span>
+                        <span>@Html.DisplayFor(model => model.MaNguoiDung)</span>
                     </div>
                     <div class="tenkh one">
                         <label for="">Tên Khách Hàng: </label> <span>@Html.DisplayFor(model => model.HoTen)</span>
@@ -52,16 +52,16 @@
                     </div>
                     <div class="tendn one">
                         <label for="">Tên đăng nhập: </label>
-                        <span>@Html.DisplayFor(model => model.TenDn)</span>
+                        <span>@Html.DisplayFor(model => model.TenDangNhap)</span>
                     </div>
                     <div class="matkhau one">
                         <label for="">Mật khẩu</label>
-                        <span>@Html.DisplayFor(model => model.Mk)</span>
+                        <span>@Html.DisplayFor(model => model.MatKhau)</span>
                     </div>
                 </div>
             </form>
             <div class="button" style="margin-left: 126px; display: flex; margin-top: -40px;">
-                <a href="@Url.Action("Edit", "QLKhachHang", new { id = Model.MaKh })" class="out two">Chỉnh sửa</a>
+                <a href="@Url.Action("Edit", "QLKhachHang", new { id = Model.MaNguoiDung })" class="out two">Chỉnh sửa</a>
                 <a href="@Url.Action("QuanLyKh", "QLKhachHang")" class="out two">Quay về trang khách hàng</a>
             </div>
         </div>

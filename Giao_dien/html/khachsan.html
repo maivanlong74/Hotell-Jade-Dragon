@@ -1,390 +1,514 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TRANG CHỦ</title>
-    <link rel="stylesheet" href="/Style/css/layout/modal.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script
+      src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="/Style/css/layout/one.css">
     <link rel="stylesheet" href="/Style/css/layout/two.css">
     <link rel="stylesheet" href="/Style/css/html/trangchu.css">
-    <link rel="stylesheet" href="/Style/css/html/khachsan.css">
-</head>
-<body>
+    <link rel="stylesheet" href="/css/Search.css">
+    <link rel="stylesheet" href="/css/ks.css">
+    <link rel="stylesheet" href="/css/danhgia.css">
+
+    <link rel="stylesheet" href="/CuonAnh/owl/owl.carousel.min.css">
+    <link rel="stylesheet" href="/CuonAnh/owl/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/CuonAnh/css/css.css">
+
+  </head>
+  <body>
     <header class="header"></header>
-          <div class="home">
-            <div class="home__background"></div>
-            <div class="grid wide">
-              <div class="row">
-                <div class="home__container__slider">
-                  
-                    <div class="search">
-                        <div class="grid wide">  
-                          <div class="search__container">
-                            <div class="row">
-                              <div class="search__container--item l-4 m-6 c-12 check">
-                                <div>
-                                  <span>Điểm đến</span>
-                                </div>
-                                <div class="khuvuc">
-                                  <select name="" id="">
-                                    <option value="">An Cựu</option>
-                                    <option value="">Hà Nội</option>
-                                    <option value="">Duy Tân</option>
-                                    <option value="">Nguyễn Huệ</option>
-                                    <option value="">Duy Tân</option>
-                                  </select>
-                                </div>
-                              </div>
-                              <div class="search__container--item l-2 m-6 c-12">
-                                <div>
-                                  <span>Ngày nhận phòng</span>
-                                </div>
-                                <input type="date" placeholder="DD-MM-YYYY" />
-                              </div>
-                              <div class="search__container--item l-2 m-6 c-12">
-                                <div>
-                                  <span>Ngày trả phòng</span>
-                                </div>
-                                <input type="date" placeholder="DD-MM-YYYY" />
-                              </div>
-                              <div class="search__container--item l-1 m-3 c-6">
-                                <div>
-                                  <span>Người lớn</span>
-                                </div>
-                                <select name="" id="">
-                                  <option>01</option>
-                                  <option>02</option>
-                                  <option>03</option>
-                                </select>
-                              </div>
-                              <div class="search__container--item l-1 m-3 c-6">
-                                <div>
-                                  <span>Trẻ em</span>
-                                </div>
-                                <select name="" id="">
-                                  <option>0</option>
-                                  <option>01</option>
-                                  <option>02</option>
-                                </select>
-                              </div>
-                              <div class="search__container--btn l-2 m-4 c-4">
-                                <a href="#">Tìm kiếm</a>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                              </div>
-                            </div>
+    <div class="home">
+      <div class="home__background">
+        <div class="grid wide">
+          <div class="row">
+            <div class="home__container__slider">
+              <div class="search">
+                <div class="grid wide">
+                  <div class="search__container">
+                    <div class="row">
+
+                      <!-- ------------------ -->
+                      <h1>
+                        Jade Dragon sẽ mang đến cho bạn một trải nghiệm tuyệt
+                        vời
+                      </h1>
+                      <!-- Tìm kiếm -->
+                      <div class="timkiem">
+                        <form method="get" action
+                          class="header-search hide-on-mb">
+                          <div class="header-search__input-wrap">
+                            <input type="text" class="header-search__input"
+                              placeholder="Search..." name="searchTerm">
                           </div>
-                        </div>
-                      </div>
-                    
-                      <div class="tour">
-                        <div class="grid wide">
-                          <div class="tour__container">
-                            <div class="tour__container__items">
-                              <div class="row">
-                                <div class="col l-4 m-12 c-12">
-                                  <div class="tour__container__item">
-                                    <div class="item__overlay"></div>
-                                    <div class="item__background" style="
-                                          background-image: url(/Style/img/ks3.jpg);
-                                        "></div>
-                                    <div class="item__content">
-                                      <span class="item_date">77 Nguyễn Huệ</span>
-                                      <div class="item_center">
-                                        <h1>Mauritius</h1>
-                                        <div class="item_price">From $1450</div>
-                                        <div class="item_rating">
-                                          <i class="fa fa-star"></i>
-                                          <i class="fa fa-star"></i>
-                                          <i class="fa fa-star"></i>
-                                          <i class="fa fa-star"></i>
-                                          <i class="fa fa-star"></i>
-                                        </div>
-                                        <div class="tour__item--btn">
-                                          <div class="tour__btn__bgc"></div>
-                                          <a href="datphong.html">Đặt phòng
-                                            <span></span>
-                                            <span></span>
-                                            <span></span>
-                                          </a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col l-4 m-12 c-12">
-                                  <div class="tour__container__item">
-                                    <div class="item__overlay"></div>
-                                    <div class="item__background" style="
-                                          background-image: url(/Style/img/ks2.jpg);
-                                        "></div>
-                                    <div class="item__content">
-                                      <span class="item_date">79 Duy Tân</span>
-                                      <div class="item_center">
-                                        <h1>Greece</h1>
-                                        <div class="item_price">From $1450</div>
-                                        <div class="item_rating">
-                                          <i class="fa fa-star"></i>
-                                          <i class="fa fa-star"></i>
-                                          <i class="fa fa-star"></i>
-                                          <i class="fa fa-star"></i>
-                                          <i class="fa fa-star"></i>
-                                        </div>
-                                        <div class="tour__item--btn">
-                                          <div class="tour__btn__bgc"></div>
-                                          <a href="datphong.html">Đặt phòng
-                                            <span></span>
-                                            <span></span>
-                                            <span></span>
-                                          </a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col l-4 m-12 c-12">
-                                  <div class="tour__container__item">
-                                    <div class="item__overlay"></div>
-                                    <div class="item__background" style="
-                                          background-image: url(/Style/img/ks.jpg);
-                                        "></div>
-                                    <div class="item__content">
-                                      <span class="item_date">33 Hùng Vương</span>
-                                      <div class="item_center">
-                                        <h1>Scotland</h1>
-                                        <div class="item_price">From $1450</div>
-                                        <div class="item_rating">
-                                          <i class="fa fa-star"></i>
-                                          <i class="fa fa-star"></i>
-                                          <i class="fa fa-star"></i>
-                                          <i class="fa fa-star"></i>
-                                          <i class="fa fa-star"></i>
-                                        </div>
-                                        <div class="tour__item--btn">
-                                          <div class="tour__btn__bgc"></div>
-                                          <a href="datphong.html">Đặt phòng
-                                            <span></span>
-                                            <span></span>
-                                            <span></span>
-                                          </a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col l-4 m-12 c-12">
-                                    <div class="tour__container__item">
-                                      <div class="item__overlay"></div>
-                                      <div class="item__background" style="
-                                            background-image: url(/Style/img/ks3.jpg);
-                                          "></div>
-                                      <div class="item__content">
-                                        <span class="item_date">77 Nguyễn Huệ</span>
-                                        <div class="item_center">
-                                          <h1>Mauritius</h1>
-                                          <div class="item_price">From $1450</div>
-                                          <div class="item_rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                          </div>
-                                          <div class="tour__item--btn">
-                                            <div class="tour__btn__bgc"></div>
-                                            <a href="datphong.html">Đặt phòng
-                                              <span></span>
-                                              <span></span>
-                                              <span></span>
-                                            </a>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="col l-4 m-12 c-12">
-                                    <div class="tour__container__item">
-                                      <div class="item__overlay"></div>
-                                      <div class="item__background" style="
-                                            background-image: url(/Style/img/ks2.jpg);
-                                          "></div>
-                                      <div class="item__content">
-                                        <span class="item_date">79 Duy Tân</span>
-                                        <div class="item_center">
-                                          <h1>Greece</h1>
-                                          <div class="item_price">From $1450</div>
-                                          <div class="item_rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                          </div>
-                                          <div class="tour__item--btn">
-                                            <div class="tour__btn__bgc"></div>
-                                            <a href="datphong.html">Đặt phòng
-                                              <span></span>
-                                              <span></span>
-                                              <span></span>
-                                            </a>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="col l-4 m-12 c-12">
-                                    <div class="tour__container__item">
-                                      <div class="item__overlay"></div>
-                                      <div class="item__background" style="
-                                            background-image: url(/Style/img/ks.jpg);
-                                          "></div>
-                                      <div class="item__content">
-                                        <span class="item_date">33 Hùng Vương</span>
-                                        <div class="item_center">
-                                          <h1>Scotland</h1>
-                                          <div class="item_price">From $1450</div>
-                                          <div class="item_rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                          </div>
-                                          <div class="tour__item--btn">
-                                            <div class="tour__btn__bgc"></div>
-                                            <a href="datphong.html">Đặt phòng
-                                              <span></span>
-                                              <span></span>
-                                              <span></span>
-                                            </a>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="col l-4 m-12 c-12">
-                                    <div class="tour__container__item">
-                                      <div class="item__overlay"></div>
-                                      <div class="item__background" style="
-                                            background-image: url(/Style/img/ks3.jpg);
-                                          "></div>
-                                      <div class="item__content">
-                                        <span class="item_date">77 Nguyễn Huệ</span>
-                                        <div class="item_center">
-                                          <h1>Mauritius</h1>
-                                          <div class="item_price">From $1450</div>
-                                          <div class="item_rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                          </div>
-                                          <div class="tour__item--btn">
-                                            <div class="tour__btn__bgc"></div>
-                                            <a href="datphong.html">Đặt phòng
-                                              <span></span>
-                                              <span></span>
-                                              <span></span>
-                                            </a>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="col l-4 m-12 c-12">
-                                    <div class="tour__container__item">
-                                      <div class="item__overlay"></div>
-                                      <div class="item__background" style="
-                                            background-image: url(/Style/img/ks2.jpg);
-                                          "></div>
-                                      <div class="item__content">
-                                        <span class="item_date">79 Duy Tân</span>
-                                        <div class="item_center">
-                                          <h1>Greece</h1>
-                                          <div class="item_price">From $1450</div>
-                                          <div class="item_rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                          </div>
-                                          <div class="tour__item--btn">
-                                            <div class="tour__btn__bgc"></div>
-                                            <a href="datphong.html">Đặt phòng
-                                              <span></span>
-                                              <span></span>
-                                              <span></span>
-                                            </a>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="col l-4 m-12 c-12">
-                                    <div class="tour__container__item">
-                                      <div class="item__overlay"></div>
-                                      <div class="item__background" style="
-                                            background-image: url(/Style/img/ks.jpg);
-                                          "></div>
-                                      <div class="item__content">
-                                        <span class="item_date">33 Hùng Vương</span>
-                                        <div class="item_center">
-                                          <h1>Scotland</h1>
-                                          <div class="item_price">From $1450</div>
-                                          <div class="item_rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                          </div>
-                                          <div class="tour__item--btn">
-                                            <div class="tour__btn__bgc"></div>
-                                            <a href="datphong.html">Đặt phòng
-                                              <span></span>
-                                              <span></span>
-                                              <span></span>
-                                            </a>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                              </div>
-                              <div class="number">
-                                <div class="listnumber">
-                                    <a href="">1</a>
-                                    <a href="">2</a>
-                                    <a href="">3</a>
-                                    <a href="">4</a>
-                                </div>
-                              </div>
-                            </div>
+
+                          <div class="Search Search-phong">
+                            <select name="searchType" class="select-list">
+                              <option value="all">Tất cả</option>
+                              <option value="khachsan">Tên khách sạn</option>
+                              <option value="name">Tên phòng</option>
+                              <option value="gia">Giá</option>
+                            </select>
                           </div>
-                        </div>
+                          <div class="header-search__btn">
+                            <button type="submit">
+                              <i class="header-search__btn-icon fas fa-search"></i>
+                            </button>
+                          </div>
+                        </form>
                       </div>
 
+                      <!-- DateTime -->
+                      <form action method="post" class="DateTime"> <div
+                          class="search-time">
+                          <input type="datetime-local" name="batdau" required
+                            min="@ViewBag.time_now" max="@ViewBag.time_max" />
+                          <br />
+                          <input type="hidden" name="ma" value="@ViewBag.ma" />
+                          <label>Ngày đến</label>
+                        </div>
+                        <div class="search-time">
+                          <input type="datetime-local" name="ketthuc" required
+                            min max />
+                          <br />
+                          <input type="hidden" name="ma" value />
+                          <label>Ngày trả</label>
+                        </div>
+                        <div class="search-time">
+                          <button type="submit">Cập nhật</button> <br />
+                          <a href class="button">Quay về ngày hôm nay</a>
+                        </div>
+                      </form>
+                    </div>
+                    <!--------------------->
+                  </div>
                 </div>
               </div>
+              <div class="Content" id="danhmucsp">
+                <div class="menu">
+                  <div class="menu-top">
+
+                    <div class="menu-top-a">
+                      <div class="avt-img">
+                        <img src="/Style/img/avt/logo.jpg" />
+                      </div>
+                      <i
+                        style=" font-size: 20px; display: block; padding-top: 6px;">
+                        <a href>Đăng nhập</a>
+                        <a>/</a>
+                        <a href>Đăng ký tài khoản</a>
+                      </i>
+                    </div>
+                  </div>
+                  <div class="list-menu">
+                    <ul>
+
+                      <li class="top-menu">
+                        <a class="menu-item item--a"
+                          style="border-right: 2px solid;">
+                          <img src="/Style/img/icon/icon-Cart.jpg"
+                            title="Giỏ Hàng" /> <i style="color: white;">(0)</i>
+                        </a>
+                        <a class="menu-item item--b" href><img
+                            src="/Style/img/icon/icon-ls.jpg" title="Lịch sử" /></a>
+                      </li>
+                      <li>
+                        <a href class="all">Tất cả</a>
+                      </li>
+                      <li>
+                        <span>Khách sạn</span>
+                        <i class="header-search__select-icon fas fa-angle-down"></i>
+                        <ul class="list list-ks">
+                          <li><a href>Khách sạn Abc</a></li>
+                        </ul>
+                      </li>
+                      <li>
+                        <span>Loại hình</span>
+                        <i class="header-search__select-icon fas fa-angle-down"></i>
+                        <ul class="list">
+                          <li><a href>Loai A</a></li>
+                        </ul>
+                      </li>
+                      <li>
+                        <span>Giá</span>
+                        <i class="header-search__select-icon fas fa-angle-down"></i>
+                        <ul class="list">
+                          <li><a href>300000</a></li>
+                        </ul>
+                      </li>
+                      <li>
+                        <span>VIP</span>
+                        <i class="header-search__select-icon fas fa-angle-down"></i>
+                        <ul class="list">
+                          <li><a href>VIP</a></li>
+                          <li><a href>Thường</a></li>
+                        </ul>
+                      </li>
+                      <li>
+                        <span>Trạng thái</span>
+                        <i class="header-search__select-icon fas fa-angle-down"></i>
+                        <ul class="list">
+                          <li><a href>Còn trống</a></li>
+                          <li><a href>Đã có khách</a></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </div>
+
+                </div>
+                <div class="Content-body">
+                  <div class="info_khachsan">
+                    <div class="ks-thanhcuon">
+                      <section class="slider owl-carousel owl-theme">
+                        <div class="slider-item slider-item-one"></div>
+                        <div class="slider-item slider-item-two"></div>
+                        <div class="slider-item slider-item-three"></div>
+                      </section>
+                      <div class="info-kss">
+                        <div class="name-ks">
+                          <h1>Khách sạn Abc</h1>
+                        </div>
+                        <div style="display: flex; margin-top: 30px;">
+                          <div class="info-ks-item">
+                            <p>Dịa chỉ 79 Duy Tân</p>
+                            <p>Số điện thoại: 01673213087</p>
+                            <p>Gmail longmai143@gmail.com</p>
+  
+                            <form action="" method="post" id="form-danhgia">
+                              <div class="rating">
+                                  <span class="star" data-rating="1">&#9733;</span>
+                                  <span class="star" data-rating="2">&#9733;</span>
+                                  <span class="star" data-rating="3">&#9733;</span>
+                                  <span class="star" data-rating="4">&#9733;</span>
+                                  <span class="star" data-rating="5">&#9733;</span>
+                                  <input type="hidden" name="rating" class="rating-value" value="">
+                              </div>
+                              <button type="submit" class="button-danhgia">Đánh giá</button>
+                          </form>
+                          </div>
+
+                          <div class="thongke-sao">
+                            <div class="tongsao"><span>Tổng <span class="rating-count">0</span>lượt đánh giá</span></div>
+                            <div class="stars">
+                                <div class="sosao">
+                                    <span>1 sao</span>
+                                    <div class="thuoc-sao"><div class="star star-a"></div></div>
+                                    <span class="dem"></span>
+                                </div>
+                                <div class="sosao">
+                                    <span>2 sao</span>
+                                    <div class="thuoc-sao"><div class="star star-b"></div></div>
+                                    <span class="dem"></span>
+                                </div>
+                                <div class="sosao">
+                                    <span>3 sao</span>
+                                    <div class="thuoc-sao"><div class="star star-c"></div></div>
+                                    <span class="dem"></span>
+                                </div>
+                                <div class="sosao">
+                                    <span>4 sao</span>
+                                    <div class="thuoc-sao"><div class="star star-d"></div></div>
+                                    <span class="dem"></span>
+                                </div>
+                                <div class="sosao">
+                                    <span>5 sao</span>
+                                    <div class="thuoc-sao"><div class="star star-e"></div></div>
+                                    <span class="dem"></span>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="info_phong">
+                    <div class="name-phong">
+                      <h1>Thông tin phòng</h1>
+                    </div>
+                    <div class="tour" style="margin-top: 0px;">
+                      <div class="grid wide" style="margin-top: -80px;">
+                        <div class="tour__container">
+                          <div class="tour__container__items">
+                            <div class="pagination">
+                              <button onclick="previousPage()" class="phong-lui">Previous</button>
+                              <span id="currentPage" style="margin-left: 10px; color: white;"></span>
+                              <span>/</span>
+                              <span id="totalPages" style="color: white;"></span>
+                              <button onclick="nextPage()" class="phong-tien">Next</button>
+                            </div>
+                            <div class="row" id="listPhong">
+
+                              <div class="col l-4 m-12 c-12">
+                                <div class="tour__container__item">
+                                  <div class="item__overlay"></div>
+                                  <div class="item__background"></div>
+                                  <div class="item__content">
+                                    <span class="item_date">Khách sạn Abc</span>
+                                    <div class="item_center">
+                                      <p style="font-size: 55px;">B102</p>
+                                      <div class="item_price">Giá: 300000</div>
+                                      <i>Còn phòng</i>
+                                      <div class="tour__item--btn">
+                                        <div class="tour__btn__bgc"></div>
+                                        <a href>
+                                          Đặt phòng
+                                          <span></span>
+                                          <span></span>
+                                          <span></span>
+                                        </a>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="anhphongks">
+                                <div class="close-anh"><button>Tắt</button></div>
+                                <div class="list_anhphong">
+                                  <div class="anhphong-item"><img src="/CuonAnh/img/a1.jpg" alt=""></div>
+                                  <div class="anhphong-item"><img src="/CuonAnh/img/a2.jpg" alt=""></div>
+                                  <div class="anhphong-item"><img src="/CuonAnh/img/a3.jpg" alt=""></div>
+                                </div>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="danhgia_ks">
+                    <div class="binhluan">
+                      <form action="~/nhanxet/Create" method="post" class="cmt">
+                        <input type="text" placeholder="Mời bạn nhận xét" name="NoiDung" class="noidung-cmt">
+                        <input type="hidden" value="" name="MaKh" id="MaKh" />
+                        <button type="submit" class="button-cmt">Gửi</button>
+                      </form>
+                    </div>
+                    <div class="list-binhluan">
+                      <div class="phantrang-cmt">
+                        <button onclick="LuiTrang()" class="cmt-lui">Previous</button>
+                        <span id="TrangSau" style="margin-left: 10px; color: white;"></span>
+                        <span>/</span>
+                        <span id="TrangTruoc" style="color: white;"></span>
+                        <button onclick="TienTrang()" class="cmt-tien">Next</button>
+                      </div>
+
+                      <div class="ht-cmt">
+
+                        <div class="ht-cmt-item">
+                          <i>Long</i>
+                          <span>Hhahahah, abc dfff ffss sss ssss ssss ss ssss ssssss ssss ssss </span>
+                        </div> 
+                        <div class="ht-cmt-item">
+                          <i>Long</i>
+                          <span>Hhahahah, abc dfffff</span>
+                        </div>
+                        <div class="ht-cmt-item">
+                          <i>Long</i>
+                          <span>Hhahahah, abc dfffff</span>
+                        </div>
+                        <div class="ht-cmt-item">
+                          <i>Long</i>
+                          <span>Hhahahah, abc dfffff</span>
+                        </div>
+                        <div class="ht-cmt-item">
+                          <i>Long</i>
+                          <span>Hhahahah, abc dfffff</span>
+                        </div>
+                        <div class="ht-cmt-item">
+                          <i>Long</i>
+                          <span>Hhahahah, abc dfffff</span>
+                        </div>
+                        <div class="ht-cmt-item">
+                          <i>Long</i>
+                          <span>Hhahahah, abc dfffff</span>
+                        </div>
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
-    <nav class="nav"></nav>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="/CuonAnh/owl/owl.carousel.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".owl-carousel").owlCarousel();
+          });
+        $('.owl-carousel').owlCarousel({
+            loop: true,
+            margin: 10,
+            nav: true,
+            autoplay: true,
+            autoplayTimeout: 5000,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 1
+                },
+                1000: {
+                    items: 1
+                }
+            }
+        })
+  </script>
+    <script>
+      window.addEventListener('load', function () {
+          var danhmucsp = document.getElementById('danhmucsp');
+          danhmucsp.scrollIntoView({ behavior: 'smooth' });
+      });
+  </script>
     <footer class="footer"></footer>
     <script src="/layout/header.js"></script>
     <script src="/layout/footer.js"></script>
-    <script src="/layout/nav.js"></script>
-    <script src="/Style/js/main.js"></script>
-</body>
+
+    <script>
+      var currentPage = 1;
+      var itemsPerPage = 6;
+      var totalItems = document.querySelectorAll('.col').length;
+      var totalPages = Math.ceil(totalItems / itemsPerPage);
+      
+      function showItems() {
+        var items = document.querySelectorAll('.col');
+        var startIndex = (currentPage - 1) * itemsPerPage;
+        var endIndex = startIndex + itemsPerPage;
+      
+        for (var i = 0; i < items.length; i++) {
+          if (i >= startIndex && i < endIndex) {
+            items[i].style.display = 'block';
+          } else {
+            items[i].style.display = 'none';
+          }
+        }
+      
+        document.getElementById('currentPage').textContent = currentPage;
+        document.getElementById('totalPages').textContent = totalPages;
+      }
+      
+      function nextPage() {
+        if (currentPage < totalPages) {
+          currentPage++;
+          showItems();
+        }
+      }
+      
+      function previousPage() {
+        if (currentPage > 1) {
+          currentPage--;
+          showItems();
+        }
+      }
+      
+      showItems();  
+    </script>
+    <script>
+      const ratings = document.querySelectorAll('.rating');
+      ratings.forEach(rating => {
+          const stars = rating.querySelectorAll('.star');
+          const ratingValue = rating.querySelector('.rating-value');
+          const initialRating = parseInt(ratingValue.value);
+          let hasConfirmed = false; // Trạng thái xác nhận
+
+          if (!isNaN(initialRating) && initialRating >= 1 && initialRating <= 5) {
+              stars.forEach((star, index) => {
+                  if (index < initialRating) {
+                      star.classList.add('rated');
+                  }
+              });
+          }
+          stars.forEach(star => {
+              star.addEventListener('click', function() {
+                  const selectedRating = this.dataset.rating;
+                  ratingValue.value = selectedRating;
+
+                  stars.forEach(s => {
+                      if (s.dataset.rating <= selectedRating) {
+                          s.classList.add('rated');
+                      } else {
+                          s.classList.remove('rated');
+                      }
+                  });
+              });
+          });
+
+          const form = rating.closest('form');
+          form.addEventListener('submit', function(event) {
+              if (!hasConfirmed && initialRating !== parseInt(ratingValue.value)) {
+                  event.preventDefault(); // Ngăn chặn gửi form mặc định
+
+                  const confirmDialog = confirm("Bạn có chắc sẽ đánh giá " + ratingValue.value + " sao. Nếu đánh giá, bạn sẽ không được đánh giá lại nữa.");
+
+                  if (confirmDialog) {
+                      hasConfirmed = true;
+                      form.submit(); // Gửi form sau khi xác nhận
+                  }
+              }
+          });
+      });
+    </script>
+    <script>
+      var currentPage = 1;
+      var itemsPerPage = 6;
+      var totalItems = document.querySelectorAll('.ht-cmt-item').length;
+      var totalPages = Math.ceil(totalItems / itemsPerPage);
+
+      function showItems() {
+        var items = document.querySelectorAll('.ht-cmt-item');
+        var startIndex = (currentPage - 1) * itemsPerPage;
+        var endIndex = startIndex + itemsPerPage;
+
+        for (var i = 0; i < items.length; i++) {
+          if (i >= startIndex && i < endIndex) {
+            items[i].style.display = 'block';
+          } else {
+            items[i].style.display = 'none';
+          }
+        }
+
+        document.getElementById('TrangSau').textContent = currentPage;
+        document.getElementById('TrangTruoc').textContent = totalPages;
+      }
+
+      function TienTrang() {
+        if (currentPage < totalPages) {
+          currentPage++;
+          showItems();
+        }
+      }
+
+      function LuiTrang() {
+        if (currentPage > 1) {
+          currentPage--;
+          showItems();
+        }
+      }
+      showItems();
+    </script>
+  </body>
 </html>

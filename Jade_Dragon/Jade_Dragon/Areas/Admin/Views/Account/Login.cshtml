@@ -1,4 +1,4 @@
-﻿@model Jade_Dragon.Models.khachhang
+﻿@model Jade_Dragon.Models.NguoiDung
 
 @{
     ViewBag.Title = "Login";
@@ -13,7 +13,7 @@
         <div class="form-group">
             <i class="far fa-user"></i>
             <input type="text" class="form-input" placeholder="Tên đăng nhập" name="username" required value="@ViewBag.username">
-            @Html.ValidationMessageFor(m => m.TenDn, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(m => m.TenDangNhap, "", new { @class = "text-danger" })
         </div>
         <div class="form-group">
             <i class="fas fa-key"></i>
@@ -21,7 +21,7 @@
             <div id="eye">
                 <i class="far fa-eye"></i>
             </div>
-            @Html.ValidationMessageFor(m => m.Mk, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(m => m.MatKhau, "", new { @class = "text-danger" })
         </div>
         <a href="~/trangchu/trangchu" style="text-decoration:none;"><h3>Quay lại trang chủ</h3></a>
         <i style="font-size: 15px;">

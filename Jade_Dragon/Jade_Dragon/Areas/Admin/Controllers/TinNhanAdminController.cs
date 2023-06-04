@@ -20,22 +20,22 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                 Session["TenPhong"] = phong.TenPhongChat; // lưu tên phòng vào session "TenPhong"
             }
             Chat_Admin chat = new Chat_Admin();
-            chat.kh = db.khachhangs.Where(n => n.IDGroup == 2 || n.IDGroup == 3).ToList();
-            chat.ks = db.khachsans.ToList();
+            chat.kh = db.NguoiDungs.Where(n => n.MaPhanQuyen == 2 || n.MaPhanQuyen == 3).ToList();
+            chat.ks = db.KhachSans.ToList();
             return View(chat);
         }
 
         public ActionResult DeletePhong(long? id)
-        {   
+        {
             PhongChat phong = db.PhongChats.Find(id);
             if (phong != null)
             {
-                var tn = db.tinnhans.Where(m => m.MaPhongChat == id).ToList();
-                if(tn.Count > 0)
+                var tn = db.TinNhanNhoms.Where(m => m.MaPhongChat == id).ToList();
+                if (tn.Count > 0)
                 {
-                    foreach(var n in tn)
+                    foreach (var n in tn)
                     {
-                        db.tinnhans.Remove(n);
+                        db.TinNhanNhoms.Remove(n);
                         db.SaveChanges();
                     }
                 }
@@ -54,7 +54,7 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                 Session["TenPhong"] = phong.TenPhongChat; // lưu tên phòng vào session "TenPhong"
             }
             Chat_Admin chat = new Chat_Admin();
-            chat.kh = db.khachhangs.Where(n => n.IDGroup == 1).ToList();
+            chat.kh = db.NguoiDungs.Where(n => n.MaPhanQuyen == 1).ToList();
             return View(chat);
         }
         public ActionResult DeletePhongManage(long? id)
@@ -62,12 +62,12 @@ namespace Jade_Dragon.Areas.Admin.Controllers
             PhongChat phong = db.PhongChats.Find(id);
             if (phong != null)
             {
-                var tn = db.tinnhans.Where(m => m.MaPhongChat == id).ToList();
+                var tn = db.TinNhanNhoms.Where(m => m.MaPhongChat == id).ToList();
                 if (tn.Count > 0)
                 {
                     foreach (var n in tn)
                     {
-                        db.tinnhans.Remove(n);
+                        db.TinNhanNhoms.Remove(n);
                         db.SaveChanges();
                     }
                 }

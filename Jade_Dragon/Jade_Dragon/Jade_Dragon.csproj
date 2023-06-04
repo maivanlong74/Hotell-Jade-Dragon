@@ -619,7 +619,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Admin\Public\css\aaaaaa.css" />
     <Content Include="Areas\Admin\Public\css\admin.css" />
     <Content Include="Areas\Admin\Public\css\binhluan.css" />
     <Content Include="Areas\Admin\Public\css\css_ChatAdmin.css" />
@@ -634,6 +633,7 @@
     <Content Include="Areas\Admin\Public\css\Map\Css_MuiTen.css" />
     <Content Include="Areas\Admin\Public\css\Search.css" />
     <Content Include="Areas\Admin\Public\css\Table.css" />
+    <Content Include="Areas\Admin\Public\css\ThemAnhPhongKs.css" />
     <Content Include="Areas\Admin\Public\img\icon_Hotel.jpg" />
     <Content Include="Areas\Admin\Public\img\icon_MuiTenBot.jpg" />
     <Content Include="Areas\Admin\Public\img\icon_MuiTenTop.jpg" />
@@ -710,8 +710,6 @@
     <Content Include="Global.asax" />
     <Content Include="LICENSE.txt" />
     <Content Include="Areas\Admin\Views\khuvuc\khuvuc.cshtml" />
-    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\Account\QuenPassword.cshtml" />
     <Content Include="Areas\Admin\Views\Account\NewPassword.cshtml" />
     <Content Include="Areas\Admin\Views\LichSu\HoaDon.cshtml" />
@@ -775,6 +773,8 @@
     <Content Include="Models\Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
+    <Content Include="Areas\Admin\Views\PhongAdmin\ThemAnh.cshtml" />
+    <Content Include="Areas\Admin\Views\PhongManage\ThemAnh.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Controller\turf.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -792,16 +792,20 @@
     <Content Include="Style\css\html\lichsu2.css" />
     <Content Include="Style\css\html\nhan_xet.css" />
     <Content Include="Style\css\html\hoadon.css" />
-    <Content Include="Style\css\html\a_khach_san.css" />
+    <Content Include="Style\KhachSan\css\css__KhachSan.css" />
     <Content Include="Style\css\html\css_trangchu.css" />
     <Content Include="Style\css\html\TamDp.css" />
     <Content Include="Style\css\html\User.css" />
     <Content Include="Style\css\layout\BanDo.css" />
     <Content Include="Style\css\layout\ChatClient.css" />
+    <Content Include="Style\KhachSan\css\css_DanhGia_Ks.css" />
     <Content Include="Style\css\layout\menu__login.css" />
-    <Content Include="Style\css\layout\onee.css" />
-    <Content Include="Style\css\layout\phan_trang.css" />
-    <Content Include="Style\css\layout\Search.css" />
+    <Content Include="Style\css\layout\css-head.css" />
+    <Content Include="Style\KhachSan\js\DanhGia_Ks.js" />
+    <Content Include="Style\KhachSan\js\PhanTrang_NhanXet.js" />
+    <Content Include="Style\KhachSan\js\PhanTrang_Phong.js" />
+    <Content Include="Style\KhachSan\css\Search.css" />
+    <Content Include="Style\KhachSan\css\css_ThanhCuon_Ks.css" />
     <Content Include="Style\css\layout\two.css" />
     <Content Include="Style\css\login_logout\app.css" />
     <Content Include="Style\css\login_logout\reset.css" />
@@ -856,6 +860,8 @@
     <Content Include="Style\js\Map\Map_trangchu.js" />
     <Content Include="Style\js\SignUp-min.js" />
     <Content Include="Style\js\SignUp.js" />
+    <Content Include="Style\KhachSan\css\HtAnhPhong.css" />
+    <Content Include="UpLoad_Img\KhachSan\nv0144.jpg" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -883,45 +889,42 @@
     <Compile Include="common\WebMsgBox.cs" />
     <Compile Include="Controllers\GioHangController.cs" />
     <Compile Include="Controllers\khachsanController.cs" />
-    <Compile Include="Controllers\KhuVucController.cs" />
     <Compile Include="Controllers\nhanxetController.cs" />
     <Compile Include="Controllers\PayNganHangController.cs" />
     <Compile Include="Controllers\TinNhanController.cs" />
     <Compile Include="Controllers\trangchuController.cs" />
+    <Compile Include="Controllers\TrangKhachSanController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Hubs\DanhGia.cs" />
     <Compile Include="Hubs\DemoChat.cs" />
+    <Compile Include="Models\AnhKhachSan.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AnhPhongKhachSan.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BinhLuan.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\Chat_Admin.cs" />
-    <Compile Include="Models\chitiethoadon.cs">
+    <Compile Include="Models\ChiTietHoaDon.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DanhGiaK.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ErrorPay.cs">
+    <Compile Include="Models\DanhGiaKhachSan.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\hienthiphong.cs" />
-    <Compile Include="Models\hoadon.cs">
+    <Compile Include="Models\HoaDon.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\HtLichSu.cs" />
-    <Compile Include="Models\HtPhong.cs" />
-    <Compile Include="Models\khachhang.cs">
+    <Compile Include="Models\Ht_KhachSan.cs" />
+    <Compile Include="Models\KhachSan.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\khachsan.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\KhachSanTrinhChieu.cs" />
-    <Compile Include="Models\khuvuc.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\lichsu.cs">
+    <Compile Include="Models\KhuVuc.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Map_KhachSan.cs" />
@@ -940,7 +943,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\phanhoi.cs">
+    <Compile Include="Models\NguoiDung.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PhanQuyen.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PhongChat.cs">
@@ -949,13 +955,10 @@
     <Compile Include="Models\PhongKhachSan.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SoLuongNguoiTruyCap.cs">
+    <Compile Include="Models\SoNguoiTruyCap.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SoPhongKhachSan.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SoSaoDanhGia.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SoTangKhachSan.cs">
@@ -967,13 +970,10 @@
     <Compile Include="Models\ThongKeDanhGia.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\tinnhan.cs">
+    <Compile Include="Models\TinNhanNguoiDung.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\tinnhanAdmin.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\UserGroup.cs">
+    <Compile Include="Models\TinNhanNhom.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Others\PayCompare.cs" />
@@ -1014,11 +1014,6 @@
     <Content Include="Views\trangchu\trangchu.cshtml" />
     <Content Include="Views\khachsan\khachsan.cshtml" />
     <Content Include="Views\nhanxet\nhanxet.cshtml" />
-    <Content Include="Views\khachhangs\Create.cshtml" />
-    <Content Include="Views\khachhangs\Delete.cshtml" />
-    <Content Include="Views\khachhangs\Details.cshtml" />
-    <Content Include="Views\khachhangs\Edit.cshtml" />
-    <Content Include="Views\khachhangs\Index.cshtml" />
     <Content Include="Views\User\TrangCaNhan.cshtml" />
     <Content Include="Views\User\QuenMatKhauu.cshtml" />
     <Content Include="Views\User\QuenMatKhau.cshtml" />
@@ -1030,8 +1025,7 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\TinNhan\Chat.cshtml" />
     <Content Include="Views\Shared\Layout.cshtml" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\TrangKhachSan\TrangKhachSan.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1045,8 +1039,7 @@
     <Folder Include="Areas\Admin\Views\base\" />
     <Folder Include="Style\DongHo\" />
     <Folder Include="UpLoad_Img\KhachHang\" />
-    <Folder Include="UpLoad_Img\KhachSan\" />
-    <Folder Include="Views\KhuVuc\" />
+    <Folder Include="UpLoad_Img\Phong\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

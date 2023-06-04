@@ -1,0 +1,29 @@
+<div class="tour" style="margin-top: 0px;">
+    <div class="grid wide" style="margin-top: -80px;">
+      <div class="tour__container">
+        <div class="tour__container__items">
+          <div class="row" id="listPhong">
+            <div class="col l-4 m-12 c-12">
+              <div class="tour__container__item">
+                <div class="item__overlay"></div>
+                <div class="item__background"></div>
+                <div class="item__content"></div>
+              </div>
+            </div>
+            <div class="col l-4 m-12 c-12">
+              <div class="tour__container__item">
+                <div class="item__overlay"></div>
+                <div class="item__background"></div>
+                <div class="item__content"></div>
+              </div>
+            </div>
+            <!-- Add more div.col elements here -->
+          </div>
+          <div class="pagination">
+            <button onclick="previousPage()">Previous</button>
+            <button onclick="nextPage()">Next</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

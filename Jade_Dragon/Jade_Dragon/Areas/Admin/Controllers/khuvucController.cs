@@ -18,10 +18,10 @@ namespace Jade_Dragon.Areas.Admin.Controllers
         // GET: Admin/khuvuc
         public ActionResult khuvuc()
         {
-            List<khachsan> Ks = new List<khachsan>();
-            Ks = db.khachsans.ToList();
+            List<KhachSan> Ks = new List<KhachSan>();
+            Ks = db.KhachSans.ToList();
             ViewBag.ListKs = Ks;
-            var ListKv = db.khuvucs.ToList();
+            var ListKv = db.KhuVucs.ToList();
             return View("khuvuc", ListKv);
         }
 
@@ -32,7 +32,7 @@ namespace Jade_Dragon.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            khuvuc khuvuc = db.khuvucs.Find(id);
+            KhuVuc khuvuc = db.KhuVucs.Find(id);
             if (khuvuc == null)
             {
                 return HttpNotFound();
@@ -41,9 +41,9 @@ namespace Jade_Dragon.Areas.Admin.Controllers
         }
 
         // GET: Admin/khuvuc/Create
-        public ActionResult Create(khuvuc khuvuc, string TenKhuVuc, string DiaChi, double KinhDo, double ViDo)
+        public ActionResult Create(KhuVuc khuvuc, string TenKhuVuc, string DiaChi, double KinhDo, double ViDo)
         {
-            khuvuc kv = db.khuvucs.FirstOrDefault(m => m.TenKhuVuc == TenKhuVuc);
+            KhuVuc kv = db.KhuVucs.FirstOrDefault(m => m.TenKhuVuc == TenKhuVuc);
             if (kv != null)
             {
                 kv.TenKhuVuc = TenKhuVuc;
@@ -55,9 +55,9 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                 khuvuc.TenKhuVuc = TenKhuVuc;
                 khuvuc.KinhDo = KinhDo.ToString();
                 khuvuc.ViDo = ViDo.ToString();
-                db.khuvucs.Add(khuvuc);
+                db.KhuVucs.Add(khuvuc);
             }
-            
+
             db.SaveChanges();
             return Redirect("khuvuc");
         }
@@ -71,9 +71,9 @@ namespace Jade_Dragon.Areas.Admin.Controllers
                 TenKhuVuc = Request.Cookies["TenKhuVuc"].Value;
                 MaKhuVuc = long.Parse(Request.Cookies["MaKhuVuc"].Value);
             }
-            var khuVuc = db.khuvucs.FirstOrDefault(x => x.MaKhuVuc == MaKhuVuc);
+            var khuVuc = db.KhuVucs.FirstOrDefault(x => x.MaKhuVuc == MaKhuVuc);
 
-            if (db.khuvucs.Where(m => m.TenKhuVuc == TenKhuVuc).Count() > 0)
+            if (db.KhuVucs.Where(m => m.TenKhuVuc == TenKhuVuc).Count() > 0)
             {
                 return Redirect("khuvuc");
             }
@@ -85,14 +85,14 @@ namespace Jade_Dragon.Areas.Admin.Controllers
 
         public ActionResult Delete(long? id)
         {
-            khuvuc kv = db.khuvucs.FirstOrDefault(x => x.MaKhuVuc == id);
-            khachsan ks = db.khachsans.FirstOrDefault(x => x.MaKhuVuc == id);
-            db.khuvucs.Remove(kv);
+            KhuVuc kv = db.KhuVucs.FirstOrDefault(x => x.MaKhuVuc == id);
+            KhachSan ks = db.KhachSans.FirstOrDefault(x => x.MaKhuVuc == id);
+            db.KhuVucs.Remove(kv);
             if (ks != null)
             {
-                db.khachsans.Remove(ks);
+                db.KhachSans.Remove(ks);
                 PhongKhachSan ph = db.PhongKhachSans.FirstOrDefault(x => x.MaKhachSan == ks.MaKhachSan);
-                if(ph != null)
+                if (ph != null)
                 {
                     db.PhongKhachSans.Remove(ph);
                 }
@@ -103,7 +103,7 @@ namespace Jade_Dragon.Areas.Admin.Controllers
 
         public JsonResult Search(string search)
         {
-            var results = db.khuvucs
+            var results = db.KhuVucs
                 .Where(khuvuc => khuvuc.TenKhuVuc.Contains(search))
                 .Select(khuvuc => new { khuvuc.TenKhuVuc, khuvuc.KinhDo, khuvuc.ViDo })
                 .ToList();

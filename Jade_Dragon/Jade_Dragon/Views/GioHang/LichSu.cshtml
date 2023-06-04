@@ -1,4 +1,4 @@
-﻿@model Jade_Dragon.Models.HtLichSu
+﻿@model Jade_Dragon.Models.hienthiphong
 @{
     ViewBag.Title = "LichSu";
     Layout = "~/Views/Shared/DatPhong_HoaDon.cshtml";
@@ -127,16 +127,16 @@
                         {
                             <tr class="invoice-row" data-invoice-id="@item.MaHoaDon">
                                 <td class="mhd">@item.MaHoaDon</td>
-                                <td>@item.khachsan.TenKhachSan</td>
+                                <td>@item.KhachSan.TenKhachSan</td>
                                 <td>@item.HoTen</td>
                                 <td>@item.SoDienThoai</td>
                                 <td>@item.SoLuongPhong</td>
                                 <td>@item.NgayDat</td>
                                 <td>@item.TongTien</td>
                                 <td>
-                                    @item.ErrorPay.TenError
+                                    @item.TrangThaiDon
                                     <a href="@Url.Action("ThuHoiDon", "GioHang", new {mahd = item.MaHoaDon})">
-                                        <img src="~/Style/img/icon/icon-X.jpg" title="Thu hồi đơn" style="width: 20px;"/>
+                                        <img src="~/Style/img/icon/icon-X.jpg" title="Thu hồi đơn" style="width: 20px;" />
                                     </a>
                                 </td>
                             </tr>

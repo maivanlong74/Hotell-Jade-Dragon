@@ -1,24 +1,27 @@
-﻿@model Jade_Dragon.Models.khachhang
+﻿@model Jade_Dragon.Models.NguoiDung
 
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
 }
-
 <style>
     .home .body .Content form .xoa .button-xoa {
-        margin-left: 70px;
-        width: 300px;
+        position: absolute;
+        z-index: 999;
+        transition: .3s all ease;
     }
-    .body .Info {
-        margin-top: 30px;
+    .home .body .Content form .xoa .button-xoa:hover {
+        background-color: black;
+    }
+    .no-avt {
+        position: absolute;
+        margin-left: -122px;
     }
 </style>
-
 <div class="home">
     <div class="body">
         <h1 style="color: wheat; font-weight: 700; margin-left: 20px; padding-top: 30px; ">
-            Khách Hàng @Session["HoTen"]
+            Khách Hàng @Session["HoTen2"]
         </h1>
         <div class="Content" style="margin-top:0px; margin-left: 200px;">
             @using (Html.BeginForm("Edit",
@@ -32,6 +35,7 @@
                 {
                     <div class="Avt">
                         <div class="khuvuc">
+                            <img class="no-avt" src="" id="img-avt" />
                             <header class="UpFile">Chưa có ảnh !!!</header>
                         </div>
                     </div>
@@ -39,74 +43,74 @@
                 else if (Model.Avt != null)
                 {
                     <div style="width: 410px; margin-top: 100px; " class="xoa">
-                        <img class="Avt" src="~/UpLoad_Img/KhachHang/@Model.Avt" style="margin-top: 0px;" />
-                        <a href="@Url.Action("XoaAnh", "QLKhachHang", new {kh = Model.MaKh})" class="button-xoa">Xóa ảnh</a>
+                        <img class="Avt" src="~/UpLoad_Img/KhachHang/@Model.Avt" style="margin-top: 0px;" id="img-avt"/>
+                        <a href="@Url.Action("XoaAnh", "QLKhachHang", new {kh = Model.MaNguoiDung})" class="button-xoa">Xóa ảnh</a>
                     </div>
                 }
 
 
-        <div class="Info">
-            <div class="makh one">
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                @Html.HiddenFor(model => model.MaKh)
-            </div>
-            <div class="tenkh one">
-                <label for="">Avt: </label>
-                <input type="file" id="uploadhinh" name="uploadhinh" accept="image/*"
-                       style=" color: aliceblue;" />
-            </div>
-            <div class="tenkh one">
-                <label for="">Tên Khách Hàng: </label>
-                @Html.EditorFor(model => model.HoTen, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.HoTen, "", new { @class = "text-danger" })
-            </div>
-            <div class="sdt one">
-                <label for="">Số điện thoại: </label>
-                @Html.EditorFor(model => model.SoDienThoai, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SoDienThoai, "", new { @class = "text-danger" })
-            </div>
-            <div class="CMND one">
-                <label for="">CMND / Thẻ Căn cước công dân: </label>
-                @Html.EditorFor(model => model.CMND, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CMND, "", new { @class = "text-danger" })
-            </div>
-            <div class="diachi one">
-                <label for="">Địa chỉ: </label>
-                @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
+                <div class="Info" style="margin-left: 64vh;">
+                    <div class="makh one">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.MaNguoiDung)
+                    </div>
+                    <div class="tenkh one">
+                        <label for="">Avt: </label>
+                        <input type="file" id="uploadhinh" name="uploadhinh" accept="image/*"
+                               style=" color: aliceblue;" />
+                    </div>
+                    <div class="tenkh one">
+                        <label for="">Tên Khách Hàng: </label>
+                        @Html.EditorFor(model => model.HoTen, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.HoTen, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="sdt one">
+                        <label for="">Số điện thoại: </label>
+                        @Html.EditorFor(model => model.SoDienThoai, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.SoDienThoai, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="CMND one">
+                        <label for="">CMND / Thẻ Căn cước công dân: </label>
+                        @Html.EditorFor(model => model.CMND, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CMND, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="diachi one">
+                        <label for="">Địa chỉ: </label>
+                        @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
 
-                <label for="">Gmail: </label>
-                @Html.EditorFor(model => model.Gmail, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Gmail, "", new { @class = "text-danger" })
-            </div>
-            <div class="tendn one">
-                <label for="">Tên đăng nhập: </label>
-                @Html.EditorFor(model => model.TenDn, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TenDn, "", new { @class = "text-danger" })
-            </div>
-            <div class="one">
-                <label for="">Quản lý khách sạn: </label>
-                @Html.DropDownList("QLKhachSan", (IEnumerable<SelectListItem>)ViewBag.KhachSans, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.QLKhachSan, "", new { @class = "text-danger" })
-            </div>
-            <div class="matkhau one">
-                <label for="">Mật Khẩu: </label>
-                @Html.EditorFor(model => model.Mk, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Mk, "", new { @class = "text-danger" })
+                        <label for="">Gmail: </label>
+                        @Html.EditorFor(model => model.Gmail, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Gmail, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="tendn one">
+                        <label for="">Tên đăng nhập: </label>
+                        @Html.EditorFor(model => model.TenDangNhap, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TenDangNhap, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="one">
+                        <label for="">Quản lý khách sạn: </label>
+                        @Html.DropDownList("MaKhachSan", (IEnumerable<SelectListItem>)ViewBag.KhachSans, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.MaKhachSan, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="matkhau one">
+                        <label for="">Mật Khẩu: </label>
+                        @Html.EditorFor(model => model.MatKhau, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.MatKhau, "", new { @class = "text-danger" })
 
-                <label for="">Cấp quyền: </label>
-                @Html.DropDownList("IDGroup", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.IDGroup, "", new { @class = "text-danger" })
+                        <label for="">Cấp quyền: </label>
+                        @Html.DropDownList("MaPhanQuyen", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.MaPhanQuyen, "", new { @class = "text-danger" })
 
-                <label>Xác minh</label>
-                @Html.EditorFor(model => model.DaXacMinh)
-                @Html.ValidationMessageFor(model => model.DaXacMinh, "", new { @class = "text-danger" })
-            </div>
+                        <label>Xác minh</label>
+                        @Html.EditorFor(model => model.DaXacMinh)
+                        @Html.ValidationMessageFor(model => model.DaXacMinh, "", new { @class = "text-danger" })
+                    </div>
 
-            <div class="one">
-                <input type="submit" class="save two" value="Lưu">
-            </div>
-        </div>
+                    <div class="one">
+                        <input type="submit" class="save two" value="Lưu">
+                    </div>
+                </div>
             }
             <div class="button">
                 <a href="@Url.Action("QuanLyKh", "QLKhachHang")" class="out two">Quay về trang khách hàng</a>
@@ -116,3 +120,12 @@
 </div>
 
 <script src="~/Areas/Admin/Public/js/ChucNang.js"></script>
+<script>
+    const image = document.getElementById("img-avt");
+    var input = document.getElementById("uploadhinh");
+
+    input.addEventListener("change", () => {
+        image.style.zIndex = "3";
+        image.src = URL.createObjectURL(input.files[0]);
+    });
+</script>

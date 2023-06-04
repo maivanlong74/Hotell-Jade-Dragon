@@ -15,7 +15,7 @@ namespace Jade_Dragon.Controllers
         private Connect db = new Connect();
         public ActionResult Payment(long? id)
         {
-            hoadon hd = db.hoadons.Find(id);
+            HoaDon hd = db.HoaDons.Find(id);
             string url = ConfigurationManager.AppSettings["Url"];
             string returnUrl = ConfigurationManager.AppSettings["ReturnUrl"];
             string tmnCode = ConfigurationManager.AppSettings["TmnCode"];
@@ -26,15 +26,16 @@ namespace Jade_Dragon.Controllers
             pay.AddRequestData("vnp_Version", "2.1.0"); //Phiên bản api mà merchant kết nối. Phiên bản hiện tại là 2.1.0
             pay.AddRequestData("vnp_Command", "pay"); //Mã API sử dụng, mã cho giao dịch thanh toán là 'pay'
             pay.AddRequestData("vnp_TmnCode", tmnCode); //Mã website của merchant trên hệ thống của VNPAY (khi đăng ký tài khoản sẽ có trong mail VNPAY gửi về)
-            
-            if(hd.HinhThuc == "chuyenkhoan")
+
+            if (hd.HinhThuc == "chuyenkhoan")
             {
                 pay.AddRequestData("vnp_Amount", (hd.TongTien * 100).ToString()); //số tiền cần thanh toán
-            } else if(hd.HinhThuc == "taiquay")
+            }
+            else if (hd.HinhThuc == "taiquay")
             {
                 pay.AddRequestData("vnp_Amount", (hd.DatCoc * 100).ToString()); //số tiền cần thanh toán
             }
-            
+
             pay.AddRequestData("vnp_BankCode", ""); //Mã Ngân hàng thanh toán (tham khảo: https://sandbox.vnpayment.vn/apis/danh-sach-ngan-hang/), có thể để trống, người dùng có thể chọn trên cổng thanh toán VNPAY
             pay.AddRequestData("vnp_CreateDate", DateTime.Now.ToString("yyyyMMddHHmmss")); //ngày thanh toán theo định dạng yyyyMMddHHmmss
             pay.AddRequestData("vnp_CurrCode", "VND"); //Đơn vị tiền tệ sử dụng thanh toán. Hiện tại chỉ hỗ trợ VND
@@ -66,7 +67,7 @@ namespace Jade_Dragon.Controllers
                     }
                 }
 
-                
+
                 long orderId = Convert.ToInt64(pay.GetResponseData("vnp_TxnRef")); //mã hóa đơn
                 long vnpayTranId = Convert.ToInt64(pay.GetResponseData("vnp_TransactionNo")); //mã giao dịch tại hệ thống VNPAY
                 string vnp_ResponseCode = pay.GetResponseData("vnp_ResponseCode"); //response code: 00 - thành công, khác 00 - xem thêm https://sandbox.vnpayment.vn/apis/docs/bang-ma-loi/
@@ -78,37 +79,35 @@ namespace Jade_Dragon.Controllers
                     if (vnp_ResponseCode == "00")
                     {
                         long slct = 0;
-                        var cthdd = db.chitiethoadons.Where(m => m.MaHoaDon == orderId).ToList();
-                        foreach(var m in cthdd)
+                        var cthdd = db.ChiTietHoaDons.Where(m => m.MaHoaDon == orderId).ToList();
+                        foreach (var m in cthdd)
                         {
                             slct++;
                         }
-                        hoadon hd = db.hoadons.Find(orderId);
-                        hd.MaError = "01";
-                        hd.SoLuongCTHD = (int)slct;
+                        HoaDon hd = db.HoaDons.Find(orderId);
+                        hd.TrangThaiDon = "Đang chờ duyệt";
                         db.SaveChanges();
 
-                        khachsan ksks = db.khachsans.Find(hd.MaKhachSan);
+                        KhachSan ksks = db.KhachSans.Find(hd.MaKhachSan);
                         Session["MaKhachSanPhong"] = ksks.MaKhachSan;
                         Session["TenKhachSan"] = ksks.TenKhachSan;
                         Session["DiaChi"] = ksks.DiaChi;
                         Session["SoDienThoai_ks"] = ksks.SoDienThoai;
                         Session["GmailKhachSan"] = ksks.Gmail;
                         Session["Gia"] = ksks.Gia;
-                        Session["AnhKs"] = ksks.AnhKs;
                         Session["KinhDo"] = ksks.KinhDo;
                         Session["ViDo"] = ksks.ViDo;
 
                         ViewBag.now = DateTime.Now;
-                        List<khuvuc> KhuVuc = new List<khuvuc>();
-                        KhuVuc = db.khuvucs.ToList();
+                        List<KhuVuc> KhuVuc = new List<KhuVuc>();
+                        KhuVuc = db.KhuVucs.ToList();
                         ViewBag.ListKhuVuc = KhuVuc;
 
-                        List<chitiethoadon> cthd = new List<chitiethoadon>();
-                        cthd = db.chitiethoadons.Where(m => m.MaHoaDon == hd.MaHoaDon).ToList();
+                        List<ChiTietHoaDon> cthd = new List<ChiTietHoaDon>();
+                        cthd = db.ChiTietHoaDons.Where(m => m.MaHoaDon == hd.MaHoaDon).ToList();
                         ViewBag.ListPhong = cthd;
 
-                        chitiethoadon chitiet = db.chitiethoadons.FirstOrDefault(m => m.MaHoaDon == orderId);
+                        ChiTietHoaDon chitiet = db.ChiTietHoaDons.FirstOrDefault(m => m.MaHoaDon == orderId);
                         ViewBag.ngayden = chitiet.NgayDen;
                         ViewBag.ngaydi = chitiet.NgayDi;
                         ViewBag.sodem = demsodem((DateTime)chitiet.NgayDen, (DateTime)chitiet.NgayDi);
@@ -116,8 +115,8 @@ namespace Jade_Dragon.Controllers
 
                         Session["DongTime"] = "mo";
 
-                        List<khachsan> listks = new List<khachsan>();
-                        listks = db.khachsans.Where(m => m.MaKhuVuc == hd.khachsan.khuvuc.MaKhuVuc).ToList();
+                        List<KhachSan> listks = new List<KhachSan>();
+                        listks = db.KhachSans.Where(m => m.MaKhuVuc == hd.KhachSan.KhuVuc.MaKhuVuc).ToList();
                         ViewBag.listks = listks;
 
                         //Thanh toán thành công
@@ -127,45 +126,40 @@ namespace Jade_Dragon.Controllers
                     else
                     {
                         //Thanh toán không thành công. Mã lỗi: vnp_ResponseCode
-                        List<khuvuc> KhuVuc = new List<khuvuc>();
-                        KhuVuc = db.khuvucs.ToList();
+                        List<KhuVuc> KhuVuc = new List<KhuVuc>();
+                        KhuVuc = db.KhuVucs.ToList();
                         ViewBag.ListKhuVuc = KhuVuc;
 
-                        hoadon hd = db.hoadons.Find(orderId);
-                        var ct = db.chitiethoadons.Where(n => n.MaHoaDon == orderId).ToList();
-                        foreach(var a in ct)
+                        HoaDon hd = db.HoaDons.Find(orderId);
+                        var ct = db.ChiTietHoaDons.Where(n => n.MaHoaDon == orderId).ToList();
+                        foreach (var a in ct)
                         {
-                            db.chitiethoadons.Remove(a);
+                            db.ChiTietHoaDons.Remove(a);
                             db.SaveChanges();
                         }
-                        db.hoadons.Remove(hd);
+                        db.HoaDons.Remove(hd);
                         db.SaveChanges();
-                        ErrorPay Loi = db.ErrorPays.Find(vnp_ResponseCode);
                         ViewBag.Error = "DaCoLoi";
                         ViewBag.Message = "Có lỗi xảy ra trong quá trình xử lý hóa đơn " + orderId + " | Mã giao dịch: " + vnpayTranId;
-                        ViewBag.Message2 = "Lỗi: " + Loi.TenError;
-
                     }
                 }
                 else
                 {
-                    List<khuvuc> KhuVuc = new List<khuvuc>();
-                    KhuVuc = db.khuvucs.ToList();
+                    List<KhuVuc> KhuVuc = new List<KhuVuc>();
+                    KhuVuc = db.KhuVucs.ToList();
                     ViewBag.ListKhuVuc = KhuVuc;
 
-                    hoadon hd = db.hoadons.Find(orderId);
-                    var ct = db.chitiethoadons.Where(n => n.MaHoaDon == orderId).ToList();
+                    HoaDon hd = db.HoaDons.Find(orderId);
+                    var ct = db.ChiTietHoaDons.Where(n => n.MaHoaDon == orderId).ToList();
                     foreach (var a in ct)
                     {
-                        db.chitiethoadons.Remove(a);
+                        db.ChiTietHoaDons.Remove(a);
                         db.SaveChanges();
                     }
-                    db.hoadons.Remove(hd);
+                    db.HoaDons.Remove(hd);
                     db.SaveChanges();
-                    ErrorPay Loi = db.ErrorPays.Find(vnp_ResponseCode);
                     ViewBag.Error = "DaCoLoi";
                     ViewBag.Message = "Có lỗi xảy ra trong quá trình xử lý hóa đơn " + orderId + " | Mã giao dịch: " + vnpayTranId;
-                    ViewBag.Message2 = "Lỗi: " + Loi.TenError;
                 }
             }
 

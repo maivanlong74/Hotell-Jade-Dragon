@@ -12,7 +12,7 @@ namespace Jade_Dragon.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class chitiethoadon
+    public partial class ChiTietHoaDon
     {
         public long MaChiTietHoaDon { get; set; }
         public Nullable<System.DateTime> NgayDen { get; set; }
@@ -24,7 +24,7 @@ namespace Jade_Dragon.Models
         public Nullable<bool> DaDen { get; set; }
         public Nullable<bool> HoanThanh { get; set; }
     
-        public virtual hoadon hoadon { get; set; }
+        public virtual HoaDon HoaDon { get; set; }
         public virtual PhongKhachSan PhongKhachSan { get; set; }
     }
 }

@@ -15,20 +15,20 @@ namespace Jade_Dragon.Controllers
         // GET: TinNhan
         public ActionResult Chat(long? makh)
         {
-            var phong = db.PhongChats.FirstOrDefault(); 
-            if (phong != null) 
+            var phong = db.PhongChats.FirstOrDefault();
+            if (phong != null)
             {
-                Session["MaPhong"] = phong.MaPhongChat; 
-                Session["TenPhong"] = phong.TenPhongChat; 
+                Session["MaPhong"] = phong.MaPhongChat;
+                Session["TenPhong"] = phong.TenPhongChat;
             }
             if (makh == null)
             {
                 WebMsgBox.Show("Bạn cần phải đăng nhập để nhắn tin", this);
                 return RedirectToAction("trangchu", "trangchu");
             }
-            khachhang kh = db.khachhangs.FirstOrDefault(n => n.IDGroup == 1);
-            Session["MaPhongAdmin"] = kh.MaKh;
-            var khkh = db.khachhangs.Where(z => z.IDGroup == 3).ToList();
+            NguoiDung kh = db.NguoiDungs.FirstOrDefault(n => n.MaPhanQuyen == 1);
+            Session["MaPhongAdmin"] = kh.MaNguoiDung;
+            var khkh = db.NguoiDungs.Where(z => z.MaPhanQuyen == 3).ToList();
             return View("Chat", khkh);
         }
 

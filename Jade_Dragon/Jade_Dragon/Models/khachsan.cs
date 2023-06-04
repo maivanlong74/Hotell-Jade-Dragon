@@ -11,21 +11,23 @@ namespace Jade_Dragon.Models
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class khachsan
+    using System.ComponentModel;
+
+    public partial class KhachSan
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public khachsan()
+        public KhachSan()
         {
-            this.DanhGiaKs = new HashSet<DanhGiaK>();
-            this.hoadons = new HashSet<hoadon>();
-            this.khachhangs = new HashSet<khachhang>();
-            this.PhongKhachSans = new HashSet<PhongKhachSan>();
+            this.AnhKhachSans = new HashSet<AnhKhachSan>();
+            this.AnhPhongKhachSans = new HashSet<AnhPhongKhachSan>();
+            this.BinhLuans = new HashSet<BinhLuan>();
+            this.DanhGiaKhachSans = new HashSet<DanhGiaKhachSan>();
+            this.HoaDons = new HashSet<HoaDon>();
+            this.NguoiDungs = new HashSet<NguoiDung>();
             this.PhongChats = new HashSet<PhongChat>();
-            this.SoSaoDanhGias = new HashSet<SoSaoDanhGia>();
+            this.PhongKhachSans = new HashSet<PhongKhachSan>();
             this.ThongKeDanhGias = new HashSet<ThongKeDanhGia>();
         }
-    
         public long MaKhachSan { get; set; }
         public string TenKhachSan { get; set; }
         public Nullable<long> SoDienThoai { get; set; }
@@ -35,24 +37,27 @@ namespace Jade_Dragon.Models
         public string ViDo { get; set; }
         public Nullable<long> Gia { get; set; }
         public Nullable<double> ThangDiem { get; set; }
-        public string AnhKs { get; set; }
         public Nullable<long> SoTang { get; set; }
         public Nullable<long> MaKhuVuc { get; set; }
         public Nullable<bool> TrangThaiKs { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DanhGiaK> DanhGiaKs { get; set; }
+        public virtual ICollection<AnhKhachSan> AnhKhachSans { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<hoadon> hoadons { get; set; }
+        public virtual ICollection<AnhPhongKhachSan> AnhPhongKhachSans { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<khachhang> khachhangs { get; set; }
-        public virtual khuvuc khuvuc { get; set; }
+        public virtual ICollection<BinhLuan> BinhLuans { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PhongKhachSan> PhongKhachSans { get; set; }
+        public virtual ICollection<DanhGiaKhachSan> DanhGiaKhachSans { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HoaDon> HoaDons { get; set; }
+        public virtual KhuVuc KhuVuc { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<NguoiDung> NguoiDungs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhongChat> PhongChats { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SoSaoDanhGia> SoSaoDanhGias { get; set; }
+        public virtual ICollection<PhongKhachSan> PhongKhachSans { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ThongKeDanhGia> ThongKeDanhGias { get; set; }
     }

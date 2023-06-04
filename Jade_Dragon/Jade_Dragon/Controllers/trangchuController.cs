@@ -41,14 +41,14 @@ namespace Jade_Dragon.Controllers
                     }
                     else
                     {
-                        var cthd = db.chitiethoadons.Where(m => m.MaPhong == mm.MaPhong).ToList();
+                        var cthd = db.ChiTietHoaDons.Where(m => m.MaPhong == mm.MaPhong).ToList();
                         if (cthd.Count() > 0)
                         {
                             foreach (var ct in cthd)
                             {
-                                if(ct.HoanThanh == false)
+                                if (ct.HoanThanh == false)
                                 {
-                                    if (ct.hoadon.DaDat == true)
+                                    if (ct.HoaDon.DaDat == true)
                                     {
                                         if (ct.NgayDen <= timenow && timenow <= ct.NgayDi)
                                         {
@@ -62,8 +62,8 @@ namespace Jade_Dragon.Controllers
                 }
             }
 
-            KhachSanTrinhChieu m = new KhachSanTrinhChieu();
-            var khachsans = db.khachsans.Include(k => k.khuvuc);
+            hienthiphong m = new hienthiphong();
+            var khachsans = db.KhachSans.Include(k => k.KhuVuc);
 
             foreach (var i in khachsans)
             {
@@ -101,23 +101,23 @@ namespace Jade_Dragon.Controllers
             }
             else if (ma != null)
             {
-                m.ks = khachsans.Where(n => n.MaKhuVuc == ma).OrderBy(khachsan => khachsan.ThangDiem).ToList();
+                m.ks = khachsans.Where(n => n.MaKhuVuc == ma).ToList();
             }
             else
             {
                 m.ks = khachsans.OrderBy(khachsan => khachsan.ThangDiem).ToList();
             }
 
-            m.kv = db.khuvucs.ToList();
-            m.dg = db.SoSaoDanhGias.Where(a => a.MaKh == makhh).ToList();
-            m.ThongKe = db.ThongKeDanhGias.ToList(); 
-
+            m.khu_vuc = db.KhuVucs.ToList();
+            m.dg = db.DanhGiaKhachSans.Where(a => a.MaNguoiDung == makhh).ToList();
+            m.tkdg = db.ThongKeDanhGias.ToList();
+            m.anhks = db.AnhKhachSans.ToList();
             return View("trangchu", m);
         }
 
-        public List<khachsan> TimKiem(string searchTerm, string searchType)
+        public List<KhachSan> TimKiem(string searchTerm, string searchType)
         {
-            IQueryable<khachsan> query = db.khachsans;
+            IQueryable<KhachSan> query = db.KhachSans;
             switch (searchType.ToLower())
             {
                 case "name":
@@ -134,7 +134,7 @@ namespace Jade_Dragon.Controllers
                     }
                     break;
                 case "khuvuc":
-                    query = query.Where(c => c.khuvuc.TenKhuVuc.Contains(searchTerm));
+                    query = query.Where(c => c.KhuVuc.TenKhuVuc.Contains(searchTerm));
                     break;
                 case "gia":
                     long moeny;
@@ -151,7 +151,7 @@ namespace Jade_Dragon.Controllers
                         c.TenKhachSan.Contains(searchTerm) ||
                         c.DiaChi.Contains(searchTerm) ||
                         c.SoDienThoai.ToString().Contains(searchTerm) ||
-                        c.khuvuc.TenKhuVuc.Contains(searchTerm) ||
+                        c.KhuVuc.TenKhuVuc.Contains(searchTerm) ||
                         (isSearchTermValid && c.Gia <= searchTermAsLong)
                     );
 
@@ -163,21 +163,21 @@ namespace Jade_Dragon.Controllers
         }
 
         [HttpPost]
-        public ActionResult DanhGia(long? SoSao, long makh, long maks) 
+        public ActionResult DanhGia(long? SoSao, long makh, long maks)
         {
-            if(SoSao != null)
+            if (SoSao != null)
             {
-                hoadon hd = db.hoadons.FirstOrDefault(s => s.MaKh == makh && s.MaKhachSan == maks);
+                HoaDon hd = db.HoaDons.FirstOrDefault(s => s.MaNguoiDung == makh && s.MaKhachSan == maks);
                 if (hd != null)
                 {
-                    chitiethoadon chitiet = db.chitiethoadons.FirstOrDefault(a => a.MaHoaDon == a.MaHoaDon && a.HoanThanh == true);
+                    ChiTietHoaDon chitiet = db.ChiTietHoaDons.FirstOrDefault(a => a.MaHoaDon == a.MaHoaDon && a.HoanThanh == true);
                     if (chitiet != null)
                     {
-                        SoSaoDanhGia so = new SoSaoDanhGia();
+                        DanhGiaKhachSan so = new DanhGiaKhachSan();
                         so.MaKhachSan = maks;
-                        so.MaKh = makh;
+                        so.MaNguoiDung = makh;
                         so.SoSao = SoSao;
-                        db.SoSaoDanhGias.Add(so);
+                        db.DanhGiaKhachSans.Add(so);
                         db.SaveChanges();
                         ThongKeDanhGia thongke = db.ThongKeDanhGias.FirstOrDefault(a => a.MaKhachSan == maks);
 
@@ -224,9 +224,9 @@ namespace Jade_Dragon.Controllers
             }
             else
             {
-               WebMsgBox.Show("Bạn chưa đánh giá", this);
+                WebMsgBox.Show("Bạn chưa đánh giá", this);
             }
-            return RedirectToAction("trangchu", "trangchu", new {makhh = makh});
+            return RedirectToAction("trangchu", "trangchu", new { makhh = makh });
         }
 
         protected override void Dispose(bool disposing)

@@ -7,7 +7,7 @@
     <title>@Page.Title</title>
     @RenderSection("head", required: false)
     <link href="~/Style/css/html/DatPhong.css" rel="stylesheet" />
-    
+
 </head>
 <body>
     <div class="header">
@@ -33,7 +33,7 @@
                                     </a>
                                 </li>
                                 <li><a href="@Url.Action("nhanxet", "nhanxet")">Nhận xét</a></li>
-                                <li><a href="@Url.Action("chat", "TinNhan", new {makh = Session["MaKh"]})">Nhắn tin</a></li>
+                                <li><a href="@Url.Action("chat", "TinNhan", new {makh = Session["MaNguoiDung"]})">Nhắn tin</a></li>
 
                             </ul>
                         </div>
@@ -51,12 +51,12 @@
                                             <img src="~/UpLoad_Img/KhachHang/@Session["Avt"]" alt="" class="avt" title="@Session["HoTen"]">
                                             <ul>
                                                 <li class="User--a">
-                                                    <a href="@Url.Action("TrangCaNhan", "User", new {id = Session["MaKh"] })">
+                                                    <a href="@Url.Action("TrangCaNhan", "User", new {id = Session["MaNguoiDung"] })">
                                                         Trang cá nhân
                                                     </a>
                                                 </li>
                                                 <li><a href="@Url.Action("SignUpp", "Account", new { area = "Admin" })">Đăng ký</a></li>
-                                                <li><a href="@Url.Action("QuenMatKhau", "User", new {id = Session["MaKh"] })">Quên mật khẩu</a></li>
+                                                <li><a href="@Url.Action("QuenMatKhau", "User", new {id = Session["MaNguoiDung"] })">Quên mật khẩu</a></li>
                                                 <li>
                                                     <a href="@Url.Action("SignOut", "Account", new { area = "Admin" })">
                                                         Đăng xuất
@@ -112,7 +112,7 @@
                         </a>
                     </li>
                     <li><a href="@Url.Action("nhanxet", "nhanxet")">Nhận xét</a></li>
-                    <li><a href="@Url.Action("chat", "TinNhan", new {makh = Session["MaKh"]})">Nhắn tin</a></li>
+                    <li><a href="@Url.Action("chat", "TinNhan", new {makh = Session["MaNguoiDung"]})">Nhắn tin</a></li>
 
                 </ul>
                 <i class="fas fa-times" id="menu_close"></i>

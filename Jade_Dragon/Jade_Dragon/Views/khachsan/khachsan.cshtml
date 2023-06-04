@@ -5,9 +5,11 @@
     Layout = "~/Views/Shared/TongHop.cshtml";
 }
 
-<link href="~/Style/css/layout/Search.css" rel="stylesheet" />
-<link href="~/Style/css/html/a_khach_san.css" rel="stylesheet" />
-<link href="~/Style/css/layout/phan_trang.css" rel="stylesheet" />
+<head>
+    <link href="~/Style/css/layout/Search.css" rel="stylesheet" />
+    <link href="~/Style/css/html/a_khach_san.css" rel="stylesheet" />
+    <link href="~/Style/css/layout/phan_trang.css" rel="stylesheet" />
+</head>
 
 <div class="home">
     <div class="home__background">
@@ -101,7 +103,8 @@
                                             }
                                             <label>Ngày trả</label>
                                         </div>
-                                        @if (Session["DongTime"] != null) { 
+                                        @if (Session["DongTime"] != null)
+                                        {
                                             <div class="search-time">
                                                 <button type="submit">Cập nhật</button> <br />
                                                 <a href="@Url.Action("QuayVe", "khachsan", new {ma = ViewBag.ma})" class="button">Quay về ngày hôm nay</a>
@@ -119,33 +122,34 @@
                             <div class="menu-top">
                                 @if (Session["SESSION_GROUP"] != null)
                                 {
-                                        <div class="menu-top-a">
-                                            <div class="avt-img">
-                                                <img src="~/UpLoad_Img/KhachHang/@Session["Avt"]" />
-                                            </div>
-                                            <i>@Session["HoTen"]</i>
+                                    <div class="menu-top-a">
+                                        <div class="avt-img">
+                                            <img src="~/UpLoad_Img/KhachHang/@Session["Avt"]" />
                                         </div>
-                                    } else
-                                        {
-                                            <div class="menu-top-a">
-                                                <div class="avt-img">
-                                                    <img src="~/Style/img/avt/logo.jpg" />
-                                                </div>
-                                                <i style=" font-size: 20px; display: block; padding-top: 6px;">
-                                                    <a href="@Url.Action("Login", "Account", new { area = "Admin" })">Đăng nhập</a>
-                                                    <a>/</a>
-                                                    <a href="@Url.Action("SignUpp", "Account", new { area = "Admin" })">Đăng ký tài khoản</a>
-                                                </i>
-                                            </div>
-                                        }
+                                        <i>@Session["HoTen"]</i>
                                     </div>
+                                }
+                                else
+                                {
+                                    <div class="menu-top-a">
+                                        <div class="avt-img">
+                                            <img src="~/Style/img/avt/logo.jpg" />
+                                        </div>
+                                        <i style=" font-size: 20px; display: block; padding-top: 6px;">
+                                            <a href="@Url.Action("Login", "Account", new { area = "Admin" })">Đăng nhập</a>
+                                            <a>/</a>
+                                            <a href="@Url.Action("SignUpp", "Account", new { area = "Admin" })">Đăng ký tài khoản</a>
+                                        </i>
+                                    </div>
+                                }
+                            </div>
                             <div class="list-menu">
                                 <ul>
 
                                     <li class="top-menu">
                                         <a class="menu-item item--a" href="@Url.Action("DatPhong", "GioHang", new {maks= Session["MaKhachSanPhong"], sodem= Session["sodem"]})"
                                            style="border-right: 2px solid;">
-                                            <img src="/Style/img/icon/icon-Cart.jpg" title="Giỏ Hàng"/>
+                                            <img src="/Style/img/icon/icon-Cart.jpg" title="Giỏ Hàng" />
                                             @if (Session["TongSoLuong"] == null)
                                             {
 
@@ -158,8 +162,8 @@
                                             }
 
                                         </a>
-                                        <a class="menu-item item--b" href="/GioHang/LichSu?makh=@Session["MaKh"]">
-                                            <img src="/Style/img/icon/icon-ls.jpg" title="Lịch sử"/>
+                                        <a class="menu-item item--b" href="/GioHang/LichSu?makh=@Session["MaNguoiDung"]">
+                                            <img src="/Style/img/icon/icon-ls.jpg" title="Lịch sử" />
                                         </a>
                                     </li>
 
@@ -172,8 +176,9 @@
                                         <ul class="list list-ks">
                                             @foreach (var item in Model.ks)
                                             {
-                                                <li><a href="@Url.Action("khachsan", "khachsan", new {ma= item.MaKhachSan, batdau = Session["batdau"], ketthuc = Session["ketthuc"]})">
-                                                    @item.TenKhachSan
+                                                <li>
+                                                    <a href="@Url.Action("khachsan", "khachsan", new {ma= item.MaKhachSan, batdau = Session["batdau"], ketthuc = Session["ketthuc"]})">
+                                                        @item.TenKhachSan
                                                     </a>
                                                 </li>
 
@@ -186,10 +191,11 @@
                                         <ul class="list">
                                             @foreach (var loai in Model.ctphong.Select(p => p.LoaiHinh).Distinct())
                                             {
-                                                <li><a href="@Url.Action("khachsan", "khachsan", new { loai = loai, batdau = Session["batdau"], ketthuc = Session["ketthuc"] })">
-                                                    @loai
+                                                <li>
+                                                    <a href="@Url.Action("khachsan", "khachsan", new { loai = loai, batdau = Session["batdau"], ketthuc = Session["ketthuc"] })">
+                                                        @loai
                                                     </a>
-                                            </li>
+                                                </li>
                                             }
                                         </ul>
                                     </li>
@@ -199,10 +205,11 @@
                                         <ul class="list">
                                             @foreach (var gia in Model.ctphong.Select(p => p.Gia).Distinct())
                                             {
-                                                <li><a href="@Url.Action("khachsan", "khachsan", new { gia = gia, batdau = Session["batdau"], ketthuc = Session["ketthuc"] })">
-                                                    @gia
+                                                <li>
+                                                    <a href="@Url.Action("khachsan", "khachsan", new { gia = gia, batdau = Session["batdau"], ketthuc = Session["ketthuc"] })">
+                                                        @gia
                                                     </a>
-                                            </li>
+                                                </li>
                                             }
                                         </ul>
                                     </li>
@@ -245,9 +252,9 @@
                                                             <a href="@Url.Action("khachsan", new { page = i, ma = Session["KhachSan"],
                                                                 loai = Session["LoaiPhong"], gia = Session["GiaTien"], vip = Session["Menu_VIP"],
                                                                 trangthai = Session["TrangThaiPhong"], batdau = Session["batdau"], ketthuc = Session["ketthuc"]})">@i</a>
-                                                        </li>
+                                                            </li>
+                                                        }
                                                     }
-                                                }
                                             </ul>
                                         </div>
 
@@ -270,7 +277,7 @@
                                                             }
 
                                                             <div class="item__content">
-                                                                <span class="item_date">Khách sạn @item.khachsan.TenKhachSan</span>
+                                                                <span class="item_date">Khách sạn @item.KhachSan.TenKhachSan</span>
                                                                 <div class="item_center">
                                                                     @if (item.VIP == true)
                                                                     {
@@ -290,7 +297,7 @@
                                                                     </div>
                                                                     @if (item.KhoaPhong == true)
                                                                     {
-                                                                         <i>Phòng đang bảo trì</i>
+                                                                        <i>Phòng đang bảo trì</i>
                                                                     }
                                                                     else
                                                                     {

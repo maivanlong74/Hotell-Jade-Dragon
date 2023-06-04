@@ -17,15 +17,15 @@ namespace Jade_Dragon.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PhongChat()
         {
-            this.tinnhans = new HashSet<tinnhan>();
+            this.TinNhanNhoms = new HashSet<TinNhanNhom>();
         }
     
         public long MaPhongChat { get; set; }
         public string TenPhongChat { get; set; }
         public Nullable<long> MaKhachSan { get; set; }
     
-        public virtual khachsan khachsan { get; set; }
+        public virtual KhachSan KhachSan { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tinnhan> tinnhans { get; set; }
+        public virtual ICollection<TinNhanNhom> TinNhanNhoms { get; set; }
     }
 }

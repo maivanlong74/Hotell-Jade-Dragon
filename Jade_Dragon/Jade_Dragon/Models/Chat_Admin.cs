@@ -8,7 +8,7 @@ namespace Jade_Dragon.Models
     public class Chat_Admin
     {
         public List<PhongChat> phchat { set; get; }
-        public List<khachhang> kh { set; get; }
-        public List<khachsan> ks { set; get; }
+        public List<NguoiDung> kh { set; get; }
+        public List<KhachSan> ks { set; get; }
     }
 }
