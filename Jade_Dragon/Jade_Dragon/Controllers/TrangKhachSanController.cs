@@ -281,6 +281,73 @@ namespace Jade_Dragon.Controllers
             return xuly;
         }
 
+        [HttpPost]
+        public ActionResult DanhGia(long? SoSao, long makh, long maks)
+        {
+            if (SoSao != null)
+            {
+                HoaDon hd = db.HoaDons.FirstOrDefault(s => s.MaNguoiDung == makh && s.MaKhachSan == maks);
+                if (hd != null)
+                {
+                    ChiTietHoaDon chitiet = db.ChiTietHoaDons.FirstOrDefault(a => a.MaHoaDon == a.MaHoaDon && a.HoanThanh == true);
+                    if (chitiet != null)
+                    {
+                        DanhGiaKhachSan so = new DanhGiaKhachSan();
+                        so.MaKhachSan = maks;
+                        so.MaNguoiDung = makh;
+                        so.SoSao = SoSao;
+                        db.DanhGiaKhachSans.Add(so);
+                        db.SaveChanges();
+                        ThongKeDanhGia thongke = db.ThongKeDanhGias.FirstOrDefault(a => a.MaKhachSan == maks);
+
+                        if (SoSao == 1)
+                        {
+                            thongke.MotSao = thongke.MotSao + 1;
+                            thongke.TongSao = thongke.TongSao + 1;
+                            db.SaveChanges();
+                        }
+                        else if (SoSao == 2)
+                        {
+                            thongke.HaiSao = thongke.HaiSao + 1;
+                            thongke.TongSao = thongke.TongSao + 1;
+                            db.SaveChanges();
+                        }
+                        else if (SoSao == 3)
+                        {
+                            thongke.BaSao = thongke.BaSao + 1;
+                            thongke.TongSao = thongke.TongSao + 1;
+                            db.SaveChanges();
+                        }
+                        else if (SoSao == 4)
+                        {
+                            thongke.BonSao = thongke.BonSao + 1;
+                            thongke.TongSao = thongke.TongSao + 1;
+                            db.SaveChanges();
+                        }
+                        else if (SoSao == 5)
+                        {
+                            thongke.NamSao = thongke.NamSao + 1;
+                            thongke.TongSao = thongke.TongSao + 1;
+                            db.SaveChanges();
+                        }
+                    }
+                    else
+                    {
+                        WebMsgBox.Show("Bạn hãy trải nghiệm phòng và cho chúng tôi đánh giá", this);
+                    }
+                }
+                else
+                {
+                    WebMsgBox.Show("Bạn hãy trải nghiệm phòng và cho chúng tôi đánh giá", this);
+                }
+            }
+            else
+            {
+                WebMsgBox.Show("Bạn chưa đánh giá", this);
+            }
+            return RedirectToAction("TrangKhachSan", "TrangKhachSan", new { maks = maks });
+        }
+
         public ActionResult QuayVe(long? ma)
         {
             Session["batdau"] = null;

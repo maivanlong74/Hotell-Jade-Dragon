@@ -105,11 +105,11 @@
                                             <i class="one">Địa chỉ: @item.DiaChi</i>
                                             <p class="one">Giá: @item.Gia VND</p>
                                         </div>
-                    @if (Session["MaNguoiDung"] != null)
-                    {
-                        var listsao = Model.dg.FirstOrDefault(s => s.MaKhachSan == item.MaKhachSan);
-                        if (listsao == null)
-                        {
+                                        @if (Session["MaNguoiDung"] != null)
+                                        {
+                                            var listsao = Model.dg.FirstOrDefault(s => s.MaKhachSan == item.MaKhachSan);
+                                            if (listsao == null)
+                                            {
                                                 <form action="~/trangchu/DanhGia" class="rating" method="post">
                                                     <div class="danhgia-sao">
                                                         <span class="star" data-rating="1">&#9733;</span>

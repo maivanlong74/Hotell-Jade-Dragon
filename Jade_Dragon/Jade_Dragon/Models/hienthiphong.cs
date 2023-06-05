@@ -34,6 +34,7 @@ namespace Jade_Dragon.Models
         /*=========Đánh giá==================*/
         public List<ThongKeDanhGia> tkdg { get; set; }
         public List<DanhGiaKhachSan> dg { get; set; }
+        public List<Cart> giohang { get; set; }
     }
 
 

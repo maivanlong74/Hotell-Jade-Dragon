@@ -27,12 +27,11 @@
                             <ul class="header__nav__container--list">
                                 <li><a href="@Url.Action("trangchu", "trangchu")">Trang chủ</a></li>
                                 <li>
-                                    <a href="@Url.Action("khachsan", "khachsan", new {ma = Session["MaKhachSanPhong"],
+                                    <a href="@Url.Action("TrangKhachSan", "TrangKhachSan", new {maks = Session["MaKhachSanPhong"],
                                           batdau = Session["batdau"], ketthuc = Session["ketthuc"]})">
                                         Khách sạn
                                     </a>
                                 </li>
-                                <li><a href="@Url.Action("nhanxet", "nhanxet")">Nhận xét</a></li>
                                 <li><a href="@Url.Action("chat", "TinNhan", new {makh = Session["MaNguoiDung"]})">Nhắn tin</a></li>
 
                             </ul>
@@ -106,12 +105,11 @@
                 <ul>
                     <li><a href="@Url.Action("trangchu", "trangchu")">Trang chủ</a></li>
                     <li>
-                        <a href="@Url.Action("khachsan", "khachsan", new {ma = Session["MaKhachSanPhong"],
+                        <a href="@Url.Action("TrangKhachSan", "TrangKhachSan", new {maks = Session["MaKhachSanPhong"],
                                 batdau = Session["batdau"], ketthuc = Session["ketthuc"]})">
                             Khách sạn
                         </a>
                     </li>
-                    <li><a href="@Url.Action("nhanxet", "nhanxet")">Nhận xét</a></li>
                     <li><a href="@Url.Action("chat", "TinNhan", new {makh = Session["MaNguoiDung"]})">Nhắn tin</a></li>
 
                 </ul>

@@ -147,67 +147,35 @@
                 <div class="info">
                     <section class="slider owl-carousel owl-theme">
                         <div class="slider-item one"
-                             style="background: url(/UpLoad_Img/KhachSan/@Session["AnhKs"]);">
+                             style="background-image: url('../../upload_img/khachsan/nv0144.jpg');">
                         </div>
                     </section>
-                    @if (Session["AnhKs"] != null)
-                    {
-                        <div class="background">
-                            <div class="khachsan">
-                                <div class="name">
-                                    <p>Khách sạn @Session["TenKhachSan"]</p>
-                                </div>
+                    <div class="background">
+                        <div class="khachsan">
+                            <div class="name">
+                                <p>Khách sạn @Session["TenKhachSan"]</p>
+                            </div>
 
-                                <div class="info_ks keotruot" id="info_ks">
-                                    <div class="info--ct">
-                                        <p>sdt: @Session["SoDienThoai_ks"]</p>
-                                        <p>gmail: @Session["GmailKhachSan"]</p>
-                                        <a href="">Địa chỉ: @Session["DiaChi"]</a>
-                                    </div>
+                            <div class="info_ks keotruot" id="info_ks">
+                                <div class="info--ct">
+                                    <p>sdt: @Session["SoDienThoai_ks"]</p>
+                                    <p>gmail: @Session["GmailKhachSan"]</p>
+                                    <a href="">Địa chỉ: @Session["DiaChi"]</a>
                                 </div>
+                            </div>
 
-                                <div class="danhgia">
-                                    <p>lượt dánh giá:</p>
-                                    <div class="item_rating">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                    </div>
+                            <div class="danhgia">
+                                <p>lượt dánh giá:</p>
+                                <div class="item_rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
                                 </div>
                             </div>
                         </div>
-                    }
-                    else
-                    {
-                        <div class="background" style="background: Black;">
-                            <div class="khachsan" style="display: block;">
-                                <div class="name">
-                                    <p>Khách sạn @Session["TenKhachSan"]</p>
-                                </div>
-
-                                <div class="info_ks" id="danhmucsp">
-                                    <div class="info--ct">
-                                        <p>sdt: @Session["SoDienThoai_ks"]</p>
-                                        <p>gmail: @Session["GmailKhachSan"]</p>
-                                        <a href="">Địa chỉ: @Session["DiaChi"]</a>
-                                    </div>
-                                </div>
-
-                                <div class="danhgia">
-                                    <p>lượt dánh giá:</p>
-                                    <div class="item_rating">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    }
+                    </div>
 
                     <div id="map">
                         <button id="thoat_map" class="thoat_map">
@@ -413,7 +381,7 @@
 
                                 <div class="chucnang">
                                     <button>Tiếp tục</button>
-                                    <a href="@Url.Action("khachsan", "khachsan", new {ma = Session["MaKhachSanPhong"],
+                                    <a href="@Url.Action("TrangKhachSan", "TrangKhachSan", new {maks = Session["MaKhachSanPhong"],
                                           batdau = Session["batdau"], ketthuc = Session["ketthuc"]})" class="Next">Tiếp tục đặt phòng</a>
                                     <a href="~/GioHang/DeleteAll" class="Delete">Xóa đơn hàng</a>
                                     <button onclick="changeFormAction('CapNhat')">Cập nhật</button>

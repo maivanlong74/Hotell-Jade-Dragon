@@ -13,7 +13,9 @@
     <link href="~/Style/KhachSan/css/HtAnhPhong.css" rel="stylesheet" />
     <link href="~/Style/KhachSan/css/css__KhachSan.css" rel="stylesheet" />
 </head>
+<style>
 
+</style>
 <div class="home">
     <div class="home__background">
         <div class="grid wide">
@@ -273,19 +275,22 @@
                                                                 <span class="star" data-rating="4">&#9733;</span>
                                                                 <span class="star" data-rating="5">&#9733;</span>
                                                                 <input type="hidden" name="rating" class="rating-value" value="@ViewBag.danhgia">
+                                                                <input type="hidden" id="maks" class="maks" name="maks" value="@Model.htks.MaKhachSan" />
                                                             </div>
                                                         </form>
                                                     }
                                                     else
                                                     {
-                                                        <form action="" method="post" id="form-danhgia">
+                                                        <form action="~/TrangKhachSan/DanhGia" method="post" id="form-danhgia">
                                                             <div class="rating">
                                                                 <span class="star" data-rating="1">&#9733;</span>
                                                                 <span class="star" data-rating="2">&#9733;</span>
                                                                 <span class="star" data-rating="3">&#9733;</span>
                                                                 <span class="star" data-rating="4">&#9733;</span>
                                                                 <span class="star" data-rating="5">&#9733;</span>
-                                                                <input type="hidden" name="rating" class="rating-value" value="">
+                                                                <input type="hidden" name="SoSao" class="rating-value" value="">
+                                                                <input type="hidden" id="maks" class="maks" name="maks" value="@Model.htks.MaKhachSan" />
+                                                                <input type="hidden" id="makh" class="makh" name="makh" value="@Session["MaNguoiDung"]" />
                                                             </div>
                                                             <button type="submit" class="button-danhgia">Đánh giá</button>
                                                         </form>
@@ -411,25 +416,36 @@
                                                                 <div class="item__content">
                                                                     <span class="item_date">Khách sạn @i.KhachSan.TenKhachSan</span>
                                                                     <div class="item_center">
-                                                                        <p style="font-size: 55px;">@i.TenPhong</p>
+                                                                            <p style="font-size: 55px; cursor: pointer;">
+                                                                                @i.TenPhong
+                                                                            </p>
                                                                         <div class="item_price">Phòng @i.LoaiHinh | Giá: @i.Gia</div>
-                                                                        @if (i.TrangThai == true)
+                                                                        @if (i.KhoaPhong == true)
                                                                         {
-
-                                                                            <i>Còn phòng</i>
-                                                                            <div class="tour__item--btn">
-                                                                                <div class="tour__btn__bgc"></div>
-                                                                                <a href="">
-                                                                                    Đặt phòng
-                                                                                    <span></span>
-                                                                                    <span></span>
-                                                                                    <span></span>
-                                                                                </a>
-                                                                            </div>
+                                                                            <i>Phòng đang bảo trì</i>
                                                                         }
                                                                         else
                                                                         {
-                                                                            <i>Hết phòng</i>
+                                                                            if (i.TrangThai == true)
+                                                                            {
+
+                                                                                <i>Còn phòng</i>
+                                                                                <div class="tour__item--btn">
+                                                                                    <div class="tour__btn__bgc"></div>
+                                                                                    <a href="@Url.Action("AddItem", "GioHang", new {maph = i.MaPhong, soluong = 1,
+                                                                                            ngayden = Session["ngayden"], ngaydi = Session["ngaydi"],
+                                                                                            batdau = Session["batdau"], ketthuc = Session["ketthuc"]})">
+                                                                                        Đặt phòng
+                                                                                        <span></span>
+                                                                                        <span></span>
+                                                                                        <span></span>
+                                                                                    </a>
+                                                                                </div>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <i>Hết phòng</i>
+                                                                            }
                                                                         }
 
                                                                     </div>
@@ -438,14 +454,18 @@
                                                         </div>
                                                     }
 
-                                                    @*<div class="anhphongks">
-                                    <div class="close-anh"><button>Tắt</button></div>
-                                    <div class="list_anhphong">
-                                        <div class="anhphong-item"><img src="~/Style/img/travel.jpg" alt=""></div>
-                                        <div class="anhphong-item"><img src="~/Style/img/nen.jpg" alt=""></div>
-                                        <div class="anhphong-item"><img src="~/Style/img/travel.jpg" alt=""></div>
-                                    </div>
-                                </div>*@
+                                                    @*@if (Model.AnhPhong != null)
+                                                    {
+                                                        <div class="anhphongks">
+                                                            <div class="close-anh"><button>Tắt</button></div>
+                                                            <div class="list_anhphong">
+                                                                @foreach (var s in Model.AnhPhong)
+                                                                {
+                                                                    <div class="anhphong-item"><img src="~/UpLoad_Img/Phong/@s.LinkAnhPhong" alt=""></div>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    }*@
                                                 </div>
 
                                             </div>
@@ -500,7 +520,7 @@
                                         <h1 style="color: white;">Chưa có bình luận</h1>
                                     </div>
                                 </div>
-                             }
+                            }
                         </div>
                     </div>
 
@@ -513,6 +533,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script src="/Style/css/ThanhCuon/owl.carousel.min.js"></script>
 <script src="/Style/css/ThanhCuon/Js_Cuon.js"></script>
-<script src="~/Style/KhachSan/js/DanhGia_Ks.js"></script>
+@*<script src="~/Style/KhachSan/js/DanhGia_Ks.js"></script>*@
 <script src="~/Style/KhachSan/js/PhanTrang_NhanXet.js"></script>
 <script src="~/Style/KhachSan/js/PhanTrang_Phong.js"></script>

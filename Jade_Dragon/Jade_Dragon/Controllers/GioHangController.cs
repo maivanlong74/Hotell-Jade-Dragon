@@ -73,11 +73,15 @@ namespace Jade_Dragon.Controllers
             kv = db.KhuVucs.ToList();
             ViewBag.ListKhuVuc = kv;
 
+            List<AnhKhachSan> anhks = new List<AnhKhachSan>();
+            anhks = db.AnhKhachSans.Where(a => a.MaKhachSan == maks).ToList();
+            ViewBag.ListAnh = anhks;
+
             DateTime time_now = DateTime.Now.AddDays(-1);
             DateTime time_max = DateTime.Now.AddDays(30);
             ViewBag.time_now = loadtime(time_now);
             ViewBag.time_max = loadtime(time_max);
-
+            
             return View(list);
         }
 
@@ -109,7 +113,7 @@ namespace Jade_Dragon.Controllers
                 if (list.Exists(x => x.htphong.MaKhachSan != Phong.MaKhachSan))
                 {
                     WebMsgBox.Show("Bạn đang đặt phòng ở khách sạn " + Phong.KhachSan.TenKhachSan, this);
-                    return RedirectToAction("khachsan", "khachsan", new { ma = Phong.MaKhachSan, batdau = batdau, ketthuc = ketthuc });
+                    return RedirectToAction("TrangKhachSan", "TrangKhachSan", new { maks = Phong.MaKhachSan, batdau = batdau, ketthuc = ketthuc });
                 }
                 else
                 {
@@ -117,7 +121,7 @@ namespace Jade_Dragon.Controllers
                     if (list.Exists(x => x.htphong.MaPhong == maph))
                     {
                         WebMsgBox.Show("Bạn đăt trùng phòng, vui lòng đặt phòng khác", this);
-                        return RedirectToAction("khachsan", "khachsan", new { ma = Phong.MaKhachSan, batdau = batdau, ketthuc = ketthuc });
+                        return RedirectToAction("TrangKhachSan", "TrangKhachSan", new { maks = Phong.MaKhachSan, batdau = batdau, ketthuc = ketthuc });
                     }
                     else
                     {
@@ -159,7 +163,7 @@ namespace Jade_Dragon.Controllers
             Session[giohang] = null;
             Session["TongSoLuong"] = 0;
             Session["DongTime"] = "mo";
-            return RedirectToAction("khachsan", "khachsan");
+            return RedirectToAction("TrangKhachSan", "TrangKhachSan");
         }
 
         public ActionResult Delete(long? id, long? sd)
