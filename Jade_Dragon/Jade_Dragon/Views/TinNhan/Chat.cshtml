@@ -24,11 +24,13 @@
                                     <ul class="list-ks">
                                         @foreach (var j in Model)
                                         {
-                                            <li class="ks-item">
-                                                <button type="submit" class="btnUser" data-id="@j.MaNguoiDung" title="Khách sạn @j.KhachSan.TenKhachSan">
-                                                    @j.HoTen
-                                                </button>
-                                            </li>
+                                            if(j.MaKhachSan != null) {
+                                                <li class="ks-item">
+                                                    <button type="submit" class="btnUser" data-id="@j.MaNguoiDung" title="Khách sạn @j.KhachSan.TenKhachSan">
+                                                        @j.HoTen
+                                                    </button>
+                                                </li>
+                                            }
                                         }
                                     </ul>
                                 </div>

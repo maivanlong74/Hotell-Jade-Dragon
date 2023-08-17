@@ -22,13 +22,13 @@ namespace Jade_Dragon.Models
         }
     
         public long MaPhong { get; set; }
-        public Nullable<long> MaKhachSan { get; set; }
-        public Nullable<long> MaSoTang { get; set; }
-        public Nullable<long> MaSoPhong { get; set; }
         public string TenPhong { get; set; }
         public string LoaiHinh { get; set; }
         public Nullable<long> Gia { get; set; }
         public Nullable<bool> VIP { get; set; }
+        public Nullable<long> MaKhachSan { get; set; }
+        public Nullable<long> MaSoTang { get; set; }
+        public Nullable<long> MaSoPhong { get; set; }
         public Nullable<bool> TrangThai { get; set; }
         public Nullable<bool> KhoaPhong { get; set; }
     

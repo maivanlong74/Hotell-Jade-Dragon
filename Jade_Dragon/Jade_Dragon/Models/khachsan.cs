@@ -11,8 +11,7 @@ namespace Jade_Dragon.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-
+    
     public partial class KhachSan
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -28,6 +27,7 @@ namespace Jade_Dragon.Models
             this.PhongKhachSans = new HashSet<PhongKhachSan>();
             this.ThongKeDanhGias = new HashSet<ThongKeDanhGia>();
         }
+    
         public long MaKhachSan { get; set; }
         public string TenKhachSan { get; set; }
         public Nullable<long> SoDienThoai { get; set; }
